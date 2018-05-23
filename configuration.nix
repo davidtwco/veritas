@@ -20,6 +20,8 @@
       ./imports/i18n.nix
       # Include the packages to install.
       ./imports/packages.nix
+      # Include the X server and window manager configuration.
+      ./imports/x.nix
       # Include the users to create/configure.
       ./imports/users.nix
     ];
