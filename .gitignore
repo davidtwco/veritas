@@ -1,5 +1,6 @@
 # Secrets and Credentials
 secrets/
 
-# Hardware configuration (symlink to the correct folder for this)
-hardware-configuration.nix
+# Host and hardware configurations (symlink to the correct folder for this).
+/hardware-configuration.nix
+/host-configuration.nix
