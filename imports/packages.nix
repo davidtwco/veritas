@@ -16,7 +16,10 @@ in {
     git gnupg
 
     # Development Environment
-    vim tmux
+    vim tmux ctags
+
+    # Browser
+    firefox
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
