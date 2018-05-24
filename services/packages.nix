@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+# Need to run
+#   sudo nix-channel --add https://nixos.org/channels/nixos-unstable unstable
+# for this import to work correctly.
 let
   unstable = import <unstable> {};
 in {
