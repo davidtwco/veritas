@@ -7,19 +7,22 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # General System Utilities
-    wget file
+    wget file unzip
 
     # Dotfiles
     yadm unstable.antibody
 
     # Version Control
-    git gnupg
+    git gnupg pinentry_ncurses
 
     # Development Environment
     vim tmux ctags
 
     # Browser
     firefox
+
+    # Fonts
+    meslo-lg
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

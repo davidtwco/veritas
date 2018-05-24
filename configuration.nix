@@ -17,13 +17,13 @@
       # Include the wireless network configurations.
       ./secrets/wifi.nix
       # Include the internationalisation configuration.
-      ./imports/i18n.nix
+      ./services/i18n.nix
       # Include the packages to install.
-      ./imports/packages.nix
+      ./services/packages.nix
       # Include the X server and window manager configuration.
-      ./imports/x.nix
+      ./services/x.nix
       # Include the users to create/configure.
-      ./imports/users.nix
+      ./services/users.nix
     ];
 
 }
