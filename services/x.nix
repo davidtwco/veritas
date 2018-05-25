@@ -4,7 +4,7 @@
   services.xserver = {
     enable = true;
     layout = "gb";
-    dpi = 200;
+    dpi = 160;
 
     displayManager.slim.enable = true;
 
@@ -27,5 +27,5 @@
     };
   };
 
-  fonts.fontconfig.dpi = 200;
+  fonts.fontconfig.dpi = 160;
 }
