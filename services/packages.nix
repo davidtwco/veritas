@@ -10,10 +10,10 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # General System Utilities
-    wget file unzip dmidecode
+    wget file unzip dmidecode pstree
 
     # Dotfiles
-    yadm unstable.antibody
+    yadm unstable.antibody polybar
 
     # Version Control
     git gnupg pinentry_ncurses
@@ -24,8 +24,14 @@ in {
     # Browser
     firefox
 
-    # Fonts
-    meslo-lg
+    # Keybase
+    keybase kbfs
+  ];
+
+  # Fonts
+  fonts.fonts = with pkgs; [
+    meslo-lg source-code-pro source-sans-pro source-serif-pro font-awesome_5 inconsolata
+    siji material-icons
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
