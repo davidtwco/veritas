@@ -62,13 +62,16 @@ in {
     default-sample-rate = "44100";
   };
 
-  # Set up video devices.
+  # Set up video devices (display size is in millimeters).
   services.xserver.wacom.enable = true;
   services.xserver.videoDrivers = [ "intel" "nouveau" ];
   services.xserver.deviceSection = ''
     Option "TripleBuffer" "true"
     Option "TearFree" "true"
     Option "DRI" "true"
+  '';
+  services.xserver.monitorSection = ''
+    DisplaySize 286 189
   '';
 
   # Set up powersaving wifi.
