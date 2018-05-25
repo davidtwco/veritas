@@ -9,6 +9,7 @@
     displayManager.slim.enable = true;
 
     windowManager.i3.enable = true;
+    windowManager.i3.package = pkgs.i3-gaps;
     windowManager.default = "i3";
 
     synaptics = {
