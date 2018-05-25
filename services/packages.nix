@@ -19,7 +19,7 @@ in {
     git gnupg pinentry_ncurses
 
     # Development Environment
-    vim tmux ctags
+    vim tmux ctags alacritty
 
     # Browser
     firefox
