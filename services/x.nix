@@ -24,6 +24,7 @@
         Option "FingerLow" "40"
         Option "FingerHigh" "70"
         Option "Resolution" "270"
+        Option "TapButton2" "3"
       '';
     };
   };
