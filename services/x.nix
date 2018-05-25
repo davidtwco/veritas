@@ -15,7 +15,7 @@
       enable = true;
       twoFingerScroll = true;
       tapButtons = true;
-      accelFactor = "0.001";
+      accelFactor = "0.01";
       palmDetect = true;
       additionalOptions = ''
         Option "VertScrollDelta" "-180"
