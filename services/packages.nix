@@ -10,7 +10,7 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # General System Utilities
-    wget file unzip
+    wget file unzip dmidecode
 
     # Dotfiles
     yadm unstable.antibody
