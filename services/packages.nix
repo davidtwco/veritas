@@ -37,4 +37,13 @@ in {
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.zsh.enable = true;
+
+  # Enable i3 support for polybar.
+  nixpkgs.config = {
+    packageOverrides = pkgs: rec {
+      polybar = pkgs.polybar.override {
+        i3Support = true;
+      };
+    };
+  };
 }
