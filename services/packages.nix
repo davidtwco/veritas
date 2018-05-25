@@ -24,6 +24,9 @@ in {
     # Browser
     firefox
 
+    # Chat Apps
+    tdesktop
+
     # Keybase
     keybase kbfs
   ];
