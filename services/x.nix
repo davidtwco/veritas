@@ -6,7 +6,7 @@
     layout = "gb";
     dpi = 160;
 
-    displayManager.slim.enable = true;
+    displayManager.sddm.enable = true;
 
     windowManager.i3.enable = true;
     windowManager.i3.package = pkgs.i3-gaps;
