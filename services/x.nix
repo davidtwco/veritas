@@ -30,4 +30,23 @@
   };
 
   fonts.fontconfig.dpi = 160;
+
+  # QT4/5 global theme
+  environment.etc."xdg/Trolltech.conf" = {
+    text = ''
+      [Qt]
+      style=GTK+
+    '';
+    mode = "444";
+  };
+
+  # GTK3 global theme (widget and icon theme)
+  environment.etc."xdg/gtk-3.0/settings.ini" = {
+    text = ''
+      [Settings]
+      gtk-icon-theme-name="Arc"
+      gtk-theme-name="Arc-Darker"
+    '';
+    mode = "444";
+  };
 }
