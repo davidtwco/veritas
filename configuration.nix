@@ -7,6 +7,9 @@
   # should.
   system.stateVersion = "18.03"; # Did you read the comment?
 
+  # Automatically optimise the Nix store.
+  nix.autoOptimiseStore = true;
+
   # Import various configurations for the system.
   imports =
     [
@@ -22,8 +25,13 @@
       ./services/packages.nix
       # Include the X server and window manager configuration.
       ./services/x.nix
+      # Include configuration for audio.
+      ./services/audio.nix
+      # Include configuration for bluetooth.
+      ./services/bluetooth.nix
+      # Include configuration for networking.
+      ./services/networking.nix
       # Include the users to create/configure.
       ./services/users.nix
     ];
-
 }
