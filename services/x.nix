@@ -18,6 +18,7 @@
       tapButtons = true;
       accelFactor = "0.01";
       palmDetect = true;
+      palmMinWidth = 8;
       additionalOptions = ''
         Option "VertScrollDelta" "-180"
         Option "HorizScrollDelta" "-180"
