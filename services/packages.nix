@@ -34,13 +34,13 @@
 
     # Desktop Utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
-    gnome3.gnome-tweak-tool unstable.dropbox
+    gnome3.gnome-tweak-tool unstable.dropbox hsetroot
 
     # Man Pages
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    yadm unstable.antibody polybar rofi fasd
+    yadm unstable.antibody polybar rofi fasd compton
 
     # Version Control
     git gnupg pinentry_ncurses mercurial bazaar subversion
