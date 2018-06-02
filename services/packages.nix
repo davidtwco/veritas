@@ -34,7 +34,7 @@
 
     # Desktop Utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
-    gnome3.gnome-tweak-tool unstable.dropbox hsetroot
+    gnome3.gnome-tweak-tool unstable.dropbox hsetroot i3lock-fancy
 
     # Man Pages
     man man-pages posix_man_pages stdman
