@@ -3,11 +3,26 @@
 # Need to run
 #   sudo nix-channel --add https://nixos.org/channels/nixos-unstable unstable
 # for this import to work correctly.
-let
-  unstable = import <unstable> {};
-in {
+{
+  nixpkgs.config = {
+    # Allow awful unfree stuff.
+    allowUnfree = true;
+
+    packageOverrides = pkgs: rec {
+      # Enable i3 support for polybar.
+      polybar = pkgs.polybar.override {
+        i3Support = true;
+      };
+      unstable = import <unstable> {
+        # Pass the nixpkgs config to the unstable alias to ensure
+        # `allowUnfree = true;` is propagated.
+        config = config.nixpkgs.config;
+      };
+    };
+  };
+
   # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  #   nix search wget
   environment.systemPackages = with pkgs; [
     # General Utilities
     wget file unzip zip unrar p7zip dmidecode pstree dtrx
@@ -15,27 +30,36 @@ in {
     pciutils lshw smartmontools usbutils inetutils wireshark
     nix-prefetch-scripts pmutils psmisc which binutils bc
     exfat dosfstools patchutils moreutils ncdu bmon nix-index exa
-    neofetch
+    neofetch mosh pkgconfig
 
     # Desktop Utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
-    gnome3.gnome-tweak-tool
+    gnome3.gnome-tweak-tool unstable.dropbox
 
     # Man Pages
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    yadm unstable.antibody polybar rofi
+    yadm unstable.antibody polybar rofi fasd
 
     # Version Control
     git gnupg pinentry_ncurses mercurial bazaar subversion
 
     # Development Environment
-    vim tmux ctags alacritty rustup ripgrep llvm nix-repl
-    silver-searcher neovim jekyll ruby rubocop travis doxygen
+    vim tmux ctags alacritty rustup ripgrep nix-repl silver-searcher
+    neovim
+
+    jekyll ruby rubocop travis doxygen
+
     pipenv jetbrains.pycharm-community pypy pythonFull python2Full
     python27Packages.virtualenv python36Packages.virtualenv
-    valgrind gdb rr llvmPackages.libclang
+
+    valgrind gdb rr llvmPackages.libclang patchelf ccache gcc cmake llvm
+    gnumake autoconf nasm automake
+
+    nodejs-9_x
+
+    graphviz
 
     # Browser
     firefox
@@ -50,7 +74,7 @@ in {
     arc-icon-theme arc-kde-theme arc-theme
 
     # Academic
-    texlive.combined.scheme-basic git-latexdiff proselint pandoc
+    texlive.combined.scheme-full git-latexdiff proselint pandoc
   ];
 
   # Fonts
@@ -63,17 +87,8 @@ in {
   # started in user sessions.
   programs.zsh.enable = true;
 
-  # Enable i3 support for polybar.
-  nixpkgs.config = {
-    # Allow awful unfree stuff.
-    allowUnfree = true;
-
-    packageOverrides = pkgs: rec {
-      polybar = pkgs.polybar.override {
-        i3Support = true;
-      };
-    };
-  };
+  # Enable brightness changing from terminal.
+  programs.light.enable = true;
 
   # Clean temporary directory.
   boot.cleanTmpDir = true;
