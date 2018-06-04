@@ -47,7 +47,7 @@
 
     # Development Environment
     vim tmux ctags alacritty rustup ripgrep nix-repl silver-searcher
-    neovim
+    neovim tmate
 
     jekyll ruby rubocop travis doxygen
 
