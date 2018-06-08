@@ -4,7 +4,6 @@
   services.xserver = {
     enable = true;
     layout = "gb";
-    dpi = 160;
 
     displayManager.sddm.enable = true;
 
@@ -16,9 +15,9 @@
       enable = true;
       twoFingerScroll = true;
       tapButtons = true;
-      accelFactor = "0.01";
+      accelFactor = "0.001";
       palmDetect = true;
-      palmMinWidth = 8;
+      palmMinWidth = 3;
       additionalOptions = ''
         Option "VertScrollDelta" "-180"
         Option "HorizScrollDelta" "-180"
@@ -29,8 +28,6 @@
       '';
     };
   };
-
-  fonts.fontconfig.dpi = 160;
 
   # QT4/5 global theme
   environment.etc."xdg/Trolltech.conf" = {

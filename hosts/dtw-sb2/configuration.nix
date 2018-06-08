@@ -63,18 +63,29 @@ in {
   };
 
   # Set up video devices (display size is in millimeters).
-  services.xserver.wacom.enable = true;
-  services.xserver.videoDrivers = [ "intel" "nouveau" ];
-  services.xserver.deviceSection = ''
-    Option "TripleBuffer" "true"
-    Option "TearFree" "true"
-    Option "DRI" "true"
-  '';
-  services.xserver.monitorSection = ''
-    DisplaySize 286 189
-  '';
+  services.xserver = {
+    wacom.enable = true;
+
+    videoDrivers = [ "intel" "nouveau" ];
+    deviceSection = ''
+      Option "TripleBuffer" "true"
+      Option "TearFree" "true"
+      Option "DRI" "true"
+    '';
+
+    # Configure monitor position and scaling. Need to do it this way as any
+    # method with a NixOS option changes a xorg.conf config file and those
+    # config files don't support scaling at all.
+    dpi = 150;
+    displayManager.sessionCommands = ''
+      xrandr --dpi 200 --fb 16240x8320
+      xrandr --output eDP1 --mode 3000x2000 --pos 1500x2160 --scale 1x1
+      xrandr --output DP1-2 --pos 0x0 --scale 2x2
+      xrandr --output DP1-1 --scale 2x2 --pos 5120x0
+    '';
+  };
+  fonts.fontconfig.dpi = 150;
 
   # Set up powersaving wifi.
   networking.networkmanager.wifi.powersave = true;
-  # }}}
 }
