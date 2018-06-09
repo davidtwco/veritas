@@ -75,6 +75,9 @@
 
     # Academic
     texlive.combined.scheme-full git-latexdiff proselint pandoc
+
+    # Hardware
+    solaar ltunify
   ];
 
   # Fonts
