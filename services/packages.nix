@@ -51,7 +51,7 @@
 
     jekyll ruby rubocop travis doxygen
 
-    pipenv jetbrains.pycharm-community pypy pythonFull python2Full
+    pipenv jetbrains.pycharm-community pypy pythonFull python2Full python3Full
     python27Packages.virtualenv python36Packages.virtualenv
 
     valgrind gdb rr llvmPackages.libclang patchelf ccache gcc cmake llvm
