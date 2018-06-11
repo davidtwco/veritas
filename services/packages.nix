@@ -108,9 +108,6 @@
     # Enable CUPS for printing.
     printing.enable = true;
 
-    # Enable TLP for better power management.
-    tlp.enable = true;
-
     # Enable user services.
     dbus.socketActivated = true;
   };

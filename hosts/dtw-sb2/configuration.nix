@@ -86,6 +86,9 @@ in {
   };
   fonts.fontconfig.dpi = 150;
 
+  # Disable TLP, doesn't work well with the kernel.
+  services.tlp.enable = false;
+
   # Set up powersaving wifi.
   networking.networkmanager.wifi.powersave = true;
 }
