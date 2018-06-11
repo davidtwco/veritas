@@ -89,6 +89,9 @@ in {
   # Disable TLP, doesn't work well with the kernel.
   services.tlp.enable = false;
 
+  # Use localtime due to dual booting.
+  time.hardwareClockInLocalTime = true;
+
   # Set up powersaving wifi.
   networking.networkmanager.wifi.powersave = true;
 }
