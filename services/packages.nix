@@ -59,7 +59,7 @@
 
     nodejs-9_x
 
-    graphviz
+    graphviz python36Packages.xdot
 
     # Browser
     firefox
