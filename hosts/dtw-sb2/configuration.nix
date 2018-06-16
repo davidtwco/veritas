@@ -82,6 +82,7 @@ in {
       xrandr --output eDP1 --mode 3000x2000 --pos 1500x2160 --scale 1x1
       xrandr --output DP1-2 --pos 0x0 --scale 2x2
       xrandr --output DP1-1 --scale 2x2 --pos 5120x0
+      setxkbmap -layout gb
     '';
   };
   fonts.fontconfig.dpi = 150;
