@@ -30,7 +30,7 @@
     pciutils lshw smartmontools usbutils inetutils wireshark
     nix-prefetch-scripts pmutils psmisc which binutils bc
     exfat dosfstools patchutils moreutils ncdu bmon nix-index exa
-    neofetch mosh pkgconfig
+    neofetch mosh pkgconfig lastpass-cli
 
     # Desktop Utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
@@ -65,7 +65,7 @@
     firefox
 
     # Chat Apps
-    tdesktop weechat slack discord hipchat riot-web signal-desktop
+    tdesktop weechat slack discord hipchat riot-web signal-desktop mumble_git
 
     # Keybase
     keybase kbfs keybase-gui
@@ -77,7 +77,10 @@
     texlive.combined.scheme-full git-latexdiff proselint pandoc
 
     # Hardware
-    solaar ltunify
+    solaar ltunify steamcontroller
+
+    # Gaming
+    steam lgogdownloader
   ];
 
   # Fonts
