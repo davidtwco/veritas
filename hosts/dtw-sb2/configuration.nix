@@ -73,6 +73,36 @@ in {
       Option "DRI" "true"
     '';
 
+    xrandrHeads = [
+      {
+        output = "eDP1";
+        primary = true;
+        monitorConfig = ''
+          Option "DPMS" "true"
+        '';
+      }
+      {
+        output = "DP1-1";
+        primary = false;
+        monitorConfig = ''
+          Option "DPMS" "true"
+        '';
+      }
+      {
+        output = "DP1-2";
+        primary = false;
+        monitorConfig = ''
+          Option "DPMS" "true"
+        '';
+      }
+    ];
+
+    serverFlagsSection = ''
+      Option "StandbyTime" "60"
+      Option "SuspendTime" "120"
+      Option "OffTime" "180"
+    '';
+
     # Configure monitor position and scaling. Need to do it this way as any
     # method with a NixOS option changes a xorg.conf config file and those
     # config files don't support scaling at all.
@@ -83,6 +113,7 @@ in {
       xrandr --output DP1-2 --pos 0x0 --scale 2x2
       xrandr --output DP1-1 --scale 2x2 --pos 5120x0
       setxkbmap -layout gb
+      xinput --set-prop "MX Master 2S" 'Device Accel Constant Deceleration' 0.25
     '';
   };
   fonts.fontconfig.dpi = 150;
