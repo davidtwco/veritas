@@ -17,6 +17,8 @@
     # Allow awful unfree stuff.
     allowUnfree = true;
 
+    firefox.enableGnomeExtensions = true;
+
     packageOverrides = pkgs: rec {
       # Enable i3 support for polybar.
       polybar = pkgs.polybar.override {
@@ -61,16 +63,18 @@
 
     # Desktop Utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
-    gnome3.gnome-tweak-tool hsetroot i3lock-fancy
+    gnome3.gnome-tweaks hsetroot i3lock-fancy plotinus chrome-gnome-shell
+    gnomeExtensions.dash-to-dock gnomeExtensions.topicons-plus
+    gnomeExtensions.appindicator
 
     # Man Pages
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    yadm antibody polybar rofi fasd compton
+    yadm antibody polybar rofi fasd compton pinentry_ncurses
 
     # Version Control
-    git gnupg pinentry_ncurses mercurial bazaar subversion
+    git gnupg mercurial bazaar subversion git-lfs
 
     # Development Environment
     vim tmux ctags alacritty rustup ripgrep silver-searcher
@@ -152,8 +156,13 @@
     enable = true;
     layout = "gb";
 
-    desktopManager.gnome3.enable = true;
+    desktopManager = {
+      gnome3.enable = true;
+      wallpaper.mode = "center";
+    };
   };
+
+  services.gnome3.chrome-gnome-shell.enable = true;
 
   environment.etc."xdg/Trolltech.conf" = {
     text = ''
