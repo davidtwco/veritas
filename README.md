@@ -16,6 +16,5 @@ NixOS configuration files for my reproducible system configuration.
 To use, follow the below steps:
 
 1. Clone this to `/etc/nixos` (you may need to temporarily add `git` to the default Nix configuration).
-2. Symlink the `host-configuration.nix` and `hardware-configuration.nix` files from the appropriate host in the `hosts/` folder.
-3. Run `sudo nix-channel --add https://nixos.org/channels/nixos-unstable unstable` - this is required as some packages are fetched from the unstable channel.
-4. Run `sudo nix-rebuild switch`.
+2. Symlink the `.nix` file for the host in the `hosts/` directory to `/etc/nixos/configuration.nix`.
+3. Run `sudo nix-rebuild switch`.
