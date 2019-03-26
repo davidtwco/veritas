@@ -52,56 +52,57 @@
   # Packages {{{
   # ========
   environment.systemPackages = with pkgs; [
-    # General Utilities
-    wget file unzip zip unrar p7zip dmidecode pstree dtrx
-    htop iotop powertop ltrace strace linuxPackages.perf
-    pciutils lshw smartmontools usbutils inetutils wireshark
-    nix-prefetch-scripts pmutils psmisc which binutils bc
-    exfat dosfstools patchutils moreutils ncdu bmon nix-index exa
-    neofetch mosh pkgconfig lastpass-cli
+    # General utilities
+    wget file unzip zip unrar p7zip dmidecode pstree dtrx htop iotop powertop ltrace strace
+    linuxPackages.perf pciutils lshw smartmontools usbutils inetutils wireshark
+    nix-prefetch-scripts pmutils psmisc which binutils bc exfat dosfstools patchutils moreutils
+    ncdu bmon nix-index exa neofetch mosh pkgconfig
 
-    # Desktop Utilities
-    scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip
-    gnome3.gnome-tweaks hsetroot i3lock-fancy plotinus chrome-gnome-shell
-    gnomeExtensions.dash-to-dock gnomeExtensions.topicons-plus
-    gnomeExtensions.appindicator
+    # Desktop utilities
+    scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip gnome3.gnome-tweaks hsetroot
+    i3lock-fancy plotinus chrome-gnome-shell gnomeExtensions.dash-to-dock
+    gnomeExtensions.topicons-plus gnomeExtensions.appindicator
 
-    # Man Pages
+    # Man pages
     man man-pages posix_man_pages stdman
 
     # Dotfiles
     yadm antibody polybar rofi fasd compton pinentry_ncurses
 
-    # Version Control
+    # Version control
     git gnupg mercurial bazaar subversion git-lfs
 
-    # Development Environment
-    vim tmux ctags alacritty rustup ripgrep silver-searcher
-    neovim tmate
+    # Development environment
+    vim tmux ctags alacritty rustup ripgrep silver-searcher neovim tmate
 
+    # Ruby
     jekyll ruby rubocop travis doxygen
 
+    # Python
     pipenv jetbrains.pycharm-community pypy pythonFull python2Full python3Full
     python27Packages.virtualenv python36Packages.virtualenv
 
-    valgrind gdb rr llvmPackages.libclang patchelf ccache gcc cmake llvm
-    gnumake autoconf nasm automake ninja libcxxabi libcxx clang-tools cquery
-    clang clang_7 spirv-tools opencl-headers opencl-info ocl-icd
+    # C/C++
+    valgrind gdb rr llvmPackages.libclang patchelf ccache gcc cmake llvm gnumake autoconf nasm
+    automake ninja libcxxabi libcxx clang-tools cquery clang clang_7 spirv-tools opencl-headers
+    opencl-info ocl-icd
 
+    # Node
     nodejs
 
+    # Misc. developer tools
     graphviz python36Packages.xdot
 
     # Browser
     firefox
 
-    # Chat Apps
+    # Chat apps
     tdesktop weechat slack discord hipchat riot-web signal-desktop mumble_git
 
     # Keybase
     keybase kbfs keybase-gui
 
-    # Desktop Themes
+    # Desktop themes
     arc-icon-theme arc-kde-theme arc-theme
 
     # Academic
