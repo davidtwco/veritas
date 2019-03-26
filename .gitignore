@@ -1,5 +1,5 @@
 # Secrets and Credentials
 secrets/
 
-# Host and hardware configurations (symlink to the correct folder for this).
-/hardware.nix
+# Root configuration, should be a symlink to the correct file in `hosts/`.
+/configuration.nix
