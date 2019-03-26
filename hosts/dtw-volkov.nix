@@ -26,4 +26,9 @@
   swapDevices = [ ];
 
   nix.maxJobs = lib.mkDefault 16;
+
+  hardware.opengl =
+    { enable = true;
+      extraPackages = with pkgs; [ intel-ocl ];
+    };
 }

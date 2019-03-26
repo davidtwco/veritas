@@ -14,7 +14,6 @@
   imports = [ ./hardware.nix ];
 
   nixpkgs.config = {
-    # Allow awful unfree stuff.
     allowUnfree = true;
 
     firefox.enableGnomeExtensions = true;
@@ -86,7 +85,8 @@
     python27Packages.virtualenv python36Packages.virtualenv
 
     valgrind gdb rr llvmPackages.libclang patchelf ccache gcc cmake llvm
-    gnumake autoconf nasm automake
+    gnumake autoconf nasm automake ninja libcxxabi libcxx clang-tools cquery
+    clang clang_7 spirv-tools opencl-headers opencl-info ocl-icd
 
     nodejs
 
@@ -117,21 +117,36 @@
     siji material-icons powerline-fonts roboto roboto-mono roboto-slab iosevka
   ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.zsh.enable = true;
+  programs = {
+    # Cache compilation.
+    ccache.enable = true;
 
-  # Enable brightness changing from terminal.
-  programs.light.enable = true;
+    # Change light from terminal.
+    light.enable = true;
+
+    # Add Ctrl+Shift+P menus to applications.
+    plotinus.enable = true;
+
+    # Enable connections via mosh.
+    mosh = {
+      enable = true;
+      withUtempter = true;
+    };
+
+    # Syntax highlight within nano.
+    nano.syntaxHighlight = true;
+
+    # Use zsh as the shell.
+    zsh.enable = true;
+  };
+
 
   # Clean temporary directory.
   boot.cleanTmpDir = true;
 
   services = {
-    udev.packages = with pkgs; [
-      # Required for android devices in `/dev` to have correct access levels.
-      android-udev-rules
-    ];
+    # Enable user services.
+    dbus.socketActivated = true;
 
     # Enable locate to find files quickly.
     locate.enable = true;
@@ -139,8 +154,19 @@
     # Enable CUPS for printing.
     printing.enable = true;
 
-    # Enable user services.
-    dbus.socketActivated = true;
+    # Start an ssh server.
+    openssh = {
+      enable = true;
+      forwardX11 = true;
+      openFirewall = true;
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
+
+    udev.packages = with pkgs; [
+      # Required for android devices in `/dev` to have correct access levels.
+      android-udev-rules
+    ];
   };
 
   # Use libvirtd to manage virtual machines.
