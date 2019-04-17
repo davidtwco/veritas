@@ -38,7 +38,7 @@
     yadm antibody fasd pinentry_ncurses
 
     # Keybase
-    keybase kbfs keybase-gui
+    keybase kbfs
 
     # Hardware
     solaar ltunify steamcontroller

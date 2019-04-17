@@ -61,10 +61,13 @@
     firefox jetbrains.pycharm-community
 
     # Chat apps
-    tdesktop weechat slack discord hipchat riot-web signal-desktop mumble_git
+    tdesktop weechat slack discord hipchat riot-web signal-desktop mumble_git keybase-gui
 
     # Dotfiles
     polybar rofi compton
+
+    # Terminal
+    alacritty
 
     # Desktop themes
     arc-icon-theme arc-kde-theme arc-theme
