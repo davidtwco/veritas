@@ -21,8 +21,17 @@
 
   # Networking {{{
   # ==========
-  networking.hostName = "dtw-avendahl";
-  networking.wireless.enable = false;
+  networking = {
+    hostName = "dtw-avendahl";
+
+    firewall = {
+      allowPing = true;
+      enable = true;
+      pingLimit = "--limit 1/minute --limit-burst 5";
+    };
+
+    wireless.enable = false;
+  };
   # }}}
 
   # Filesystems {{{
