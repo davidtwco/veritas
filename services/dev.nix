@@ -31,6 +31,13 @@
 
   # Enable docker.
   virtualisation.docker.enable = true;
+
+  # Enable lxc and lxd.
+  virtualisation.lxc = {
+    enable = true;
+    lxcfs.enable = true;
+  };
+  virtualisation.lxd.enable = true;
   # }}}
 }
 
