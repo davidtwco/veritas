@@ -30,7 +30,13 @@
   virtualisation.libvirtd.enable = true;
 
   # Enable docker.
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    autoPrune = {
+      dates = "weekly";
+      enable = true;
+    };
+    enable = true;
+  };
 
   # Enable lxc and lxd.
   virtualisation.lxc = {
