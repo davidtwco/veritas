@@ -29,7 +29,7 @@
     wget file unzip zip unrar p7zip dmidecode pstree dtrx htop iotop powertop ltrace strace
     linuxPackages.perf pciutils lshw smartmontools usbutils inetutils wireshark
     nix-prefetch-scripts pmutils psmisc which binutils bc exfat dosfstools patchutils moreutils
-    ncdu bmon nix-index exa neofetch mosh pkgconfig
+    ncdu bmon nix-index exa neofetch mosh pkgconfig direnv
 
     # Man pages
     man man-pages posix_man_pages stdman
