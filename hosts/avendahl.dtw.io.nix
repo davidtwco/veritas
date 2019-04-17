@@ -57,6 +57,14 @@
   services.openssh.ports = [ 28028 ];
   # }}}
 
+  # Cron {{{
+  # ====
+  services.cron.systemCronJobs = [
+    # Run `workman update` to keep unused Rust working directories fresh every day at 2am.
+    "0 2 * * *      david      . /etc/profile; cd $HOME/projects/rust; $HOME/.local/bin/workman update"
+  ];
+  # }}}
+
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
