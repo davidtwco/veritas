@@ -71,6 +71,7 @@
     ../services/dev.nix
     ../services/ssh.nix
     ../services/users.nix
+    ../services/mail.nix
   ];
 }
 
