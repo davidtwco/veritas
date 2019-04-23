@@ -6,6 +6,10 @@
   # Allow unfree packages.
   nixpkgs.config.allowUnfree = true;
 
+  # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
+  nix.sshServe.enable = true;
+  nix.sshServe.keys = config.users.extraUsers.david.openssh.authorizedKeys.keys;
+
   # Boot {{{
   # ====
   boot.cleanTmpDir = true;
