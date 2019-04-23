@@ -64,7 +64,7 @@
   # ====
   services.cron.systemCronJobs = [
     # Run `workman update` to keep unused Rust working directories fresh every day at 2am.
-    "0 2 * * *      david      . /etc/profile; cd $HOME/projects/rust; $HOME/.local/bin/workman update"
+    "0 2 * * *      david      $HOME/.local/bin/workman-update-cron-for-rust"
   ];
   # }}}
 
