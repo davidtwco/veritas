@@ -8,6 +8,9 @@
   system.stateVersion = "19.03"; # Did you read the comment?
   nix.maxJobs = lib.mkDefault 12;
 
+  # Automatically update the system periodically.
+  system.autoUpgrade.enable = true;
+
   # Boot Loader {{{
   # ===========
   boot.loader.grub.enable = true;
