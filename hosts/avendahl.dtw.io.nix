@@ -26,38 +26,7 @@
   # ==========
   networking = {
     hostName = "dtw-avendahl";
-
-    firewall = {
-      allowPing = true;
-      enable = true;
-      pingLimit = "--limit 1/minute --limit-burst 5";
-    };
-
-    useNetworkd = true;
-
     wireless.enable = false;
-  };
-
-  systemd.network = {
-    enable = true;
-
-    networks = {
-      # Don't manage the interfaces created by Docker or libvirt.
-      "10-docker".extraConfig = ''
-        [Match]
-        Name=docker*
-
-        [Link]
-        Unmanaged=yes
-      '';
-      "11-virbr".extraConfig = ''
-        [Match]
-        Name=virbr*
-
-        [Link]
-        Unmanaged=yes
-      '';
-    };
   };
   # }}}
 
@@ -97,6 +66,7 @@
     ../common.nix
     ../services/dev.nix
     ../services/ssh.nix
+    ../services/networking.nix
     ../services/users.nix
     ../services/mail.nix
   ];
