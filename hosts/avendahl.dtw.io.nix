@@ -37,6 +37,28 @@
 
     wireless.enable = false;
   };
+
+  systemd.network = {
+    enable = true;
+
+    networks = {
+      # Don't manage the interfaces created by Docker or libvirt.
+      "10-docker".extraConfig = ''
+        [Match]
+        Name=docker*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "11-virbr".extraConfig = ''
+        [Match]
+        Name=virbr*
+
+        [Link]
+        Unmanaged=yes
+      '';
+    };
+  };
   # }}}
 
   # Filesystems {{{
