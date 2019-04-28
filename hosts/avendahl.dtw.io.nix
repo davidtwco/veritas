@@ -33,6 +33,8 @@
       pingLimit = "--limit 1/minute --limit-burst 5";
     };
 
+    useNetworkd = true;
+
     wireless.enable = false;
   };
   # }}}
