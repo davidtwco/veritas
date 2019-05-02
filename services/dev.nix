@@ -9,7 +9,7 @@
     vim tmux universal-ctags ripgrep silver-searcher neovim tmate gist
 
     # Version control
-    git gnupg mercurial bazaar subversion git-lfs
+    git gnupg mercurial bazaar subversion git-lfs gitAndTools.hub
   ];
   # }}}
 
