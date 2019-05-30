@@ -11,9 +11,16 @@
       gnome3.enable = true;
       wallpaper.mode = "center";
     };
+
+    displayManager.gdm = {
+      enable = true;
+      wayland = true;
+    };
   };
 
   services.gnome3.chrome-gnome-shell.enable = true;
+  # Disable NetworkManager (it is enabled by Gnome) as it messes with systemd-networkd.
+  networking.networkmanager.enable = false;
   # }}}
 
   # GTK Theme {{{
@@ -40,12 +47,6 @@
   # ======
   nixpkgs.config = {
     firefox.enableGnomeExtensions = true;
-
-    packageOverrides = pkgs: rec {
-      polybar = pkgs.polybar.override {
-        i3Support = true;
-      };
-    };
   };
   # }}}
 
@@ -54,17 +55,17 @@
   environment.systemPackages = with pkgs; [
     # Desktop utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip gnome3.gnome-tweaks hsetroot
-    i3lock-fancy plotinus chrome-gnome-shell gnomeExtensions.dash-to-dock
-    gnomeExtensions.topicons-plus gnomeExtensions.appindicator
+    plotinus chrome-gnome-shell gnomeExtensions.dash-to-dock gnomeExtensions.topicons-plus
+    gnomeExtensions.appindicator
 
     # Browsers and IDEs
     firefox jetbrains.pycharm-community
 
     # Chat apps
-    tdesktop weechat slack discord hipchat riot-web signal-desktop mumble_git keybase-gui
+    weechat mumble_git keybase-gui franz
 
     # Dotfiles
-    polybar rofi compton
+    rofi compton
 
     # Terminal
     alacritty
