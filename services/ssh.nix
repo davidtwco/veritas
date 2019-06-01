@@ -14,6 +14,12 @@
     permitRootLogin = "no";
   };
 
+  security.sudo = {
+    extraConfig = ''
+      david   ALL=(ALL:ALL)   NOPASSWD: ${pkgs.systemd}/bin/systemd-inhibit
+    '';
+  };
+
   # Don't sleep or hibernate when there are active SSH connections.
   environment.etc."ssh/sshrc" = {
     text = ''
@@ -21,10 +27,10 @@
       export tmp_file="/tmp/systemd-inhibit-suspend.log"
       if [ ! -z $SSH_TTY ]; then
         ${pkgs.coreutils}/bin/nohup \
-          ${pkgs.systemd}/bin/systemd-inhibit --what="sleep" --who="sshd" \
-          --why="No sleep due to $SSH_TTY" --mode="delay" \
-          /etc/ssh/systemd_lock.sh \
-          &>> "$tmp_file" &
+          /run/wrappers/bin/sudo ${pkgs.systemd}/bin/systemd-inhibit --what="sleep" --who="sshd" \
+            --why="No sleep due to $SSH_TTY" --mode="block" \
+            /etc/ssh/systemd_lock.sh \
+            &>> "$tmp_file" &
       fi
     '';
     mode = "744";
