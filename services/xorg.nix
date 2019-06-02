@@ -43,20 +43,14 @@
   };
   # }}}
 
-  # Config {{{
-  # ======
-  nixpkgs.config = {
-    firefox.enableGnomeExtensions = true;
-  };
-  # }}}
-
   # Packages {{{
   # ========
+  nixpkgs.config.firefox.enableGnomeExtensions = true;
   environment.systemPackages = with pkgs; [
     # Desktop utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip gnome3.gnome-tweaks hsetroot
     plotinus chrome-gnome-shell gnomeExtensions.dash-to-dock gnomeExtensions.topicons-plus
-    gnomeExtensions.appindicator
+    gnomeExtensions.appindicator remmina
 
     # Browsers and IDEs
     firefox jetbrains.pycharm-community
