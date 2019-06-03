@@ -62,7 +62,7 @@
     rofi compton
 
     # Terminal
-    alacritty
+    unstable.alacritty
 
     # Desktop themes
     arc-icon-theme arc-kde-theme arc-theme
