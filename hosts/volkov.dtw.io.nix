@@ -61,6 +61,11 @@
     };
   # }}}
 
+  # Kernel {{{
+  # ======
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # }}}
+
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
