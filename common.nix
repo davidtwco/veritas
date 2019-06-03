@@ -5,36 +5,27 @@ let
     fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
 in
   {
-    # Nix {{{
-    # ===
-    nix = {
-      # Automatically optimise the Nix store.
-      autoOptimiseStore = true;
-      # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
-      # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
-      nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
-      # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
-      sshServe = {
-        enable = true;
-        keys = config.users.extraUsers.david.openssh.authorizedKeys.keys;
+    # Automatically optimise the Nix store.
+    nix.autoOptimiseStore = true;
+    # Add `./overlay.nix` to the overlays used by NixOS. `nixpkgs.overlays` is the canonical list
+    # of overlays used in the system. It will be used by Nix tools due to the compatability overlay
+    # included in the $NIX_PATH below.
+    nixpkgs.overlays = [ (import ./overlay.nix) ];
+    # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
+    # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
+    nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
+    # Allow unfree packages.
+    nixpkgs.config.allowUnfree = true;
+    # Enable the unstable channel.
+    nixpkgs.config.packageOverrides = pkgs: {
+      unstable = import unstableTarball {
+        config = config.nixpkgs.config;
       };
     };
 
-    nixpkgs.config = {
-      # Allow unfree packages.
-      allowUnfree = true;
-      # Add `./overlay.nix` to the overlays used by NixOS. `nixpkgs.overlays` is the canonical list
-      # of overlays used in the system. It will be used by Nix tools due to the compatability overlay
-      # included in the $NIX_PATH below.
-      overlays = [ (import ./overlay.nix) ];
-      # Enable the unstable channel.
-      packageOverrides = pkgs: {
-        unstable = import unstableTarball {
-          config = config.nixpkgs.config;
-        };
-      };
-    };
-    # }}}
+    # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
+    nix.sshServe.enable = true;
+    nix.sshServe.keys = config.users.extraUsers.david.openssh.authorizedKeys.keys;
 
     # Boot {{{
     # ====
