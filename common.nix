@@ -62,7 +62,7 @@ in
       keybase kbfs
 
       # Hardware
-      solaar ltunify steamcontroller
+      solaar ltunify steamcontroller yubikey-personalization yubikey-manager
     ];
     # }}}
 
