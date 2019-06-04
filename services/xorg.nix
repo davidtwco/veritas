@@ -50,7 +50,7 @@
     # Desktop utilities
     scrot xsel xlibs.xbacklight arandr pavucontrol paprefs xclip gnome3.gnome-tweaks hsetroot
     plotinus chrome-gnome-shell gnomeExtensions.dash-to-dock gnomeExtensions.topicons-plus
-    gnomeExtensions.appindicator remmina
+    gnomeExtensions.appindicator remmina peek
 
     # Browsers and IDEs
     firefox jetbrains.pycharm-community
