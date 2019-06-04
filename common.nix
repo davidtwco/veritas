@@ -51,6 +51,7 @@ in
       linuxPackages.perf pciutils lshw smartmontools usbutils inetutils wireshark
       nix-prefetch-scripts pmutils psmisc which binutils bc exfat dosfstools patchutils moreutils
       ncdu bmon nix-index exa neofetch mosh pkgconfig direnv cron tree tokei hyperfine
+      haskellPackages.hopenpgp-tools
 
       # Man pages
       man man-pages posix_man_pages stdman
@@ -85,6 +86,10 @@ in
 
       # Enable CUPS for printing.
       printing.enable = true;
+
+      # Enable Keybase.
+      keybase.enable = true;
+      kbfs.enable = true;
 
       udev.packages = with pkgs; [
         # Required for android devices in `/dev` to have correct access levels.
