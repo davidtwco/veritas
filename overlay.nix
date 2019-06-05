@@ -19,6 +19,8 @@ self: super:
   # Updated version of the Intel OpenCL Runtime that supports more recent versions of OpenCL.
   intel-ocl = super.callPackage ./packages/intel-ocl.nix { };
 
+  clinfo = super.callPackage ./packages/clinfo.nix { };
+
   # Upgrade franz to the most recent version.
   franz = super.franz.overrideDerivation (old: {
     name = "franz-5.1.0";
