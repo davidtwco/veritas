@@ -84,6 +84,9 @@ in
       # Enable locate to find files quickly.
       locate.enable = true;
 
+      # Required to let smart card mode of YubiKey to work.
+      pcscd.enable = true;
+
       # Enable CUPS for printing.
       printing.enable = true;
 
@@ -94,6 +97,8 @@ in
       udev.packages = with pkgs; [
         # Required for android devices in `/dev` to have correct access levels.
         android-udev-rules
+        # Required for YubiKey devices to work.
+        yubikey-personalization libu2f-host
       ];
     };
     # }}}
