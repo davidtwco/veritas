@@ -21,6 +21,10 @@ self: super:
 
   clinfo = super.callPackage ./packages/clinfo.nix { };
 
+  khronos-icd-loader = super.callPackage ./packages/khronos-icd-loader/default.nix {
+    withDebug = false;
+  };
+
   # Upgrade franz to the most recent version.
   franz = super.franz.overrideDerivation (old: {
     name = "franz-5.1.0";
