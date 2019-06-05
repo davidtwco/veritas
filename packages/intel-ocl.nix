@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, rpmextract }:
+{ stdenv, fetchzip, rpmextract, ncurses5, numactl, zlib }:
 
 stdenv.mkDerivation rec {
   name = "intel-ocl-${version}";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
   compilerRoot = "./opt/intel/opencl_compilers_and_libraries_${version}/linux/compiler";
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ];
+  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ncurses5 numactl zlib ];
 
   # Extract the RPMs contained within the source archive.
   postUnpack = ''
@@ -28,7 +28,6 @@ stdenv.mkDerivation rec {
     runHook prePatch
 
     rm ${compilerRoot}/lib/intel64_lin/libOpenCL.so*
-
     for lib in ${compilerRoot}/lib/intel64_lin/*.so; do
       patchelf --set-rpath "${libPath}:$out/lib/intel-ocl" $lib || true
     done

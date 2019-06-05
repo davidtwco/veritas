@@ -55,10 +55,10 @@
 
   # Hardware {{{
   # ========
-  hardware.opengl =
-    { enable = true;
-      extraPackages = with pkgs; [ intel-ocl ];
-    };
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-ocl ];
+  };
   # }}}
 
   # Kernel {{{
