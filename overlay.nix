@@ -40,4 +40,12 @@ self: super:
       sha256 = "a474d2e9c6fb99abfc4c7e9290a0e52eef62233fa25c962afdde75fe151277d0";
     };
   });
+
+  # CUDA puts `cicc` in a folder other than `/bin` so the upstream derivation doesn't put it in the
+  # `$out/bin` folder.
+  cudatoolkit_10 = super.cudatoolkit_10.overrideDerivation(old: {
+    postInstall = ''
+      install -D -m0755 $out/nvvm/bin/cicc -t $out/bin
+    '';
+  });
 }
