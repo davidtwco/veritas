@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, rpmextract, numactl }:
+{ stdenv, fetchzip, rpmextract, numactl, withNuma ? true }:
 
 stdenv.mkDerivation rec {
   name = "intel-ocl-${version}";
@@ -15,7 +15,8 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
   compilerRoot = "./opt/intel/opencl_compilers_and_libraries_${version}/linux/compiler";
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib numactl ];
+  libPath = stdenv.lib.makeLibraryPath
+    ([ stdenv.cc.cc.lib ] ++ (if withNuma then [ numactl ] else []));
 
   # Extract the RPMs contained within the source archive.
   postUnpack = ''

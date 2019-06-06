@@ -17,7 +17,11 @@ self: super:
 
 {
   # Updated version of the Intel OpenCL Runtime that supports more recent versions of OpenCL.
-  intel-ocl = super.callPackage ./packages/intel-ocl.nix { };
+  intel-ocl = super.callPackage ./packages/intel-ocl.nix {
+    # Unfortunately, due to the hardware on dtw-volkov, linking with `libnuma` will cause
+    # `clCreateContext` to fail.
+    withNuma = false;
+  };
 
   # There is no `clinfo` package upstream, despite this being the most commonly used (AFAIK) tool
   # for checking device information.
