@@ -8,6 +8,15 @@
 
   services.openssh = {
     enable = true;
+    extraConfig = ''
+      # Required for GPG forwarding.
+      StreamLocalBindUnlink yes
+
+      Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+      MACs hmac-sha2-512-etm@openssh.com
+      KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+      RekeyLimit 256M
+    '';
     forwardX11 = true;
     openFirewall = true;
     passwordAuthentication = false;
