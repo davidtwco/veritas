@@ -31,13 +31,4 @@ self: super:
   khronos-icd-loader = super.callPackage ./packages/khronos-icd-loader/default.nix {
     withDebug = false;
   };
-
-  # Upgrade franz to the most recent version.
-  franz = super.franz.overrideDerivation (old: {
-    name = "franz-5.1.0";
-    src = self.fetchurl {
-      url = "https://github.com/meetfranz/franz/releases/download/v5.1.0/franz_5.1.0_amd64.deb";
-      sha256 = "a474d2e9c6fb99abfc4c7e9290a0e52eef62233fa25c962afdde75fe151277d0";
-    };
-  });
 }
