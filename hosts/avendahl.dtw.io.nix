@@ -53,6 +53,14 @@
   services.openssh.ports = [ 28028 ];
   # }}}
 
+  # Hardware {{{
+  # ========
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [ intel-ocl ];
+  };
+  # }}}
+
   # Cron {{{
   # ====
   services.cron.systemCronJobs = [
