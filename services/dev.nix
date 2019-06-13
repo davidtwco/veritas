@@ -6,7 +6,7 @@
   # Avoid installing anything like headers or packages that are specific to a project.
   environment.systemPackages = with pkgs; [
     # Development environment
-    vim tmux universal-ctags ripgrep silver-searcher neovim tmate gist
+    vim tmux tmate universal-ctags ripgrep silver-searcher neovim tmate gist
 
     # Version control
     git mercurial bazaar subversion git-lfs gitAndTools.hub
