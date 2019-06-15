@@ -26,6 +26,16 @@
   networking.hostName = "dtw-campaglia";
   networking.wireless.enable = false;
   networking.useDHCP = true;
+
+  services.ddclient = {
+    enable = true;
+    use = "web, web=myip.dnsomatic.com";
+    domains = [ "campaglia" ];
+    protocol = "dyndns2";
+    server = "updates.dnsomatic.com";
+    username = "davidtwco";
+    password = builtins.readFile "${config.users.extraUsers.david.home}/.ddclientpassword";
+  };
   # }}}
 
   # Filesystems {{{
