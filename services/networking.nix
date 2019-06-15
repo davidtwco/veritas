@@ -13,7 +13,6 @@
   # Networkd {{{
   # ========
   networking.useNetworkd = true;
-  networking.useDHCP = true;
   systemd.network = {
     enable = true;
 
