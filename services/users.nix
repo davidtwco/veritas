@@ -3,7 +3,9 @@
 {
   users.extraUsers.david = {
     description = "David Wood";
-    extraGroups = [ "video" "wheel" "docker" "libvirtd" ];
+    extraGroups = [
+      "audio" "disk" "video" "wheel" "docker" "libvirtd" "plugdev" "systemd-journal" "vboxusers"
+    ];
     isNormalUser = true;
     uid = 1000;
     shell = pkgs.zsh;
