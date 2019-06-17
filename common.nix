@@ -51,7 +51,7 @@ in
       linuxPackages.perf pciutils lshw smartmontools usbutils inetutils wireshark
       nix-prefetch-scripts pmutils psmisc which binutils bc exfat dosfstools patchutils moreutils
       ncdu bmon nix-index exa neofetch mosh pkgconfig direnv cron tree tokei hyperfine
-      haskellPackages.hopenpgp-tools
+      haskellPackages.hopenpgp-tools parted
 
       # Man pages
       man man-pages posix_man_pages stdman
