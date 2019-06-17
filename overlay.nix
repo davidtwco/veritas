@@ -28,7 +28,7 @@ self: super:
   clinfo = super.callPackage ./packages/clinfo.nix { };
 
   # Alternative ICD loader to `ocl-icd` that is in upstream nixpkgs.
-  khronos-icd-loader = super.callPackage ./packages/khronos-icd-loader/default.nix {
+  khronos-icd-loader = super.callPackage ./packages/khronos-icd-loader {
     withDebug = false;
   };
 }
