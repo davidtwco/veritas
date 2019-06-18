@@ -10,7 +10,7 @@ in {
   networking.defaultMailServer = {
     authUser = "${email}";
     # Set the permissions of this to 600!
-    authPassFile = "${config.users.extraUsers.david.home}/.mailserverpassword";
+    authPassFile = ../secrets/mail.password;
     directDelivery = true;
     domain = "${domain}";
     hostName = "smtp.fastmail.com:465";

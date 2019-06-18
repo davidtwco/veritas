@@ -35,7 +35,7 @@
     protocol = "dyndns2";
     server = "updates.dnsomatic.com";
     username = "davidtwco";
-    password = builtins.readFile "${config.users.extraUsers.david.home}/.ddclientpassword";
+    password = builtins.readFile ../secrets/ddclient.password;
   };
   # }}}
 
@@ -60,6 +60,16 @@
   # Kernel {{{
   # ======
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # }}}
+
+  # Monitoring {{{
+  # ==========
+  services.datadog-agent = {
+    apiKeyFile = ../secrets/datadog.api_key;
+    enable = true;
+    enableLiveProcessCollection = true;
+    enableTraceAgent = true;
+  };
   # }}}
 
   imports = [
