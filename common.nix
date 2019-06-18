@@ -47,18 +47,33 @@ in
     # ========
     environment.systemPackages = with pkgs; [
       # General utilities
-      wget file unzip zip unrar p7zip dmidecode pstree dtrx htop iotop powertop ltrace strace
-      linuxPackages.perf pciutils lshw smartmontools usbutils inetutils wireshark
-      nix-prefetch-scripts pmutils psmisc which binutils bc exfat dosfstools patchutils moreutils
-      ncdu bmon nix-index exa neofetch mosh pkgconfig direnv cron tree tokei hyperfine
-      haskellPackages.hopenpgp-tools parted
+      nix-prefetch-scripts file which nix-index hyperfine tokei cron direnv moreutils wget bc
+      pkgconfig
+
+      # Archiving
+      unzip zip unrar p7zip dtrx
+
+      # Processes/debugging/monitoring
+      pstree htop iotop powertop ltrace strace binutils lshw linuxPackages.perf pciutils psmisc
+      pmutils dmidecode usbutils
+
+      # Networking
+      inetutils wireshark mosh bmon bind
+
+      # Disks
+      parted exfat dosfstools ncdu smartmontools
 
       # Man pages
       man man-pages posix_man_pages stdman
 
       # Dotfiles
-      yadm antibody fasd pinentry_ncurses git vim neovim tmux gnupg universal-ctags
-      ripgrep git-lfs gitAndTools.hub
+      yadm antibody fasd pinentry_ncurses vim neovim tmux universal-ctags ripgrep exa neofetch
+
+      # Version Control
+      git git-lfs gitAndTools.hub patchutils
+
+      # GnuPG
+      haskellPackages.hopenpgp-tools gnupg
 
       # Keybase
       keybase kbfs
