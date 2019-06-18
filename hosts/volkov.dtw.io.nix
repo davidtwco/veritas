@@ -59,6 +59,7 @@
     enable = true;
     extraPackages = with pkgs; [ intel-ocl ];
   };
+  services.xserver.videoDrivers = [ "nvidia" ];
   # }}}
 
   # Kernel {{{
