@@ -58,7 +58,7 @@ in
       pmutils dmidecode usbutils
 
       # Networking
-      inetutils wireshark mosh bmon bind
+      inetutils wireshark mosh bmon bind conntrack-tools tcpdump
 
       # Disks
       parted exfat dosfstools ncdu smartmontools
