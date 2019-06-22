@@ -31,4 +31,15 @@ self: super:
   khronos-icd-loader = super.callPackage ./packages/khronos-icd-loader {
     withDebug = false;
   };
+
+  # Install 'Plex Pass' version of Plex.
+  plexPassRaw = super.unstable.plexRaw.overrideAttrs (old: rec {
+    version = "1.16.1.1246-1d09ac057";
+    name = "${old.pname}-${version}";
+    src = super.fetchurl {
+      url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
+      sha256 = "1h2g5vm9k6zsp4bdw4gzdkhiq9bh11sma0cifysax9pmxg5p4a0d";
+    };
+  });
+  plexPass = super.unstable.plex.override { plexRaw = self.plexPassRaw; };
 }

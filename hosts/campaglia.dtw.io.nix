@@ -57,11 +57,6 @@
     };
   # }}}
 
-  # Kernel {{{
-  # ======
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # }}}
-
   # Monitoring {{{
   # ==========
   services.datadog-agent = {
@@ -78,5 +73,8 @@
     ../services/users.nix
     ../services/networking.nix
     ../services/ssh.nix
+    ../services/media.nix
   ];
 }
+
+# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2

@@ -23,6 +23,19 @@ in
       };
     };
 
+    imports = [
+      "${unstableTarball}/nixos/modules/services/torrent/deluge.nix"
+      "${unstableTarball}/nixos/modules/services/misc/plex.nix"
+    ];
+    disabledModules = [
+      # Disable the Deluge module from 19.03 and use the version from the unstable channel that
+      # allows declarative configuration.
+      "services/torrent/deluge.nix"
+      # Disable the Plex module from 19.03 and use the version from the unstable channel that
+      # matches the package version we are using.
+      "services/misc/plex.nix"
+    ];
+
     # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
     nix.sshServe.enable = true;
     nix.sshServe.keys = config.users.extraUsers.david.openssh.authorizedKeys.keys;
@@ -58,7 +71,7 @@ in
       pmutils dmidecode usbutils
 
       # Networking
-      inetutils wireshark mosh bmon bind conntrack-tools tcpdump
+      inetutils wireshark mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
 
       # Disks
       parted exfat dosfstools ncdu smartmontools
@@ -81,6 +94,8 @@ in
       # Hardware
       solaar ltunify steamcontroller yubikey-personalization yubikey-manager
     ];
+
+    programs.bcc.enable = true;
     # }}}
 
     # Shell {{{
