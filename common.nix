@@ -60,6 +60,8 @@ in
 
     # Packages {{{
     # ========
+    environment.pathsToLink = [ "/share" ];
+
     environment.systemPackages = with pkgs; [
       # General utilities
       nix-prefetch-scripts file which nix-index hyperfine tokei cron direnv moreutils wget bc
