@@ -3,6 +3,8 @@
 let
   unstableTarball =
     fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
+  mozillaOverlay =
+    fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz;
 in
   {
     # Automatically optimise the Nix store.
@@ -10,7 +12,7 @@ in
     # Add `./overlay.nix` to the overlays used by NixOS. `nixpkgs.overlays` is the canonical list
     # of overlays used in the system. It will be used by Nix tools due to the compatability overlay
     # included in the $NIX_PATH below.
-    nixpkgs.overlays = [ (import ./overlay.nix) ];
+    nixpkgs.overlays = [ (import ./overlay.nix) (import mozillaOverlay) ];
     # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
     # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
     nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
