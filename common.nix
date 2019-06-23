@@ -97,11 +97,13 @@ in
       solaar ltunify steamcontroller yubikey-personalization yubikey-manager
     ];
 
-    programs.bcc.enable = true;
-
-    programs.wireshark = {
-      enable = true;
-      package = pkgs.wireshark;
+    programs = {
+      adb.enable = true;
+      bcc.enable = true;
+      wireshark = {
+        enable = true;
+        package = pkgs.wireshark;
+      };
     };
     # }}}
 
@@ -133,8 +135,6 @@ in
       kbfs.enable = true;
 
       udev.packages = with pkgs; [
-        # Required for android devices in `/dev` to have correct access levels.
-        android-udev-rules
         # Required for YubiKey devices to work.
         yubikey-personalization libu2f-host
       ];

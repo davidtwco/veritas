@@ -4,7 +4,8 @@
   users.extraUsers.david = {
     description = "David Wood";
     extraGroups = [
-      "audio" "disk" "video" "wheel" "docker" "libvirtd" "plugdev" "systemd-journal" "vboxusers"
+      "adbusers" "audio" "disk" "video" "wheel" "docker" "libvirtd" "plugdev" "systemd-journal"
+      "vboxusers"
     ];
     isNormalUser = true;
     uid = 1000;
