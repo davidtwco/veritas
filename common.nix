@@ -73,7 +73,7 @@ in
       pmutils dmidecode usbutils
 
       # Networking
-      inetutils wireshark mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
+      inetutils mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
 
       # Disks
       parted exfat dosfstools ncdu smartmontools
@@ -98,6 +98,11 @@ in
     ];
 
     programs.bcc.enable = true;
+
+    programs.wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
     # }}}
 
     # Shell {{{
