@@ -23,16 +23,16 @@ in
       };
     };
 
+    # Disable modules from 19.03 and use the versions from the unstable channel that match
+    # versions we are using.
     imports = [
       "${unstableTarball}/nixos/modules/services/torrent/deluge.nix"
+      ./module-overrides/lidarr.nix
       "${unstableTarball}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [
-      # Disable the Deluge module from 19.03 and use the version from the unstable channel that
-      # allows declarative configuration.
       "services/torrent/deluge.nix"
-      # Disable the Plex module from 19.03 and use the version from the unstable channel that
-      # matches the package version we are using.
+      "services/misc/lidarr.nix"
       "services/misc/plex.nix"
     ];
 
