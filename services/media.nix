@@ -84,6 +84,19 @@ let
   # }}}
 in
   {
+    # Groups {{{
+    # ======
+    users.groups.media.members = [
+      "david"
+      config.systemd.services.deluged.serviceConfig."User"
+      config.services.sabnzbd.user
+      config.services.sonarr.user
+      config.services.radarr.user
+      config.services.plex.user
+      config.systemd.services.lidarr.serviceConfig."User"
+    ];
+    # }}}
+
     # SABnzbd {{{
     # =======
     services.sabnzbd.enable = true;
