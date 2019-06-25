@@ -29,7 +29,7 @@ in
     # versions we are using.
     imports = [
       "${unstableTarball}/nixos/modules/services/torrent/deluge.nix"
-      ./module-overrides/lidarr.nix
+      "${unstableTarball}/nixos/modules/services/misc/lidarr.nix"
       "${unstableTarball}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [

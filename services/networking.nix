@@ -17,7 +17,7 @@
     enable = true;
 
     networks = {
-      # Don't manage the interfaces created by Docker or libvirt.
+      # Don't manage the interfaces created by Docker, libvirt or OpenVPN.
       "10-docker".extraConfig = ''
         [Match]
         Name=docker*
@@ -28,6 +28,13 @@
       "11-virbr".extraConfig = ''
         [Match]
         Name=virbr*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "12-openvpn-tunnels".extraConfig = ''
+        [Match]
+        Name=tun*
 
         [Link]
         Unmanaged=yes

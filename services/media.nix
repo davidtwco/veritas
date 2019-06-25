@@ -97,9 +97,18 @@ in
     ];
     # }}}
 
+    # Firewall {{{
+    # ========
+    # Allow Deluge and Lidarr through the firewall since they don't have `openFirewall` options.
+    networking.firewall.allowedTCPPorts = [ 8112 8686 ];
+    # }}}
+
     # SABnzbd {{{
     # =======
-    services.sabnzbd.enable = true;
+    services.sabnzbd = {
+      enable = true;
+      group = "media";
+    };
     # }}}
 
     # Deluge {{{
@@ -109,6 +118,7 @@ in
       web.enable = true;
     };
 
+    systemd.services.deluged.serviceConfig."Group" = lib.mkForce "media";
     systemd.services.deluged.path = with pkgs; [
       deluge unrar unzip gnutar xz p7zip bzip2
     ];
@@ -116,22 +126,38 @@ in
 
     # Jackett {{{
     # =======
-    services.jackett.enable = true;
+    services.jackett = {
+      enable = true;
+      group = "media";
+      openFirewall = true;
+    };
     # }}}
 
     # Radarr {{{
     # ======
-    services.radarr.enable = true;
+    services.radarr = {
+      enable = true;
+      group = "media";
+      openFirewall = true;
+    };
     # }}}
 
     # Sonarr {{{
     # ======
-    services.sonarr.enable = true;
+    services.sonarr = {
+      enable = true;
+      group = "media";
+      openFirewall = true;
+    };
     # }}}
 
     # Lidarr {{{
     # ======
     services.lidarr.enable = true;
+
+    systemd.services.lidarr.serviceConfig."Group" = lib.mkForce "media";
+    systemd.services.lidarr.serviceConfig."ExecStart" =
+      lib.mkForce "${pkgs.unstable.lidarr}/bin/Lidarr";
     # }}}
 
     # Plex {{{
