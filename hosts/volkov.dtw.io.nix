@@ -73,6 +73,15 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # }}}
 
+  # Startup Applications {{{
+  # ====================
+  environment.systemPackages = [
+    (pkgs.makeAutostartItem { name = "alacritty"; package = pkgs.unstable.alacritty; })
+    (pkgs.makeAutostartItem { name = "firefox"; package = pkgs.firefox; })
+    (pkgs.makeAutostartItem { name = "franz"; package = pkgs.unstable.franz; })
+  ];
+  # }}}
+
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
