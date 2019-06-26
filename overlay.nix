@@ -15,7 +15,14 @@ self: super:
 # > override, or to access functions defined in Nixpkgs. For example, the original recipe of
 # > boost in the above example, comes from super, as well as the callPackage function.
 
-{
+let
+  ccWrapperForkTarball = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "cc-wrapper/alternate-compilers";
+    rev = "d3202d2f065685235af06f763496bda68a0a7062";
+  };
+  ccWrapperFork = import ccWrapperForkTarball { };
+in {
   # Updated version of the Intel OpenCL Runtime that supports more recent versions of OpenCL.
   intel-openclrt = super.callPackage ./packages/intel-openclrt.nix { };
 
@@ -60,6 +67,13 @@ self: super:
   # Enable hybrid driver on `vaapiIntel`.
   vaapiIntel = super.vaapiIntel.override {
     enableHybridCodec = true;
+  };
+
+  # Add a package for ComputeCpp.
+  computecpp-unwrapped = super.callPackage ./packages/computecpp.nix { };
+  computecpp = ccWrapperFork.wrapCCWith {
+    cc = self.computecpp-unwrapped;
+    extraCCs = [ "compute" "compute++" ];
   };
 }
 
