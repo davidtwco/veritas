@@ -58,7 +58,7 @@
   hardware.opengl = {
     driSupport32Bit = true;
     enable = true;
-    extraPackages = with pkgs; [ intel-ocl ];
+    extraPackages = with pkgs; [ intel-openclrt ];
   };
 
   boot.blacklistedKernelModules = [ "nouveau" ];
