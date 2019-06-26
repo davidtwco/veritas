@@ -29,14 +29,15 @@ in
         "adbusers"
         "audio"
         "disk"
-        "video"
-        "wheel"
         "docker"
+        "input"
         "libvirtd"
         "lxd"
         "plugdev"
         "systemd-journal"
         "vboxusers"
+        "video"
+        "wheel"
       ];
       hashedPassword = "$6$kvMx6lEzQPhkSj8E$KfP/qM2cMz5VqNszLjeOBGnny3PdIyy0vnHzIgP.gb1XqTI/qq3nbt0Qg871pkmwJwIu3ZGt57yShMjFFMR3x1";
       isNormalUser = true;

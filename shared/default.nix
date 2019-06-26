@@ -34,6 +34,7 @@ in
       (import ../overlays/opencl.nix)
       (import ../overlays/packages.nix)
       (import ../overlays/plex.nix)
+      (import ../overlays/wooting.nix)
       # Use Mozilla's overlay for `rustChannelOf` function.
       (import external.mozillaOverlay)
     ];

@@ -120,6 +120,7 @@
   };
 
   veritas = {
+    hardware.wooting.enable = true;
     profiles.virtualisation.enable = true;
     david = {
       colourScheme.i3 = {
