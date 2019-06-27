@@ -37,7 +37,7 @@ self: super:
   });
   plexPass = super.unstable.plex.override { plexRaw = self.plexPassRaw; };
 
-  # Add lorri as a package.
+  # Fetch lorri from GitHub.
   lorri = let
     src = super.fetchFromGitHub {
       owner = "target";
@@ -46,4 +46,14 @@ self: super:
       sha256 = "0y9y7r16ki74fn0xavjva129vwdhqi3djnqbqjwjkn045i4z78c8";
     };
   in super.callPackage src { inherit src; };
+
+  # Fetch nixfmt from GitHub.
+  nixfmt = let
+    src = super.fetchFromGitHub {
+      owner = "serokell";
+      repo = "nixfmt";
+      rev = "dbed3c31c777899f0273cb6584486028cd0836d8";
+      sha256 = "0gsj5ywkncl8rahc8lcij7pw9v9214lk23wspirlva8hwyxl279q";
+    };
+  in super.callPackage src { installOnly = true; pkgs = self; };
 }
