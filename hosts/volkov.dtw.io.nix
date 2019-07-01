@@ -14,8 +14,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  boot.kernelModules = [ "kvm-amd" ];
-  boot.extraModulePackages = [ ];
   # }}}
 
   # Networking {{{
@@ -85,12 +83,13 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
-    ../services/users.nix
-    ../services/xorg.nix
+    ../services/audio.nix
     ../services/dev.nix
     ../services/networking.nix
     ../services/ssh.nix
-    ../services/audio.nix
+    ../services/users.nix
+    ../services/virtualization.nix
+    ../services/xorg.nix
   ];
 }
 

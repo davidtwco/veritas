@@ -17,8 +17,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "ntfs" ];
   # }}}
 
@@ -70,10 +68,11 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
-    ../services/users.nix
+    ../services/media.nix
     ../services/networking.nix
     ../services/ssh.nix
-    ../services/media.nix
+    ../services/users.nix
+    ../services/virtualization.nix
   ];
 }
 

@@ -18,8 +18,6 @@
   boot.loader.grub.devices = ["/dev/nvme0n1" "/dev/nvme1n1"];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
   # }}}
 
   # Networking {{{
@@ -75,9 +73,10 @@
     ../common.nix
     ../services/dev.nix
     ../services/ssh.nix
+    ../services/mail.nix
     ../services/networking.nix
     ../services/users.nix
-    ../services/mail.nix
+    ../services/virtualization.nix
   ];
 }
 
