@@ -153,11 +153,12 @@ in
 
     # Lidarr {{{
     # ======
-    services.lidarr.enable = true;
+    services.lidarr = {
+      enable = true;
+      package = pkgs.unstable.lidarr;
+    };
 
     systemd.services.lidarr.serviceConfig."Group" = lib.mkForce "media";
-    systemd.services.lidarr.serviceConfig."ExecStart" =
-      lib.mkForce "${pkgs.unstable.lidarr}/bin/Lidarr";
     # }}}
 
     # Plex {{{
