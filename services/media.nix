@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, options, ... }:
 
 let
   # Various configuration options for the VPN that Deluge uses - keeps the actual configuration
@@ -109,6 +109,7 @@ in
     # =======
     services.deluge = {
       enable = true;
+      extraPackages = options.services.deluge.extraPackages.default ++ [ pkgs.unrar ];
       group = "media";
       web = {
         enable = true;

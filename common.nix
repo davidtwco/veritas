@@ -17,7 +17,7 @@ let
   delugeModuleFork = builtins.fetchGit {
     url = "https://github.com/davidtwco/nixpkgs.git";
     ref = "deluge/users-groups-firewalls";
-    rev = "695a501ba7e4b5fd5783e9d14c1c7a1902d871f7";
+    rev = "207ab05118cc89a53c5372026c93fd03a5666c58";
   };
   lidarrModuleFork = builtins.fetchGit {
     url = "https://github.com/davidtwco/nixpkgs.git";
