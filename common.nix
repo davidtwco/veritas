@@ -5,6 +5,18 @@ let
     fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
   mozillaOverlay =
     fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz;
+  # Fetch branches that contain open PRs to nixpkgs upstream and use modules from those instead of
+  # hacky workarounds. These should be removed as PRs land and the unstable channel is updated.
+  delugeModuleFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "deluge/users-groups-firewalls";
+    rev = "695a501ba7e4b5fd5783e9d14c1c7a1902d871f7";
+  };
+  lidarrModuleFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "lidarr/users-groups-firewalls";
+    rev = "6ba90c2aae05ca64acac8ffe01c4c2b72d2be6a8";
+  };
 in
   {
     # Automatically optimise the Nix store.
@@ -28,8 +40,8 @@ in
     # Disable modules from 19.03 and use the versions from the unstable channel that match
     # versions we are using.
     imports = [
-      "${unstableTarball}/nixos/modules/services/torrent/deluge.nix"
-      "${unstableTarball}/nixos/modules/services/misc/lidarr.nix"
+      "${delugeModuleFork}/nixos/modules/services/torrent/deluge.nix"
+      "${lidarrModuleFork}/nixos/modules/services/misc/lidarr.nix"
       "${unstableTarball}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [
