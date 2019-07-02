@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with stdenv.lib; {
-    description = "clinfo is a simple command-line application that enumerates all possible (known) properties of the OpenCL platform and devices available on the system.";
+    description = "A simple command-line application that enumerates all possible (known) properties of the OpenCL platform and devices available on the system";
     homepage = https://github.com/Oblomov/clinfo;
     license = licenses.cc0;
     platforms = platforms.linux;
