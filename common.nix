@@ -1,10 +1,17 @@
 { config, pkgs, options, ... }:
 
 let
-  unstableTarball =
-    fetchTarball https://github.com/NixOS/nixpkgs-channels/archive/nixos-unstable.tar.gz;
-  mozillaOverlay =
-    fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz;
+  # Update these periodically (or when PRs land).
+  unstableChannel = builtins.fetchGit {
+    url = "https://github.com/NixOS/nixpkgs-channels.git";
+    ref = "nixos-unstable";
+    rev = "73392e79aa62e406683d6a732eb4f4101f4732be";
+  };
+  mozillaOverlay = builtins.fetchGit {
+    url = "https://github.com/mozilla/nixpkgs-mozilla";
+    ref = "master";
+    rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
+  };
   # Fetch branches that contain open PRs to nixpkgs upstream and use modules from those instead of
   # hacky workarounds. These should be removed as PRs land and the unstable channel is updated.
   delugeModuleFork = builtins.fetchGit {
@@ -32,7 +39,7 @@ in
     nixpkgs.config.allowUnfree = true;
     # Enable the unstable channel.
     nixpkgs.config.packageOverrides = pkgs: {
-      unstable = import unstableTarball {
+      unstable = import unstableChannel {
         config = config.nixpkgs.config;
       };
     };
@@ -42,7 +49,7 @@ in
     imports = [
       "${delugeModuleFork}/nixos/modules/services/torrent/deluge.nix"
       "${lidarrModuleFork}/nixos/modules/services/misc/lidarr.nix"
-      "${unstableTarball}/nixos/modules/services/misc/plex.nix"
+      "${unstableChannel}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [
       "services/torrent/deluge.nix"
