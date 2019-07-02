@@ -8,7 +8,7 @@ let
     rev = "73392e79aa62e406683d6a732eb4f4101f4732be";
   };
   mozillaOverlay = builtins.fetchGit {
-    url = "https://github.com/mozilla/nixpkgs-mozilla";
+    url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";
     rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
   };
