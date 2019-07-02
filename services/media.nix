@@ -109,7 +109,8 @@ in
     # =======
     services.deluge = {
       enable = true;
-      extraPackages = options.services.deluge.extraPackages.default ++ [ pkgs.unrar ];
+      # Add unrar to the `extraPackages`.
+      extraPackages = [ pkgs.unrar ];
       group = "media";
       web = {
         enable = true;
