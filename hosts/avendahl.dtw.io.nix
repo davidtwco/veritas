@@ -60,12 +60,40 @@
   };
   # }}}
 
-  # Cron {{{
-  # ====
-  services.cron.systemCronJobs = [
-    # Run `workman update` to keep unused Rust working directories fresh every day at 2am.
-    "0 2 * * *      david      $HOME/.local/bin/workman-update-cron-for-rust"
-  ];
+  # Timers {{{
+  # ======
+  systemd.services."workman-update-rust" = {
+    description = "Update the working directories for Rust using workman";
+    enable = true;
+    environment = {
+      # Ensure these are consistent with the environment used during development so CMake
+      # doesn't need to reconfigure.
+      "AR" = "${pkgs.binutils-unwrapped}/bin/ar";
+      "CC" = "${pkgs.gcc}/bin/gcc";
+      "CXX" = "${pkgs.gcc}/bin/g++";
+      # If `SSH_AUTH_SOCK` isn't overriden then gpg-agent can interfere.
+      "SSH_AUTH_SOCK" = "";
+      # `GIT_SSH_COMMAND` needs to be set to a key w/out a passphrase.
+      "GIT_SSH_COMMAND" = let
+        flags = "-o StrictHostKeyChecking=no";
+        identity = "${config.users.extraUsers.david.home}/.ssh/id_workman_rsa";
+      in "${pkgs.openssh}/bin/ssh ${flags} -i ${identity}";
+    };
+    onFailure = [ "systemd-unit-status-email@%n.service" ];
+    path = with pkgs; [
+      bash binutils binutils-unwrapped ccache clang cmake coreutils curl direnv gcc gdb git
+      glibc gnugrep gnumake ncurses ninja nodejs openssh patchelf pythonFull rustup tmux
+    ];
+    reloadIfChanged = false;
+    serviceConfig = {
+      "ExecStart" = "${config.users.extraUsers.david.home}/.local/bin/workman update";
+      "RemainAfterExit" = true;
+      "Type" = "oneshot";
+      "WorkingDirectory" = "${config.users.extraUsers.david.home}/projects/rust";
+      "User" = "david";
+    };
+    startAt = "*-*-* 2:00:00";
+  };
   # }}}
 
   imports = [
