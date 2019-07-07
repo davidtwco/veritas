@@ -21,8 +21,8 @@ let
   };
   lidarrModuleFork = builtins.fetchGit {
     url = "https://github.com/davidtwco/nixpkgs.git";
-    ref = "lidarr/users-groups-firewalls";
-    rev = "6ba90c2aae05ca64acac8ffe01c4c2b72d2be6a8";
+    ref = "lidarr/fix-home";
+    rev = "e2247dceb3c5ca896d2eda49eb91c548c1c3e91b";
   };
   jackettModuleFork = builtins.fetchGit {
     url = "https://github.com/davidtwco/nixpkgs.git";
