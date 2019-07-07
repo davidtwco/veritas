@@ -392,24 +392,22 @@ in
     # packets always applies. The same script will be invoked when OpenVPN starts to add a new
     # route that will go through the VPN.
     systemd.services."${group}-vpn-routes" = {
+      after = [ "systemd-modules-load.service" ];
+      before = [ "network-pre.target" ];
       description = "Routing for ${group} VPN";
+      path = [ pkgs.iproute pkgs.gnugrep pkgs.gawk ];
+      reloadIfChanged = false;
+      serviceConfig = {
+        "Type" = "oneshot";
+        "RemainAfterExit" = true;
+        "ExecStart" = "${routingScript}";
+      };
+      unitConfig = {
+        "ConditionCapability" = "CAP_NET_ADMIN";
+        "DefaultDependencies" = false;
+      };
       wantedBy = [ "sysinit.target" ];
       wants = [ "network-pre.target" ];
-      before = [ "network-pre.target" ];
-      after = [ "systemd-modules-load.service" ];
-
-      path = [ pkgs.iproute pkgs.gnugrep pkgs.gawk ];
-
-      unitConfig.ConditionCapability = "CAP_NET_ADMIN";
-      unitConfig.DefaultDependencies = false;
-
-      reloadIfChanged = false;
-
-      serviceConfig = {
-        Type = "oneshot";
-        RemainAfterExit = true;
-        ExecStart = "${routingScript}";
-      };
     };
 
     boot.kernel.sysctl = {
