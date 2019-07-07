@@ -24,6 +24,11 @@ let
     ref = "lidarr/users-groups-firewalls";
     rev = "6ba90c2aae05ca64acac8ffe01c4c2b72d2be6a8";
   };
+  jackettModuleFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "jackett/package";
+    rev = "7f32961ea227c53469e3361daecae499e0d96cab";
+  };
 in
   {
     # Automatically optimise the Nix store.
@@ -49,10 +54,12 @@ in
     imports = [
       "${delugeModuleFork}/nixos/modules/services/torrent/deluge.nix"
       "${lidarrModuleFork}/nixos/modules/services/misc/lidarr.nix"
+      "${jackettModuleFork}/nixos/modules/services/misc/jackett.nix"
       "${unstableChannel}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [
       "services/torrent/deluge.nix"
+      "services/misc/jackett.nix"
       "services/misc/lidarr.nix"
       "services/misc/plex.nix"
     ];

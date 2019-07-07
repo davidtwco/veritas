@@ -125,6 +125,7 @@ in
       enable = true;
       group = "media";
       openFirewall = true;
+      package = pkgs.unstable.jackett;
     };
     # }}}
 
