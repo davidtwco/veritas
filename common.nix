@@ -5,7 +5,7 @@ let
   unstableChannel = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
-    rev = "73392e79aa62e406683d6a732eb4f4101f4732be";
+    rev = "1036dc664169b32613ec11b58cc1740c7511a340";
   };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
@@ -18,16 +18,6 @@ let
     url = "https://github.com/davidtwco/nixpkgs.git";
     ref = "deluge/users-groups-firewalls";
     rev = "16c394fe0f46935a4065a5a1ed43ef1cabd5840a";
-  };
-  lidarrModuleFork = builtins.fetchGit {
-    url = "https://github.com/davidtwco/nixpkgs.git";
-    ref = "lidarr/fix-home";
-    rev = "e2247dceb3c5ca896d2eda49eb91c548c1c3e91b";
-  };
-  jackettModuleFork = builtins.fetchGit {
-    url = "https://github.com/davidtwco/nixpkgs.git";
-    ref = "jackett/package";
-    rev = "7f32961ea227c53469e3361daecae499e0d96cab";
   };
 in
   {
@@ -53,8 +43,8 @@ in
     # versions we are using.
     imports = [
       "${delugeModuleFork}/nixos/modules/services/torrent/deluge.nix"
-      "${lidarrModuleFork}/nixos/modules/services/misc/lidarr.nix"
-      "${jackettModuleFork}/nixos/modules/services/misc/jackett.nix"
+      "${unstableChannel}/nixos/modules/services/misc/lidarr.nix"
+      "${unstableChannel}/nixos/modules/services/misc/jackett.nix"
       "${unstableChannel}/nixos/modules/services/misc/plex.nix"
     ];
     disabledModules = [
