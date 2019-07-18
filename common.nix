@@ -5,19 +5,12 @@ let
   unstableChannel = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
-    rev = "1036dc664169b32613ec11b58cc1740c7511a340";
+    rev = "362be9608c3e0dc5216e9d1d5f5c1a5643b7f7b1";
   };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";
     rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
-  };
-  # Fetch branches that contain open PRs to nixpkgs upstream and use modules from those instead of
-  # hacky workarounds. These should be removed as PRs land and the unstable channel is updated.
-  delugeModuleFork = builtins.fetchGit {
-    url = "https://github.com/davidtwco/nixpkgs.git";
-    ref = "deluge/users-groups-firewalls";
-    rev = "16c394fe0f46935a4065a5a1ed43ef1cabd5840a";
   };
 in
   {
@@ -42,7 +35,7 @@ in
     # Disable modules from 19.03 and use the versions from the unstable channel that match
     # versions we are using.
     imports = [
-      "${delugeModuleFork}/nixos/modules/services/torrent/deluge.nix"
+      "${unstableChannel}/nixos/modules/services/torrent/deluge.nix"
       "${unstableChannel}/nixos/modules/services/misc/lidarr.nix"
       "${unstableChannel}/nixos/modules/services/misc/jackett.nix"
       "${unstableChannel}/nixos/modules/services/misc/plex.nix"
