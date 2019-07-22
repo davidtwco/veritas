@@ -56,6 +56,15 @@ self: super:
       sha256 = "0gsj5ywkncl8rahc8lcij7pw9v9214lk23wspirlva8hwyxl279q";
     };
   in super.callPackage src { installOnly = true; pkgs = self; };
+
+  # Update Franz to the newest version.
+  franz = super.franz.overrideDerivation (old: {
+    name = "franz-5.2.0";
+    src = super.fetchurl {
+      url = "https://github.com/meetfranz/franz/releases/download/v5.2.0/franz_5.2.0_amd64.deb";
+      sha256 = "1wlfd1ja38vbjy8y5pg95cpvf5ixkkq53m7v3c24q473jax4ynvg";
+    };
+  });
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2
