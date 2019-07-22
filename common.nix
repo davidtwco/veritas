@@ -158,6 +158,20 @@ in
       Defaults insults
     '';
     # }}}
+
+    # Hardware {{{
+    # ========
+    hardware.opengl = {
+      driSupport32Bit = true;
+      enable = true;
+      extraPackages = with pkgs; [
+        # OpenCL
+        intel-openclrt
+        # VDPAU (hardware acceleration)
+        vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver
+      ];
+    };
+    # }}}
   }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2

@@ -65,6 +65,11 @@ self: super:
       sha256 = "1wlfd1ja38vbjy8y5pg95cpvf5ixkkq53m7v3c24q473jax4ynvg";
     };
   });
+
+  # Enable hybrid driver on `vaapiIntel`.
+  vaapiIntel = super.vaapiIntel.override {
+    enableHybridCodec = true;
+  };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2

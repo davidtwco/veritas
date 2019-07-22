@@ -53,12 +53,6 @@
 
   # Hardware {{{
   # ========
-  hardware.opengl = {
-    driSupport32Bit = true;
-    enable = true;
-    extraPackages = with pkgs; [ intel-openclrt ];
-  };
-
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
   boot.vesa = false;
