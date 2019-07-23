@@ -57,15 +57,6 @@ self: super:
     };
   in super.callPackage src { installOnly = true; pkgs = self; };
 
-  # Update Franz to the newest version.
-  franz = super.franz.overrideDerivation (old: {
-    name = "franz-5.2.0";
-    src = super.fetchurl {
-      url = "https://github.com/meetfranz/franz/releases/download/v5.2.0/franz_5.2.0_amd64.deb";
-      sha256 = "1wlfd1ja38vbjy8y5pg95cpvf5ixkkq53m7v3c24q473jax4ynvg";
-    };
-  });
-
   # Enable hybrid driver on `vaapiIntel`.
   vaapiIntel = super.vaapiIntel.override {
     enableHybridCodec = true;

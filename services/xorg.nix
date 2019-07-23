@@ -61,7 +61,7 @@ in
       firefox jetbrains.pycharm-community
 
       # Chat apps
-      weechat mumble_git keybase-gui franz
+      weechat mumble_git keybase-gui unstable.franz
 
       # Dotfiles
       rofi compton
