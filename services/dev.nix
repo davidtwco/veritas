@@ -6,7 +6,7 @@
   # Avoid installing anything like headers or packages that are specific to a project.
   environment.systemPackages = with pkgs; [
     # Development environment
-    tmate silver-searcher tmate gist python37Packages.pip python3Full
+    tmate silver-searcher tmate gist python37Packages.pip python3Full jq
 
     # Version control
     mercurial bazaar subversion
