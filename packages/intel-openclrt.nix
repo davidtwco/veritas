@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "intel-openclrt";
-  version = "2019.8.4.0";
+  version = "2019.8.7.0.0725";
 
   src = fetchzip {
-    url = "https://github.com/intel/llvm/releases/download/expoclcpu-1.0.0/oclcpuexp.tar.gz";
-    sha256 = "0bq42yfynf3gvs43dj7c6h0y46b4d7ay0s0ambvd4ks5b0gkwkdh";
+    url = "https://github.com/intel/llvm/releases/download/oclcpuexp-2019.8.7.0.0725_rel/oclcpuexp-2019.8.7.0.0725_rel.tar.gz";
+    sha256 = "0zgmbxr8sj589q7bpg3ciw65fh7bxa4lh3cfjmx3civjkbvxy4sp";
     stripRoot = false;
   };
 
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
 
     # Remove `libOpenCL.so`, since we use ocl-icd's `libOpenCL.so` instead and this would cause a
     # clash.
-    rm source/oclcpuexp/libOpenCL.so*
-    for lib in source/oclcpuexp/*.so*; do
-      patchelf --set-rpath "${libPath}:$out/lib/" $lib || true
+    rm source/x64/libOpenCL.so*
+    for lib in source/x64/*.so*; do
+      patchelf --set-rpath "${libPath}:$out/lib/x64" $lib || true
     done
 
     runHook postPatch
@@ -29,16 +29,17 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     runHook preBuild
-    echo "$out/lib/libintelocl.so" > intel_expcpu.icd
+    echo "$out/lib/x64/libintelocl.so" > intel_expcpu.icd
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
 
-    install -D -m 0644 source/oclcpuexp/*.rtl -t $out/lib/
-    install -D -m 0644 source/oclcpuexp/*.o -t $out/lib/
-    install -D -m 0755 source/oclcpuexp/*.so* -t $out/lib/
+    install -D -m 0644 source/*.rtl -t $out/lib/
+    install -D -m 0644 source/x64/*.rtl -t $out/lib/x64
+    install -D -m 0644 source/x64/*.o -t $out/lib/x64
+    install -D -m 0755 source/x64/*.so* -t $out/lib/x64
     install -D -m 0644 intel_expcpu.icd -t $out/etc/OpenCL/vendors
 
     runHook postInstall
