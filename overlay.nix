@@ -19,7 +19,7 @@ let
   ccWrapperForkTarball = builtins.fetchGit {
     url = "https://github.com/davidtwco/nixpkgs.git";
     ref = "cc-wrapper/alternate-compilers";
-    rev = "d3202d2f065685235af06f763496bda68a0a7062";
+    rev = "a5e11fa6bcd8ed15fa9abe41e07898894bf8d1a4";
   };
   ccWrapperFork = import ccWrapperForkTarball { };
 in {
