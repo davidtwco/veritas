@@ -9,7 +9,7 @@
   nix.maxJobs = lib.mkDefault 4;
 
   # Automatically update the system periodically.
-  system.autoUpgrade.enable = true;
+  system.autoUpgrade.enable = false;
 
   # Boot Loader {{{
   # ===========
