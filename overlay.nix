@@ -38,10 +38,12 @@ self: super:
   plexPass = super.unstable.plex.override { plexRaw = self.plexPassRaw; };
 
   # Fetch lorri from GitHub.
-  lorri = import (builtins.fetchGit {
-    url = "https://github.com/target/lorri.git";
-    ref = "rolling-release";
+  lorri = import (super.fetchFromGitHub {
+    owner = "target";
+    repo = "lorri";
+    # `rolling-release` branch.
     rev = "d3e452ebc2b24ab86aec18af44c8217b2e469b2a";
+    sha256 = "07yf3gl9sixh7acxayq4q8h7z4q8a66412z0r49sr69yxb7b4q89";
   }) { };
 
   # Fetch nixfmt from GitHub.
@@ -62,10 +64,12 @@ self: super:
   # Add a package for ComputeCpp.
   computecpp-unwrapped = super.callPackage ./packages/computecpp.nix { };
   computecpp = let
-    ccWrapperFork = import (builtins.fetchGit {
-      url = "https://github.com/davidtwco/nixpkgs.git";
-      ref = "cc-wrapper/alternate-compilers";
+    ccWrapperFork = import (super.fetchFromGitHub {
+      owner = "davidtwco";
+      repo = "nixpkgs";
+      # `cc-wrapper/alternate-compilers` branch.
       rev = "a5e11fa6bcd8ed15fa9abe41e07898894bf8d1a4";
+      sha256 = "1ppn821x81h5g148k4rmgvp1s8mzfakfrxypj8jiiaq0a8yrh2by";
     }) { };
   in ccWrapperFork.wrapCCWith {
     cc = self.computecpp-unwrapped;
