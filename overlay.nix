@@ -38,14 +38,11 @@ self: super:
   plexPass = super.unstable.plex.override { plexRaw = self.plexPassRaw; };
 
   # Fetch lorri from GitHub.
-  lorri = let
-    src = super.fetchFromGitHub {
-      owner = "target";
-      repo = "lorri";
-      rev = "094a903d19eb652a79ad6e7db6ad1ee9ad78d26c";
-      sha256 = "0y9y7r16ki74fn0xavjva129vwdhqi3djnqbqjwjkn045i4z78c8";
-    };
-  in super.callPackage src { inherit src; };
+  lorri = import (builtins.fetchGit {
+    url = "https://github.com/target/lorri.git";
+    ref = "rolling-release";
+    rev = "d3e452ebc2b24ab86aec18af44c8217b2e469b2a";
+  }) { };
 
   # Fetch nixfmt from GitHub.
   nixfmt = let
