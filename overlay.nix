@@ -15,14 +15,7 @@ self: super:
 # > override, or to access functions defined in Nixpkgs. For example, the original recipe of
 # > boost in the above example, comes from super, as well as the callPackage function.
 
-let
-  ccWrapperForkTarball = builtins.fetchGit {
-    url = "https://github.com/davidtwco/nixpkgs.git";
-    ref = "cc-wrapper/alternate-compilers";
-    rev = "a5e11fa6bcd8ed15fa9abe41e07898894bf8d1a4";
-  };
-  ccWrapperFork = import ccWrapperForkTarball { };
-in {
+{
   # Updated version of the Intel OpenCL Runtime that supports more recent versions of OpenCL.
   intel-openclrt = super.callPackage ./packages/intel-openclrt.nix { };
 
@@ -71,7 +64,13 @@ in {
 
   # Add a package for ComputeCpp.
   computecpp-unwrapped = super.callPackage ./packages/computecpp.nix { };
-  computecpp = ccWrapperFork.wrapCCWith {
+  computecpp = let
+    ccWrapperFork = import (builtins.fetchGit {
+      url = "https://github.com/davidtwco/nixpkgs.git";
+      ref = "cc-wrapper/alternate-compilers";
+      rev = "a5e11fa6bcd8ed15fa9abe41e07898894bf8d1a4";
+    }) { };
+  in ccWrapperFork.wrapCCWith {
     cc = self.computecpp-unwrapped;
     extraCCs = [ "compute" "compute++" ];
   };
