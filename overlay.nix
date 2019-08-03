@@ -56,6 +56,16 @@ self: super:
     };
   in super.callPackage src { installOnly = true; pkgs = self; };
 
+  # Fetch niv from GitHub.
+  niv = let
+    src = super.fetchFromGitHub {
+      owner = "nmattia";
+      repo = "niv";
+      rev = "8b7b70465c130d8d7a98fba1396ad1481daee518";
+      sha256 = "0fgdrxn2vzpnzr6pxaiyn5zzbd812c6f7xjjhfir0kpzamjnxwwl";
+    };
+  in (import src {}).niv;
+
   # Enable hybrid driver on `vaapiIntel`.
   vaapiIntel = super.vaapiIntel.override {
     enableHybridCodec = true;
