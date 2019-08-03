@@ -49,8 +49,8 @@ self: super:
     src = super.fetchFromGitHub {
       owner = "serokell";
       repo = "nixfmt";
-      rev = "dbed3c31c777899f0273cb6584486028cd0836d8";
-      sha256 = "0gsj5ywkncl8rahc8lcij7pw9v9214lk23wspirlva8hwyxl279q";
+      rev = "v0.2.1";
+      sha256 = "0njgjv6syv3sk97v8kq0cb4mhgrb7nag2shsj7rphs6h5b7k9nbx";
     };
   in super.callPackage src { installOnly = true; pkgs = self; };
 
