@@ -73,8 +73,10 @@ in
 
     environment.systemPackages = with pkgs; [
       # General utilities
-      nix-prefetch-scripts file which nix-index hyperfine tokei cron direnv moreutils wget bc
-      pkgconfig idutils lorri nixfmt keepassxc
+      file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc
+
+      # NixOS utilities
+      nix-prefetch-scripts nix-index lorri nixfmt nix-review
 
       # Archiving
       unzip zip unrar p7zip dtrx
