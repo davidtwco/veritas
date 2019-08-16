@@ -81,42 +81,7 @@ in
     environment.pathsToLink = [ "/share" ];
 
     environment.systemPackages = with pkgs; [
-      # General utilities
-      file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc
-
-      # NixOS utilities
-      nix-prefetch-scripts nix-index lorri nixfmt nix-review
-
-      # Archiving
-      unzip zip unrar p7zip dtrx
-
-      # Processes/debugging/monitoring
-      pstree htop iotop powertop ltrace strace binutils lshw linuxPackages.perf pciutils psmisc
-      pmutils dmidecode usbutils
-
-      # Networking
-      inetutils mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
-
-      # Disks
-      parted exfat dosfstools ncdu smartmontools
-
-      # Man pages
-      man man-pages posix_man_pages stdman
-
-      # Dotfiles
-      yadm antibody fasd pinentry_ncurses vim neovim tmux universal-ctags ripgrep exa neofetch
-
-      # Version Control
-      git git-lfs gitAndTools.hub patchutils
-
-      # GnuPG
-      haskellPackages.hopenpgp-tools gnupg
-
-      # Keybase
-      keybase kbfs
-
-      # Hardware
-      solaar ltunify steamcontroller yubikey-personalization yubikey-manager
+      kbfs solaar ltunify steamcontroller yubikey-personalization yubikey-manager
     ];
 
     programs = {

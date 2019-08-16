@@ -74,6 +74,13 @@
   ];
   # }}}
 
+  # Dotfiles {{{
+  # ========
+  # Set the email address that should be used by the dotfiles in configuration files
+  # (eg.  `.gitconfig`).
+  davidtwco.user.email = "david.wood@codeplay.com";
+  # }}}
+
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
