@@ -2,6 +2,11 @@
 
 let
   # Update these periodically (or when PRs land).
+  homeManager = builtins.fetchGit {
+    url = "https://github.com/rycee/home-manager.git";
+    ref = "release-19.03";
+    rev = "45a73067ac6b5d45e4b928c53ad203b80581b27d";
+  };
   unstableChannel = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
@@ -34,9 +39,11 @@ in
     # Allow unfree packages.
     nixpkgs.config.allowUnfree = true;
 
-    # Disable modules from 19.03 and use the versions from the unstable channel that match
-    # versions we are using.
     imports = [
+      # Enable home-manager.
+      "${homeManager}/nixos"
+      # Disable modules from 19.03 and use the versions from the unstable channel that match
+      # versions we are using.
       "${unstableChannel}/nixos/modules/services/torrent/deluge.nix"
       "${unstableChannel}/nixos/modules/services/misc/lidarr.nix"
       "${unstableChannel}/nixos/modules/services/misc/jackett.nix"
