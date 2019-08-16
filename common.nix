@@ -183,6 +183,12 @@ in
       ];
     };
     # }}}
+
+    # Users {{{
+    # ========
+    # Do not allow users to be added or modified except through Nix configuration.
+    users.mutableUsers = false;
+    # }}}
   }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2

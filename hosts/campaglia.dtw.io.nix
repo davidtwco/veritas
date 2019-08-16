@@ -71,8 +71,8 @@
     ../services/media.nix
     ../services/networking.nix
     ../services/ssh.nix
-    ../services/users.nix
     ../services/virtualization.nix
+    ../users/david
   ];
 }
 

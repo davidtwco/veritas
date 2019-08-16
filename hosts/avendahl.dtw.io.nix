@@ -95,8 +95,8 @@
     ../services/ssh.nix
     ../services/mail.nix
     ../services/networking.nix
-    ../services/users.nix
     ../services/virtualization.nix
+    ../users/david
   ];
 }
 

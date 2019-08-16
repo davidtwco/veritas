@@ -81,9 +81,9 @@
     ../services/dev.nix
     ../services/networking.nix
     ../services/ssh.nix
-    ../services/users.nix
     ../services/virtualization.nix
     ../services/xorg.nix
+    ../users/david
   ];
 }
 
