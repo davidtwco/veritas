@@ -7,7 +7,6 @@ let
     ref = "nixos-unstable";
     rev = "3d84cffe95527abf139bd157befab677ba04a421";
   };
-  unstable = import unstableChannel { config = config.nixpkgs.config; };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";
@@ -19,7 +18,9 @@ in
     nix.autoOptimiseStore = true;
     # `nixpkgs.overlays` is the canonical list of overlays used in the system. It will be used by
     # Nix tools due to the compatability overlay included in the $NIX_PATH below.
-    nixpkgs.overlays = [
+    nixpkgs.overlays = let
+      unstable = import unstableChannel { config = config.nixpkgs.config; };
+    in [
       # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
       (self: super: { inherit unstable; })
       # Define custom packages and overrides in `./overlay.nix`.
