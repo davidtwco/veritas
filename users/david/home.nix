@@ -7,6 +7,8 @@ args @ { email, name, ...  }:
   imports = [
     # Import shared configuration of overlays and nixpkgs.
     ../../config.nix
+    # Import other home configurations.
+    ./neovim
   ];
 
   # Packages {{{
@@ -35,7 +37,7 @@ args @ { email, name, ...  }:
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    yadm antibody fasd pinentry_ncurses vim neovim tmux universal-ctags ripgrep exa neofetch
+    yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
 
     # Version Control
     gitAndTools.hub patchutils
