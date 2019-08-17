@@ -50,6 +50,14 @@ args @ { email, name, ...  }:
   ];
   # }}}
 
+  # fzf {{{
+  # ===
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  # }}}
+
   # Git {{{
   # ===
   xdg.dataFile."git/template" = {
