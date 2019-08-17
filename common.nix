@@ -1,44 +1,26 @@
 { config, pkgs, options, ... }:
 
-let
-  # Update these periodically (or when PRs land).
-  homeManager = builtins.fetchGit {
-    url = "https://github.com/rycee/home-manager.git";
-    ref = "release-19.03";
-    rev = "45a73067ac6b5d45e4b928c53ad203b80581b27d";
-  };
-  unstableChannel = builtins.fetchGit {
-    url = "https://github.com/NixOS/nixpkgs-channels.git";
-    ref = "nixos-unstable";
-    rev = "3d84cffe95527abf139bd157befab677ba04a421";
-  };
-  mozillaOverlay = builtins.fetchGit {
-    url = "https://github.com/mozilla/nixpkgs-mozilla.git";
-    ref = "master";
-    rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
-  };
-in {
-  # Automatically optimise the Nix store.
-  nix.autoOptimiseStore = true;
-  # `nixpkgs.overlays` is the canonical list of overlays used in the system. It will be used by
-  # Nix tools due to the compatability overlay included in the $NIX_PATH below.
-  nixpkgs.overlays = let
-    unstable = import unstableChannel { config = config.nixpkgs.config; };
-  in [
-    # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
-    (self: super: { inherit unstable; })
-    # Define custom packages and overrides in `./overlay.nix`.
-    (import ./overlay.nix)
-    # Use Mozilla's overlay for `rustChannelOf` function.
-    (import mozillaOverlay)
-  ];
-  # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
-  # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
-  nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
+# This file contains common configuration shared amongst all hosts.
 
-  imports = [
+let
+  external = import ./external.nix;
+in {
+  nix = {
+    # Automatically optimise the Nix store.
+    autoOptimiseStore = true;
+    # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
+    # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
+    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
+    # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
+    sshServe = {
+      enable = true;
+      keys = config.users.users.david.openssh.authorizedKeys.keys;
+    };
+  };
+
+  imports = with external; [
+    # Import shared configuration of overlays and nixpkgs.
+    ./config.nix
     # Enable home-manager.
     "${homeManager}/nixos"
     # Disable modules from 19.03 and use the versions from the unstable channel that match
@@ -54,10 +36,6 @@ in {
     "services/misc/lidarr.nix"
     "services/misc/plex.nix"
   ];
-
-  # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
-  nix.sshServe.enable = true;
-  nix.sshServe.keys = config.users.extraUsers.david.openssh.authorizedKeys.keys;
 
   # Boot {{{
   # ====

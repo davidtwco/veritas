@@ -1,3 +1,6 @@
+# This file contains a Nix expression that can be provided as the `nixpkgs-overlays` in $NIX_PATH
+# and will return the same overlays as the NixOS configuration.
+
 # When a file is listed in $NIX_PATH, then the Nix expression is used as a list of overlays, so
 # we must return a list.
 let

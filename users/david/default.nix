@@ -16,14 +16,6 @@ in {
       default = "David Wood";
       description = "Name used in configuration files, such as `.gitconfig`.";
     };
-
-    nixpkgsConfig = mkOption {
-      default = config.nixpkgs.config;
-      description = ''
-       The configuration of the Nix Packages collection for home-manager. It allows you to set
-       package configuration options.
-      '';
-    };
   };
 
   config = {
@@ -45,11 +37,7 @@ in {
     };
 
     # Use home-manager to manage dotfiles.
-    home-manager.users.david = (import ./home.nix) {
-      email = cfg.email;
-      name = cfg.name;
-      nixpkgsConfig = config.nixpkgs.config;
-    };
+    home-manager.users.david = (import ./home.nix) { email = cfg.email; name = cfg.name; };
   };
 }
 

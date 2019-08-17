@@ -1,10 +1,13 @@
 # Home configuration takes arguments to allow different hosts to configure some aspects of
 # the configuration (ie. different git credentials for work machines, etc.).
-args @ { email, name, nixpkgsConfig, ...  }:
+args @ { email, name, ...  }:
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config = args.nixpkgsConfig;
+  imports = [
+    # Import shared configuration of overlays and nixpkgs.
+    ../../config.nix
+  ];
 
   # Packages {{{
   # ========
