@@ -21,6 +21,8 @@ in {
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
     ./config.nix
+    # Always create my user account and dotfiles.
+    ./users/david
     # Enable home-manager.
     "${homeManager}/nixos"
     # Disable modules from 19.03 and use the versions from the unstable channel that match

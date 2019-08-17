@@ -90,7 +90,6 @@
     ../services/ssh.nix
     ../services/virtualization.nix
     ../services/xorg.nix
-    ../users/david
   ];
 }
 

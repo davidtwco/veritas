@@ -96,7 +96,6 @@
     ../services/mail.nix
     ../services/networking.nix
     ../services/virtualization.nix
-    ../users/david
   ];
 }
 
