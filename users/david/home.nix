@@ -362,6 +362,15 @@ in {
   '';
   # }}}
 
+  # less {{{
+  # ====
+  # Allow scrolling left and right with `h` and `l` in `less`.
+  home.file.".lesskey".text = ''
+    h left-scroll
+    l right-scroll
+  '';
+  # }}}
+
   # XDG {{{
   # ===
   xdg.enable = true;
