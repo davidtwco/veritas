@@ -10,6 +10,7 @@ in {
     # Import shared configuration of overlays and nixpkgs.
     ../../shared
     # Import other home configurations.
+    ./alacritty.nix
     ./neovim
     ./zsh
     # Import modules from unstable home-manager.
