@@ -89,7 +89,7 @@ in {
           # Switch to absolute line numbers for buffers that aren't focused.
           vim-numbertoggle
           # Fuzzy file search.
-          fzf-vim
+          fzf fzf-vim
           # Statusline
           lightline
           # Show marks in sign column.

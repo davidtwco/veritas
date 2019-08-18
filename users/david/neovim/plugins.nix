@@ -37,6 +37,7 @@
       rev = "43a13dbbc9aae85338877329ed28c9e4d8488db1";
     };
   };
+  fzf = pkgs.vimPlugins.fzfWrapper;
   fzf-vim = pkgs.vimUtils.buildVimPlugin {
     name = "fzf.vim";
     src = builtins.fetchGit {
