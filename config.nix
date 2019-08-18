@@ -8,7 +8,7 @@ let
 in {
   # `nixpkgs.overlays` is the canonical list of overlays used in the system.
   nixpkgs.overlays = let
-    unstable = import external.unstableChannel { config = config.nixpkgs.config; };
+    unstable = import external.nixpkgsUnstable { config = config.nixpkgs.config; };
   in [
     # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
     (self: super: { inherit unstable; })

@@ -27,10 +27,10 @@ in {
     "${homeManager}/nixos"
     # Disable modules from 19.03 and use the versions from the unstable channel that match
     # versions we are using.
-    "${unstableChannel}/nixos/modules/services/torrent/deluge.nix"
-    "${unstableChannel}/nixos/modules/services/misc/lidarr.nix"
-    "${unstableChannel}/nixos/modules/services/misc/jackett.nix"
-    "${unstableChannel}/nixos/modules/services/misc/plex.nix"
+    "${nixpkgsUnstable}/nixos/modules/services/torrent/deluge.nix"
+    "${nixpkgsUnstable}/nixos/modules/services/misc/lidarr.nix"
+    "${nixpkgsUnstable}/nixos/modules/services/misc/jackett.nix"
+    "${nixpkgsUnstable}/nixos/modules/services/misc/plex.nix"
   ];
   disabledModules = [
     "services/torrent/deluge.nix"

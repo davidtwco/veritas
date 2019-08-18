@@ -7,7 +7,7 @@
     ref = "release-19.03";
     rev = "45a73067ac6b5d45e4b928c53ad203b80581b27d";
   };
-  unstableChannel = builtins.fetchGit {
+  nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
     rev = "3d84cffe95527abf139bd157befab677ba04a421";
