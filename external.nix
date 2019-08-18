@@ -7,6 +7,11 @@
     ref = "release-19.03";
     rev = "45a73067ac6b5d45e4b928c53ad203b80581b27d";
   };
+  homeManagerUnstable = builtins.fetchGit {
+    url = "https://github.com/rycee/home-manager.git";
+    ref = "master";
+    rev = "6932e6330e9cbe73629e9f15300bdd0d3b9cc418";
+  };
   nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
