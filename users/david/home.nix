@@ -371,6 +371,11 @@ in {
   '';
   # }}}
 
+  # Mail {{{
+  # ====
+  home.file.".forward".text = args.email;
+  # }}}
+
   # XDG {{{
   # ===
   xdg.enable = true;
