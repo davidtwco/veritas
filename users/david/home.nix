@@ -9,7 +9,30 @@ args @ { email, name, ...  }:
     ../../config.nix
     # Import other home configurations.
     ./neovim
+    ./zsh
   ];
+
+  home.keyboard.layout = "uk";
+  home.language.base = "en_GB.UTF-8";
+  home.sessionVariables = {
+    # Use NeoVim as editor.
+    "EDITOR" = "${pkgs.neovim}/bin/nvim";
+    # Use a 256-colour terminal.
+    "TERM" = "xterm-256color";
+    # Allow Vagrant to access Windows outside of WSL.
+    "VAGRANT_WSL_ENABLE_WINDOWS_ACCESS" = "1";
+    # Don't clear the screen when leaving man.
+    "MANPAGER" = "less -X";
+    # Enable persistent REPL history for node.
+    "NODE_REPL_HISTORY" = "${config.xdg.cacheHome}/node/history";
+    # Use sloppy mode by default, matching web browsers.
+    "NODE_REPL_MODE" = "sloppy";
+    # Configure fzf to use ripgrep.
+    "FZF_DEFAULT_COMMAND" =
+      "${pkgs.ripgrep}/bin/rg --files --hidden --follow -g \"!{.git}\" 2>/dev/null";
+    "FZF_CTRL_T_COMMAND" = config.home.sessionVariables."FZF_DEFAULT_COMMAND";
+    "FZF_DEFAULT_OPTS" = "";
+  };
 
   # Packages {{{
   # ========

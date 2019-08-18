@@ -57,7 +57,7 @@ in {
 
   # Packages {{{
   # ========
-  environment.pathsToLink = [ "/share" ];
+  environment.pathsToLink = [ "/share/zsh" "/share" ];
 
   environment.systemPackages = with pkgs; [
     kbfs solaar ltunify steamcontroller yubikey-personalization yubikey-manager
@@ -71,11 +71,6 @@ in {
       package = pkgs.wireshark;
     };
   };
-  # }}}
-
-  # Shell {{{
-  # ========
-  programs.zsh.enable = true;
   # }}}
 
   # Services {{{
