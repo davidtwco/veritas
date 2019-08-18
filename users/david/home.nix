@@ -72,7 +72,7 @@ in {
     yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
 
     # Version Control
-    gitAndTools.hub patchutils
+    gitAndTools.hub gitAndTools.git-imerge patchutils
 
     # GnuPG
     haskellPackages.hopenpgp-tools gnupg
