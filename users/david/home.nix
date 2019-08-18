@@ -107,6 +107,16 @@ in {
   };
   # }}}
 
+  # htop {{{
+  # ====
+  programs.htop = {
+    enable = true;
+    detailedCpuTime = true;
+    showThreadNames = true;
+    treeView = true;
+  };
+  # }}}
+
   # Git {{{
   # ===
   xdg.dataFile."git/template" = {
