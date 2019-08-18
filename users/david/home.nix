@@ -4,17 +4,20 @@ args @ { email, name, ...  }:
 { config, pkgs, ... }:
 
 let
-  external = import ../../external.nix;
+  external = import ../../shared/external.nix;
 in {
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
-    ../../config.nix
+    ../../shared
     # Import other home configurations.
     ./neovim
     ./zsh
     # Import modules from unstable home-manager.
     "${homeManagerUnstable}/modules/programs/gpg.nix"
   ];
+
+  # Apply same configuration outside of home-manager.
+  xdg.configFile."nixpkgs/config.nix".source = ../../shared/config.nix;
 
   home.keyboard.layout = "uk";
   home.language.base = "en_GB.UTF-8";

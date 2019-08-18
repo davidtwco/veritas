@@ -3,14 +3,14 @@
 # This file contains common configuration shared amongst all hosts.
 
 let
-  external = import ./external.nix;
+  external = import ./shared/external.nix;
 in {
   nix = {
     # Automatically optimise the Nix store.
     autoOptimiseStore = true;
     # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
     # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
-    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/compat.nix" ];
+    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/shared/compat.nix" ];
     # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
     sshServe = {
       enable = true;
@@ -20,7 +20,7 @@ in {
 
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
-    ./config.nix
+    ./shared
     # Always create my user account and dotfiles.
     ./users/david
     # Enable home-manager.

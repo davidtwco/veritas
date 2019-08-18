@@ -12,12 +12,11 @@ in {
   in [
     # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
     (self: super: { inherit unstable; })
-    # Define custom packages and overrides in `./overlay.nix`.
-    (import ./overlay.nix)
+    # Define custom packages and overrides in `../overlay.nix`.
+    (import ../overlay.nix)
     # Use Mozilla's overlay for `rustChannelOf` function.
     (import external.mozillaOverlay)
   ];
 
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = import ./config.nix;
 }
