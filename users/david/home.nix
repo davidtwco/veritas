@@ -12,6 +12,7 @@ in {
     # Import other home configurations.
     ./alacritty.nix
     ./neovim
+    ./tmux.nix
     ./zsh
     # Import modules from unstable home-manager.
     "${homeManagerUnstable}/modules/programs/gpg.nix"
