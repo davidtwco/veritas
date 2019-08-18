@@ -82,6 +82,14 @@ in {
   ];
   # }}}
 
+  # direnv {{{
+  # ======
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  # }}}
+
   # fzf {{{
   # ===
   programs.fzf = {
