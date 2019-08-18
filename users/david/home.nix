@@ -90,6 +90,15 @@ in {
   };
   # }}}
 
+  # eyaml {{{
+  # =====
+  home.file.".eyaml/config.yaml".text = ''
+    ---
+    pkcs7_private_key: './keys/eyaml/private_key.pkcs7.pem'
+    pkcs7_public_key: './keys/eyaml/public_key.pkcs7.pem'
+  '';
+  # }}}
+
   # fzf {{{
   # ===
   programs.fzf = {
