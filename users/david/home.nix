@@ -82,6 +82,12 @@ in {
   ];
   # }}}
 
+  # bash {{{
+  # ====
+  # bash isn't used, so just make sure there's a sane minimal configuration in place.
+  programs.bash.enable = true;
+  # }}}
+
   # direnv {{{
   # ======
   programs.direnv = {
