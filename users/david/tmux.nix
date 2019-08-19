@@ -99,5 +99,6 @@ in {
       { plugin = tmuxPlugins.yank; }
     ];
     sensibleOnTop = true;
+    terminal = "screen-256color";
   };
 }

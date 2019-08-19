@@ -169,6 +169,13 @@ in {
     shellAliases = {
       # Make `rm` prompt before removing more than three files or removing recursively.
       "rm" = "rm -i";
+      # Aliases that make commands colourful.
+      "ls" = "ls --color=auto";
+      "dir" = "dir --color=auto";
+      "vdir" = "vdir --color=auto";
+      "grep" = "grep --color=auto";
+      "fgrep" = "fgrep --color=auto";
+      "egrep" = "egrep --color=auto";
       # Common aliases for `ls`.
       "ll" = "ls -alF";
       "la" = "ls -A";
