@@ -21,9 +21,32 @@ in {
   # Apply same configuration outside of home-manager.
   xdg.configFile."nixpkgs/config.nix".source = ../../shared/config.nix;
 
+  # bash {{{
+  # ====
+  # bash isn't used, so just make sure there's a sane minimal configuration in place.
+  programs.bash.enable = true;
+  # }}}
+
+  # command-not-found {{{
+  # =================
+  programs.command-not-found.enable = true;
+  # }}}
+
+  # direnv {{{
+  # ======
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  # }}}
+
+  # Environment {{{
+  # ===========
   home.stateVersion = "19.03";
+
   home.keyboard.layout = "uk";
   home.language.base = "en_GB.UTF-8";
+
   home.sessionVariables = {
     # Use NeoVim as editor.
     "EDITOR" = "${pkgs.neovim}/bin/nvim";
@@ -42,66 +65,6 @@ in {
       "${pkgs.ripgrep}/bin/rg --files --hidden --follow -g \"!{.git}\" 2>/dev/null";
     "FZF_CTRL_T_COMMAND" = config.home.sessionVariables."FZF_DEFAULT_COMMAND";
     "FZF_DEFAULT_OPTS" = "";
-  };
-
-  # Packages {{{
-  # ========
-  home.packages = with pkgs; [
-    # General utilities
-    file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc
-
-    # NixOS utilities
-    nix-prefetch-scripts nix-index lorri nixfmt nix-review
-
-    # Archiving
-    unzip zip unrar p7zip dtrx
-
-    # Processes/debugging/monitoring
-    htop iotop powertop ltrace strace binutils lshw linuxPackages.perf pciutils psmisc
-    pmutils dmidecode usbutils
-
-    # Networking
-    inetutils mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
-
-    # Disks
-    parted exfat dosfstools ncdu smartmontools
-
-    # Man pages
-    man man-pages posix_man_pages stdman
-
-    # Dotfiles
-    yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
-
-    # Version Control
-    gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
-
-    # GnuPG
-    haskellPackages.hopenpgp-tools gnupg paperkey libdmtx dmtx-utils
-
-    # Keybase
-    keybase
-
-    # Development environment
-    tmate silver-searcher tmate gist python37Packages.pip python3Full
-  ];
-  # }}}
-
-  # bash {{{
-  # ====
-  # bash isn't used, so just make sure there's a sane minimal configuration in place.
-  programs.bash.enable = true;
-  # }}}
-
-  # command-not-found {{{
-  # =================
-  programs.command-not-found.enable = true;
-  # }}}
-
-  # direnv {{{
-  # ======
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
   };
   # }}}
 
@@ -454,6 +417,48 @@ in {
   # ========
   manual.manpages.enable = true;
   programs.man.enable = true;
+  # }}}
+
+  # Packages {{{
+  # ========
+  home.packages = with pkgs; [
+    # General utilities
+    file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc
+
+    # NixOS utilities
+    nix-prefetch-scripts nix-index lorri nixfmt nix-review
+
+    # Archiving
+    unzip zip unrar p7zip dtrx
+
+    # Processes/debugging/monitoring
+    htop iotop powertop ltrace strace binutils lshw linuxPackages.perf pciutils psmisc
+    pmutils dmidecode usbutils
+
+    # Networking
+    inetutils mosh bmon bind conntrack-tools tcpdump ethtool linuxPackages.bpftrace
+
+    # Disks
+    parted exfat dosfstools ncdu smartmontools
+
+    # Man pages
+    man man-pages posix_man_pages stdman
+
+    # Dotfiles
+    yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
+
+    # Version Control
+    gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
+
+    # GnuPG
+    haskellPackages.hopenpgp-tools gnupg paperkey libdmtx dmtx-utils
+
+    # Keybase
+    keybase
+
+    # Development environment
+    tmate silver-searcher tmate gist python37Packages.pip python3Full
+  ];
   # }}}
 
   # Qt {{{
