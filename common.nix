@@ -98,7 +98,6 @@ in {
 
     # Enable Keybase.
     keybase.enable = true;
-    kbfs.enable = true;
 
     udev.packages = with pkgs; [
       # Required for YubiKey devices to work.

@@ -397,6 +397,11 @@ in {
   '';
   # }}}
 
+  # Keybase {{{
+  # =======
+  services.kbfs.enable = true;
+  # }}}
+
   # less {{{
   # ====
   # Allow scrolling left and right with `h` and `l` in `less`.
