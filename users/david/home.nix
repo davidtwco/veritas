@@ -343,6 +343,24 @@ in {
   '';
   # }}}
 
+  # GTK {{{
+  # ===
+  gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      "gtk-application-prefer-dark-theme" = 1;
+    };
+    iconTheme = {
+      package = pkgs.paper-icon-theme;
+      name = "Paper";
+    };
+    theme = {
+      package = pkgs.arc-theme;
+      name = "Arc-Darker";
+    };
+  };
+  # }}}
+
   # info {{{
   # ====
   programs.info.enable = true;
@@ -436,6 +454,14 @@ in {
   # ========
   manual.manpages.enable = true;
   programs.man.enable = true;
+  # }}}
+
+  # Qt {{{
+  # ==
+  qt = {
+    enable = true;
+    platformTheme = "gtk";
+  };
   # }}}
 
   # XDG {{{
