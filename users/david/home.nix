@@ -128,6 +128,7 @@ in {
   xdg.dataFile."git/template" = {
     text = ''
 
+
       # Always `--signoff` commits.
       Signed-off-by: ${name} <${email}>
     '';
@@ -153,9 +154,6 @@ in {
       commit = {
         verbose = true;
         template = "${config.xdg.dataHome}/git/template";
-      };
-      core = {
-        editor = "${pkgs.neovim}/bin/nvim";
       };
       diff = {
         compactionHeuristic = true;
