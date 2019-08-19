@@ -2,9 +2,9 @@
 
 with lib;
 let
-  cfg = config.davidtwco.user;
+  cfg = config.david;
 in {
-  options.davidtwco.user = {
+  options.david = {
     email = mkOption {
       type = types.str;
       default = "david@davidtw.co";
@@ -15,6 +15,19 @@ in {
       type = types.str;
       default = "David Wood";
       description = "Name used in configuration files, such as `.gitconfig`.";
+    };
+
+    dotfiles = mkOption {
+      description = "Dotfiles-specific options.";
+      type = types.submodule {
+        options = {
+          headless = mkOption {
+            type = types.bool;
+            default = true;
+            description = "Is this a headless host without a desktop environment?";
+          };
+        };
+      };
     };
   };
 
@@ -39,7 +52,11 @@ in {
     };
 
     # Use home-manager to manage dotfiles.
-    home-manager.users.david = (import ./home.nix) { email = cfg.email; name = cfg.name; };
+    home-manager.users.david = (import ./home.nix) {
+      email = cfg.email;
+      name = cfg.name;
+      headless = cfg.dotfiles.headless;
+    };
   };
 }
 

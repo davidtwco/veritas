@@ -1,6 +1,6 @@
 # Home configuration takes arguments to allow different hosts to configure some aspects of
 # the configuration (ie. different git credentials for work machines, etc.).
-args @ { email, name, ...  }:
+args @ { email, name, headless, ...  }:
 { config, pkgs, ... }:
 
 let

@@ -78,7 +78,10 @@
   # ========
   # Set the email address that should be used by the dotfiles in configuration files
   # (eg.  `.gitconfig`).
-  davidtwco.user.email = "david.wood@codeplay.com";
+  david = {
+    email = "david.wood@codeplay.com";
+    dotfiles.headless = false;
+  };
   # }}}
 
   imports = [
