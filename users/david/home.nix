@@ -21,6 +21,7 @@ in {
   # Apply same configuration outside of home-manager.
   xdg.configFile."nixpkgs/config.nix".source = ../../shared/config.nix;
 
+  home.stateVersion = "19.03";
   home.keyboard.layout = "uk";
   home.language.base = "en_GB.UTF-8";
   home.sessionVariables = {
