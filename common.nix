@@ -82,7 +82,10 @@ in {
     cron.enable = true;
 
     # Enable user services.
-    dbus.socketActivated = true;
+    dbus = {
+      socketActivated = true;
+      packages = with pkgs; [ gnome3.dconf ];
+    };
 
     # Enable locate to find files quickly.
     locate.enable = true;
