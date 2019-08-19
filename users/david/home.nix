@@ -239,7 +239,7 @@ in {
   # Don't use `programs.gpg` or `services.gpg-agent` until we can find a way to make them work
   # with agent forwarding.
   home.file.".gnupg/gpg.conf".text = ''
-    default-key 9F53F154
+    default-key ${config.programs.git.signing.key}
 
     # Disable inclusion of the version string in ASCII armored output.
     no-emit-version

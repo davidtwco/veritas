@@ -197,7 +197,8 @@ in {
         "docker run --rm -it -v \"$PWD\":/home/rust/src ekidd/rust-musl-builder:stable";
       # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
       # to unlock the key, but the pinentry prompt mangles the terminal with that command.
-      "gpg-unlock-key" = "echo 'foo' | gpg -o /dev/null --local-user 9F53F154 -as -";
+      "gpg-unlock-key" =
+        "echo 'foo' | gpg -o /dev/null --local-user ${config.programs.git.signing.key} -as -";
       # Use this alias to make the GPG agent relearn what keys are connected and what keys they
       # have.
       "gpg-relearn-key" = "gpg-connect-agent 'scd serialno' 'learn --force' /bye";
