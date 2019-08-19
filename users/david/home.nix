@@ -1,6 +1,6 @@
 # Home configuration takes arguments to allow different hosts to configure some aspects of
 # the configuration (ie. different git credentials for work machines, etc.).
-args @ { email, name, headless, ...  }:
+{ email, name, headless, ...  }:
 { config, pkgs, ... }:
 
 let
@@ -223,8 +223,8 @@ in {
       key = "9F53F154";
       signByDefault = true;
     };
-    userEmail = args.email;
-    userName = args.name;
+    userEmail = email;
+    userName = name;
   };
   # }}}
 
@@ -413,7 +413,7 @@ in {
 
   # Mail {{{
   # ====
-  home.file.".forward".text = args.email;
+  home.file.".forward".text = email;
   # }}}
 
   # XDG {{{
