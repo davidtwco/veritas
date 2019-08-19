@@ -145,6 +145,17 @@ in {
             zsh-ccomp-install >| "${config.xdg.cacheHome}/fasd"
       fi
 
+      # Define `fasd_cd` command.
+      fasd_cd() {
+        if [ $# -le 1 ]; then
+          ${pkgs.fasd}/bin/fasd "$@"
+        else
+          local _fasd_ret="$(${pkgs.fasd}/bin/fasd -e echo "$@")"
+          [ -z "$_fasd_ret" ] && return
+          [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || echo "$_fasd_ret"
+        fi
+      }
+
       # If running in Neovim terminal mode then don't let us launch Neovim.
       if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
           alias nvim='echo "No nesting!"'
