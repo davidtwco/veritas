@@ -17,6 +17,7 @@ in {
   programs.tmux = {
     customPaneNavigationAndResize = true;
     enable = true;
+    escapeTime = 0;
     extraConfig = ''
       # Enable the mouse.
       set -g mouse on

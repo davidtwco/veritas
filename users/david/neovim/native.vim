@@ -1,5 +1,5 @@
 " Make pressing `esc` more responsive.
-set timeoutlen=250 ttimeoutlen=0
+set timeoutlen=0 ttimeoutlen=0
 " Show ruler.
 set ruler
 " Show incomplete commands.
