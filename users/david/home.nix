@@ -92,6 +92,11 @@ in {
   programs.bash.enable = true;
   # }}}
 
+  # command-not-found {{{
+  # =================
+  programs.command-not-found.enable = true;
+  # }}}
+
   # direnv {{{
   # ======
   programs.direnv = {
@@ -338,6 +343,11 @@ in {
   '';
   # }}}
 
+  # info {{{
+  # ====
+  programs.info.enable = true;
+  # }}}
+
   # inputrc {{{
   # =======
   home.file.".inputrc".text = ''
@@ -398,6 +408,11 @@ in {
   '';
   # }}}
 
+  # jq {{{
+  # ==
+  programs.jq.enable = true;
+  # }}}
+
   # Keybase {{{
   # =======
   services.kbfs.enable = true;
@@ -415,6 +430,12 @@ in {
   # Mail {{{
   # ====
   home.file.".forward".text = email;
+  # }}}
+
+  # manpages {{{
+  # ========
+  manual.manpages.enable = true;
+  programs.man.enable = true;
   # }}}
 
   # XDG {{{
