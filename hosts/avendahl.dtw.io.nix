@@ -91,7 +91,6 @@
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
-    ../services/dev.nix
     ../services/ssh.nix
     ../services/mail.nix
     ../services/networking.nix

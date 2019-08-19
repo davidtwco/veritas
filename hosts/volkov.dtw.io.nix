@@ -88,7 +88,6 @@
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
     ../services/audio.nix
-    ../services/dev.nix
     ../services/networking.nix
     ../services/ssh.nix
     ../services/virtualization.nix

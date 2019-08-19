@@ -72,13 +72,16 @@ in {
     yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
 
     # Version Control
-    gitAndTools.hub gitAndTools.git-imerge patchutils
+    gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
 
     # GnuPG
-    haskellPackages.hopenpgp-tools gnupg
+    haskellPackages.hopenpgp-tools gnupg paperkey libdmtx dmtx-utils
 
     # Keybase
     keybase
+
+    # Development environment
+    tmate silver-searcher tmate gist python37Packages.pip python3Full
   ];
   # }}}
 

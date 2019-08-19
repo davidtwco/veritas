@@ -60,12 +60,14 @@ in {
   environment.pathsToLink = [ "/share/zsh" "/share" ];
 
   environment.systemPackages = with pkgs; [
-    kbfs solaar ltunify steamcontroller yubikey-personalization yubikey-manager
+    solaar ltunify steamcontroller yubikey-personalization yubikey-manager
   ];
 
   programs = {
     adb.enable = true;
+    ccache.enable = true;
     bcc.enable = true;
+    nano.syntaxHighlight = true;
     wireshark = {
       enable = true;
       package = pkgs.wireshark;
