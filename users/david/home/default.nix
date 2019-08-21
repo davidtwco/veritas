@@ -1,6 +1,3 @@
-# Home configuration takes arguments to allow different hosts to configure some aspects of
-# the configuration (ie. different git credentials for work machines, etc.).
-{ email, name, headless, ...  }:
 { config, pkgs, ... }:
 
 let
@@ -105,7 +102,7 @@ in {
 
 
       # Always `--signoff` commits.
-      Signed-off-by: ${name} <${email}>
+      Signed-off-by: ${config.veritas.david.name} <${config.veritas.david.email}>
     '';
   };
 
@@ -198,8 +195,8 @@ in {
       key = "9F53F154";
       signByDefault = true;
     };
-    userEmail = email;
-    userName = name;
+    userEmail = config.veritas.david.email;
+    userName = config.veritas.david.name;
   };
   # }}}
 
@@ -283,7 +280,8 @@ in {
   '';
 
   home.file.".gnupg/gpg-agent.conf".text = let
-    pinentry = "${pkgs.pinentry}/bin/" + (if headless then "pinentry-tty" else "pinentry-gnome3");
+    pinentry = "${pkgs.pinentry}/bin/" +
+      (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
   in ''
     # Wait an hour before prompting again, always
     # prompt if it has been 2 hours, regardless most
@@ -416,7 +414,7 @@ in {
 
   # Mail {{{
   # ====
-  home.file.".forward".text = email;
+  home.file.".forward".text = config.veritas.david.email;
   # }}}
 
   # manpages {{{

@@ -3,3 +3,5 @@ secrets/
 
 # Root configuration, should be a symlink to the correct file in `hosts/`.
 /configuration.nix
+/home.nix
+/config.nix

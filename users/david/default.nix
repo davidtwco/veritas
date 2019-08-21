@@ -1,38 +1,24 @@
 { config, pkgs, lib, ... }:
 
-with lib;
+# This file contains a NixOS module for creating my user account and dotfiles.
+
 let
-  cfg = config.david;
+  module = import ./module.nix { inherit lib; };
+  cfg = config.veritas.david;
 in {
-  options.david = {
-    email = mkOption {
-      type = types.str;
-      default = "david@davidtw.co";
-      description = "Email used in configuration files, such as `.gitconfig`.";
-    };
-
-    name = mkOption {
-      type = types.str;
-      default = "David Wood";
-      description = "Name used in configuration files, such as `.gitconfig`.";
-    };
-
-    dotfiles = mkOption {
-      description = "Dotfiles-specific options.";
-      type = types.submodule {
-        options = {
-          headless = mkOption {
-            type = types.bool;
-            default = true;
-            description = "Is this a headless host without a desktop environment?";
-          };
-        };
-      };
-    };
-  };
+  options.veritas.david = module;
 
   config = {
-    # Manage user account.
+    home-manager.users.david = { config, pkgs, ... }: {
+      # Import the main configuration.
+      imports = [ ./home ];
+
+      # Add the `veritas.david` configuration options that are set in NixOS.
+      options.veritas.david = module;
+      config.veritas.david = cfg;
+    };
+
+    # Create user account.
     users.users.david = {
       description = cfg.name;
       extraGroups = [
@@ -49,13 +35,6 @@ in {
       # configured for the user and SSH will not allow logins!
       shell = pkgs.zsh;
       uid = 1000;
-    };
-
-    # Use home-manager to manage dotfiles.
-    home-manager.users.david = (import ./home) {
-      email = cfg.email;
-      name = cfg.name;
-      headless = cfg.dotfiles.headless;
     };
   };
 }
