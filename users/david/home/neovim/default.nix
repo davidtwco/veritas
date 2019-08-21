@@ -6,12 +6,7 @@ in {
   programs.neovim = {
     configure = {
       customRC = ''
-        ${builtins.readFile ./completion.vim}
         ${builtins.readFile ./functions.vim}
-        ${builtins.readFile ./mappings.vim}
-        ${builtins.readFile ./native.vim}
-        ${builtins.readFile ./statusline.vim}
-        ${builtins.readFile ./plugins.vim}
 
         " Enable clippy if available.
         let g:ale_rust_cargo_use_clippy = '${pkgs.latest.rustChannels.stable.rust}/bin/cargo-clippy'
@@ -52,6 +47,12 @@ in {
 
         " Save the `.lvimrc` persistence file in the cache folder.
         let g:localvimrc_persistence_file = '${config.xdg.cacheHome}/nvim/lvimrc_persistence'
+
+        ${builtins.readFile ./native.vim}
+        ${builtins.readFile ./plugins.vim}
+        ${builtins.readFile ./completion.vim}
+        ${builtins.readFile ./statusline.vim}
+        ${builtins.readFile ./mappings.vim}
       '';
       packages.plugins = with plugins; {
         start = [
@@ -144,6 +145,7 @@ in {
       };
     };
     enable = true;
+    package = pkgs.unstable.neovim-unwrapped;
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
