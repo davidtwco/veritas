@@ -4,11 +4,11 @@
 { config, pkgs, ... }:
 
 let
-  external = import ../../shared/external.nix;
+  external = import ../../../shared/external.nix;
 in {
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
-    ../../shared
+    ../../../shared
     # Import other home configurations.
     ./alacritty.nix
     ./neovim
@@ -19,7 +19,7 @@ in {
   ];
 
   # Apply same configuration outside of home-manager.
-  xdg.configFile."nixpkgs/config.nix".source = ../../shared/config.nix;
+  xdg.configFile."nixpkgs/config.nix".source = ../../../shared/config.nix;
 
   # bash {{{
   # ====
@@ -423,7 +423,7 @@ in {
   # ========
   home.packages = with pkgs; [
     # General utilities
-    file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc
+    file which hyperfine tokei cron direnv moreutils wget bc pkgconfig idutils keepassxc tree
 
     # NixOS utilities
     nix-prefetch-scripts nix-index lorri nixfmt nix-review

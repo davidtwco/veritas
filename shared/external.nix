@@ -2,6 +2,8 @@
 # version is used by NixOS, nix tools and home-manager.
 
 {
+  # Upstream {{{
+  # ========
   homeManager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
     ref = "release-19.03";
@@ -22,4 +24,7 @@
     ref = "master";
     rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
   };
+  # }}}
 }
+
+# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
