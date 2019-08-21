@@ -163,6 +163,24 @@ in {
 
       # Use CTRL + ' ' to accept current autosuggestion.
       bindkey '^ ' autosuggest-accept
+
+      # Enable yank, change, and delete whole line with 'Y', 'cc', and 'dd'.
+      bindkey -M vicmd 'Y' vi-yank-whole-line
+
+      # Enable undo/redo with `u`/`U`.
+      bindkey -M vicmd 'u' undo
+      bindkey -M vicmd 'U' redo
+
+      # Comment out the command with `gcc` (like vim-commentary).
+      bindkey -M vicmd 'gcc' vi-pound-insert
+
+      # Use editor to edit command line with `CTRL-V`.
+      autoload -U edit-command-line
+      zle -N edit-command-line
+      bindkey -M vicmd '^V' edit-command-line
+
+      # Disable Ex mode with ':'.
+      bindkey -rM vicmd ':'
     '';
     plugins = import ./plugins.nix;
     sessionVariables = {
