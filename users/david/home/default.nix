@@ -50,8 +50,9 @@ in {
   home.language.base = "en_GB.UTF-8";
 
   home.sessionVariables = {
-    # Use NeoVim as editor.
-    "EDITOR" = "${pkgs.neovim}/bin/nvim";
+    # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
+    # version.
+    "EDITOR" = "nvim";
     # Use a 256-colour terminal.
     "TERM" = "xterm-256color";
     # Allow Vagrant to access Windows outside of WSL.
@@ -128,6 +129,9 @@ in {
       commit = {
         verbose = true;
         template = "${config.xdg.dataHome}/git/template";
+      };
+      core = {
+        editor = config.home.sessionVariables."EDITOR";
       };
       diff = {
         compactionHeuristic = true;
