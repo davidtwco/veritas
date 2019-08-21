@@ -12,10 +12,12 @@ in {
     # Import other home configurations.
     ./alacritty.nix
     ./neovim
+    ./ssh.nix
     ./tmux.nix
     ./zsh
-    # Import modules from unstable home-manager.
+    # Import modules from unstable home-manager or forks.
     "${homeManagerUnstable}/modules/programs/gpg.nix"
+    "${homeManagerSshForwardsFork}/modules/programs/ssh.nix"
   ];
 
   # Apply same configuration outside of home-manager.

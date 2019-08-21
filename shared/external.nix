@@ -25,6 +25,15 @@
     rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
   };
   # }}}
+
+  # Forks {{{
+  # =====
+  homeManagerSshForwardsFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/home-manager.git";
+    ref = "internal/ssh/remote-dynamic-forwards";
+    rev = "94d668c03a6eb76fe84f17cc179a7179ed4c9422";
+  };
+  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
