@@ -9,6 +9,7 @@ in {
     # Import other home configurations.
     ./alacritty.nix
     ./neovim
+    ./scripts.nix
     ./ssh.nix
     ./tmux.nix
     ./zsh
@@ -455,7 +456,7 @@ in {
     gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
 
     # GnuPG
-    haskellPackages.hopenpgp-tools gnupg paperkey libdmtx dmtx-utils
+    haskellPackages.hopenpgp-tools gnupg
 
     # Keybase
     keybase
