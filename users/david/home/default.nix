@@ -451,7 +451,7 @@ in {
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    yadm antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
+    antibody fasd pinentry_ncurses tmux universal-ctags ripgrep exa neofetch
 
     # Version Control
     gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
