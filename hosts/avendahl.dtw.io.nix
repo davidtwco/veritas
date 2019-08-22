@@ -78,9 +78,9 @@
     ];
     reloadIfChanged = false;
     serviceConfig = {
-      "ExecStart" = "${config.users.extraUsers.david.home}/.local/bin/workman update";
+      "ExecStart" = "${pkgs.workman}/bin/workman update";
       "RemainAfterExit" = true;
-      "Type" = "oneshot";
+      "Type" = "simple";
       "WorkingDirectory" = "${config.users.extraUsers.david.home}/projects/rust";
       "User" = "david";
     };
