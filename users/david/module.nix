@@ -23,6 +23,12 @@ with lib;
       default = true;
       description = "Is this a headless host without a desktop environment?";
     };
+
+    isWsl = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Is this a WSL host?";
+    };
   };
 }
 

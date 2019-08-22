@@ -15,7 +15,7 @@ in {
     initExtra = ''
       ${builtins.readFile ./colours.zsh}
       ${builtins.readFile ./completions.zsh}
-
+    '' + (if config.veritas.david.dotfiles.isWsl then ''
       _run_npiperelay() {
           # This function will forward a named pipe from Windows to a socket in WSL. It expects
           # `npiperelay.exe` (from https://github.com/NZSmartie/npiperelay/releases) to exist at
@@ -36,75 +36,68 @@ in {
           fi
       }
 
-      _is_wsl() {
-          ${pkgs.gnugrep}/bin/grep -q Microsoft /proc/version
-      }
-
-      # Set up GnuPG/SSH agent.
-      if _is_wsl; then
-          if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-              # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
-              # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
-              # This will be the exact same locations that files are placed when running on
-              # Linux, so that remote forwarding works.
-              ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
-                "${config.home.homeDirectory}/.gnupg/socketdir"
-          fi
-
-          # When setting up GPG forwarding to WSL on Windows, get `npiperelay` (see comment in
-          # `_run_npiperelay`) and `gpg4win`. Add a shortcut that runs at startup that will
-          # launch the gpg-agent:
-          #
-          #   "C:\Program Files (x86)\GnuPG\bin\gpg-connect-agent.exe" /bye
-
-          # Relay the primary GnuPG socket to `~/.gnupg/S.gpg-agent` which will be used by the
-          # GPG agent.
-          _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg.pid" \
-              "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
-              "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
-
-          # Relay the extra GnuPG socket to `~/.gnupg/S.gpg-agent.extra` which will be forwarded
-          # to remote SSH hosts.
-          _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg-extra.pid" \
-              "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
-              "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
-
-          # When setting up SSH forwarding to WSL on Windows, get `wsl-ssh-pageant`
-          # (https://github.com/benpye/wsl-ssh-pageant) and place it in `C:\wsl-pageant`. Add a
-          # `wsl-pageant.vbs` script to the startup directory with the following contents:
-          #
-          # ```vbs
-          # Set objFile = WScript.CreateObject("Scripting.FileSystemObject")
-          # if objFile.FileExists("c:\wsl-pageant\S.gpg-agent.ssh") then
-          #     objFile.DeleteFile "c:\wsl-pageant\S.gpg-agent.ssh"
-          # end if
-          # Set objShell = WScript.CreateObject("WScript.Shell")
-          # objShell.Run( _
-          #   "C:\wsl-pageant\wsl-ssh-pageant-amd64.exe --wsl c:\wsl-pageant\S.gpg-agent.ssh"), _
-          #   0, True
-          # ```
-
-          # This file should exist because of `wsl-ssh-pageant`.
-          export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
-      else
-          if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-              # On Linux, symlink this to the directory where the sockets are placed by the GPG
-              # agent.
-              # This needs to exist for the remote forwarding.
-              ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
-                "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
-                "${config.home.homeDirectory}/.gnupg/socketdir"
-          fi
-
-          export GPG_TTY=$(tty)
-          export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
-          if [ -z $SSH_CONNECTION ] && [ -z $SSH_CLIENT ]; then
-              # Don't start the `gpg-agent` for remote connections. The sockets from the local
-              # host will be forwarded and picked up by the gpg client.
-              ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
-          fi
+      if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
+          # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
+          # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
+          # This will be the exact same locations that files are placed when running on
+          # Linux, so that remote forwarding works.
+          ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
+            "${config.home.homeDirectory}/.gnupg/socketdir"
       fi
 
+      # When setting up GPG forwarding to WSL on Windows, get `npiperelay` (see comment in
+      # `_run_npiperelay`) and `gpg4win`. Add a shortcut that runs at startup that will
+      # launch the gpg-agent:
+      #
+      #   "C:\Program Files (x86)\GnuPG\bin\gpg-connect-agent.exe" /bye
+
+      # Relay the primary GnuPG socket to `~/.gnupg/S.gpg-agent` which will be used by the
+      # GPG agent.
+      _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg.pid" \
+          "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
+          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
+
+      # Relay the extra GnuPG socket to `~/.gnupg/S.gpg-agent.extra` which will be forwarded
+      # to remote SSH hosts.
+      _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg-extra.pid" \
+          "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
+          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
+
+      # When setting up SSH forwarding to WSL on Windows, get `wsl-ssh-pageant`
+      # (https://github.com/benpye/wsl-ssh-pageant) and place it in `C:\wsl-pageant`. Add a
+      # `wsl-pageant.vbs` script to the startup directory with the following contents:
+      #
+      # ```vbs
+      # Set objFile = WScript.CreateObject("Scripting.FileSystemObject")
+      # if objFile.FileExists("c:\wsl-pageant\S.gpg-agent.ssh") then
+      #     objFile.DeleteFile "c:\wsl-pageant\S.gpg-agent.ssh"
+      # end if
+      # Set objShell = WScript.CreateObject("WScript.Shell")
+      # objShell.Run( _
+      #   "C:\wsl-pageant\wsl-ssh-pageant-amd64.exe --wsl c:\wsl-pageant\S.gpg-agent.ssh"), _
+      #   0, True
+      # ```
+
+      # This file should exist because of `wsl-ssh-pageant`.
+      export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
+    '' else ''
+      if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
+          # On Linux, symlink this to the directory where the sockets are placed by the GPG
+          # agent.
+          # This needs to exist for the remote forwarding.
+          ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
+            "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
+            "${config.home.homeDirectory}/.gnupg/socketdir"
+      fi
+
+      export GPG_TTY=$(tty)
+      export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
+      if [ -z $SSH_CONNECTION ] && [ -z $SSH_CLIENT ]; then
+          # Don't start the `gpg-agent` for remote connections. The sockets from the local
+          # host will be forwarded and picked up by the gpg client.
+          ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
+      fi
+    '') + ''
       # Bind keys for Surface and other strange keyboards.
       bindkey "^?" backward-delete-char
       bindkey "^W" backward-kill-word

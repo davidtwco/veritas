@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   external = import ../../../shared/external.nix;
+  cfg = config.veritas.david;
 in {
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
@@ -24,7 +25,14 @@ in {
   # bash {{{
   # ====
   # bash isn't used, so just make sure there's a sane minimal configuration in place.
-  programs.bash.enable = true;
+  programs.bash = {
+    enable = true;
+    # Can't set a shell on WSL 1 and can't set the shell to zsh from `.nix-profile` in WSL 2.
+    profileExtra = lib.mkIf cfg.dotfiles.isWsl ''
+      . "${config.home.profileDirectory}/etc/profile.d/nix.sh"
+      exec ${config.home.profileDirectory}/bin/zsh
+    '';
+  };
   # }}}
 
   # command-not-found {{{
@@ -103,7 +111,7 @@ in {
 
 
       # Always `--signoff` commits.
-      Signed-off-by: ${config.veritas.david.name} <${config.veritas.david.email}>
+      Signed-off-by: ${cfg.name} <${cfg.email}>
     '';
   };
 
@@ -196,8 +204,8 @@ in {
       key = "9F53F154";
       signByDefault = true;
     };
-    userEmail = config.veritas.david.email;
-    userName = config.veritas.david.name;
+    userEmail = cfg.email;
+    userName = cfg.name;
   };
   # }}}
 
@@ -282,7 +290,7 @@ in {
 
   home.file.".gnupg/gpg-agent.conf".text = let
     pinentry = "${pkgs.pinentry}/bin/" +
-      (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
+      (if cfg.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
   in ''
     # Wait an hour before prompting again, always
     # prompt if it has been 2 hours, regardless most
@@ -313,7 +321,7 @@ in {
 
   # GTK {{{
   # ===
-  gtk = {
+  gtk = lib.mkIf (!cfg.dotfiles.isWsl) {
     enable = true;
     gtk3.extraConfig = {
       "gtk-application-prefer-dark-theme" = 1;
@@ -415,7 +423,7 @@ in {
 
   # Mail {{{
   # ====
-  home.file.".forward".text = config.veritas.david.email;
+  home.file.".forward".text = cfg.email;
   # }}}
 
   # manpages {{{
@@ -468,7 +476,7 @@ in {
 
   # Qt {{{
   # ==
-  qt = {
+  qt = lib.mkIf (!cfg.dotfiles.isWsl) {
     enable = true;
     platformTheme = "gtk";
   };
@@ -503,6 +511,12 @@ in {
     "*color14" = "#8ABEB7";
     "*color15" = "#C5C8C6";
   };
+  # }}}
+
+  # WSL {{{
+  # ===
+  # Let home-manager manage itself when not using home-manager as a NixOS module.
+  programs.home-manager.enable = cfg.dotfiles.isWsl;
   # }}}
 }
 

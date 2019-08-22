@@ -54,7 +54,7 @@ On non-NixOS systems, Veritas can be used to manage the dotfiles of a system:
 ```
 
 5. Symlink that file to `~/.config/nixpkgs/home.nix`.
-6. Run `home-manager switch`.
+6. Run `nix-shell '<home-manager>' -A install` and `home-manager switch` thereafter.
 
 [nixos_install]: https://nixos.org/nix/manual/#chap-installation
 [home-manager_install]: https://github.com/rycee/home-manager#installation
