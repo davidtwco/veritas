@@ -85,6 +85,9 @@ self: super:
     cc = self.computecpp-unwrapped;
     extraCCs = [ "compute" "compute++" ];
   };
+
+  # Add a package for Workman.
+  workman = super.callPackage ./packages/workman.nix { };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2
