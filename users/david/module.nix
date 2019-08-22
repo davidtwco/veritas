@@ -17,16 +17,11 @@ with lib;
     description = "Name used in configuration files, such as `.gitconfig`.";
   };
 
-  dotfiles = mkOption {
-    description = "Dotfiles-specific options.";
-    type = types.submodule {
-      options = {
-        headless = mkOption {
-          type = types.bool;
-          default = true;
-          description = "Is this a headless host without a desktop environment?";
-        };
-      };
+  dotfiles = {
+    headless = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Is this a headless host without a desktop environment?";
     };
   };
 }
