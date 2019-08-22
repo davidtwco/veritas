@@ -7,7 +7,7 @@ let
     name = "tmux-statusline-ssh";
     dir = pkgs.writeScriptBin name ''
       #! ${pkgs.runtimeShell} -e
-      ${pkgs.tmux}/bin/tmux show-environment -g SSH_CONNECTION &>/dev/null
+      ${pkgs.unstable.tmux}/bin/tmux show-environment -g SSH_CONNECTION &>/dev/null
       if [ $? -eq 0 ]; then
         printf "`${pkgs.coreutils}/bin/whoami`@`${pkgs.inetutils}/bin/hostname`"
       fi
@@ -46,6 +46,9 @@ in {
       bind -r C-h select-window -t :-
       bind -r C-l select-window -t :+
 
+      # Change word separators to better match Vim.
+      set -g word-separators "<>(){}[]/'\";@*+,.-_=!£$%^&:#~?`¬|\\ "
+
       # Statusline
       set -g status-style fg=brightblack
       set -g status-justify left
@@ -66,10 +69,12 @@ in {
       setw -g window-status-current-format ' #W #{?pane_synchronized,#[fg=brightred]⬣ ,}#{?window_zoomed_flag,#[fg=brightblue]⬣ ,}'
     '';
     keyMode = "vi";
-    plugins = with pkgs; [
+    package = pkgs.unstable.tmux;
+    plugins = with pkgs.unstable; [
       {
         plugin = tmuxPlugins.mkDerivation {
-          pluginName = "better-mouse-mode";
+          # Script is named differently from the plugin.
+          pluginName = "scroll_copy_mode";
           src = builtins.fetchGit {
             url = "https://github.com/NHDaly/tmux-better-mouse-mode.git";
             ref = "master";
@@ -95,7 +100,7 @@ in {
           set -g @resurrect-capture-pane-contents 'on'
         '';
       }
-      { plugin = unstable.tmuxPlugins.vim-tmux-navigator; }
+      { plugin = tmuxPlugins.vim-tmux-navigator; }
       { plugin = tmuxPlugins.yank; }
     ];
     sensibleOnTop = true;
