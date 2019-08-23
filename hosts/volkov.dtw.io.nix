@@ -92,7 +92,6 @@
   imports = [
     ../common.nix
     ../services/audio.nix
-    ../services/networking.nix
     ../services/ssh.nix
     ../services/virtualization.nix
     ../services/xorg.nix

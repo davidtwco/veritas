@@ -16,7 +16,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod" ];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
+  ];
   boot.supportedFilesystems = [ "ntfs" ];
   # }}}
 
@@ -77,8 +79,6 @@
 
   imports = [
     ../common.nix
-    ../services/media.nix
-    ../services/networking.nix
     ../services/ssh.nix
     ../services/virtualization.nix
   ];

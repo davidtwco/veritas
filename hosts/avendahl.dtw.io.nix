@@ -97,7 +97,6 @@
     ../common.nix
     ../services/ssh.nix
     ../services/mail.nix
-    ../services/networking.nix
     ../services/virtualization.nix
   ];
 }

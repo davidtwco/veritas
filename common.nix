@@ -50,6 +50,30 @@ in {
   boot.cleanTmpDir = true;
   # }}}
 
+  # Firewall {{{
+  # ========
+  networking.firewall = {
+    allowPing = true;
+    enable = true;
+    pingLimit = "--limit 1/minute --limit-burst 5";
+    trustedInterfaces = [ "virbr0" "virbr0-nic" "lxdbr0" "docker0" ];
+  };
+  # }}}
+
+  # Hardware {{{
+  # ========
+  hardware.opengl = {
+    driSupport32Bit = true;
+    enable = true;
+    extraPackages = with pkgs; [
+      # OpenCL
+      intel-openclrt
+      # VDPAU (hardware acceleration)
+      vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver
+    ];
+  };
+  # }}}
+
   # i18n {{{
   # ====
   i18n = {
@@ -59,6 +83,53 @@ in {
   };
 
   time.timeZone = "Europe/London";
+  # }}}
+
+  # Networkd {{{
+  # ========
+  networking.useNetworkd = true;
+  systemd.network = {
+    enable = true;
+
+    networks = {
+      # Don't manage the interfaces created by Docker, libvirt or OpenVPN.
+      "10-docker".extraConfig = ''
+        [Match]
+        Name=docker*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "11-virbr".extraConfig = ''
+        [Match]
+        Name=virbr*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "12-openvpn-tunnels".extraConfig = ''
+        [Match]
+        Name=tun*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "13-lxdbr".extraConfig = ''
+        [Match]
+        Name=lxdbr*
+
+        [Link]
+        Unmanaged=yes
+      '';
+      "14-veth".extraConfig = ''
+        [Match]
+        Name=veth*
+
+        [Link]
+        Unmanaged=yes
+      '';
+    };
+  };
   # }}}
 
   # Packages {{{
@@ -117,20 +188,6 @@ in {
   security.sudo.extraConfig = ''
     Defaults insults
   '';
-  # }}}
-
-  # Hardware {{{
-  # ========
-  hardware.opengl = {
-    driSupport32Bit = true;
-    enable = true;
-    extraPackages = with pkgs; [
-      # OpenCL
-      intel-openclrt
-      # VDPAU (hardware acceleration)
-      vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver
-    ];
-  };
   # }}}
 
   # Users {{{
