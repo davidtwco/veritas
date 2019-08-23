@@ -24,6 +24,11 @@
     ref = "master";
     rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
   };
+  dwarffs = builtins.fetchGit {
+    url = "https://github.com/edolstra/dwarffs.git";
+    ref = "master";
+    rev = "531a2338101f0b6db2d9d512c3f98145f7b75397";
+  };
   # }}}
 
   # Forks {{{
