@@ -1,7 +1,8 @@
 { config, lib, ... }:
 
 # This file contains the definition for the `veritas.david` configuration options. These options
-# are used in customizing dotfiles for each machine.
+# are used in customizing dotfiles for each machine. Defaults cannot depend on any options that
+# are not defined in this file (those will only exist in NixOS).
 
 with lib;
 {
@@ -26,7 +27,7 @@ with lib;
   dotfiles = {
     headless = mkOption {
       type = types.bool;
-      default = !config.veritas.profiles.desktop-environment.enable;
+      default = true;
       description = "Is this a headless host without a desktop environment?";
     };
 

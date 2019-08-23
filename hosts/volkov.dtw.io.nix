@@ -88,9 +88,12 @@
       desktop-environment.enable = true;
       virtualisation.enable = true;
     };
-    # Set the email address that should be used by the dotfiles in configuration files
-    # (eg. `.gitconfig`).
-    david.email = "david.wood@codeplay.com";
+    david = {
+      # Set the email address that should be used by the dotfiles in configuration files
+      # (eg. `.gitconfig`).
+      email = "david.wood@codeplay.com";
+      dotfiles.headless = false;
+    };
   };
   # }}}
 }
