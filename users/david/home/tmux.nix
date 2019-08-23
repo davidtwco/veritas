@@ -103,6 +103,7 @@ in {
       { plugin = tmuxPlugins.vim-tmux-navigator; }
       { plugin = tmuxPlugins.yank; }
     ];
+    secureSocket = !config.veritas.david.dotfiles.isWsl;
     sensibleOnTop = true;
     terminal = "screen-256color";
   };

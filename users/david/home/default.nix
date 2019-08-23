@@ -53,9 +53,12 @@ in {
   home.stateVersion = "19.03";
 
   home.keyboard.layout = "uk";
-  home.language.base = "en_GB.UTF-8";
+  home.language.base = if cfg.dotfiles.isWsl then "C.utf8" else "en_GB.UTF-8";
 
   home.sessionVariables = {
+    # Set other language variables.
+    "LC_ALL" = config.home.language.base;
+    "LANGUAGE" = config.home.language.base;
     # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
     # version.
     "EDITOR" = "nvim";

@@ -51,4 +51,8 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 # Modify git completion for only local files and branches - much faster!
 __git_files () { _wanted files expl 'local files' _files  }
 
+# Configure message format for you-should-use.
+export YSU_MESSAGE_FORMAT="${BRIGHT_BLACK}Consider using the %alias_type\
+  \"${WHITE}%alias${BRIGHT_BLACK}\"${RESET}"
+
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

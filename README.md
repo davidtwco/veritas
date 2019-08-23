@@ -14,7 +14,8 @@ on top of the Nix package manager, it is completely declarative, makes upgrading
 and [has many other advantages](https://nixos.org/nixos/about.html).
 
 # Usage
-This project has been built to support both NixOS and non-NixOS systems.
+This project has been built to support both NixOS and non-NixOS systems. On either type of system,
+remember to import the GPG public key.
 
 ## NixOS
 On NixOS systems, install NixOS with a basic configuration and copy the resulting
@@ -58,6 +59,19 @@ On non-NixOS systems, Veritas can be used to manage the dotfiles of a system:
 
 [nixos_install]: https://nixos.org/nix/manual/#chap-installation
 [home-manager_install]: https://github.com/rycee/home-manager#installation
+
+### WSL 1
+On WSL 1, the following must be added to `~/.config/nix/nix.conf` for home-manager to work 
+correctly:
+
+```
+sandbox = false
+use-sqlite-wal = false
+```
+
+### WSL 2
+Currently, on WSL 2, the sockets forwarding from Windows used by the GPG and SSH agents don't
+work, so WSL 1 has to be used.
 
 # Structure
 The structure of this repository is described below:

@@ -176,7 +176,14 @@ in {
       bindkey -rM vicmd ':'
     '';
     plugins = import ./plugins.nix;
-    sessionVariables = {
+    sessionVariables = let
+      wslVariables = if config.veritas.david.dotfiles.isWsl then {
+        # Needed for `home-manager switch` to work.
+        "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
+      } else {
+        # There are no variables that only apply in non-WSL cases.
+      };
+    in {
       # Set a cache directory for zsh.
       "ZSH_CACHE_DIR" = "${config.xdg.cacheHome}/zsh";
       # 10ms for key sequences
@@ -184,10 +191,7 @@ in {
       # Configure autosuggestions.
       "ZSH_AUTOSUGGEST_USE_ASYNC" = "1";
       "ZSH_AUTOSUGGEST_ACCEPT_WIDGETS" = "()";
-      # Configure message format for you-should-use.
-      "YSU_MESSAGE_FORMAT" =
-        "\${BRIGHT_BLACK}Consider using the %alias_type \"\${WHITE}%alias\${BRIGHT_BLACK}\"\${RESET}";
-    };
+    } // wslVariables;
     shellAliases = {
       # Make `rm` prompt before removing more than three files or removing recursively.
       "rm" = "rm -i";
