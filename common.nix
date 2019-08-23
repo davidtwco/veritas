@@ -19,10 +19,14 @@ in {
   };
 
   imports = with external; [
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # Import shared configuration of overlays and nixpkgs.
     ./shared
     # Always create my user account and dotfiles.
     ./users/david
+    # Import custom modules and profiles.
+    ./modules
+    ./profiles
     # Enable home-manager.
     "${homeManager}/nixos"
     # Enable dwarffs.

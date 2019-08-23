@@ -70,8 +70,12 @@
   hardware.cpu.intel.updateMicrocode = true;
   # }}}
 
+  # Veritas {{{
+  # =======
+  veritas.profiles.media-server.enable = true;
+  # }}}
+
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
     ../services/media.nix
     ../services/networking.nix

@@ -90,7 +90,6 @@
   # }}}
 
   imports = [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
     ../services/audio.nix
     ../services/networking.nix
