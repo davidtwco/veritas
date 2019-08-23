@@ -461,7 +461,7 @@ in {
     man man-pages posix_man_pages stdman
 
     # Dotfiles
-    antibody fasd pinentry_ncurses universal-ctags ripgrep exa neofetch
+    fasd universal-ctags ripgrep exa neofetch
 
     # Version Control
     gitAndTools.hub gitAndTools.git-imerge patchutils mercurial bazaar subversion
@@ -473,7 +473,7 @@ in {
     keybase
 
     # Development environment
-    tmate silver-searcher tmate gist python37Packages.pip python3Full
+    tmate silver-searcher tmate gist python37Packages.pip python3Full workman
   ];
   # }}}
 
