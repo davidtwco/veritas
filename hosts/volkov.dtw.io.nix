@@ -84,6 +84,11 @@
   };
   # }}}
 
+  # Microcode {{{
+  # =========
+  hardware.cpu.intel.updateMicrocode = true;
+  # }}}
+
   imports = [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ../common.nix
