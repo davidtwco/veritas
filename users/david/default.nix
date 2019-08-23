@@ -3,7 +3,7 @@
 # This file contains a NixOS module for creating my user account and dotfiles.
 
 let
-  module = import ./module.nix { inherit lib; };
+  module = import ./module.nix { inherit config; inherit lib; };
   cfg = config.veritas.david;
 in {
   options.veritas.david = module;

@@ -10,15 +10,6 @@ in {
   options.veritas.profiles.media-server.enable = mkEnableOption "Enable media server configuration";
 
   config = mkIf cfg.enable {
-    users.groups.media.members = [ config.users.users.david.name ] ++ (with config.services; [
-      deluge.user sabnzbd.user sonarr.user radarr.user plex.user lidarr.user
-    ]);
-
-    services.sabnzbd = {
-      inherit group;
-      enable = true;
-    };
-
     services.deluge = {
       inherit group;
       enable = true;
@@ -36,18 +27,6 @@ in {
       package = pkgs.unstable.jackett;
     };
 
-    services.radarr = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-    };
-
-    services.sonarr = {
-      inherit group;
-      enable = true;
-      openFirewall = true;
-    };
-
     services.lidarr = {
       inherit group;
       enable = true;
@@ -59,6 +38,23 @@ in {
       enable = true;
       openFirewall = true;
       package = pkgs.plexPass;
+    };
+
+    services.sabnzbd = {
+      inherit group;
+      enable = true;
+    };
+
+    services.sonarr = {
+      inherit group;
+      enable = true;
+      openFirewall = true;
+    };
+
+    services.radarr = {
+      inherit group;
+      enable = true;
+      openFirewall = true;
     };
 
     veritas.services.per-user-vpn = {
@@ -75,6 +71,10 @@ in {
         users = [ config.services.jackett.user config.services.deluge.user ];
       };
     };
+
+    users.groups.media.members = [ config.users.users.david.name ] ++ (with config.services; [
+      deluge.user sabnzbd.user sonarr.user radarr.user plex.user lidarr.user
+    ]);
   };
 }
 

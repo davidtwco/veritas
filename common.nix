@@ -5,19 +5,6 @@
 let
   external = import ./shared/external.nix;
 in {
-  nix = {
-    # Automatically optimise the Nix store.
-    autoOptimiseStore = true;
-    # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
-    # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
-    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/shared/compat.nix" ];
-    # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
-    sshServe = {
-      enable = true;
-      keys = config.users.users.david.openssh.authorizedKeys.keys;
-    };
-  };
-
   imports = with external; [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # Import shared configuration of overlays and nixpkgs.
@@ -45,23 +32,23 @@ in {
     "services/misc/plex.nix"
   ];
 
-  # Boot {{{
-  # ====
+  # Clean temporary directory on boot.
   boot.cleanTmpDir = true;
-  # }}}
 
-  # Firewall {{{
-  # ========
-  networking.firewall = {
-    allowPing = true;
-    enable = true;
-    pingLimit = "--limit 1/minute --limit-burst 5";
-    trustedInterfaces = [ "virbr0" "virbr0-nic" "lxdbr0" "docker0" ];
+  environment = {
+    pathsToLink = [ "/share/zsh" "/share" ];
+    systemPackages = with pkgs; [
+      # Logitech Devices
+      solaar ltunify
+
+      # Steam Controller
+      steamcontroller
+
+      # YubiKey
+      yubikey-personalization yubikey-manager
+    ];
   };
-  # }}}
 
-  # Hardware {{{
-  # ========
   hardware.opengl = {
     driSupport32Bit = true;
     enable = true;
@@ -72,25 +59,54 @@ in {
       vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver
     ];
   };
-  # }}}
 
-  # i18n {{{
-  # ====
   i18n = {
     consoleFont = "Lat2-Terminus16";
     consoleKeyMap = "uk";
     defaultLocale = "en_GB.UTF-8";
   };
 
-  time.timeZone = "Europe/London";
-  # }}}
+  networking = {
+    firewall = {
+      allowPing = true;
+      enable = true;
+      pingLimit = "--limit 1/minute --limit-burst 5";
+      trustedInterfaces = [ "virbr0" "virbr0-nic" "lxdbr0" "docker0" ];
+    };
+    networkmanager.enable = false;
+    useNetworkd = true;
+  };
 
-  # Networkd {{{
-  # ========
-  networking.useNetworkd = true;
+  nix = {
+    # Automatically optimise the Nix store.
+    autoOptimiseStore = true;
+    # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
+    # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
+    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/shared/compat.nix" ];
+    # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
+    sshServe = {
+      enable = true;
+      keys = config.users.users.david.openssh.authorizedKeys.keys;
+    };
+  };
+
+  programs = {
+    adb.enable = true;
+    ccache.enable = true;
+    bcc.enable = true;
+    mosh = {
+      enable = true;
+      withUtempter = true;
+    };
+    nano.syntaxHighlight = true;
+    wireshark = {
+      enable = true;
+      package = pkgs.wireshark;
+    };
+  };
+
   systemd.network = {
     enable = true;
-
     networks = {
       # Don't manage the interfaces created by Docker, libvirt or OpenVPN.
       "10-docker".extraConfig = ''
@@ -130,49 +146,38 @@ in {
       '';
     };
   };
-  # }}}
 
-  # Packages {{{
-  # ========
-  environment.pathsToLink = [ "/share/zsh" "/share" ];
-
-  environment.systemPackages = with pkgs; [
-    solaar ltunify steamcontroller yubikey-personalization yubikey-manager
-  ];
-
-  programs = {
-    adb.enable = true;
-    ccache.enable = true;
-    bcc.enable = true;
-    nano.syntaxHighlight = true;
-    wireshark = {
-      enable = true;
-      package = pkgs.wireshark;
-    };
-  };
-  # }}}
-
-  # Services {{{
-  # ========
   services = {
     # Enable cron jobs.
     cron.enable = true;
-
     # Enable user services.
     dbus = {
       socketActivated = true;
       packages = with pkgs; [ gnome3.dconf ];
     };
-
     # Enable locate to find files quickly.
     locate.enable = true;
+    # Enable ssh server.
+    openssh = {
+      enable = true;
+      extraConfig = ''
+        # Required for GPG forwarding.
+        StreamLocalBindUnlink yes
 
+        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+        MACs hmac-sha2-512-etm@openssh.com
+        KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+        RekeyLimit 256M
+      '';
+      forwardX11 = true;
+      openFirewall = true;
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
     # Required to let smart card mode of YubiKey to work.
     pcscd.enable = true;
-
     # Enable CUPS for printing.
     printing.enable = true;
-
     # Enable Keybase.
     keybase.enable = true;
 
@@ -181,20 +186,16 @@ in {
       yubikey-personalization libu2f-host
     ];
   };
-  # }}}
 
-  # Sudo {{{
-  # ====
+  # Add insults to sudo.
   security.sudo.extraConfig = ''
     Defaults insults
   '';
-  # }}}
 
-  # Users {{{
-  # ========
+  time.timeZone = "Europe/London";
+
   # Do not allow users to be added or modified except through Nix configuration.
   users.mutableUsers = false;
-  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

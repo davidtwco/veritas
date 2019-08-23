@@ -8,8 +8,7 @@
   system.stateVersion = "19.03"; # Did you read the comment?
   nix.maxJobs = lib.mkDefault 4;
 
-  # Automatically update the system periodically.
-  system.autoUpgrade.enable = false;
+  imports = [ ../common.nix ];
 
   # Boot Loader {{{
   # ===========
@@ -20,23 +19,6 @@
     "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
   ];
   boot.supportedFilesystems = [ "ntfs" ];
-  # }}}
-
-  # Networking {{{
-  # ==========
-  networking.hostName = "dtw-campaglia";
-  networking.wireless.enable = false;
-  networking.useDHCP = true;
-
-  services.ddclient = {
-    enable = true;
-    use = "web, web=myip.dnsomatic.com";
-    domains = [ "campaglia" ];
-    protocol = "dyndns2";
-    server = "updates.dnsomatic.com";
-    username = "davidtwco";
-    password = builtins.readFile ../secrets/ddclient.password;
-  };
   # }}}
 
   # Filesystems {{{
@@ -57,6 +39,11 @@
     };
   # }}}
 
+  # Microcode {{{
+  # =========
+  hardware.cpu.intel.updateMicrocode = true;
+  # }}}
+
   # Monitoring {{{
   # ==========
   services.datadog-agent = {
@@ -67,21 +54,30 @@
   };
   # }}}
 
-  # Microcode {{{
-  # =========
-  hardware.cpu.intel.updateMicrocode = true;
+  # Networking {{{
+  # ==========
+  networking.hostName = "dtw-campaglia";
+  networking.wireless.enable = false;
+  networking.useDHCP = true;
+
+  services.ddclient = {
+    enable = true;
+    use = "web, web=myip.dnsomatic.com";
+    domains = [ "campaglia" ];
+    protocol = "dyndns2";
+    server = "updates.dnsomatic.com";
+    username = "davidtwco";
+    password = builtins.readFile ../secrets/ddclient.password;
+  };
   # }}}
 
   # Veritas {{{
   # =======
-  veritas.profiles.media-server.enable = true;
+  veritas.profiles = {
+    media-server.enable = true;
+    virtualisation.enable = true;
+  };
   # }}}
-
-  imports = [
-    ../common.nix
-    ../services/ssh.nix
-    ../services/virtualization.nix
-  ];
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

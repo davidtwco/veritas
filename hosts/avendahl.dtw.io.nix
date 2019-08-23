@@ -8,8 +8,7 @@
   system.stateVersion = "19.03"; # Did you read the comment?
   nix.maxJobs = lib.mkDefault 12;
 
-  # Automatically update the system periodically.
-  system.autoUpgrade.enable = true;
+  imports = [ ../common.nix ];
 
   # Boot Loader {{{
   # ===========
@@ -18,15 +17,6 @@
   boot.loader.grub.devices = ["/dev/nvme0n1" "/dev/nvme1n1"];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  # }}}
-
-  # Networking {{{
-  # ==========
-  networking = {
-    hostName = "dtw-avendahl";
-    useDHCP = true;
-    wireless.enable = false;
-  };
   # }}}
 
   # Filesystems {{{
@@ -52,8 +42,30 @@
   services.openssh.ports = [ 28028 ];
   # }}}
 
-  # Timers {{{
-  # ======
+  # Microcode {{{
+  # =========
+  hardware.cpu.intel.updateMicrocode = true;
+  # }}}
+
+  # Networking {{{
+  # ==========
+  networking = {
+    hostName = "dtw-avendahl";
+    useDHCP = true;
+    wireless.enable = false;
+  };
+  # }}}
+
+  # Veritas {{{
+  # =======
+  veritas.profiles = {
+    simple-mail-relay.enable = true;
+    virtualisation.enable = true;
+  };
+  # }}}
+
+  # Workman {{{
+  # =======
   systemd.services."workman-update-rust" = {
     description = "Update the working directories for Rust using workman";
     enable = true;
@@ -71,7 +83,9 @@
         identity = "${config.users.extraUsers.david.home}/.ssh/id_workman_rsa";
       in "${pkgs.openssh}/bin/ssh ${flags} -i ${identity}";
     };
-    onFailure = [ "systemd-unit-status-email@%n.service" ];
+    onFailure = lib.mkIf (config.veritas.profiles.simple-mail-relay.enable) [
+      "systemd-unit-status-email@%n.service"
+    ];
     path = with pkgs; [
       bash binutils binutils-unwrapped ccache clang cmake coreutils curl direnv gcc gdb git
       glibc gnugrep gnumake ncurses ninja nodejs openssh patchelf pythonFull rustup tmux
@@ -87,18 +101,6 @@
     startAt = "*-*-* 2:00:00";
   };
   # }}}
-
-  # Microcode {{{
-  # =========
-  hardware.cpu.intel.updateMicrocode = true;
-  # }}}
-
-  imports = [
-    ../common.nix
-    ../services/ssh.nix
-    ../services/mail.nix
-    ../services/virtualization.nix
-  ];
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

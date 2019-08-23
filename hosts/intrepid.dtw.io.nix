@@ -7,7 +7,7 @@
   imports = [ ../users/david/home ];
 
   # Add the `veritas.david` configuration options. These are also used from NixOS.
-  options.veritas.david = import ../users/david/module.nix { inherit lib; };
+  options.veritas.david = import ../users/david/module.nix { inherit config; inherit lib; };
   config.veritas.david.dotfiles.isWsl = true;
 }
 

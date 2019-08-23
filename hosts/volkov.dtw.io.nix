@@ -6,7 +6,9 @@
   # servers. You should change this only after NixOS release notes say you
   # should.
   system.stateVersion = "19.03"; # Did you read the comment?
-  nix.maxJobs = lib.mkDefault 16;
+  nix.maxJobs = lib.mkDefault 8;
+
+  imports = [ ../common.nix ];
 
   # Boot Loader {{{
   # ===========
@@ -14,13 +16,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  # }}}
-
-  # Networking {{{
-  # ==========
-  networking.hostName = "dtw-volkov";
-  networking.wireless.enable = false;
-  networking.useDHCP = true;
   # }}}
 
   # Filesystems {{{
@@ -65,6 +60,18 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   # }}}
 
+  # Microcode {{{
+  # =========
+  hardware.cpu.intel.updateMicrocode = true;
+  # }}}
+
+  # Networking {{{
+  # ==========
+  networking.hostName = "dtw-volkov";
+  networking.wireless.enable = false;
+  networking.useDHCP = true;
+  # }}}
+
   # Startup Applications {{{
   # ====================
   environment.systemPackages = [
@@ -74,28 +81,18 @@
   ];
   # }}}
 
-  # Dotfiles {{{
+  # Veritas {{{
   # ========
-  # Set the email address that should be used by the dotfiles in configuration files
-  # (eg. `.gitconfig`).
-  veritas.david = {
-    email = "david.wood@codeplay.com";
-    dotfiles.headless = false;
+  veritas = {
+    profiles = {
+      desktop-environment.enable = true;
+      virtualisation.enable = true;
+    };
+    # Set the email address that should be used by the dotfiles in configuration files
+    # (eg. `.gitconfig`).
+    david.email = "david.wood@codeplay.com";
   };
   # }}}
-
-  # Microcode {{{
-  # =========
-  hardware.cpu.intel.updateMicrocode = true;
-  # }}}
-
-  imports = [
-    ../common.nix
-    ../services/audio.nix
-    ../services/ssh.nix
-    ../services/virtualization.nix
-    ../services/xorg.nix
-  ];
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

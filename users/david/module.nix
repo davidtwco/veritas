@@ -1,13 +1,19 @@
-{ lib, ... }:
+{ config, lib, ... }:
 
 # This file contains the definition for the `veritas.david` configuration options. These options
 # are used in customizing dotfiles for each machine.
 
 with lib;
 {
+  domain = mkOption {
+    type = types.str;
+    default = "davidtw.co";
+    description = "Domain used in configuration files, such as `.gitconfig`.";
+  };
+
   email = mkOption {
     type = types.str;
-    default = "david@davidtw.co";
+    default = "david@${config.veritas.david.domain}";
     description = "Email used in configuration files, such as `.gitconfig`.";
   };
 
@@ -20,7 +26,7 @@ with lib;
   dotfiles = {
     headless = mkOption {
       type = types.bool;
-      default = true;
+      default = !config.veritas.profiles.desktop-environment.enable;
       description = "Is this a headless host without a desktop environment?";
     };
 

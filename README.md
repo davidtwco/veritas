@@ -61,7 +61,7 @@ On non-NixOS systems, Veritas can be used to manage the dotfiles of a system:
 [home-manager_install]: https://github.com/rycee/home-manager#installation
 
 ### WSL 1
-On WSL 1, the following must be added to `~/.config/nix/nix.conf` for home-manager to work 
+On WSL 1, the following must be added to `~/.config/nix/nix.conf` for home-manager to work
 correctly:
 
 ```
@@ -69,9 +69,11 @@ sandbox = false
 use-sqlite-wal = false
 ```
 
+Set `veritas.david.dotfiles.isWsl` to `true`.
+
 ### WSL 2
 Currently, on WSL 2, the sockets forwarding from Windows used by the GPG and SSH agents don't
-work, so WSL 1 has to be used.
+work, so WSL 1 has to be used. Set `veritas.david.dotfiles.isWsl` to `true`.
 
 # Structure
 The structure of this repository is described below:
@@ -81,7 +83,8 @@ Path                       | Description
 `/hosts`                   | top-level expressions specific to individual workstations or servers
 `/overlay.nix`             | package overrides used throughout the configuration
 `/packages`                | custom packages
-`/services`                | common configurations
+`/profiles`                | common configurations shared between hosts
+`/modules`                 | re-usable configuration modules
 `/shared/compat.nix`       | compatibility overlay to allow nix tools to use NixOS overlays
 `/shared/config.nix`       | `nixpkgs.config.*` configuration, shared between home-manager and NixOS
 `/shared/default.nix`      | `nixpkgs.*` configuration, shared between home-manager and NixOS
