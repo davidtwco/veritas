@@ -62,4 +62,13 @@
       rev = "581e75761c6bea46f2233dbc422d37566ce43f5e";
     };
   }
+  {
+    # Faster syntax highlighting.
+    name = "forgit";
+    src = builtins.fetchGit {
+      url = "https://github.com/wfxr/forgit.git";
+      ref = "master";
+      rev = "106c1f86d16ba7aa3878f67952c5a0ac9d80e5b0";
+    };
+  }
 ]
