@@ -1,7 +1,3 @@
-" Make pressing `esc` more responsive.
-set timeoutlen=250 ttimeoutlen=0
-" Show ruler.
-set ruler
 " Show incomplete commands.
 set showcmd
 " Highlight the current line.
@@ -18,8 +14,6 @@ set showmatch
 set mat=5
 " Shut up, Vim.
 set visualbell
-" Always show the status line.
-set laststatus=2
 " Use relative line numbers.
 set relativenumber
 " Don't display '-- INSERT --', handled by statusline.
@@ -31,27 +25,16 @@ set listchars=tab:▸\ ,eol:¬
 set undofile
 " Set defaults for when detection fails or in new files.
 set ts=4 sts=4 sw=4 et
-" Turn on wildmenu for file name tab completion.
+" Configure wildmenu for file name tab completion.
 set wildmode=longest,list,full
-set wildmenu
-" Automatically reload files if changed from outside.
-set autoread
 " Highlight matches.
 set hlsearch
-" Highlight matches as we type.
-set incsearch
 " Ignore case when searching.
 set ignorecase
 " Don't ignore case when different cases searched for.
 set smartcase
-" Keep a minimum of 5 line below the cursor.
-set scrolloff=5
-" Keep a minimum of 5 columns left of the cursor.
-set sidescrolloff=5
 " Sets the expected modeline format.
 set modeline modelines=1
-" Increase history.
-set history=1000
 " Enable the mouse.
 set mouse=a
 " Enable folding.
@@ -62,8 +45,6 @@ set foldlevelstart=10
 set foldnestmax=10
 " Fold based on indentation.
 set foldmethod=indent
-" We can delete backwards over anything.
-set backspace=indent,eol,start
 " Set the background to dark.
 set background=dark
 " Don't prompt when switching between open buffers w/ changes.
@@ -77,11 +58,6 @@ colorscheme hybrid
 let &colorcolumn="100,".join(range(140, 1000, 40), ",")
 " Set the colour of the colour column (used to highlight where lines should wrap).
 highlight ColorColumn ctermbg=8 guibg=lightgrey
-
-" Delete comment character when joining commented lines
-if v:version > 703 || v:version == 703 && has("patch541")
-  set formatoptions+=j
-endif
 
 if has("autocmd")
   augroup vimrc

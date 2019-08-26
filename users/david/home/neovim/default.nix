@@ -63,6 +63,8 @@ in {
       '';
       packages.plugins = with plugins; {
         start = [
+          # Sensible defaults for Vim.
+          vim-sensible
           # Polyglot adds a bunch of syntax handling for different languages and tools, check if
           # new languages are included before adding them manually.
           vim-polyglot

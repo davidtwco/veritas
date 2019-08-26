@@ -328,6 +328,14 @@
       rev = "c509c7eedeea641f5b0bdae708581ff610fbff5b";
     };
   };
+  vim-sensible = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-sensible";
+    src = builtins.fetchGit {
+      url = "https://github.com/tpope/vim-sensible.git";
+      ref = "master";
+      rev = "b9febff7aac028a851d2568d3dcef91d9b6971bc";
+    };
+  };
   vim-signature = pkgs.vimUtils.buildVimPlugin {
     name = "vim-signature";
     src = builtins.fetchGit {
