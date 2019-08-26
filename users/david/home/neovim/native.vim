@@ -11,20 +11,17 @@ set report=0
 " Show matching brackets.
 set showmatch
 " Matching bracket duration.
-set mat=5
+set matchtime=5
 " Shut up, Vim.
 set visualbell
 " Use relative line numbers.
 set relativenumber
 " Don't display '-- INSERT --', handled by statusline.
 set noshowmode
-" Display the tab characters and end of line characters.
-set list
-set listchars=tab:▸\ ,eol:¬
 " Enable keeping track of undo history.
 set undofile
 " Set defaults for when detection fails or in new files.
-set ts=4 sts=4 sw=4 et
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " Configure wildmenu for file name tab completion.
 set wildmode=longest,list,full
 " Highlight matches.
@@ -49,17 +46,46 @@ set foldmethod=indent
 set background=dark
 " Don't prompt when switching between open buffers w/ changes.
 set hidden
+" Don't add 2 spaces after end of sentence.
+set nojoinspaces
+" Format text (r - insert comment leader on 'o' and 'O'; q - allow formatting with 'gq').
+set formatoptions+=rq
+" Indicates a fast terminal connection.
+set ttyfast
+" Allow : in filenames.
+set isfname-=:.
+
+" Display the tab characters and end of line characters.
+set list
+" Non breaking space:
+" * Circled Reverse Solidus (U+29B8, utf-8: E2 A6 B8)
+set listchars=nbsp:⦸
+" Trailing space:
+" * Middle Dot (U+00B7, utf-8: C2 B7)
+set listchars+=trail:·
+" Tab stop:
+" * Black Right-Pointing Small Triangle (U+25B8, utf-8: E2 96 B8)
+set listchars+=tab:▸\ ,
+" End of line:
+" * Not Sign (U+00AC, utf-8: C2 AC)
+set listchars+=eol:¬
+" Line extended beyond screen when nowrap:
+" * Right-Pointing Double Angle Quotation Mark (U+00BB, utf-8: C2 BB)
+set listchars+=extends:»
+" Line preceded beyond screen when nowrap:
+" * Left-Pointing Double Angle Quotation Mark (U+00AB, utf-8: C2 AB)
+set listchars+=precedes:«
 
 " Enable syntax highlighting.
 syntax enable
 colorscheme hybrid
 
 " Colour 40 columns after column 80.
-let &colorcolumn="100,".join(range(140, 1000, 40), ",")
+let &colorcolumn='100,'.join(range(140, 1000, 40), ',')
 " Set the colour of the colour column (used to highlight where lines should wrap).
 highlight ColorColumn ctermbg=8 guibg=lightgrey
 
-if has("autocmd")
+if has('autocmd')
   augroup vimrc
     au!
     " Syntax of these languages is dependant on tabs/spaces.
@@ -96,6 +122,9 @@ if has("autocmd")
 
     " Do not keep track of undo history in temporary files.
     au BufWritePre /tmp/* setlocal noundofile
+
+    " Highlight conflict markers in any filetype.
+    au FileType * call matchadd('Todo', '^\(<<<<<<<\s.*\||||||||\|=======\|>>>>>>>\s.*\)$')
   augroup END
 endif
 

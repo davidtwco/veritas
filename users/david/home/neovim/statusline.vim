@@ -96,7 +96,7 @@ function! LightlineFilename()
 
   " Find the correct expansion depending on whether Vim has
   " autochdir.
-  let mod = (exists('+acd') && &acd) ? ':~' : ':~:.'
+  let mod = (exists('+acd') && &autochdir) ? ':~' : ':~:.'
 
   " Apply the above expansion to the expanded file path and split
   " by the separator.

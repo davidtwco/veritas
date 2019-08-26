@@ -9,10 +9,10 @@ endfunction
 function! TogglePaste()
   if(&paste == 1)
     set nopaste
-    echom "Switched to no paste."
+    echom 'Switched to no paste.'
   else
     set paste
-    echom "Switched to paste."
+    echom 'Switched to paste.'
   endif
 endfunc
 nmap <silent> <leader>p :call TogglePaste()<CR>
@@ -22,10 +22,10 @@ function! ToggleNumber()
   if(&relativenumber == 1)
     set norelativenumber
     set number
-    echom "Switched to absolute line numbers."
+    echom 'Switched to absolute line numbers.'
   else
     set relativenumber
-    echom "Switched to relative line numbers."
+    echom 'Switched to relative line numbers.'
   endif
 endfunc
 nmap <silent> <leader>tl :call ToggleNumber()<CR>
@@ -39,7 +39,7 @@ function! Redir(cmd)
     endif
   endfor
 
-  if a:cmd =~ '^!'
+  if a:cmd =~# '^!'
     " Handle commands starting with `!` by running commands on the system.
     execute "let output = system('" . substitute(a:cmd, '^!', '', '') . "')"
   else
@@ -60,14 +60,14 @@ endfunction
 command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
 
 function! EchoSwapMessage(message)
-  if has("autocmd")
+  if has('autocmd')
     augroup EchoSwapMessage
       autocmd!
       " Echo the message after entering a file, useful for when
       " we're entering a file (like on SwapExists) and our echo will be
       " eaten.
       autocmd BufWinEnter * echohl WarningMsg
-      exec 'autocmd BufWinEnter * echon "\r'.printf("%-60s", a:message).'"'
+      exec 'autocmd BufWinEnter * echon "\r'.printf('%-60s', a:message).'"'
       autocmd BufWinEnter * echohl NONE
 
       " Remove these auto commands so that they don't run on entering
@@ -83,10 +83,10 @@ function! HandleSwap(filename)
   " If the swap file is old, delete. If it is new, recover.
   if getftime(v:swapname) < getftime(a:filename)
     let v:swapchoice = 'e'
-    call EchoSwapMessage("Deleted older swapfile.")
+    call EchoSwapMessage('Deleted older swapfile.')
   else
     let v:swapchoice = 'r'
-    call EchoSwapMessage("Detected newer swapfile, recovering.")
+    call EchoSwapMessage('Detected newer swapfile, recovering.')
   endif
 endfunc
 

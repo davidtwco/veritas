@@ -39,7 +39,7 @@ cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 nnoremap <C-,> :SidewaysJumpLeft<CR>
 nnoremap <C-.> :SidewaysJumpRight<CR>
 
-if has("nvim") || has("terminal")
+if has('nvim') || has('terminal')
   " Bind ESC to exit terminal mode.
   tnoremap <Esc> <C-\><c-n>
   " Bind Ctrl + V and ESC to send ESC to terminal process.
