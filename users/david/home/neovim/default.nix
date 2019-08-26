@@ -8,22 +8,26 @@ in {
       customRC = ''
         ${builtins.readFile ./functions.vim}
 
-        " Enable clippy if available.
-        let g:ale_rust_cargo_use_clippy = '${pkgs.latest.rustChannels.stable.rust}/bin/cargo-clippy'
-
-        " Set ALE executable paths directly to the nix store.
-        let g:ale_c_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
-        let g:ale_cpp_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
-
+        " Hardcode paths into the nix store.
+        let g:ale_awk_gawk_executable = '${pkgs.gawk}/bin/gawk'
         let g:ale_c_clang_executable = '${pkgs.unstable.clang}/bin/clang'
-        let g:ale_cpp_clang_executable = '${pkgs.unstable.clang}/bin/clang++'
-
-        let g:ale_c_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
-        let g:ale_cpp_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
-
-        " ALE's C++ configuration shares the value of the C configuration for `clang-format`.
+        let g:ale_c_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
         let g:ale_c_clangformat_executable = '${pkgs.unstable.clang-tools}/bin/clang-format'
-
+        let g:ale_c_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
+        let g:ale_cpp_clang_executable = '${pkgs.unstable.clang}/bin/clang++'
+        let g:ale_cpp_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
+        let g:ale_cpp_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
+        let g:ale_cuda_clangformat_executable = '${pkgs.unstable.clang-tools}/bin/clang-format'
+        let g:ale_cuda_nvcc_executable = '${pkgs.cudatoolkit_10}/bin/nvcc'
+        let g:ale_json_jq_executable = '${pkgs.jq}/bin/jq'
+        let g:ale_llvm_llc_executable = '${pkgs.unstable.llvm}/bin/llc'
+        let g:ale_lua_luac_executable = '${pkgs.lua}/bin/luac'
+        let g:ale_python_flake8_executable = '${pkgs.pythonPackages.flake8}/bin/flake8'
+        let g:ale_ruby_rubocop_executable = '${pkgs.rubocop}/bin/rubocop'
+        let g:ale_rust_rls_executable = '${pkgs.latest.rustChannels.stable.rust}/bin/rls'
+        let g:ale_sh_shellcheck_executable = '${pkgs.shellcheck}/bin/shellcheck'
+        let g:ale_vim_vint_executable = '${pkgs.vim-vint}/bin/vint'
+        let g:gutentags_ctags_executable = '${pkgs.universal-ctags}/bin/ctags'
         let g:spirv_as_path = '${pkgs.unstable.spirv-tools}/bin/spirv-as'
         let g:spirv_dis_path = '${pkgs.unstable.spirv-tools}/bin/spirv-dis'
 

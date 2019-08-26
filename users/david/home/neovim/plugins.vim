@@ -3,6 +3,8 @@ let g:hybrid_custom_term_colors = 1
 
 " Don't automatically jump to first result or the search results.
 let g:FerretAutoJump = 0
+" Ferret should prefer rg.
+let g:FerretExecutable = 'rg'
 
 " Silences an error about this being unset.
 let g:gutentags_exclude_filetypes = []

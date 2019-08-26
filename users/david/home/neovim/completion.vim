@@ -12,12 +12,13 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Set linters and fixers.
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
+\   'awk': [ 'gawk' ],
 \   'c': [ 'clangd', 'clangtidy' ],
 \   'cpp': [ 'clangd', 'clangtidy' ],
-\   'cmake': [ 'cmakelint' ],
-\   'css': [ 'csslint' ],
+\   'cuda': [ 'nvcc' ],
 \   'llvm': [ 'llc' ],
 \   'lua': [ 'luac' ],
+\   'json': [ 'jq' ],
 \   'python': [ 'flake8' ],
 \   'ruby': [ 'rubocop' ],
 \   'rust': [ 'cargo', 'rls' ],
@@ -41,7 +42,7 @@ let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
 let g:ale_fixers = {
 \   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
 \   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'cmake': [ 'cmakeformat', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
@@ -52,6 +53,7 @@ let g:ale_fix_on_save = 1
 let g:ale_fix_on_save_ignore = {
 \   'cpp': [ 'clang-format' ],
 \   'cmake': [ 'cmakeformat' ],
+\   'cuda': [ 'clang-format' ],
 \   'rust': [ 'rustfmt' ],
 \ }
 
@@ -62,5 +64,8 @@ let g:ale_pattern_options = {
 
 " Show hover balloon when over a definition.
 let g:ale_set_balloons = 1
+
+" Use clippy instead of cargo.
+let g:ale_rust_cargo_use_clippy = 1
 
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
