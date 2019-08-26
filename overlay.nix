@@ -46,16 +46,6 @@ self: super:
     sha256 = "07yf3gl9sixh7acxayq4q8h7z4q8a66412z0r49sr69yxb7b4q89";
   }) { };
 
-  # Fetch nixfmt from GitHub.
-  nixfmt = let
-    src = super.fetchFromGitHub {
-      owner = "serokell";
-      repo = "nixfmt";
-      rev = "v0.2.1";
-      sha256 = "0njgjv6syv3sk97v8kq0cb4mhgrb7nag2shsj7rphs6h5b7k9nbx";
-    };
-  in super.callPackage src { installOnly = true; pkgs = self; };
-
   # Fetch niv from GitHub.
   niv = let
     src = super.fetchFromGitHub {
