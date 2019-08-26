@@ -71,4 +71,13 @@
       rev = "106c1f86d16ba7aa3878f67952c5a0ac9d80e5b0";
     };
   }
+  {
+    # Faster syntax highlighting.
+    name = "bd";
+    src = builtins.fetchGit {
+      url = "https://github.com/Tarrasch/zsh-bd.git";
+      ref = "master";
+      rev = "d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7";
+    };
+  }
 ]
