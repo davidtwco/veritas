@@ -27,11 +27,11 @@ in {
   # bash isn't used, so just make sure there's a sane minimal configuration in place.
   programs.bash = {
     enable = true;
-    # Can't set a shell on WSL 1 and can't set the shell to zsh from `.nix-profile` in WSL 2.
-    profileExtra = lib.mkIf cfg.dotfiles.isWsl ''
-      . "${config.home.profileDirectory}/etc/profile.d/nix.sh"
-      exec ${config.home.profileDirectory}/bin/zsh
-    '';
+    profileExtra = lib.mkIf (cfg.dotfiles.isNonNixOS) (
+      config.programs.zsh.profileExtra +
+      # Can't set a shell on WSL 1 and can't set the shell to zsh from `.nix-profile` in WSL 2.
+      (if cfg.dotfiles.isWsl then "exec ${config.home.profileDirectory}/bin/zsh" else "")
+    );
   };
   # }}}
 
@@ -53,7 +53,7 @@ in {
   home.stateVersion = "19.03";
 
   home.keyboard.layout = "uk";
-  home.language.base = if cfg.dotfiles.isWsl then "C.utf8" else "en_GB.UTF-8";
+  home.language.base = if cfg.dotfiles.isNonNixOS then "C.utf8" else "en_GB.UTF-8";
 
   home.sessionVariables = {
     # Set other language variables.
@@ -599,7 +599,7 @@ in {
   # WSL {{{
   # ===
   # Let home-manager manage itself when not using home-manager as a NixOS module.
-  programs.home-manager.enable = cfg.dotfiles.isWsl;
+  programs.home-manager.enable = cfg.dotfiles.isNonNixOS;
   # }}}
 }
 

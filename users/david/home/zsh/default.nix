@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
   plugins = pkgs.callPackage ./plugins.nix {};
@@ -12,6 +12,20 @@ in {
       save = 10000000;
       share = false;
     };
+    # On non-NixOS systems, need to manually source `nix.sh`.
+    #
+    # When the non-NixOS system is a WSL system, this goes through `.profile` because we can't
+    # change shell with `chsh`. When it is not a WSL system, we go directly to `.zprofile`. So that
+    # we don't duplicate this sourcing of `nix.sh`, we only set it in `.zprofile` and then pull it
+    # in using the `config.programs.zsh` variable in the `.profile` definition (appending the shell
+    # exec if WSL).
+    profileExtra = lib.mkIf (config.veritas.david.dotfiles.isNonNixOS) (''
+      if [ -f ${config.home.profileDirectory}/etc/profile.d/nix.sh ]; then
+        . "${config.home.profileDirectory}/etc/profile.d/nix.sh"
+      elif [ -f /etc/profile.d/nix.sh ]; then
+        . "/etc/profile.d/nix.sh"
+      fi
+    '');
     initExtra = ''
       ${builtins.readFile ./colours.zsh}
       ${builtins.readFile ./completions.zsh}
@@ -177,7 +191,7 @@ in {
     '';
     plugins = import ./plugins.nix;
     sessionVariables = let
-      wslVariables = if config.veritas.david.dotfiles.isWsl then {
+      wslVariables = if config.veritas.david.dotfiles.isNonNixOS then {
         # Needed for `home-manager switch` to work.
         "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
       } else {

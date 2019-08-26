@@ -36,6 +36,12 @@ with lib;
       default = false;
       description = "Is this a WSL host?";
     };
+
+    isNonNixOS = mkOption {
+      type = types.bool;
+      default = config.veritas.david.dotfiles.isWsl;
+      description = "Is this a non-NixOS host?";
+    };
   };
 }
 
