@@ -194,52 +194,56 @@ in {
     } // wslVariables;
     shellAliases = {
       # Make `rm` prompt before removing more than three files or removing recursively.
-      "rm" = "rm -i";
+      "rm" = "${pkgs.coreutils}/bin/rm -i";
       # Aliases that make commands colourful.
-      "ls" = "ls --color=auto";
-      "dir" = "dir --color=auto";
-      "vdir" = "vdir --color=auto";
-      "grep" = "grep --color=auto";
-      "fgrep" = "fgrep --color=auto";
-      "egrep" = "egrep --color=auto";
-      # Common aliases for `ls`.
-      "ll" = "ls -alF";
-      "la" = "ls -A";
-      "l" = "ls -CF";
+      "grep" = "${pkgs.gnugrep}/bin/grep --color=auto";
+      "fgrep" = "${pkgs.gnugrep}/bin/fgrep --color=auto";
+      "egrep" = "${pkgs.gnugrep}/bin/egrep --color=auto";
+      # Aliases for `cat` to `bat`.
+      "cat" = "${pkgs.bat}/bin/bat --paging=never -p configuration.nix";
+      # Aliases for `ls` to `exa`.
+      "ls" = "${pkgs.exa}/bin/exa";
+      "dir" = "${pkgs.exa}/bin/exa";
+      "ll" = "${pkgs.exa}/bin/exa -alF";
+      "vdir" = "${pkgs.exa}/bin/exa -l";
+      "la" = "${pkgs.exa}/bin/exa -a";
+      "l" = "${pkgs.exa}/bin/exa -F";
       # Various aliases for `fasd`.
-      "a" = "fasd -a";
-      "s" = "fasd -si";
-      "d" = "fasd -d";
-      "f" = "fasd -f";
-      "sd" = "fasd -sid";
-      "sf" = "fasd -sif";
+      "a" = "${pkgs.fasd}/bin/fasd -a";
+      "s" = "${pkgs.fasd}/bin/fasd -si";
+      "d" = "${pkgs.fasd}/bin/fasd -d";
+      "f" = "${pkgs.fasd}/bin/fasd -f";
+      "sd" = "${pkgs.fasd}/bin/fasd -sid";
+      "sf" = "${pkgs.fasd}/bin/fasd -sif";
       "z" = "fasd_cd -d";
       "zz" = "fasd_cd -d -i";
-      "v" = "fasd -f -e vim";
+      "v" = "${pkgs.fasd}/bin/fasd -f -e vim";
       # Extra Git subcommands for GitHub.
-      "git" = "hub";
+      "git" = "${pkgs.gitAndTools.hub}/bin/hub";
       # Build within a docker container with a rust and musl toolchain.
       "rust-musl-builder" =
-        "docker run --rm -it -v \"$PWD\":/home/rust/src ekidd/rust-musl-builder:stable";
+        "${pkgs.docker}/bin/docker run --rm -it -v \"$PWD\":/home/rust/src " +
+        "ekidd/rust-musl-builder:stable";
       # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
       # to unlock the key, but the pinentry prompt mangles the terminal with that command.
       "gpg-unlock-key" =
-        "echo 'foo' | gpg -o /dev/null --local-user ${config.programs.git.signing.key} -as -";
+        "echo 'foo' | ${pkgs.gnupg}/bin/gpg -o /dev/null --local-user " +
+        "${config.programs.git.signing.key} -as -";
       # Use this alias to make the GPG agent relearn what keys are connected and what keys they
       # have.
-      "gpg-relearn-key" = "gpg-connect-agent 'scd serialno' 'learn --force' /bye";
+      "gpg-relearn-key" = "${pkgs.gnupg}/bin/gpg-connect-agent 'scd serialno' 'learn --force' /bye";
       # > Set the startup TTY and X-DISPLAY variables to the values of this session. This command
       # > is useful to direct future pinentry invocations to another screen. It is only required
       # > because there is no way in the ssh-agent protocol to convey this information.
-      "gpg-update-ssh-agent" = "gpg-connect-agent updatestartuptty /bye";
+      "gpg-update-ssh-agent" = "${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye";
       # Use this alias to make sure everything is in working order. Need to unlock twice - if
       # `gpg-update-ssh-agent` called with an locked key then it will prompt for it to be unlocked
       # in a way that will mangle the terminal, therefore we need to unlock before this.
       "gpg-refresh" = "gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent";
       # Fairly self explanatory, prints the current external IP address.
-      "what-is-my-ip" = "dig +short myip.opendns.com @resolver1.opendns.com";
+      "what-is-my-ip" = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
       # `<command> | sprunge` will make a quick link to send.
-      "sprunge" = "curl -F 'sprunge=<-' http://sprunge.us";
+      "sprunge" = "${pkgs.curl}/bin/curl -F 'sprunge=<-' http://sprunge.us";
     };
   };
 }
