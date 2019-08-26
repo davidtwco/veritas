@@ -24,6 +24,9 @@ in {
         " ALE's C++ configuration shares the value of the C configuration for `clang-format`.
         let g:ale_c_clangformat_executable = '${pkgs.unstable.clang-tools}/bin/clang-format'
 
+        let g:spirv_as_path = '${pkgs.unstable.spirv-tools}/bin/spirv-as'
+        let g:spirv_dis_path = '${pkgs.unstable.spirv-tools}/bin/spirv-dis'
+
         " Change backup, swap and undo directory. If a path ends in '//' then the file name
         " is built from the entire path. No more issues between projects.
         call MaybeMkdir('${config.xdg.cacheHome}/nvim/swap/')
@@ -63,6 +66,7 @@ in {
           rust-vim
           # Other languages
           pgsql-vim vim-graphql vim-hocon vim-jinja vim-nix vim-pandoc vim-pandoc-syntax vim-puppet
+          vim-spirv
           # Generate ctags for projects.
           vim-gutentags
           # Auto-adds `end` where appropriate.

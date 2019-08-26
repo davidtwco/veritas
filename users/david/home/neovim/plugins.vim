@@ -51,4 +51,7 @@ let g:signify_realtime = 1
 let g:signify_cursorhold_normal = 0
 let g:signify_cursorhold_insert = 0
 
+" Enable automatic disassembly of binary SPIR-V.
+let g:spirv_enable_autoassemble = 1
+
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

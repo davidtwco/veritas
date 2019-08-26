@@ -369,6 +369,14 @@
       rev = "ce2f1aae9f2be128b4ca322a8e797be3ae40c30b";
     };
   };
+  vim-spirv = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-spirv";
+    src = builtins.fetchGit {
+      url = "https://github.com/kbenzie/vim-spirv.git";
+      ref = "master";
+      rev = "4ef79b3854b7dd336afa4cd4dbea84667535435d";
+    };
+  };
   vim-surround = pkgs.vimUtils.buildVimPlugin {
     name = "vim-surround";
     src = builtins.fetchGit {
