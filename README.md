@@ -44,7 +44,7 @@ On non-NixOS systems, Veritas can be used to manage the dotfiles of a system:
   imports = [ ../users/david/home ];
 
   # Add the `veritas.david` configuration options. These are also used from NixOS.
-  options.veritas.david = import ../users/david/module.nix { inherit lib; };
+  options.veritas.david = import ../users/david/options.nix { inherit config; inherit lib; };
   # Optionally, change configuration options specific to this deployment of Veritas.
   config.veritas.david = {
     dotfiles.headless = true;
@@ -90,7 +90,7 @@ Path                       | Description
 `/shared/default.nix`      | `nixpkgs.*` configuration, shared between home-manager and NixOS
 `/shared/external.nix`     | expression containing pinned commits of upstream repositories
 `/users/david/default.nix` | module that creates `david` user and instantiates home-manager config
-`/users/david/module.nix`  | `veritas.david` module options, shared between home-manager and NixOS
+`/users/david/options.nix` | `veritas.david` module options, shared between home-manager and NixOS
 `/users/david/home`        | home-manager configuration
 
 # Author

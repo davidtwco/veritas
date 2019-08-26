@@ -3,18 +3,17 @@
 # This file contains a NixOS module for creating my user account and dotfiles.
 
 let
-  module = import ./module.nix { inherit config; inherit lib; };
   cfg = config.veritas.david;
 in {
-  options.veritas.david = module;
+  options.veritas.david = import ./options.nix { inherit config; inherit lib; };
 
   config = {
-    home-manager.users.david = { config, pkgs, ... }: {
+    home-manager.users.david = { config, pkgs, lib, ... }: {
       # Import the main configuration.
       imports = [ ./home ];
 
       # Add the `veritas.david` configuration options that are set in NixOS.
-      options.veritas.david = module;
+      options.veritas.david = import ./options.nix { inherit config; inherit lib; };
       config.veritas.david = cfg;
     };
 
