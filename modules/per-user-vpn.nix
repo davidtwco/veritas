@@ -15,8 +15,7 @@ in {
 
     servers = mkOption {
       default = {};
-      description = ''
-      '';
+      description = "Options for each per-user-vpn configuration";
       type = attrsOf (submodule {
         options = {
           certificate = mkOption {
