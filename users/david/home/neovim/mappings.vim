@@ -57,6 +57,6 @@ nmap <leader>ap <plug>(ale_previous_wrap)
 
 " Set quicker mappings for ALE.
 nmap <C-n> <plug>(ale_next_wrap)
-nmap <C-@> <plug>(ale_previous_wrap)
+nmap <C-m> <plug>(ale_previous_wrap)
 
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
