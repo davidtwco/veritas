@@ -13,8 +13,8 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
 \   'awk': [ 'gawk' ],
-\   'c': [ 'clangd', 'clangtidy' ],
-\   'cpp': [ 'clangd', 'clangtidy' ],
+\   'c': [ 'clangtidy' ],
+\   'cpp': [ 'clangtidy' ],
 \   'cuda': [ 'nvcc' ],
 \   'llvm': [ 'llc' ],
 \   'lua': [ 'luac' ],
