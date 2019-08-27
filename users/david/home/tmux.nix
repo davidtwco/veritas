@@ -49,6 +49,9 @@ in {
       # Change word separators to better match Vim.
       set -g word-separators "<>(){}[]/'\";@*+,.-_=!£$%^&:#~?`¬|\\ "
 
+      # Update these variables from the environment when attaching to tmux.
+      set -g update-environment "SSH_AUTH_SOCK SSH_CONNECTION DISPLAY LANG LANGUAGE LC_ALL"
+
       # Statusline
       set -g status-style fg=brightblack
       set -g status-justify left

@@ -53,12 +53,15 @@ in {
   home.stateVersion = "19.03";
 
   home.keyboard.layout = "uk";
-  home.language.base = if cfg.dotfiles.isNonNixOS then "C.utf8" else "en_GB.UTF-8";
+  # Cannot guarantee that "en_GB.UTF-8" is available or that we'll be able to generate it on
+  # non-NixOS.
+  home.language.base = if cfg.dotfiles.isNonNixOS then "en_US.UTF-8" else "en_GB.UTF-8";
 
   home.sessionVariables = {
-    # Set other language variables.
-    "LC_ALL" = config.home.language.base;
+    # Set other language variables and use nixpkgs' locale archive which always has `en_GB.utf8`.
+    "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
     "LANGUAGE" = config.home.language.base;
+    "LC_ALL" = config.home.language.base;
     # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
     # version.
     "EDITOR" = "nvim";
