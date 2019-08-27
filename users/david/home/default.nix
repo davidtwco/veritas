@@ -570,6 +570,8 @@ in {
     gist
     # Personal project for managing working directories.
     workman
+    # A command-line tool to generate, analyze, convert and manipulate colors.
+    pastel
   ];
   # }}}
 
