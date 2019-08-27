@@ -19,6 +19,9 @@ in {
     "${homeManagerSshForwardsFork}/modules/programs/ssh.nix"
   ];
 
+  # Set the `stateVersion` for home-manager.
+  home.stateVersion = "19.03";
+
   # Apply same configuration outside of home-manager.
   xdg.configFile."nixpkgs/config.nix".source = ../../../shared/config.nix;
 
@@ -50,8 +53,6 @@ in {
 
   # Environment {{{
   # ===========
-  home.stateVersion = "19.03";
-
   home.keyboard.layout = "uk";
   # Cannot guarantee that "en_GB.UTF-8" is available or that we'll be able to generate it on
   # non-NixOS.
