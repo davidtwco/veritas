@@ -444,7 +444,9 @@ in {
 
   # manpages {{{
   # ========
+  # Install home-manager manpages.
   manual.manpages.enable = true;
+  # Install man output for any Nix packages.
   programs.man.enable = true;
   # }}}
 
