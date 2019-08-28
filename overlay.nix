@@ -28,11 +28,11 @@ self: super:
 
   # Install 'Plex Pass' version of Plex.
   plexPassRaw = super.unstable.plexRaw.overrideAttrs (old: rec {
-    version = "1.16.6.1559-a71394a45";
+    version = "1.16.6.1592-b9d49bdb7";
     name = "${old.pname}-${version}";
     src = super.fetchurl {
       url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
-      sha256 = "09cxsqc1r8axhj5z88s63hl5afm08pxzj5ywjyp1kmkbind18ryy";
+      sha256 = "12wff06nlvcssa6sf6vhxajfd1dnr9870xn9fac4q7gf0yayj27j";
     };
   });
   plexPass = super.unstable.plex.override { plexRaw = self.plexPassRaw; };
