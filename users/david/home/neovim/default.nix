@@ -31,6 +31,9 @@ in {
         let g:spirv_as_path = '${pkgs.unstable.spirv-tools}/bin/spirv-as'
         let g:spirv_dis_path = '${pkgs.unstable.spirv-tools}/bin/spirv-dis'
 
+        " Set gdb path.
+        let termdebugger = '${pkgs.gdb}/bin/gdb'
+
         " Change backup, swap and undo directory. If a path ends in '//' then the file name
         " is built from the entire path. No more issues between projects.
         call MaybeMkdir('${config.xdg.cacheHome}/nvim/swap/')
@@ -155,7 +158,7 @@ in {
       };
     };
     enable = true;
-    package = pkgs.unstable.neovim-unwrapped;
+    package = pkgs.neovim-nightly-unwrapped;
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;
