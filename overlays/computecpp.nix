@@ -8,17 +8,22 @@ self: super:
   computecpp = let
     ccWrapperFork = import (
       super.fetchFromGitHub {
-        owner = "davidtwco";
+        owner = "NixOS";
         repo = "nixpkgs";
-        # `cc-wrapper/alternate-compilers` branch.
-        rev = "a5e11fa6bcd8ed15fa9abe41e07898894bf8d1a4";
-        sha256 = "1ppn821x81h5g148k4rmgvp1s8mzfakfrxypj8jiiaq0a8yrh2by";
+        # `staging` branch, post nixpkgs#65813.
+        rev = "acfa5d83245ee5661c5540a2a90b4a97f35c3296";
+        sha256 = "13gy4zisnrg5y0zxp4yaac7c31dlsrqhnq8n06swgykm0nfgvy7b";
       }
     ) {};
   in
     ccWrapperFork.wrapCCWith {
       cc = self.computecpp-unwrapped;
-      extraCCs = [ "compute" "compute++" ];
+      extraBuildCommands = ''
+        wrap compute $wrapper $ccPath/compute
+        wrap compute++ $wrapper $ccPath/compute++
+        export named_cc=compute
+        export named_cxx=compute++
+      '';
     };
 }
 

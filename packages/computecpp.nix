@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   name = "computecpp-${version}";
-  version = "1.1.4";
+  version = "1.1.6";
 
   src = fetchzip {
     url = "https://computecpp.codeplay.com/downloads/computecpp-ce/${version}/ubuntu-16.04-64bit.tar.gz";
-    sha256 = "0zjslxs2q9g4m7dn4bnh5bg3gdmaffcv6fncmrkqc4sgvbnjz0vr";
+    sha256 = "0w3ibaiaa6hk43hbbb87y4lbgvlw3bjlj9vix9z947fjv4p15f0h";
     stripRoot = true;
   };
 
@@ -33,6 +33,7 @@ stdenv.mkDerivation rec {
     runHook preInstall
 
     find source/lib -type f -exec install -D -m 0755 {} -t $out/lib \;
+    find source/bin -type l -exec install -D -m 0755 {} -t $out/bin \;
     find source/bin -type f -exec install -D -m 0755 {} -t $out/bin \;
     find source/doc -type f -exec install -D -m 0644 {} -t $out/doc \;
     find source/include -type f -exec install -D -m 0644 {} -t $out/include \;
