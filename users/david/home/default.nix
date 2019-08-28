@@ -66,7 +66,8 @@ in {
     # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
     # version.
     "EDITOR" = "nvim";
-    # Use a 256-colour terminal.
+    # Enable true colour and use a 256-colour terminal.
+    "COLORTERM" = "truecolor";
     "TERM" = "xterm-256color";
     # Allow Vagrant to access Windows outside of WSL.
     "VAGRANT_WSL_ENABLE_WINDOWS_ACCESS" = "1";

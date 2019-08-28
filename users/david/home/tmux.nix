@@ -52,6 +52,9 @@ in {
       # Update these variables from the environment when attaching to tmux.
       set -g update-environment "SSH_AUTH_SOCK SSH_CONNECTION DISPLAY LANG LANGUAGE LC_ALL"
 
+      # Use 24-bit colour.
+      set -ga terminal-overrides ",xterm-256color:Tc"
+
       # Statusline
       set -g status-style fg=brightblack
       set -g status-justify left
@@ -108,7 +111,7 @@ in {
     ];
     secureSocket = !config.veritas.david.dotfiles.isWsl;
     sensibleOnTop = true;
-    terminal = "screen-256color";
+    terminal = "xterm-256color";
   };
 }
 

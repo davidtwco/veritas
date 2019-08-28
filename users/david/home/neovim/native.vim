@@ -54,6 +54,8 @@ set formatoptions+=rq
 set ttyfast
 " Allow : in filenames.
 set isfname-=:.
+" Use 24-bit colour.
+set termguicolors
 
 " Display the tab characters and end of line characters.
 set list
@@ -80,10 +82,13 @@ set listchars+=precedes:«
 syntax enable
 colorscheme hybrid
 
+" Set the background colour.
+hi Normal ctermbg=234 guibg=#1C1C1C
+
 " Colour 40 columns after column 80.
 let &colorcolumn='100,'.join(range(140, 1000, 40), ',')
 " Set the colour of the colour column (used to highlight where lines should wrap).
-highlight ColorColumn ctermbg=8 guibg=lightgrey
+hi ColorColumn ctermbg=8 guibg=#373B41
 
 if has('autocmd')
   augroup vimrc

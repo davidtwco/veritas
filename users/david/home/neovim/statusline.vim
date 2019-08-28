@@ -32,6 +32,24 @@ let s:c_bright_cyan = 14
 let s:bright_white = '#C5C8C6'
 let s:c_bright_white = 15
 
+" Set NeoVim terminal mode colour scheme.
+let g:terminal_color_0 = s:black
+let g:terminal_color_1 = s:red
+let g:terminal_color_2 = s:green
+let g:terminal_color_3 = s:yellow
+let g:terminal_color_4 = s:blue
+let g:terminal_color_5 = s:magenta
+let g:terminal_color_6 = s:cyan
+let g:terminal_color_7 = s:white
+let g:terminal_color_8 = s:bright_black
+let g:terminal_color_9 = s:bright_red
+let g:terminal_color_10 = s:bright_green
+let g:terminal_color_12 = s:bright_yellow
+let g:terminal_color_13 = s:bright_blue
+let g:terminal_color_14 = s:bright_magenta
+let g:terminal_color_15 = s:bright_cyan
+let g:terminal_color_16 = s:bright_white
+
 let s:bg = '#1C1C1C'
 let s:c_bg = 234
 let s:fg = s:bright_white
@@ -278,7 +296,7 @@ let g:lightline#colorscheme#davidtwco#palette = s:p
 " Set the colour of the statusline. While lightline handles the majority of this, it
 " won't colour the single character between two statuslines when there is a vertical
 " split, this will.
-highlight StatusLine cterm=NONE ctermbg=234 guibg=#1D1F21
-highlight StatusLineNC cterm=NONE ctermbg=234 guibg=#1D1F21
+highlight StatusLine cterm=NONE ctermbg=234 guifg=#1C1C1C guibg=#1C1C1C
+highlight StatusLineNC cterm=NONE ctermbg=234 guifg=#1C1C1C guibg=#1C1C1C
 
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
