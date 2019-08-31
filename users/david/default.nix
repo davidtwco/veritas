@@ -35,6 +35,10 @@ in {
       shell = pkgs.zsh;
       uid = 1000;
     };
+
+    system.activationScripts.loginctl-enable-linger-david = pkgs.lib.stringAfter [ "users" ] ''
+      ${pkgs.systemd}/bin/loginctl enable-linger ${config.users.users.david.name}
+    '';
   };
 }
 
