@@ -42,8 +42,8 @@ self: super:
     owner = "target";
     repo = "lorri";
     # `rolling-release` branch.
-    rev = "d3e452ebc2b24ab86aec18af44c8217b2e469b2a";
-    sha256 = "07yf3gl9sixh7acxayq4q8h7z4q8a66412z0r49sr69yxb7b4q89";
+    rev = "38eae3d487526ece9d1b8c9bb0d27fb45cf60816";
+    sha256 = "11k9lxg9cv6dlxj4haydvw4dhcfyszwvx7jx9p24jadqsy9jmbj4";
   }) { };
 
   # Fetch niv from GitHub.

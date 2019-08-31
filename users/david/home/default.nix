@@ -422,6 +422,37 @@ in {
   '';
   # }}}
 
+  # lorri {{{
+  # =====
+  systemd.user = lib.mkIf (!cfg.dotfiles.isWsl) {
+    services.lorri = {
+      "Unit" = {
+        "Description" = "Lorri build daemon";
+        "Documentation" = "https://github.com/target/lorri";
+        "ConditionUser" = "!@system";
+        "Requires" = "lorri.socket";
+        "After" = "lorri.socket";
+        "RefuseManualStart" = true;
+      };
+      "Service" = {
+        "ExecStart" = "${pkgs.lorri}/bin/lorri daemon";
+        "PrivateTmp" = true;
+        "ProtectSystem" = "strict";
+        "WorkingDirectory" = "%h";
+        "Restart" = "on-failure";
+        "Environment" = let
+          path = with pkgs; lib.makeSearchPath "bin" [ nix gnutar git mercurial ];
+        in lib.concatStringsSep " " [ "PATH=${path}" "RUST_BACKTRACE=1" ];
+      };
+    };
+    sockets.lorri = {
+      "Unit"."Description" = "Socket for lorri build daemon";
+      "Socket"."ListenStream" = "%t/lorri/daemon.socket";
+      "Install"."WantedBy" = [ "sockets.target" ];
+    };
+  };
+  # }}}
+
   # Mail {{{
   # ====
   home.file.".forward".text = cfg.email;
