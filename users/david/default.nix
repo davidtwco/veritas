@@ -8,6 +8,10 @@ in {
   options.veritas.david = import ./options.nix { inherit config; inherit lib; };
 
   config = {
+    # This option can be set automatically here for all NixOS hosts, it must be set manually
+    # for non-NixOS hosts.
+    veritas.david.hostName = config.networking.hostName;
+
     home-manager.users.david = { config, pkgs, lib, ... }: {
       # Import the main configuration.
       imports = [ ./home ];

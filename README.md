@@ -48,6 +48,7 @@ On non-NixOS systems, Veritas can be used to manage the dotfiles of a system:
   # Optionally, change configuration options specific to this deployment of Veritas.
   config.veritas.david = {
     dotfiles.headless = true;
+    hostName = "dtw-foo";
   };
 }
 

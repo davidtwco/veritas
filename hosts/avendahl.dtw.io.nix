@@ -58,47 +58,27 @@
 
   # Veritas {{{
   # =======
-  veritas.profiles = {
-    simple-mail-relay.enable = true;
-    virtualisation.enable = true;
-  };
-  # }}}
-
-  # Workman {{{
-  # =======
-  systemd.services."workman-update-rust" = {
-    description = "Update the working directories for Rust using workman";
-    enable = true;
-    environment = {
-      # Ensure these are consistent with the environment used during development so CMake
-      # doesn't need to reconfigure.
-      "AR" = "${pkgs.binutils-unwrapped}/bin/ar";
-      "CC" = "${pkgs.gcc}/bin/gcc";
-      "CXX" = "${pkgs.gcc}/bin/g++";
-      # If `SSH_AUTH_SOCK` isn't overriden then gpg-agent can interfere.
-      "SSH_AUTH_SOCK" = "";
-      # `GIT_SSH_COMMAND` needs to be set to a key w/out a passphrase.
-      "GIT_SSH_COMMAND" = let
-        flags = "-o StrictHostKeyChecking=no";
-        identity = "${config.users.extraUsers.david.home}/.ssh/id_workman_rsa";
-      in "${pkgs.openssh}/bin/ssh ${flags} -i ${identity}";
+  veritas = {
+    david = {
+      email.enable = true;
+      workman."rust" = {
+        directory = "${config.users.users.david.home}/projects/rust";
+        environment = {
+          # Ensure these are consistent with the environment used during development so CMake
+          # doesn't need to reconfigure.
+          "AR" = "${pkgs.binutils-unwrapped}/bin/ar";
+          "CC" = "${pkgs.gcc}/bin/gcc";
+          "CXX" = "${pkgs.gcc}/bin/g++";
+        };
+        path = with pkgs; [
+          bash binutils binutils-unwrapped ccache clang cmake coreutils curl direnv gcc gdb git
+          glibc glibc.bin gnugrep gnumake ncurses ninja nodejs openssh patchelf pythonFull rustup
+          tmux
+        ];
+        schedule = "*-*-* 2:00:00";
+      };
     };
-    onFailure = lib.mkIf (config.veritas.profiles.simple-mail-relay.enable) [
-      "systemd-unit-status-email@%n.service"
-    ];
-    path = with pkgs; [
-      bash binutils binutils-unwrapped ccache clang cmake coreutils curl direnv gcc gdb git
-      glibc gnugrep gnumake ncurses ninja nodejs openssh patchelf pythonFull rustup tmux
-    ];
-    reloadIfChanged = false;
-    serviceConfig = {
-      "ExecStart" = "${pkgs.workman}/bin/workman update";
-      "RemainAfterExit" = true;
-      "Type" = "simple";
-      "WorkingDirectory" = "${config.users.extraUsers.david.home}/projects/rust";
-      "User" = "david";
-    };
-    startAt = "*-*-* 2:00:00";
+    profiles.virtualisation.enable = true;
   };
   # }}}
 }

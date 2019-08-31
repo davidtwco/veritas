@@ -6,7 +6,6 @@
   imports = [
     ./desktop-environment.nix
     ./media-server.nix
-    ./simple-mail-relay.nix
     ./virtualisation.nix
   ];
 }
