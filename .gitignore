@@ -1,7 +1,7 @@
-# Secrets and Credentials
-secrets/
+# Secrets and credentials
+secrets/*
+!secrets/.gitkeep
 
 # Root configuration, should be a symlink to the correct file in `hosts/`.
 /configuration.nix
 /home.nix
-/config.nix

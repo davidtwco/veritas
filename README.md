@@ -85,6 +85,7 @@ Path                       | Description
 `/packages`                | custom packages
 `/profiles`                | common configurations shared between hosts
 `/modules`                 | re-usable configuration modules
+`/secrets`                 | directory containing passwords and keys for some services
 `/shared/compat.nix`       | compatibility overlay to allow nix tools to use NixOS overlays
 `/shared/config.nix`       | `nixpkgs.config.*` configuration, shared between home-manager and NixOS
 `/shared/default.nix`      | `nixpkgs.*` configuration, shared between home-manager and NixOS
