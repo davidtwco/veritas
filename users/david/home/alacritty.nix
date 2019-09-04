@@ -1,5 +1,7 @@
 { pkgs, ... }:
 
+# This file contains the configuration for Alacritty.
+
 {
   programs.alacritty = {
     enable = true;

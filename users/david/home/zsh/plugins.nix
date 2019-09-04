@@ -1,3 +1,5 @@
+# This file contains the plugin list for zsh.
+
 [
   {
     # Suggest using shorter aliases.

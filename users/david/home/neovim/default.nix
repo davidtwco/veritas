@@ -1,8 +1,14 @@
 { config, pkgs, ... }:
 
+# This file contains the configuration for NeoVim.
+
 let
   plugins = pkgs.callPackage ./plugins.nix {};
 in {
+  # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
+  # version.
+  home.sessionVariables."EDITOR" = "nvim";
+
   programs.neovim = {
     configure = {
       customRC = ''

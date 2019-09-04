@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 
+# This file contains the configuration for tmux.
+
 let
   # This script prints the username and hostname of a host if there is an
   # active SSH connection, otherwise, it prints nothing.

@@ -1,5 +1,7 @@
 { config, pkgs, lib, ... }:
 
+# This file contains the configuration for zsh.
+
 let
   plugins = pkgs.callPackage ./plugins.nix {};
 in {
@@ -198,10 +200,19 @@ in {
         # There are no variables that only apply in NixOS.
       };
     in {
-      # Set a cache directory for zsh.
-      "ZSH_CACHE_DIR" = "${config.xdg.cacheHome}/zsh";
+      # Enable true colour and use a 256-colour terminal.
+      "COLORTERM" = "truecolor";
+      "TERM" = "xterm-256color";
       # 10ms for key sequences
       "KEYTIMEOUT" = "1";
+      # Enable persistent REPL history for node.
+      "NODE_REPL_HISTORY" = "${config.xdg.cacheHome}/node/history";
+      # Use sloppy mode by default, matching web browsers.
+      "NODE_REPL_MODE" = "sloppy";
+      # Allow Vagrant to access Windows outside of WSL.
+      "VAGRANT_WSL_ENABLE_WINDOWS_ACCESS" = "1";
+      # Set a cache directory for zsh.
+      "ZSH_CACHE_DIR" = "${config.xdg.cacheHome}/zsh";
       # Configure autosuggestions.
       "ZSH_AUTOSUGGEST_USE_ASYNC" = "1";
       "ZSH_AUTOSUGGEST_ACCEPT_WIDGETS" = "()";
