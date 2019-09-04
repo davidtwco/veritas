@@ -6,7 +6,9 @@
 let
   external = import ./external.nix;
 in {
-  # `nixpkgs.overlays` is the canonical list of overlays used in the system.
+  # `nixpkgs.overlays` is the canonical list of overlays used in the system. Overlays that are
+  # merged into `nixpkgs.overlays` from other files (such as the qemu aarch64 module) won't be
+  # available in home-manager.
   nixpkgs.overlays = let
     unstable = import external.nixpkgsUnstable { config = config.nixpkgs.config; };
   in [

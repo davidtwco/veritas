@@ -18,6 +18,8 @@ in {
     "${homeManager}/nixos"
     # Enable dwarffs.
     "${dwarffs}/module.nix"
+    # Set up cross-compilation.
+    "${qemuAarch64}/qemu.nix"
     # Disable modules from 19.03 and use the versions from the unstable channel that match
     # versions we are using.
     "${nixpkgsUnstable}/nixos/modules/services/torrent/deluge.nix"

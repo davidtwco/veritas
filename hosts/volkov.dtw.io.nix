@@ -10,6 +10,12 @@
 
   imports = [ ../common.nix ];
 
+  # aarch64 {{{
+  # =======
+  # Enable qemu cross-compilation to aarch64.
+  qemu-user.aarch64 = true;
+  # }}}
+
   # Boot Loader {{{
   # ===========
   boot.loader.systemd-boot.enable = true;
