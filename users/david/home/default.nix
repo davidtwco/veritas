@@ -10,6 +10,7 @@ in {
     # Import other home configurations.
     ./alacritty.nix
     ./bash.nix
+    ./ccache.nix
     ./command-not-found.nix
     ./direnv.nix
     ./eyaml.nix
