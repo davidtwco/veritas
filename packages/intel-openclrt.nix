@@ -10,6 +10,9 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
+  dontStrip = true;
+  dontPatchELF = true;
+
   sourceRoot = ".";
 
   libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib numactl ncurses5 libxml2 zlib ];
