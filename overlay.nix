@@ -84,6 +84,16 @@ self: super:
     inherit (super.darwin.apple_sdk.frameworks) Security;
   };
 
+  # Add a package for diffr.
+  diffr = super.unstable.callPackage ./packages/diffr.nix {
+    inherit (super.darwin.apple_sdk.frameworks) Security;
+  };
+
+  # Add a package for mdcat.
+  mdcat = super.unstable.callPackage ./packages/mdcat.nix {
+    inherit (super.darwin.apple_sdk.frameworks) Security;
+  };
+
   neovim-nightly-unwrapped = let
     # Use a fork which fixes NixOS/nixpkgs#64400.
     nightlyNeovimFork = import (super.fetchFromGitHub {

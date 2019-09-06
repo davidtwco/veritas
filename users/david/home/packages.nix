@@ -124,6 +124,16 @@
     pastel
     # ClusterSSH with tmux.
     tmux-cssh
+    # Tool for indexing, slicing, analyzing, splitting and joining CSV files.
+    xsv
+    # Simple, fast and user-friendly alternative to find.
+    fd
+    # More intuitive du.
+    du-dust
+    # Yet another diff highlighting tool
+    diffr
+    # cat for markdown
+    mdcat
   ];
 }
 

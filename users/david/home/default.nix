@@ -33,6 +33,7 @@ in {
     ./qt.nix
     ./scripts.nix
     ./ssh.nix
+    ./starship.nix
     ./systemd.nix
     ./tmux.nix
     ./xdg.nix
