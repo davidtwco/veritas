@@ -15,6 +15,7 @@ in {
     ./direnv.nix
     ./eyaml.nix
     ./fzf.nix
+    ./gdb.nix
     ./git.nix
     ./gnupg.nix
     ./gtk.nix
