@@ -29,7 +29,7 @@ in {
             environment = defaultEnvironment // workmanConfig.environment;
           in concatStringsSep " " (mapAttrsToList (k: v: ''${k}="${v}"'') environment);
           "ExecStart" = "${pkgs.bash}/bin/bash -c '${pkgs.workman}/bin/workman update'";
-          "RemainAfterExit" = true;
+          "RemainAfterExit" = false;
           "Type" = "oneshot";
           "WorkingDirectory" = workmanConfig.directory;
         };
