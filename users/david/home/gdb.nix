@@ -15,6 +15,7 @@ let
   };
 in {
   home.file.".gdbinit".text = ''
+    # Add libstdc++ pretty printers.
     python
     import sys
     sys.path.insert(0, '${libStdCppPrettyPrinters}')
@@ -22,7 +23,12 @@ in {
     register_libstdcxx_printers (None)
     end
 
+    # Add LLVM pretty printers.
     source ${llvmPrettyPrinters}/llvm/utils/gdb-scripts/prettyprinters.py
+
+    # Don't ever step into the standard library or system packages.
+    skip -gfi /usr/**/*
+    skip -gfi /nix/store/**/*
   '';
 }
 
