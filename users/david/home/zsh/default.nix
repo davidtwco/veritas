@@ -269,6 +269,8 @@ in {
       "what-is-my-ip" = "${pkgs.dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
       # `<command> | sprunge` will make a quick link to send.
       "sprunge" = "${pkgs.curl}/bin/curl -F 'sprunge=<-' http://sprunge.us";
+      # Stop printing the version number on gdb startup.
+      "gdb" = "gdb -q";
     };
   };
 }
