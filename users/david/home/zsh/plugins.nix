@@ -20,15 +20,6 @@
     };
   }
   {
-    # Dependency of pure.
-    name = "async";
-    src = builtins.fetchGit {
-      url = "https://github.com/mafredri/zsh-async.git";
-      ref = "master";
-      rev = "95c2b1577f455728ec01cec001a86c216d0af2bd";
-    };
-  }
-  {
     # Additional completion definitions.
     name = "zsh-completions";
     src = builtins.fetchGit {
@@ -44,15 +35,6 @@
       url = "https://github.com/zsh-users/zsh-autosuggestions.git";
       ref = "master";
       rev = "43f3bc4010b2c697d2252fdd8b36a577ea125881";
-    };
-  }
-  {
-    # Pure prompt.
-    name = "pure";
-    src = builtins.fetchGit {
-      url = "https://github.com/sindresorhus/pure.git";
-      ref = "master";
-      rev = "42d3b83647e6bc9ce9767f6f805ee054fd9710cf";
     };
   }
   {

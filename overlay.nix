@@ -114,6 +114,19 @@ self: super:
       sha256 = "0va09his9j793ygm7qfhf0v20g2xlby2c74ixzcm7c2bnqm8r7qc";
     };
   });
+
+  # Update Starship to the latest version. If named `starship`, then Nix consumes
+  # all memory, which isn't fun.
+  starship-nightly = super.unstable.starship.overrideAttrs (old: rec {
+    version = "0.16.0";
+    name = "${old.pname}-${version}";
+    src = super.unstable.fetchFromGitHub {
+      owner = "starship";
+      repo = "starship";
+      rev = "v${version}";
+      sha256 = "02kfan07szci6z0f8v8qgx24rbx00ncy1ak682bwpb2zn7nb42ky";
+    };
+  });
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

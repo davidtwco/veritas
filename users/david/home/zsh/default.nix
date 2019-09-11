@@ -29,6 +29,7 @@ in {
       fi
     '');
     initExtra = ''
+      eval "$(${pkgs.starship-nightly}/bin/starship init zsh)"
       ${builtins.readFile ./colours.zsh}
       ${builtins.readFile ./completions.zsh}
     '' + (if config.veritas.david.dotfiles.isWsl then ''
