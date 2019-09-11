@@ -20,6 +20,7 @@
 
     [directory]
     style = "#5F819D"
+    truncation_length = 8
     truncate_to_repo = false
 
     [git_branch]
