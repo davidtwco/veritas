@@ -78,6 +78,9 @@ set listchars+=extends:»
 " * Left-Pointing Double Angle Quotation Mark (U+00AB, utf-8: C2 AB)
 set listchars+=precedes:«
 
+" Enable termdebug's floating hover support.
+let g:termdebug_useFloatingHover=1
+
 " Enable syntax highlighting.
 syntax enable
 colorscheme hybrid
