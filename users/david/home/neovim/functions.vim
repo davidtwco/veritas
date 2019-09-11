@@ -59,20 +59,20 @@ function! Redir(cmd)
 endfunction
 command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
 
-function! EchoSwapMessage(message)
+function! EchoAU(type, message)
   if has('autocmd')
-    augroup EchoSwapMessage
+    augroup EchoAU
       autocmd!
       " Echo the message after entering a file, useful for when
       " we're entering a file (like on SwapExists) and our echo will be
       " eaten.
-      autocmd BufWinEnter * echohl WarningMsg
+      autocmd BufWinEnter * echohl a:type
       exec 'autocmd BufWinEnter * echon "\r'.printf('%-60s', a:message).'"'
       autocmd BufWinEnter * echohl NONE
 
       " Remove these auto commands so that they don't run on entering
       " the next buffer.
-      autocmd BufWinEnter * augroup EchoSwapMessage
+      autocmd BufWinEnter * augroup EchoAU
       autocmd BufWinEnter * autocmd!
       autocmd BufWinEnter * augroup END
     augroup END
@@ -83,10 +83,10 @@ function! HandleSwap(filename)
   " If the swap file is old, delete. If it is new, recover.
   if getftime(v:swapname) < getftime(a:filename)
     let v:swapchoice = 'e'
-    call EchoSwapMessage('Deleted older swapfile.')
+    call EchoAU('WarningMsg', 'Deleted older swapfile.')
   else
     let v:swapchoice = 'r'
-    call EchoSwapMessage('Detected newer swapfile, recovering.')
+    call EchoAU('WarningMsg', 'Detected newer swapfile, recovering.')
   endif
 endfunc
 

@@ -64,6 +64,24 @@ in {
         " Save the `.lvimrc` persistence file in the cache folder.
         let g:localvimrc_persistence_file = '${config.xdg.cacheHome}/nvim/lvimrc_persistence'
 
+        if has('autocmd')
+          augroup llvm
+            function! DisassembleLLVM()
+              if getline(1) =~ 'BC\%xC0\%xDE'
+                " Keep track of whether this buffer was disassembled so that it can be reassembled.
+                let b:isLLVM = 1
+
+                setl binary
+                %!${pkgs.llvm_7}/bin/llvm-dis
+                setl ft=llvm nobinary ro
+                call EchoAU('None', 'Disassembled LLVM IR, viewing as read-only')
+              endif
+            endfunc
+
+            au BufRead,BufNewFile * call DisassembleLLVM()
+          augroup END
+        endif
+
         ${builtins.readFile ./native.vim}
         ${builtins.readFile ./plugins.vim}
         ${builtins.readFile ./completion.vim}
