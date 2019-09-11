@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}, withDotfiles ? false }:
+{ pkgs ? import <nixpkgs> {} }:
 
 # This file contains a development shell for working on LLVM/Clang.
 
@@ -32,15 +32,6 @@ let
   # Define a python package with pygments and PyYAML.
   python3WithExtraPackages =
     pkgs.python37Full.withPackages (pkgs: with pkgs; [ psutil pygments pyyaml ]);
-  # Define CMake flags that are environment-specific.
-  cmakeFlags = [
-    "-GNinja"
-    "-DCMAKE_EXPORT_COMPILE_COMMANDS=ON"
-    "-DLLVM_CCACHE_BUILD=ON"
-    "-DLLVM_PARALLEL_LINK_JOBS=2"
-    "-DOpenCL_LIBRARY=${pkgs.ocl-icd}/lib/libOpenCL.so.1"
-    "-DOpenCL_INCLUDE_DIR=${opencl-c-and-cpp-headers}/include"
-  ];
 # `buildFHSUserEnv` is used instead of `mkShell` so that the headers expected by an unwrapped
 # clang can be found in the correct place.
 in (pkgs.buildFHSUserEnv {
@@ -62,7 +53,7 @@ in (pkgs.buildFHSUserEnv {
     binutils
 
     # Git - useful if committing from the FHS environment and is looked for by CMake.
-    git
+    git openssh
     # Python - required by LLVM's CMake.
     python3WithExtraPackages
     # libxml2 - looked for by CMake.
@@ -89,22 +80,23 @@ in (pkgs.buildFHSUserEnv {
 
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
     spirv-tools
-  ] ++ (if withDotfiles then [ zsh ] else [ ]));
+  ]);
   # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
   multiPkgs = pkgs: (with pkgs; []);
   # `profile` can be used to set environment variables.
   profile = ''
+    # Use icd files from the chroot.
+    export OCL_ICD_VENDORS=/etc/OpenCL/vendors
+
+    # Declare variables to OCL library and headers.
+    export OCL_LIBRARY=${pkgs.ocl-icd}/lib/libOpenCL.so.1
+    export OCL_INCLUDE_DIR=${opencl-c-and-cpp-headers}/include
+
     # Unset any language variables that are set by the parent environment.
     export LC_ALL=
     export LANGUAGE=
     export LANG=
-
-    # Use icd files from the chroot.
-    export OCL_ICD_VENDORS=/etc/OpenCL/vendors
-
-    # Define helper variable containing CMake flags that pertain to the environment.
-    export ENV_CMAKE_FLAGS="${builtins.concatStringsSep " " cmakeFlags}"
-  '' + (if withDotfiles then "export PATH=$PATH:$HOME/.nix-profile/bin" else "");
+  '';
   # `runScript` determine the command that runs when the shell is entered.
-  runScript = if withDotfiles then "zsh" else "bash --norc";
+  runScript = "bash --norc";
 }).env
