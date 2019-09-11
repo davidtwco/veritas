@@ -76,7 +76,7 @@ in (pkgs.buildFHSUserEnv {
     cuda-toolkit-joined linuxPackages.nvidia_x11
     # NVIDIA/CUDA dependencies.
     xorg.libXi xorg.libXmu xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr
-    libGLU_combined procps freeglut
+    libGLU_combined procps freeglut jansson
 
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
     spirv-tools
