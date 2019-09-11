@@ -293,10 +293,12 @@ let s:p.tabline.right = [ [s:white, s:bg, s:c_white, s:c_bg], [s:fg, s:bg, s:c_f
 
 let g:lightline#colorscheme#davidtwco#palette = s:p
 
-" Set the colour of the statusline. While lightline handles the majority of this, it
 " won't colour the single character between two statuslines when there is a vertical
 " split, this will.
 highlight StatusLine cterm=NONE ctermbg=234 guifg=#1C1C1C guibg=#1C1C1C
-highlight StatusLineNC cterm=NONE ctermbg=234 guifg=#1C1C1C guibg=#1C1C1C
+
+" Set the colour of the current debugger line and breakpoints in gutter.
+highlight debugPC ctermbg=235 guibg=#2B2B2B
+highlight debugBreakpoint ctermfg=249 guifg=#B2B2B2 ctermbg=235 guibg=#2B2B2B
 
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
