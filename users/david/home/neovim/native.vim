@@ -21,7 +21,7 @@ set noshowmode
 " Enable keeping track of undo history.
 set undofile
 " Set defaults for when detection fails or in new files.
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+set tabstop=4 softtabstop=4
 " Configure wildmenu for file name tab completion.
 set wildmode=longest,list,full
 " Highlight matches.
