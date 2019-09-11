@@ -83,7 +83,7 @@
   environment.systemPackages = [
     (pkgs.makeAutostartItem { name = "alacritty"; package = pkgs.unstable.alacritty; })
     (pkgs.makeAutostartItem { name = "firefox"; package = pkgs.firefox; })
-    (pkgs.makeAutostartItem { name = "franz"; package = pkgs.franz; })
+    (pkgs.makeAutostartItem { name = "franz"; package = pkgs.unstable.franz; })
   ];
   # }}}
 

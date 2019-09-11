@@ -20,7 +20,7 @@ in {
       firefox jetbrains.pycharm-community remmina peek chrome-gnome-shell plotinus
 
       # Chat apps
-      weechat mumble_git keybase-gui franz
+      weechat mumble_git keybase-gui unstable.franz
 
       # Terminal emulator
       unstable.alacritty
