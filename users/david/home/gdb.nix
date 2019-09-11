@@ -29,6 +29,9 @@ in {
     # Don't ever step into the standard library or system packages.
     skip -gfi /usr/**/*
     skip -gfi /nix/store/**/*
+
+    # Set a coloured prompt.
+    set extended-prompt \[\e[0;33m\]❯ \[\e[0m\]
   '';
 }
 
