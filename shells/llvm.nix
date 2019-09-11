@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, withDotfiles ? false }:
 
 # This file contains a development shell for working on LLVM/Clang.
 
@@ -89,7 +89,7 @@ in (pkgs.buildFHSUserEnv {
 
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
     spirv-tools
-  ]);
+  ] ++ (if withDotfiles then [ zsh ] else [ ]));
   # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
   multiPkgs = pkgs: (with pkgs; []);
   # `profile` can be used to set environment variables.
@@ -104,7 +104,7 @@ in (pkgs.buildFHSUserEnv {
 
     # Define helper variable containing CMake flags that pertain to the environment.
     export ENV_CMAKE_FLAGS="${builtins.concatStringsSep " " cmakeFlags}"
-  '';
+  '' + (if withDotfiles then "export PATH=$PATH:$HOME/.nix-profile/bin" else "");
   # `runScript` determine the command that runs when the shell is entered.
-  runScript = "bash --norc";
+  runScript = if withDotfiles then "zsh" else "bash --norc";
 }).env
