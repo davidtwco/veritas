@@ -1,14 +1,9 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs }:
 
-# This file contains a development shell for working on LLVM/Clang.
+# This file contains the packages and configuration that is shared between the pure
+# and impure LLVM development shells defined in this directory.
 
 let
-  # Pin version of davidtwco's configuration that is used for extra packages.
-  veritasRepo = builtins.fetchGit {
-    url = "https://github.com/davidtwco/veritas.git";
-    ref = "master";
-    rev = "a3adcaa5092d7ee97da7ed04dda7cfcb1c14daa3";
-  };
   # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
   # what the original CUDA toolkit package would contain and is expected to have.
   cuda-toolkit-joined = pkgs.symlinkJoin {
@@ -26,17 +21,13 @@ let
     name = "gcc8-joined";
     paths = with pkgs; [ gcc8 gcc8.cc ];
   };
-  # Pull clinfo and the latest version of the Intel OpenCL runtime from davidtwco's configuration.
-  clinfo = pkgs.callPackage "${veritasRepo}/packages/clinfo.nix" { };
-  intel-openclrt = pkgs.callPackage "${veritasRepo}/packages/intel-openclrt.nix" { };
-  # Define a python package with pygments and PyYAML.
+  # Use clinfo and the latest version of the Intel OpenCL runtime.
+  clinfo = pkgs.callPackage ../../packages/clinfo.nix { };
+  intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix { };
+  # Define a python package with pygments, psutil and PyYAML.
   python3WithExtraPackages =
     pkgs.python37Full.withPackages (pkgs: with pkgs; [ psutil pygments pyyaml ]);
-# `buildFHSUserEnv` is used instead of `mkShell` so that the headers expected by an unwrapped
-# clang can be found in the correct place.
-in (pkgs.buildFHSUserEnv {
-  name = "llvm";
-  # `targetPkgs` contains packages to be installed for the main host's architecture.
+in {
   targetPkgs = pkgs: (with pkgs; [
     # Build system used by LLVM.
     cmake
@@ -81,9 +72,7 @@ in (pkgs.buildFHSUserEnv {
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
     spirv-tools
   ]);
-  # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
   multiPkgs = pkgs: (with pkgs; []);
-  # `profile` can be used to set environment variables.
   profile = ''
     # Use icd files from the chroot.
     export OCL_ICD_VENDORS=/etc/OpenCL/vendors
@@ -91,12 +80,5 @@ in (pkgs.buildFHSUserEnv {
     # Declare variables to OCL library and headers.
     export OCL_LIBRARY=${pkgs.ocl-icd}/lib/libOpenCL.so.1
     export OCL_INCLUDE_DIR=${opencl-c-and-cpp-headers}/include
-
-    # Unset any language variables that are set by the parent environment.
-    export LC_ALL=
-    export LANGUAGE=
-    export LANG=
   '';
-  # `runScript` determine the command that runs when the shell is entered.
-  runScript = "bash --norc";
-}).env
+}
