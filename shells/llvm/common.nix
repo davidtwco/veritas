@@ -71,6 +71,9 @@ in {
 
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
     spirv-tools
+
+    # Required to stop shell mangling on tab completion.
+    glibcLocales
   ]);
   multiPkgs = pkgs: (with pkgs; []);
   profile = ''
@@ -80,5 +83,11 @@ in {
     # Declare variables to OCL library and headers.
     export OCL_LIBRARY=${pkgs.ocl-icd}/lib/libOpenCL.so.1
     export OCL_INCLUDE_DIR=${opencl-c-and-cpp-headers}/include
+
+    # Set locale variables.
+    export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
+    export LANG=en_GB.utf8
+    export LANGUAGE=en_GB.utf8
+    export LC_ALL=en_GB.utf8
   '';
 }

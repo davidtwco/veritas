@@ -15,12 +15,7 @@ in (pkgs.buildFHSUserEnv {
   # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
   multiPkgs = pkgs: (common.multiPkgs pkgs);
   # `profile` can be used to set environment variables.
-  profile = common.profile + ''
-    # Unset any language variables that are set by the parent environment.
-    export LC_ALL=
-    export LANGUAGE=
-    export LANG=
-  '';
+  profile = common.profile;
   # `runScript` determines the command that runs when the shell is entered.
   runScript = "bash --norc";
 }).env
