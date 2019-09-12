@@ -14,7 +14,7 @@
       "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
       "LANGUAGE" = config.home.language.base;
       "LC_ALL" = config.home.language.base;
-    }
+    };
   };
 }
 
