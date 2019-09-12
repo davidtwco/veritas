@@ -25,7 +25,7 @@
 
     [git_branch]
     symbol = ""
-    style = "#6b6b6b"
+    style = "#6B6B6B"
 
     [git_state]
     rebase = "rebasing"
@@ -48,7 +48,7 @@
     staged = ""
     renamed = ""
     deleted = ""
-    style = "#6b6b6b"
+    style = "#6B6B6B"
 
     [golang]
     disabled = true
@@ -57,7 +57,9 @@
     style = "#8C9440"
 
     [jobs]
-    style = "#5F819D"
+    style = "#282A2E"
+    symbol = ""
+    threshold = 0
 
     [line_break]
     disabled = false
