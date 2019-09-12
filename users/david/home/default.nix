@@ -26,6 +26,7 @@ in {
     ./inputrc.nix
     ./jq.nix
     ./keybase.nix
+    ./language.nix
     ./less.nix
     ./mail.nix
     ./manpages.nix
