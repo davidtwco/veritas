@@ -82,7 +82,7 @@ The structure of this repository is described below:
 Path                       | Description
 ----                       | -----------
 `/hosts`                   | top-level expressions specific to individual workstations or servers
-`/overlay.nix`             | package overrides used throughout the configuration
+`/overlays`                | overlays containing packages/overrides used in the configuration
 `/packages`                | custom packages
 `/profiles`                | common configurations shared between hosts
 `/modules`                 | re-usable configuration modules
