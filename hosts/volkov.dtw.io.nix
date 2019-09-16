@@ -52,13 +52,19 @@
   ];
   # }}}
 
-  # Hardware {{{
-  # ========
+  # Hardware + GNOME {{{
+  # ================
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
   boot.vesa = false;
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services = {
+    gnome3.chrome-gnome-shell.enable = true;
+    xserver = {
+      desktopManager.gnome3.enable = true;
+      videoDrivers = [ "nvidia" ];
+    };
+  };
   # }}}
 
   # Kernel {{{
@@ -78,22 +84,10 @@
   networking.useDHCP = true;
   # }}}
 
-  # Startup Applications {{{
-  # ====================
-  environment.systemPackages = [
-    (pkgs.makeAutostartItem { name = "alacritty"; package = pkgs.unstable.alacritty; })
-    (pkgs.makeAutostartItem { name = "firefox"; package = pkgs.firefox; })
-    (pkgs.makeAutostartItem { name = "franz"; package = pkgs.unstable.franz; })
-  ];
-  # }}}
-
   # Veritas {{{
   # ========
   veritas = {
-    profiles = {
-      desktop-environment.enable = true;
-      virtualisation.enable = true;
-    };
+    profiles.virtualisation.enable = true;
     david = {
       # Set the email address that should be used by the dotfiles in configuration files
       # (eg. `.gitconfig`).

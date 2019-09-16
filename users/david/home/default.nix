@@ -9,11 +9,15 @@ in {
     ../../../shared
     # Import other home configurations.
     ./alacritty.nix
+    ./autorandr.nix
     ./bash.nix
     ./ccache.nix
     ./command-not-found.nix
+    ./compton.nix
     ./direnv.nix
     ./eyaml.nix
+    ./feh.nix
+    ./fonts.nix
     ./fzf.nix
     ./gdb.nix
     ./git.nix
@@ -22,6 +26,7 @@ in {
     ./home-manager.nix
     ./htop.nix
     ./hushlogin.nix
+    ./i3.nix
     ./info.nix
     ./inputrc.nix
     ./jq.nix
@@ -32,13 +37,16 @@ in {
     ./manpages.nix
     ./neovim
     ./packages.nix
+    ./polybar.nix
     ./qt.nix
+    ./rofi.nix
     ./scripts.nix
     ./ssh.nix
     ./starship.nix
     ./systemd.nix
     ./tmux.nix
     ./xdg.nix
+    ./xsession.nix
     ./xresources.nix
     ./zsh
     # Import modules from unstable home-manager or forks.

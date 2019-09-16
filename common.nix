@@ -1,4 +1,4 @@
-{ config, pkgs, options, ... }:
+{ config, pkgs, options, lib, ... }:
 
 # This file contains common configuration shared amongst all hosts.
 
@@ -49,6 +49,12 @@ in {
       # YubiKey
       yubikey-personalization yubikey-manager
     ];
+  };
+
+  hardware.pulseaudio = lib.mkIf (!config.veritas.david.dotfiles.headless) {
+    enable = true;
+    support32Bit = true;
+    package = pkgs.pulseaudioFull;
   };
 
   hardware.opengl = {
@@ -107,6 +113,66 @@ in {
     };
   };
 
+  # Add insults to sudo.
+  security.sudo.extraConfig = ''
+    Defaults insults
+  '';
+
+  services = {
+    # Enable cron jobs.
+    cron.enable = true;
+    # Enable user services.
+    dbus = {
+      socketActivated = true;
+      packages = with pkgs; [ gnome3.dconf ];
+    };
+    # Enable locate to find files quickly.
+    locate.enable = true;
+    # Enable ssh server.
+    openssh = {
+      enable = true;
+      extraConfig = ''
+        # Required for GPG forwarding.
+        StreamLocalBindUnlink yes
+
+        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+        MACs hmac-sha2-512-etm@openssh.com
+        KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+        RekeyLimit 256M
+      '';
+      forwardX11 = true;
+      openFirewall = true;
+      passwordAuthentication = false;
+      permitRootLogin = "no";
+    };
+    # Required to let smart card mode of YubiKey to work.
+    pcscd.enable = true;
+    # Enable CUPS for printing.
+    printing.enable = true;
+    # Enable Keybase.
+    keybase.enable = true;
+
+    udev.packages = with pkgs; [
+      # Required for YubiKey devices to work.
+      yubikey-personalization libu2f-host
+    ];
+
+    xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {
+      enable = true;
+      displayManager.gdm = {
+        enable = true;
+        # Not fully supported by NVIDIA drivers and need to upgrade to Sway to use Wayland.
+        wayland = false;
+      };
+      layout = "gb";
+    };
+  };
+
+  sound.mediaKeys = lib.mkIf (!config.veritas.david.dotfiles.headless) {
+    enable = true;
+    volumeStep = "5%";
+  };
+
   systemd.network = {
     enable = true;
     networks = {
@@ -148,51 +214,6 @@ in {
       '';
     };
   };
-
-  services = {
-    # Enable cron jobs.
-    cron.enable = true;
-    # Enable user services.
-    dbus = {
-      socketActivated = true;
-      packages = with pkgs; [ gnome3.dconf ];
-    };
-    # Enable locate to find files quickly.
-    locate.enable = true;
-    # Enable ssh server.
-    openssh = {
-      enable = true;
-      extraConfig = ''
-        # Required for GPG forwarding.
-        StreamLocalBindUnlink yes
-
-        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
-        MACs hmac-sha2-512-etm@openssh.com
-        KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
-        RekeyLimit 256M
-      '';
-      forwardX11 = true;
-      openFirewall = true;
-      passwordAuthentication = false;
-      permitRootLogin = "no";
-    };
-    # Required to let smart card mode of YubiKey to work.
-    pcscd.enable = true;
-    # Enable CUPS for printing.
-    printing.enable = true;
-    # Enable Keybase.
-    keybase.enable = true;
-
-    udev.packages = with pkgs; [
-      # Required for YubiKey devices to work.
-      yubikey-personalization libu2f-host
-    ];
-  };
-
-  # Add insults to sudo.
-  security.sudo.extraConfig = ''
-    Defaults insults
-  '';
 
   time.timeZone = "Europe/London";
 

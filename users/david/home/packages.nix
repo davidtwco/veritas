@@ -1,9 +1,9 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 # This file contains the configuration for default-installed packages.
 
-{
-  home.packages = with pkgs; [
+with lib.lists; with pkgs; {
+  home.packages = [
     # Determine file type.
     file
     # Show full path of shell commands.
@@ -134,6 +134,25 @@
     diffr
     # cat for markdown
     mdcat
+  ] ++ optionals (!config.veritas.david.dotfiles.headless) [
+    # Multiple-service messaging client.
+    unstable.franz
+    # Mozilla Firefox is a free and open-source web browser.
+    firefox
+    # Remmina is a remote desktop client written in GTK+.
+    remmina
+    # Create simple animated gifs.
+    peek
+    # XSel is a command-line program for getting and setting the contents of the X selection.
+    xsel
+    # Scrot is a minimalist command line screen capturing application.
+    scrot
+    # Simple volume control tool for the PulseAudio sound server.
+    pavucontrol
+    # Simple configuration dialog for the PulseAudio sound server.
+    paprefs
+    # Provides an interface to X selections ("the clipboard") from the command line.
+    xclip
   ];
 }
 

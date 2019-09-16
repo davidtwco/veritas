@@ -4,7 +4,6 @@
 
 {
   imports = [
-    ./desktop-environment.nix
     ./media-server.nix
     ./virtualisation.nix
   ];
