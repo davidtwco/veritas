@@ -2,7 +2,7 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "diffr";
-  version = "v0.1.1";
+  version = "v0.1.2";
 
   doCheck = false;
 
@@ -10,10 +10,10 @@ rustPlatform.buildRustPackage rec {
     owner = "mookid";
     repo = pname;
     rev = version;
-    sha256 = "0nz27vxi1waq49k131z06br7g20s2i1h2b35pqspd583gqmd5zx1";
+    sha256 = "1fpcyl4kc4djfl6a2jlj56xqra42334vygz8n7614zgjpyxz3zx2";
   };
 
-  cargoSha256 = "1j8ng1i8jgdzv8kynsdqlgqjrdsql7dc0gqn5id265vj22f8yf9d";
+  cargoSha256 = "1dddb3a547qnpm1vvrgffb3v9m8sh19hmhy0fg6xjqpm032lqx3v";
 
   nativeBuildInputs = [];
   buildInputs = (stdenv.lib.optional stdenv.isDarwin Security);
