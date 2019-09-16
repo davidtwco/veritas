@@ -123,10 +123,10 @@ in {
           "${modifier}+Enter" = "mode default";
           "${modifier}+Escape" = "mode default";
           # Resize bindings.
-          "${modifier}+h" = "resize shrink width 10x px or 10 ppt";
-          "${modifier}+j" = "resize grow height 10 px or 10 ppt";
-          "${modifier}+k" = "resize shrink height 10 px or 10 ppt";
-          "${modifier}+l" = "resize grow width 10 px or 10 ppt";
+          "${modifier}+h" = "resize grow width 10 px or 10 ppt";
+          "${modifier}+j" = "resize shrink height 10 px or 10 ppt";
+          "${modifier}+k" = "resize grow height 10 px or 10 ppt";
+          "${modifier}+l" = "resize shrink width 10 px or 10 ppt";
         };
       };
       # Use Windows key instead of ALT.
