@@ -50,14 +50,14 @@ in {
           background = asHex colours.basic.background;
           border = asHex colours.basic.background;
           childBorder = asHex colours.basic.background;
-          indicator = "#6B6B6B";
+          indicator = asHex colours.basic.background;
           text = asHex colours.basic.foreground;
         };
         urgent = {
           background = asHex colours.basic.background;
           border = asHex colours.basic.brightRed;
           childBorder = asHex colours.basic.brightRed;
-          indicator = "#6B6B6B";
+          indicator = asHex colours.basic.background;
           text = asHex colours.basic.foreground;
         };
       };
