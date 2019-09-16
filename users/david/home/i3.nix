@@ -8,15 +8,15 @@ let
   fonts = [ "Iosevka 10" ];
   modifier = config.xsession.windowManager.i3.config.modifier;
   workspaces = {
-    one = "0x1";
-    two = "0x2";
-    three = "0x3";
-    four = "0x4";
-    five = "0x5";
-    six = "0x6";
-    seven = "0x7";
-    eight = "0x8";
-    nine = "0x9";
+    one = "1";
+    two = "2";
+    three = "3";
+    four = "4";
+    five = "5";
+    six = "6";
+    seven = "7";
+    eight = "8";
+    nine = "9";
   };
 in {
   xsession.windowManager.i3 = {
