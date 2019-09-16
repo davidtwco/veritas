@@ -128,6 +128,9 @@ if has('autocmd')
 
     " Highlight conflict markers in any filetype.
     au FileType * call matchadd('Todo', '^\(<<<<<<<\s.*\||||||||\|=======\|>>>>>>>\s.*\)$')
+
+    " Make sure that enter works in the quickfix list.
+    au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
   augroup END
 endif
 
