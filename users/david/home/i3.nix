@@ -68,7 +68,7 @@ in {
         smartGaps = true;
       };
       keybindings = {
-        # Open application selection with Win+d.
+        # Open application selection with Win+p.
         "${modifier}+p" = "exec ${pkgs.rofi}/bin/rofi -show drun";
         # Open terminal with Win+Return.
         "${modifier}+Return" = "exec ${pkgs.alacritty}/bin/alacritty";
