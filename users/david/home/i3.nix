@@ -63,9 +63,9 @@ in {
       };
       gaps = {
         inner = 2;
-        outer = 1;
+        outer = 2;
         smartBorders = "off";
-        smartGaps = true;
+        smartGaps = false;
       };
       keybindings = {
         # Open application selection with Win+p.
