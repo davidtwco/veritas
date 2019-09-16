@@ -4,14 +4,14 @@
 
 {
   # bash isn't used, so just make sure there's a sane minimal configuration in place.
-  programs.bash = {
+  programs.bash = with lib; {
     enable = true;
-    profileExtra = lib.mkIf (config.veritas.david.dotfiles.isNonNixOS) (
+    profileExtra = mkIf (config.veritas.david.dotfiles.isNonNixOS) (
       config.programs.zsh.profileExtra +
       # Can't set a shell on WSL 1 and can't set the shell to zsh from `.nix-profile` in WSL 2.
-      (if config.veritas.david.dotfiles.isWsl
-       then "exec ${config.home.profileDirectory}/bin/zsh"
-       else "")
+      (optionalString
+        config.veritas.david.dotfiles.isWsl
+        "exec ${config.home.profileDirectory}/bin/zsh")
     );
   };
 }

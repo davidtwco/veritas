@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bxd7caw94avglrw5jvd2iwdjs51vv4lgp1pgf5njfyvbarg1hbn";
   };
 
-  patches = if withDebug then [ ./debug.patch ] else [];
+  patches = stdenv.lib.lists.optional withDebug ./debug.patch;
 
   nativeBuildInputs = [ cmake ];
   buildInputs = [ opencl-clhpp ];

@@ -194,12 +194,6 @@ in {
     '';
     plugins = import ./plugins.nix;
     sessionVariables = let
-      nonNixOSVariables = if config.veritas.david.dotfiles.isNonNixOS then {
-        # Needed for `home-manager switch` to work.
-        "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
-      } else {
-        # There are no variables that only apply in NixOS.
-      };
     in {
       # Enable true colour and use a 256-colour terminal.
       "COLORTERM" = "truecolor";
@@ -217,7 +211,10 @@ in {
       # Configure autosuggestions.
       "ZSH_AUTOSUGGEST_USE_ASYNC" = "1";
       "ZSH_AUTOSUGGEST_ACCEPT_WIDGETS" = "()";
-    } // nonNixOSVariables;
+    } // lib.attrsets.optionalAttrs config.veritas.david.dotfiles.isNonNixOS {
+      # Needed for `home-manager switch` to work.
+      "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
+    };
     shellAliases = {
       # Make `rm` prompt before removing more than three files or removing recursively.
       "rm" = "${pkgs.coreutils}/bin/rm -i";

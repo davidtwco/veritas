@@ -14,7 +14,7 @@ in {
           "Description" = "Update working directories for ${name} using Workman";
           "OnFailure" = let
             emailNotification = "systemd-notify-${config.home.username}-with-status@%n.service";
-          in toString (if cfg.email.enable then [ emailNotification ] else [ ]);
+          in toString (optional cfg.email.enable emailNotification);
         };
         "Service" = {
           "Environment" = let
@@ -56,7 +56,7 @@ in {
             in concatStringsSep " " [ "PATH=${path}" "RUST_BACKTRACE=1" ];
           };
         };
-      } // (if cfg.email.enable then {
+      } // (optionalAttrs cfg.email.enable {
         # Define a service for sending email when units fail.
         "systemd-notify-${config.home.username}-with-status@" = {
           "Unit"."Description" = "Send a status email for %i to ${config.home.username}";
@@ -81,7 +81,7 @@ in {
             in "${script} ${cfg.email.address} %i";
           };
         };
-      } else {});
+      });
     in defaultServices // workmanServices;
     # Define a timer for each workman directory to update.
     timers = mapAttrs' (name: workmanConfig: nameValuePair "workman-update-${name}" {
