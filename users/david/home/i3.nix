@@ -114,7 +114,7 @@ in {
         "${modifier}+Shift+q" = "kill";
         "${modifier}+Shift+r" = "restart";
         # Lock the screen.
-        "${modifier}+q" = "exec ${pkgs.i3lock}/bin/i3lock -c 000000";
+        "${modifier}+q" = "exec ${pkgs.i3lock}/bin/i3lock -c ${colours.xsession.wallpaper}";
       };
       modes = {
         resize = {

@@ -53,17 +53,18 @@ in {
       brightWhite = mkColour "bright white" "C5C8C6";
     };
     # Colours specific to Starship.
-    starship = {
-      # Starship seems to mangle the colour slightly, so this hex produces the same
-      # "optical" colour as the regular muted grey used throughout the configuration.
-      mutedGrey = mkColour "starship's muted grey" "6B6B6B";
-    };
+    #
+    # Starship seems to mangle the colour slightly, so this hex produces the same
+    # "optical" colour as the regular muted grey used throughout the configuration.
+    starship.mutedGrey = mkColour "starship's muted grey" "6B6B6B";
     # Colours specific to Neovim.
     neovim = {
       termdebugProgramCounter = mkColour "termdebug's gutter breakpoint indicator"
         colours.neovim.termdebugBreakpoint.bg;
       termdebugBreakpoint = mkColourWithFgBg "termdebug's current line" "B2B2B2" "2B2B2B";
     };
+    # Colours specific to the xsession.
+    xsession.wallpaper = mkColour "wallpaper" "121212";
   };
 
   domain = mkOption {
