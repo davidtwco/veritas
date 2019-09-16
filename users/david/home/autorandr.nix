@@ -15,7 +15,7 @@
         config = {
           "DP-0" = {
             enable = true;
-            dpi = 100;
+            dpi = 109;
             mode = "2560x1440";
             primary = true;
             position = "0x0";
@@ -23,7 +23,7 @@
           };
           "HDMI-0" = {
             enable = true;
-            dpi = 100;
+            dpi = 109;
             mode = "2560x1440";
             position = "2560x0";
             rate = "59.95";
