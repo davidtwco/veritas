@@ -1,29 +1,31 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 # This file contains the configuration for Xresources.
 
-{
-  xresources.properties = {
+let
+  colours = config.veritas.david.colourScheme.basic;
+in {
+  xresources.properties = with colours; {
     # Hybrid colour scheme.
-    "*background" = "#1C1C1C";
-    "*foreground" = "#C5C8C6";
-    "*cursorColor" = "#C5C8C6";
-    "*color0" = "#282A2E";
-    "*color1" = "#A54242";
-    "*color2" = "#8C9440";
-    "*color3" = "#DE935F";
-    "*color4" = "#5F819D";
-    "*color5" = "#85678F";
-    "*color6" = "#5E8D87";
-    "*color7" = "#707880";
-    "*color8" = "#373B41";
-    "*color9" = "#CC6666";
-    "*color10" = "#B5BD68";
-    "*color11" = "#F0C674";
-    "*color12" = "#81A2BE";
-    "*color13" = "#B294BB";
-    "*color14" = "#8ABEB7";
-    "*color15" = "#C5C8C6";
+    "*background" = "#${background}";
+    "*foreground" = "#${foreground}";
+    "*cursorColor" = "#${cursor}";
+    "*color0" = "#${black}";
+    "*color1" = "#${red}";
+    "*color2" = "#${green}";
+    "*color3" = "#${yellow}";
+    "*color4" = "#${blue}";
+    "*color5" = "#${magenta}";
+    "*color6" = "#${cyan}";
+    "*color7" = "#${white}";
+    "*color8" = "#${brightBlack}";
+    "*color9" = "#${brightRed}";
+    "*color10" = "#${brightGreen}";
+    "*color11" = "#${brightYellow}";
+    "*color12" = "#${brightBlue}";
+    "*color13" = "#${brightMagenta}";
+    "*color14" = "#${brightCyan}";
+    "*color15" = "#${brightWhite}";
   };
 }
 

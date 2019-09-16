@@ -2,30 +2,32 @@
 
 # This file contains the configuration for starship. This isn't used yet.
 
-{
+let
+  colours = config.veritas.david.colourScheme;
+in {
   # Install Starship package.
   home.packages = with pkgs; [ starship-nightly ];
 
   # Write configuration for starship.
-  xdg.configFile."starship.toml".text = ''
+  xdg.configFile."starship.toml".text = with colours; ''
     [battery]
     disabled = true
 
     [character]
-    style_success = "#85678F"
-    style_failure = "#A54242"
+    style_success = "#${basic.magenta}"
+    style_failure = "#${basic.red}"
 
     [cmd_duration]
-    style = "#DE935F"
+    style = "#${basic.yellow}"
 
     [directory]
-    style = "#5F819D"
+    style = "#${basic.blue}"
     truncation_length = 8
     truncate_to_repo = false
 
     [git_branch]
     symbol = ""
-    style = "#6B6B6B"
+    style = "#${starship.mutedGrey}"
 
     [git_state]
     rebase = "rebasing"
@@ -35,7 +37,7 @@
     bisect = "bisecting"
     am = "am"
     am_or_rebase = "am/rebasing"
-    style = "yellow"
+    style = "#${basic.yellow}"
 
     [git_status]
     conflicted = "⨯"
@@ -48,16 +50,16 @@
     staged = ""
     renamed = ""
     deleted = ""
-    style = "#6B6B6B"
+    style = "#${starship.mutedGrey}"
 
     [golang]
     disabled = true
 
     [hostname]
-    style = "#8C9440"
+    style = "#${basic.green}"
 
     [jobs]
-    style = "#282A2E"
+    style = "#${basic.black}"
     symbol = ""
     threshold = 0
 
@@ -65,7 +67,7 @@
     disabled = false
 
     [nix_shell]
-    style = "#A54242"
+    style = "#${basic.red}"
     use_name = true
 
     [nodejs]
@@ -87,8 +89,8 @@
     disabled = true
 
     [username]
-    style_root = "#A54242"
-    style_user = "#DE935F"
+    style_root = "#${basic.red}"
+    style_user = "#${basic.yellow}"
   '';
 }
 

@@ -3,6 +3,7 @@
 # This file contains the configuration for NeoVim.
 
 let
+  colours = config.veritas.david.colourScheme;
   plugins = pkgs.callPackage ./plugins.nix {};
 in {
   # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
@@ -11,7 +12,7 @@ in {
 
   programs.neovim = {
     configure = {
-      customRC = ''
+      customRC = with colours; ''
         ${builtins.readFile ./functions.vim}
 
         " Hardcode paths into the nix store.
@@ -82,11 +83,34 @@ in {
           augroup END
         endif
 
+        " Use 24-bit colour.
+        set termguicolors
+        " Enable syntax highlighting.
+        syntax enable
+        " Apply colourscheme before our own highlighting.
+        colorscheme hybrid
+        " Use custom terminal colours.
+        let g:hybrid_custom_term_colors = 1
+
         ${builtins.readFile ./native.vim}
         ${builtins.readFile ./plugins.vim}
         ${builtins.readFile ./completion.vim}
         ${builtins.readFile ./statusline.vim}
         ${builtins.readFile ./mappings.vim}
+
+        " Set the colour of the colour column (used to highlight where lines should wrap).
+        hi ColorColumn guibg=#${basic.brightBlack}
+
+        " Set the background colour.
+        hi Normal guibg=#${basic.background}
+
+        " Lightline won't colour the single character between two statuslines when there is a
+        " vertical split, this will.
+        hi StatusLine guifg=#${basic.background} guibg=#${basic.background}
+
+        " Set the colour of the current debugger line and breakpoints in gutter.
+        hi debugPC guibg=#${neovim.termdebugProgramCounter}
+        hi debugBreakpoint guifg=#${neovim.termdebugBreakpoint.fg} guibg=#${neovim.termdebugBreakpoint.bg}
       '';
       packages.plugins = with plugins; {
         start = [

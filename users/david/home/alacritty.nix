@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 # This file contains the configuration for Alacritty.
 
@@ -152,33 +152,33 @@
       # If `true`, bold text is drawn using the bright color variants.
       draw_bold_text_with_bright_colors = true;
       # Colors (Hybrid)
-      colors = {
+      colors = with config.veritas.david.colourScheme.basic; {
         # Default colors
         primary = {
-          background = "0x1C1C1C";
-          foreground = "0xC5C8C6";
+          background = "0x${background}";
+          foreground = "0x${foreground}";
         };
         # Normal colors
         normal = {
-          black = "0x282A2E";
-          red =  "0xA54242";
-          green = "0x8C9440";
-          yellow = "0xDE935F";
-          blue = "0x5F819D";
-          magenta = "0x85678F";
-          cyan = "0x5E8D87";
-          white = "0x707880";
+          black = "0x${black}";
+          red =  "0x${red}";
+          green = "0x${green}";
+          yellow = "0x${yellow}";
+          blue = "0x${blue}";
+          magenta = "0x${magenta}";
+          cyan = "0x${cyan}";
+          white = "0x${white}";
         };
         # Bright colors
         bright = {
-          black = "0x373B41";
-          red = "0xCC6666";
-          green = "0xB5BD68";
-          yellow = "0xF0C674";
-          blue = "0x81A2BE";
-          magenta = "0xB294BB";
-          cyan = "0x8ABEB7";
-          white = "0xC5C8C6";
+          black = "0x${brightBlack}";
+          red = "0x${brightRed}";
+          green = "0x${brightGreen}";
+          yellow = "0x${brightYellow}";
+          blue = "0x${brightBlue}";
+          magenta = "0x${brightMagenta}";
+          cyan = "0x${brightCyan}";
+          white = "0x${brightWhite}";
         };
         # Indexed Colors
         #

@@ -85,13 +85,8 @@ let g:termdebug_useFloatingHover=1
 syntax enable
 colorscheme hybrid
 
-" Set the background colour.
-hi Normal ctermbg=234 guibg=#1C1C1C
-
 " Colour 40 columns after column 80.
 let &colorcolumn='100,'.join(range(140, 1000, 40), ',')
-" Set the colour of the colour column (used to highlight where lines should wrap).
-hi ColorColumn ctermbg=8 guibg=#373B41
 
 if has('autocmd')
   augroup vimrc
