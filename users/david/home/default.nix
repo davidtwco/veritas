@@ -39,6 +39,7 @@ in {
     ./packages.nix
     ./polybar.nix
     ./qt.nix
+    ./redshift.nix
     ./rofi.nix
     ./scripts.nix
     ./ssh.nix
