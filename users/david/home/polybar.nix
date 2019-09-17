@@ -77,7 +77,7 @@ in {
         type = "custom/script";
         interval = "1.0";
         exec = mkBarScript "time" (''
-          echo "%{F$muted}time %{F$foreground}$(${pkgs.coreutils}/bin/date +%I:%M:%S)"
+          echo "%{F$muted}time %{F$foreground}$(${pkgs.coreutils}/bin/date +%H:%M:%S)"
         '');
       };
       "module/i3" = {
