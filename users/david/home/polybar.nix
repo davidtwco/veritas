@@ -37,7 +37,7 @@ in {
         # Add some padding.
         "padding" = "1";
         # Information is on the left, i3 workspaces on the right.
-        "modules-left" = [ "date" "time" "load" "cpu" "memory" ];
+        "modules-left" = [ "date" "time" "load" "cpu" "memory" "volume" ];
         "modules-right" = [ "i3" ];
         # Display on the monitor from the environment, provided by loop in
         # `services.polybar.script`.
@@ -99,6 +99,33 @@ in {
           }
 
           echo "%{F$muted}mem %{F$foreground}$(memory 3)/$(memory 2)"
+        '');
+      };
+      "module/volume" = {
+        type = "custom/script";
+        interval = "0.01";
+        exec = mkBarScript "volume-status" (with pkgs; ''
+          if [[ $(${alsaUtils}/bin/amixer get Master | \
+                  ${gnugrep}/bin/grep 'Right' | \
+                  ${gawk}/bin/awk -F'[][] ' '{ print $2 }' | \
+                  ${coreutils}/bin/tr -d '\n') = "[on]" ]]; then
+            volume=$(${alsaUtils}/bin/amixer get Master | \
+                     ${gnugrep}/bin/grep 'Right' | \
+                     ${gawk}/bin/awk -F'[][]' '{ print $2 }' | \
+                     ${coreutils}/bin/tr -d '\n')
+            echo -ne "%{F$muted}vol %{F$foreground}$volume"
+          else
+            echo -ne "%{F$muted}vol %{F$foreground}muted"
+          fi
+        '');
+        click-left = mkBarScript "volume-toggle" (with pkgs; ''
+          ${alsaUtils}/bin/amixer sset Master toggle
+        '');
+        scroll-up = mkBarScript "volume-up" (with pkgs; ''
+          ${alsaUtils}/bin/amixer sset Master 2%+
+        '');
+        scroll-down = mkBarScript "volume-down" (with pkgs; ''
+          ${alsaUtils}/bin/amixer sset Master 2%-
         '');
       };
     };
