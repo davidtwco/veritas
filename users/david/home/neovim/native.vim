@@ -133,7 +133,7 @@ if has('autocmd')
     au BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
     " Override the netrw CTRL+L binding and preserve navigation to tmux.
-    au FileType netrw nnoremap <buffer> <c-l> :TmuxNavigateRight<cr>
+    au FileType netrw nnoremap <buffer> <silent> <c-l> :TmuxNavigateRight<cr>
   augroup END
 endif
 
