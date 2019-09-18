@@ -94,6 +94,14 @@
       rev = "f935de6621b573a100c0a80a472ceff544861b4e";
     };
   };
+  scratch-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "scratch.vim";
+    src = builtins.fetchGit {
+      url = "https://github.com/mtth/scratch.vim.git";
+      ref = "master";
+      rev = "6df617ebc0695bd9839a4fe365a08df13d24bc05";
+    };
+  };
   sideways-vim = pkgs.vimUtils.buildVimPlugin {
     name = "sideways.vim";
     src = builtins.fetchGit {

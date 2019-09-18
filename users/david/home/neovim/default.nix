@@ -41,6 +41,9 @@ in {
         " Set gdb path.
         let termdebugger = '${pkgs.gdb}/bin/gdb'
 
+        " Set up persistent scratch space.
+        let g:scratch_persistence_file = '${config.xdg.cacheHome}/nvim/scratch'
+
         " Change backup, swap and undo directory. If a path ends in '//' then the file name
         " is built from the entire path. No more issues between projects.
         call MaybeMkdir('${config.xdg.cacheHome}/nvim/swap/')
@@ -178,6 +181,8 @@ in {
           vim-matchit
           # Look for project specific `.lvimrc` files.
           vim-localvimrc
+          # Scratchpad
+          scratch-vim
         ];
         opt = [
           # Activate/deactivate and list virtual environments.
