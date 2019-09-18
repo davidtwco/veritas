@@ -84,6 +84,9 @@ in {
     export OCL_LIBRARY=${pkgs.ocl-icd}/lib/libOpenCL.so.1
     export OCL_INCLUDE_DIR=${opencl-c-and-cpp-headers}/include
 
+    # Default to using Ninja.
+    export CMAKE_GENERATOR=Ninja
+
     # Set locale variables.
     export LOCALE_ARCHIVE=${pkgs.glibcLocales}/lib/locale/locale-archive
     export LANG=en_GB.utf8
