@@ -134,6 +134,8 @@ with lib.lists; with pkgs; {
     diffr
     # cat for markdown
     mdcat
+    # command line image viewer
+    unstable.viu
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
