@@ -11,7 +11,7 @@ in {
     history = {
       extended = true;
       ignoreDups = true;
-      save = 10000000;
+      save = 99999999;
       share = false;
     };
     # On non-NixOS systems, need to manually source `nix.sh`.
