@@ -23,10 +23,7 @@ in {
     enable = !config.veritas.david.dotfiles.headless;
     config = {
       inherit fonts;
-      assigns = {
-        "${workspaces.one}" = [ { class = "^Alacritty$"; } ];
-        "${workspaces.two}" = [ { class = "^Firefox$"; } { class = "^Franz$"; } ];
-      };
+      assigns = {};
       bars = [];
       colors = let asHex = c: "#${c}"; in {
         background = asHex colours.basic.background;
@@ -136,22 +133,28 @@ in {
       };
       # Use Windows key instead of ALT.
       modifier = "Mod4";
-      startup = [
-        { command = "${pkgs.alacritty}/bin/alacritty"; }
-        { command = "${pkgs.firefox}/bin/firefox"; }
-        { command = "${pkgs.unstable.franz}/bin/franz"; }
-      ];
+      startup = [];
       window = {
         titlebar = false;
         hideEdgeBorders = "none";
       };
     };
-    extraConfig = ''
+    extraConfig = with pkgs; let
+      i3msg = "${config.xsession.windowManager.i3.package}/bin/i3-msg";
+      defaultWorkspace = "workspace ${workspaces.one}";
+    in ''
       # Let GNOME handle complicated stuff like monitors, bluetooth, etc.
-      exec ${pkgs.gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
+      exec ${gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
+
+      # Instead of using `assigns` and `startup` to launch applications on startup, use exec with
+      # i3-msg. This will avoid having *every* instance of these applications start on the assigned
+      # workspace, only the initial instance.
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${firefox}/bin/firefox; ${defaultWorkspace}'
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
 
       # Always put the first workspace on the primary monitor.
-      workspace ${workspaces.one} output primary
+      ${defaultWorkspace} output primary
     '';
   };
 }
