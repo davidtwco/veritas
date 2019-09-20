@@ -97,6 +97,11 @@ in {
         "${modifier}+j" = "focus down";
         "${modifier}+k" = "focus up";
         "${modifier}+l" = "focus right";
+        # Move using Vim bindings.
+        "${modifier}+Shift+h" = "move left";
+        "${modifier}+Shift+j" = "move down";
+        "${modifier}+Shift+k" = "move up";
+        "${modifier}+Shift+l" = "move right";
         # Switch to resize mode.
         "${modifier}+r" = "mode resize";
         # Switch between layouts.
@@ -114,7 +119,7 @@ in {
         "${modifier}+Shift+q" = "kill";
         "${modifier}+Shift+r" = "restart";
         # Lock the screen.
-        "${modifier}+Shift+l" = "exec ${pkgs.i3lock}/bin/i3lock -c ${colours.xsession.wallpaper}";
+        "${modifier}+q" = "exec ${pkgs.i3lock}/bin/i3lock -c ${colours.xsession.wallpaper}";
       };
       modes = {
         resize = {
