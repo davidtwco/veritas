@@ -23,6 +23,9 @@ in {
     register_libstdcxx_printers (None)
     end
 
+    # Allow gdb to autoload from the nix store.
+    add-auto-load-safe-path /nix/store
+
     # Add LLVM pretty printers.
     source ${llvmPrettyPrinters}/llvm/utils/gdb-scripts/prettyprinters.py
 
