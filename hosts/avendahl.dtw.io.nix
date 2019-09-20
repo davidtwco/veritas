@@ -73,7 +73,7 @@
         path = with pkgs; [
           bash binutils binutils-unwrapped ccache clang cmake coreutils curl direnv gcc gdb git
           glibc glibc.bin gnugrep gnumake ncurses ninja nodejs openssh patchelf pythonFull rustup
-          tmux
+          tmux gnused
         ];
         schedule = "*-*-* 2:00:00";
       };
