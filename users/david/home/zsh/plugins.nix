@@ -47,7 +47,7 @@
     };
   }
   {
-    # Faster syntax highlighting.
+    # Git fuzzy commands.
     name = "forgit";
     src = builtins.fetchGit {
       url = "https://github.com/wfxr/forgit.git";
@@ -56,7 +56,7 @@
     };
   }
   {
-    # Faster syntax highlighting.
+    # Jumping back directories.
     name = "bd";
     src = builtins.fetchGit {
       url = "https://github.com/Tarrasch/zsh-bd.git";
