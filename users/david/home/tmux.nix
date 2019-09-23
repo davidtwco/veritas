@@ -52,7 +52,7 @@ in {
       set -g word-separators "<>(){}[]/'\";@*+,.-_=!£$%^&:#~?`¬|\\ "
 
       # Update these variables from the environment when attaching to tmux.
-      set -g update-environment "SSH_AUTH_SOCK SSH_CONNECTION DISPLAY LOCALE_ARCHIVE LANG LANGUAGE LC_ALL"
+      set -g update-environment "SSH_AUTH_SOCK SSH_CLIENT SSH_CONNECTION DISPLAY LOCALE_ARCHIVE LANG LANGUAGE LC_ALL"
 
       # Use 24-bit colour.
       set -ga terminal-overrides ",xterm-256color:Tc"
