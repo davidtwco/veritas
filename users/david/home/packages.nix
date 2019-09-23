@@ -136,6 +136,8 @@ with lib.lists; with pkgs; {
     mdcat
     # command line image viewer
     unstable.viu
+    # tool for discovering and probing hosts on a computer network
+    arping
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
