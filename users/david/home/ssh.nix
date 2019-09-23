@@ -98,7 +98,7 @@
       "dtw-volkov" = {
         inherit remoteForwards;
         forwardAgent = true;
-        hostname = "10.54.100.178";
+        hostname = "davidwoodpc.office.codeplay.com";
         identitiesOnly = true;
         identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
         user = "david";
