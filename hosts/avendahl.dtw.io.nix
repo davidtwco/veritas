@@ -36,12 +36,6 @@
     ];
   # }}}
 
-  # OpenSSH {{{
-  # =======
-  # Change the SSH port to being port scanned all the time.
-  services.openssh.ports = [ 28028 ];
-  # }}}
-
   # Microcode {{{
   # =========
   hardware.cpu.intel.updateMicrocode = true;

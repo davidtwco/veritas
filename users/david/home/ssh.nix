@@ -74,7 +74,6 @@
           { bind.port = 9292; host = { address = "127.0.0.1"; port = 9292; }; }
           { bind.port = 9991; host = { address = "127.0.0.1"; port = 9991; }; }
         ];
-        port = 28028;
         user = "david";
       };
       "dtw-campaglia" = {
