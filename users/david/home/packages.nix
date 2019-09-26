@@ -138,6 +138,8 @@ with lib.lists; with pkgs; {
     unstable.viu
     # tool for discovering and probing hosts on a computer network
     arping
+    # dependency mgmt for nix projects
+    niv
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
