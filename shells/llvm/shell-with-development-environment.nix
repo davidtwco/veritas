@@ -12,7 +12,14 @@ let
 in (pkgs.buildFHSUserEnv {
   name = "llvm-dev";
   # `targetPkgs` contains packages to be installed for the main host's architecture.
-  targetPkgs = pkgs: (common.targetPkgs pkgs) ++ (with pkgs; [ glibcLocales zsh ]);
+  targetPkgs = pkgs: (common.targetPkgs pkgs) ++ (with pkgs; [
+    # Required for the locale to work in the environment.
+    glibcLocales
+    # Required for `fzf.vim` to fuzzy search tags.
+    perl
+    # Required for `runScript` below.
+    zsh
+  ]);
   # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
   multiPkgs = pkgs: (common.multiPkgs pkgs);
   # `profile` can be used to set environment variables.
