@@ -211,7 +211,7 @@ in {
       };
     };
     enable = true;
-    package = pkgs.neovim-nightly-unwrapped;
+    package = pkgs.unstable.neovim;
     viAlias = true;
     vimAlias = true;
     withNodeJs = true;

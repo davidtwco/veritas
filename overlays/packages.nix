@@ -30,16 +30,6 @@ self: super:
   # Add a package for Workman.
   workman = super.callPackage ../packages/workman.nix { };
 
-  # Add a package for pastel.
-  pastel = super.unstable.callPackage ../packages/pastel.nix {
-    inherit (super.darwin.apple_sdk.frameworks) Security;
-  };
-
-  # Add a package for diffr.
-  diffr = super.unstable.callPackage ../packages/diffr.nix {
-    inherit (super.darwin.apple_sdk.frameworks) Security;
-  };
-
   # Add a package for mdcat.
   mdcat = super.unstable.callPackage ../packages/mdcat.nix {
     inherit (super.darwin.apple_sdk.frameworks) Security;

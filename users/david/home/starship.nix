@@ -6,7 +6,7 @@ let
   colours = config.veritas.david.colourScheme;
 in {
   # Install Starship package.
-  home.packages = with pkgs; [ starship-nightly ];
+  home.packages = with pkgs; [ unstable.starship ];
 
   # Write configuration for starship.
   xdg.configFile."starship.toml".text = with colours; ''

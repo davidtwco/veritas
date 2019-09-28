@@ -29,11 +29,9 @@ in {
     (self: super: { inherit unstable; })
     # Add our own overlays.
     (import ../overlays/computecpp.nix)
-    (import ../overlays/neovim-nightly.nix)
     (import ../overlays/opencl.nix)
     (import ../overlays/packages.nix)
     (import ../overlays/plex.nix)
-    (import ../overlays/starship-nightly.nix)
     # Use Mozilla's overlay for `rustChannelOf` function.
     (import external.mozillaOverlay)
   ];

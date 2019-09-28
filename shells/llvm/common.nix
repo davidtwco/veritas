@@ -4,6 +4,9 @@
 # and impure LLVM development shells defined in this directory.
 
 let
+  # Import unstable channel for newer versions of packages.
+  external = import ../../shared/external.nix;
+  unstable = import external.nixpkgsUnstable { };
   # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
   # what the original CUDA toolkit package would contain and is expected to have.
   cuda-toolkit-joined = pkgs.symlinkJoin {
@@ -21,8 +24,7 @@ let
     name = "gcc8-joined";
     paths = with pkgs; [ gcc8 gcc8.cc ];
   };
-  # Use clinfo and the latest version of the Intel OpenCL runtime.
-  clinfo = pkgs.callPackage ../../packages/clinfo.nix { };
+  # Use latest version of the Intel OpenCL runtime.
   intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix { };
   # Define a python package with pygments, psutil and PyYAML.
   python3WithExtraPackages =
@@ -61,7 +63,7 @@ in {
     # Intel's OpenCL runtime.
     intel-openclrt
     # clinfo - query available OpenCL devices.
-    clinfo
+    unstable.clinfo
 
     # NVIDIA's OpenCL runtime and `libdevice.so` (for NVPTX backend).
     cuda-toolkit-joined linuxPackages.nvidia_x11
@@ -70,7 +72,7 @@ in {
     libGLU_combined procps freeglut jansson
 
     # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
-    spirv-tools
+    unstable.spirv-tools
 
     # Required to stop shell mangling on tab completion.
     glibcLocales

@@ -7,22 +7,27 @@
   homeManager = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
     ref = "release-19.03";
-    rev = "45a73067ac6b5d45e4b928c53ad203b80581b27d";
+    rev = "8def3835111f0b16850736aa210ca542fcd02af6";
   };
   homeManagerUnstable = builtins.fetchGit {
     url = "https://github.com/rycee/home-manager.git";
     ref = "master";
-    rev = "6932e6330e9cbe73629e9f15300bdd0d3b9cc418";
+    rev = "761b3d0c124856433ae69c77b9c44e9b5e40e6ac";
   };
-  nixpkgsUnstable = builtins.fetchGit {
+  nixosUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
-    rev = "e19054ab3cd5b7cc9a01d0efc71c8fe310541065";
+    rev = "2436c27541b2f52deea3a4c1691216a02152e729";
+  };
+  nixpkgsUnstable = builtins.fetchGit {
+    url = "https://github.com/NixOS/nixpkgs.git";
+    ref = "master";
+    rev = "15f9bdb6489e7e55a861958a9388bf5ad3b2d2cd";
   };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";
-    rev = "200cf0640fd8fdff0e1a342db98c9e31e6f13cd7";
+    rev = "b52a8b7de89b1fac49302cbaffd4caed4551515f";
   };
   dwarffs = builtins.fetchGit {
     url = "https://github.com/edolstra/dwarffs.git";

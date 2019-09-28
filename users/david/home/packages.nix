@@ -121,7 +121,7 @@ with lib.lists; with pkgs; {
     # Personal project for managing working directories.
     workman
     # A command-line tool to generate, analyze, convert and manipulate colors.
-    pastel
+    unstable.pastel
     # ClusterSSH with tmux.
     tmux-cssh
     # Tool for indexing, slicing, analyzing, splitting and joining CSV files.
@@ -131,7 +131,7 @@ with lib.lists; with pkgs; {
     # More intuitive du.
     du-dust
     # Yet another diff highlighting tool
-    diffr
+    unstable.diffr
     # cat for markdown
     mdcat
     # command line image viewer
