@@ -29,6 +29,7 @@ in {
         let g:ale_json_jq_executable = '${pkgs.jq}/bin/jq'
         let g:ale_llvm_llc_executable = '${pkgs.unstable.llvm}/bin/llc'
         let g:ale_lua_luac_executable = '${pkgs.lua}/bin/luac'
+        let g:ale_nix_nixpkgsfmt_executable = '${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt'
         let g:ale_python_flake8_executable = '${pkgs.pythonPackages.flake8}/bin/flake8'
         let g:ale_ruby_rubocop_executable = '${pkgs.rubocop}/bin/rubocop'
         let g:ale_rust_rls_executable = '${pkgs.latest.rustChannels.stable.rust}/bin/rls'

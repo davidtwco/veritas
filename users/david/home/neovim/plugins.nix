@@ -10,7 +10,7 @@
     src = builtins.fetchGit {
       url = "https://github.com/dense-analysis/ale.git";
       ref = "master";
-      rev = "28c93ab1854ef41a46855401cc4addbaf7dfb9d4";
+      rev = "f9322113095ac01c00d4c38da6aca715663e35cf";
     };
   };
   editorconfig-vim = pkgs.vimUtils.buildVimPlugin {

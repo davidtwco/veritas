@@ -43,6 +43,7 @@ let g:ale_fixers = {
 \   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
 \   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
