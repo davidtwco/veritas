@@ -4,7 +4,8 @@
 
 let
   external = import ./shared/external.nix;
-in {
+in
+{
   imports = with external; [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # Import shared configuration of overlays and nixpkgs.
@@ -41,13 +42,15 @@ in {
     pathsToLink = [ "/share/zsh" "/share" ];
     systemPackages = with pkgs; [
       # Logitech Devices
-      solaar ltunify
+      solaar
+      ltunify
 
       # Steam Controller
       steamcontroller
 
       # YubiKey
-      yubikey-personalization yubikey-manager
+      yubikey-personalization
+      yubikey-manager
     ];
   };
 
@@ -64,7 +67,10 @@ in {
       # OpenCL
       intel-openclrt
       # VDPAU (hardware acceleration)
-      vaapiIntel vaapiVdpau libvdpau-va-gl intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      intel-media-driver
     ];
   };
 
@@ -154,7 +160,8 @@ in {
 
     udev.packages = with pkgs; [
       # Required for YubiKey devices to work.
-      yubikey-personalization libu2f-host
+      yubikey-personalization
+      libu2f-host
     ];
 
     xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {

@@ -5,7 +5,8 @@
 with lib;
 let
   cfg = config.veritas.profiles.virtualisation;
-in {
+in
+{
   options.veritas.profiles.virtualisation.enable =
     mkEnableOption "Enable virtualisation daemons and tools";
 

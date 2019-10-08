@@ -4,7 +4,8 @@
 
 let
   cfg = config.veritas.david;
-in {
+in
+{
   accounts.email.accounts = lib.mkIf cfg.email.enable {
     personal = {
       address = cfg.email.address;

@@ -27,21 +27,24 @@
   # Filesystems {{{
   # ===========
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/15e4642b-713f-4e33-bb57-bccba586ca9d";
+    {
+      device = "/dev/disk/by-uuid/15e4642b-713f-4e33-bb57-bccba586ca9d";
       fsType = "btrfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/54D5-DC0D";
+    {
+      device = "/dev/disk/by-uuid/54D5-DC0D";
       fsType = "vfat";
     };
 
   fileSystems."/data" =
-    { device = "/dev/disk/by-uuid/f09ffaad-ce2e-479d-857c-7cd1605c51d3";
+    {
+      device = "/dev/disk/by-uuid/f09ffaad-ce2e-479d-857c-7cd1605c51d3";
       fsType = "btrfs";
     };
 
-  swapDevices = [ ];
+  swapDevices = [];
 
   boot.initrd.luks.devices = [
     {

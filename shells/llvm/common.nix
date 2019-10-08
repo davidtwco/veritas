@@ -6,7 +6,7 @@
 let
   # Import unstable channel for newer versions of packages.
   external = import ../../shared/external.nix;
-  unstable = import external.nixpkgsUnstable { };
+  unstable = import external.nixpkgsUnstable {};
   # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
   # what the original CUDA toolkit package would contain and is expected to have.
   cuda-toolkit-joined = pkgs.symlinkJoin {
@@ -25,58 +25,74 @@ let
     paths = with pkgs; [ gcc8 gcc8.cc ];
   };
   # Use latest version of the Intel OpenCL runtime.
-  intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix { };
+  intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix {};
   # Define a python package with pygments, psutil and PyYAML.
   python3WithExtraPackages =
     pkgs.python37Full.withPackages (pkgs: with pkgs; [ psutil pygments pyyaml ]);
-in {
-  targetPkgs = pkgs: (with pkgs; [
-    # Build system used by LLVM.
-    cmake
-    # Compiler cache - speeds up compilation.
-    ccache
-    # GNU Make and Ninja - generators for CMake.
-    gnumake ninja
-    # pkg-config - used by CMake to find things.
-    pkg-config
+in
+{
+  targetPkgs = pkgs: (
+    with pkgs; [
+      # Build system used by LLVM.
+      cmake
+      # Compiler cache - speeds up compilation.
+      ccache
+      # GNU Make and Ninja - generators for CMake.
+      gnumake
+      ninja
+      # pkg-config - used by CMake to find things.
+      pkg-config
 
-    # C/C++ compiler for building Clang/LLVM.
-    gcc8-joined libgcc glibc.dev
-    # binutils - required for building
-    binutils
+      # C/C++ compiler for building Clang/LLVM.
+      gcc8-joined
+      libgcc
+      glibc.dev
+      # binutils - required for building
+      binutils
 
-    # Git - useful if committing from the FHS environment and is looked for by CMake.
-    git openssh
-    # Python - required by LLVM's CMake.
-    python3WithExtraPackages
-    # libxml2 - looked for by CMake.
-    libxml2.dev
-    # ncurses6 - looked for by CMake.
-    ncurses6.dev
-    # zlib - looked for by CMake.
-    zlib.dev
+      # Git - useful if committing from the FHS environment and is looked for by CMake.
+      git
+      openssh
+      # Python - required by LLVM's CMake.
+      python3WithExtraPackages
+      # libxml2 - looked for by CMake.
+      libxml2.dev
+      # ncurses6 - looked for by CMake.
+      ncurses6.dev
+      # zlib - looked for by CMake.
+      zlib.dev
 
-    # OpenCL headers - required by libclc.
-    opencl-c-and-cpp-headers
-    # OpenCL ICD loader - provides `libOpenCL.so.1`.
-    ocl-icd
-    # Intel's OpenCL runtime.
-    intel-openclrt
-    # clinfo - query available OpenCL devices.
-    unstable.clinfo
+      # OpenCL headers - required by libclc.
+      opencl-c-and-cpp-headers
+      # OpenCL ICD loader - provides `libOpenCL.so.1`.
+      ocl-icd
+      # Intel's OpenCL runtime.
+      intel-openclrt
+      # clinfo - query available OpenCL devices.
+      unstable.clinfo
 
-    # NVIDIA's OpenCL runtime and `libdevice.so` (for NVPTX backend).
-    cuda-toolkit-joined linuxPackages.nvidia_x11
-    # NVIDIA/CUDA dependencies.
-    xorg.libXi xorg.libXmu xorg.libXext xorg.libX11 xorg.libXv xorg.libXrandr
-    libGLU_combined procps freeglut jansson
+      # NVIDIA's OpenCL runtime and `libdevice.so` (for NVPTX backend).
+      cuda-toolkit-joined
+      linuxPackages.nvidia_x11
+      # NVIDIA/CUDA dependencies.
+      xorg.libXi
+      xorg.libXmu
+      xorg.libXext
+      xorg.libX11
+      xorg.libXv
+      xorg.libXrandr
+      libGLU_combined
+      procps
+      freeglut
+      jansson
 
-    # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
-    unstable.spirv-tools
+      # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
+      unstable.spirv-tools
 
-    # Required to stop shell mangling on tab completion.
-    glibcLocales
-  ]);
+      # Required to stop shell mangling on tab completion.
+      glibcLocales
+    ]
+  );
   multiPkgs = pkgs: (with pkgs; []);
   profile = ''
     # Use icd files from the chroot.

@@ -4,7 +4,8 @@
 
 let
   plugins = pkgs.callPackage ./plugins.nix {};
-in {
+in
+{
   programs.zsh = {
     defaultKeymap = "viins";
     enable = true;
@@ -21,100 +22,104 @@ in {
     # we don't duplicate this sourcing of `nix.sh`, we only set it in `.zprofile` and then pull it
     # in using the `config.programs.zsh` variable in the `.profile` definition (appending the shell
     # exec if WSL).
-    profileExtra = lib.mkIf (config.veritas.david.dotfiles.isNonNixOS) (''
-      if [ -f ${config.home.profileDirectory}/etc/profile.d/nix.sh ]; then
-        . "${config.home.profileDirectory}/etc/profile.d/nix.sh"
-      elif [ -f /etc/profile.d/nix.sh ]; then
-        . "/etc/profile.d/nix.sh"
-      fi
-    '');
+    profileExtra = lib.mkIf (config.veritas.david.dotfiles.isNonNixOS) (
+      ''
+        if [ -f ${config.home.profileDirectory}/etc/profile.d/nix.sh ]; then
+          . "${config.home.profileDirectory}/etc/profile.d/nix.sh"
+        elif [ -f /etc/profile.d/nix.sh ]; then
+          . "/etc/profile.d/nix.sh"
+        fi
+      ''
+    );
     initExtra = ''
       eval "$(${pkgs.unstable.starship}/bin/starship init zsh)"
       ${builtins.readFile ./colours.zsh}
       ${builtins.readFile ./completions.zsh}
-    '' + (if config.veritas.david.dotfiles.isWsl then ''
-      _run_npiperelay() {
-          # This function will forward a named pipe from Windows to a socket in WSL. It expects
-          # `npiperelay.exe` (from https://github.com/NZSmartie/npiperelay/releases) to exist at
-          # `C:\npiperelay.exe`.
-          SOCAT_PID_FILE="$1"
-          SOCKET_PATH="$2"
-          WINDOWS_PATH="$3"
+    '' + (
+      if config.veritas.david.dotfiles.isWsl then ''
+        _run_npiperelay() {
+            # This function will forward a named pipe from Windows to a socket in WSL. It expects
+            # `npiperelay.exe` (from https://github.com/NZSmartie/npiperelay/releases) to exist at
+            # `C:\npiperelay.exe`.
+            SOCAT_PID_FILE="$1"
+            SOCKET_PATH="$2"
+            WINDOWS_PATH="$3"
 
-          if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(${pkgs.coreutils}/bin/cat $SOCAT_PID_FILE); then
-              : # Already running.
-          else
-              rm -f "$SOCKET_PATH"
-              EXEC="/mnt/c/npiperelay.exe -ei -ep -s -a '$WINDOWS_PATH'"
-              (trap "rm $SOCAT_PID_FILE" EXIT; \
-                ${pkgs.socat}/bin/socat UNIX-LISTEN:$SOCKET_PATH,fork EXEC:$EXEC,nofork \
-                </dev/null &>/dev/null) &
-              echo $! >$SOCAT_PID_FILE
-          fi
-      }
+            if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(${pkgs.coreutils}/bin/cat $SOCAT_PID_FILE); then
+                : # Already running.
+            else
+                rm -f "$SOCKET_PATH"
+                EXEC="/mnt/c/npiperelay.exe -ei -ep -s -a '$WINDOWS_PATH'"
+                (trap "rm $SOCAT_PID_FILE" EXIT; \
+                  ${pkgs.socat}/bin/socat UNIX-LISTEN:$SOCKET_PATH,fork EXEC:$EXEC,nofork \
+                  </dev/null &>/dev/null) &
+                echo $! >$SOCAT_PID_FILE
+            fi
+        }
 
-      if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-          # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
-          # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
-          # This will be the exact same locations that files are placed when running on
-          # Linux, so that remote forwarding works.
-          ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
-            "${config.home.homeDirectory}/.gnupg/socketdir"
-      fi
+        if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
+            # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
+            # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
+            # This will be the exact same locations that files are placed when running on
+            # Linux, so that remote forwarding works.
+            ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
+              "${config.home.homeDirectory}/.gnupg/socketdir"
+        fi
 
-      # When setting up GPG forwarding to WSL on Windows, get `npiperelay` (see comment in
-      # `_run_npiperelay`) and `gpg4win`. Add a shortcut that runs at startup that will
-      # launch the gpg-agent:
-      #
-      #   "C:\Program Files (x86)\GnuPG\bin\gpg-connect-agent.exe" /bye
+        # When setting up GPG forwarding to WSL on Windows, get `npiperelay` (see comment in
+        # `_run_npiperelay`) and `gpg4win`. Add a shortcut that runs at startup that will
+        # launch the gpg-agent:
+        #
+        #   "C:\Program Files (x86)\GnuPG\bin\gpg-connect-agent.exe" /bye
 
-      # Relay the primary GnuPG socket to `~/.gnupg/S.gpg-agent` which will be used by the
-      # GPG agent.
-      _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg.pid" \
-          "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
-          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
+        # Relay the primary GnuPG socket to `~/.gnupg/S.gpg-agent` which will be used by the
+        # GPG agent.
+        _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg.pid" \
+            "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
+            "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
 
-      # Relay the extra GnuPG socket to `~/.gnupg/S.gpg-agent.extra` which will be forwarded
-      # to remote SSH hosts.
-      _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg-extra.pid" \
-          "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
-          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
+        # Relay the extra GnuPG socket to `~/.gnupg/S.gpg-agent.extra` which will be forwarded
+        # to remote SSH hosts.
+        _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg-extra.pid" \
+            "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
+            "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
 
-      # When setting up SSH forwarding to WSL on Windows, get `wsl-ssh-pageant`
-      # (https://github.com/benpye/wsl-ssh-pageant) and place it in `C:\wsl-pageant`. Add a
-      # `wsl-pageant.vbs` script to the startup directory with the following contents:
-      #
-      # ```vbs
-      # Set objFile = WScript.CreateObject("Scripting.FileSystemObject")
-      # if objFile.FileExists("c:\wsl-pageant\S.gpg-agent.ssh") then
-      #     objFile.DeleteFile "c:\wsl-pageant\S.gpg-agent.ssh"
-      # end if
-      # Set objShell = WScript.CreateObject("WScript.Shell")
-      # objShell.Run( _
-      #   "C:\wsl-pageant\wsl-ssh-pageant-amd64.exe --wsl c:\wsl-pageant\S.gpg-agent.ssh"), _
-      #   0, True
-      # ```
+        # When setting up SSH forwarding to WSL on Windows, get `wsl-ssh-pageant`
+        # (https://github.com/benpye/wsl-ssh-pageant) and place it in `C:\wsl-pageant`. Add a
+        # `wsl-pageant.vbs` script to the startup directory with the following contents:
+        #
+        # ```vbs
+        # Set objFile = WScript.CreateObject("Scripting.FileSystemObject")
+        # if objFile.FileExists("c:\wsl-pageant\S.gpg-agent.ssh") then
+        #     objFile.DeleteFile "c:\wsl-pageant\S.gpg-agent.ssh"
+        # end if
+        # Set objShell = WScript.CreateObject("WScript.Shell")
+        # objShell.Run( _
+        #   "C:\wsl-pageant\wsl-ssh-pageant-amd64.exe --wsl c:\wsl-pageant\S.gpg-agent.ssh"), _
+        #   0, True
+        # ```
 
-      # This file should exist because of `wsl-ssh-pageant`.
-      export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
-    '' else ''
-      if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-          # On Linux, symlink this to the directory where the sockets are placed by the GPG
-          # agent.
-          # This needs to exist for the remote forwarding.
-          ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
-            "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
-            "${config.home.homeDirectory}/.gnupg/socketdir"
-      fi
+        # This file should exist because of `wsl-ssh-pageant`.
+        export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
+      '' else ''
+        if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
+            # On Linux, symlink this to the directory where the sockets are placed by the GPG
+            # agent.
+            # This needs to exist for the remote forwarding.
+            ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
+              "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
+              "${config.home.homeDirectory}/.gnupg/socketdir"
+        fi
 
-      export GPG_TTY=$(tty)
-      export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
-      if [ -z $SSH_CONNECTION ] && [ -z $SSH_CLIENT ]; then
-          # Don't start the `gpg-agent` for remote connections. The sockets from the local
-          # host will be forwarded and picked up by the gpg client.
-          ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
-      fi
-    '') + ''
+        export GPG_TTY=$(tty)
+        export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
+        if [ -z $SSH_CONNECTION ] && [ -z $SSH_CLIENT ]; then
+            # Don't start the `gpg-agent` for remote connections. The sockets from the local
+            # host will be forwarded and picked up by the gpg client.
+            ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
+        fi
+      ''
+    ) + ''
       # Bind keys for Surface and other strange keyboards.
       bindkey "^?" backward-delete-char
       bindkey "^W" backward-kill-word
@@ -194,27 +199,28 @@ in {
     '';
     plugins = import ./plugins.nix;
     sessionVariables = let
-    in {
-      # Enable true colour and use a 256-colour terminal.
-      "COLORTERM" = "truecolor";
-      "TERM" = "xterm-256color";
-      # 10ms for key sequences
-      "KEYTIMEOUT" = "1";
-      # Enable persistent REPL history for node.
-      "NODE_REPL_HISTORY" = "${config.xdg.cacheHome}/node/history";
-      # Use sloppy mode by default, matching web browsers.
-      "NODE_REPL_MODE" = "sloppy";
-      # Allow Vagrant to access Windows outside of WSL.
-      "VAGRANT_WSL_ENABLE_WINDOWS_ACCESS" = "1";
-      # Set a cache directory for zsh.
-      "ZSH_CACHE_DIR" = "${config.xdg.cacheHome}/zsh";
-      # Configure autosuggestions.
-      "ZSH_AUTOSUGGEST_USE_ASYNC" = "1";
-      "ZSH_AUTOSUGGEST_ACCEPT_WIDGETS" = "()";
-    } // lib.attrsets.optionalAttrs config.veritas.david.dotfiles.isNonNixOS {
-      # Needed for `home-manager switch` to work.
-      "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
-    };
+    in
+      {
+        # Enable true colour and use a 256-colour terminal.
+        "COLORTERM" = "truecolor";
+        "TERM" = "xterm-256color";
+        # 10ms for key sequences
+        "KEYTIMEOUT" = "1";
+        # Enable persistent REPL history for node.
+        "NODE_REPL_HISTORY" = "${config.xdg.cacheHome}/node/history";
+        # Use sloppy mode by default, matching web browsers.
+        "NODE_REPL_MODE" = "sloppy";
+        # Allow Vagrant to access Windows outside of WSL.
+        "VAGRANT_WSL_ENABLE_WINDOWS_ACCESS" = "1";
+        # Set a cache directory for zsh.
+        "ZSH_CACHE_DIR" = "${config.xdg.cacheHome}/zsh";
+        # Configure autosuggestions.
+        "ZSH_AUTOSUGGEST_USE_ASYNC" = "1";
+        "ZSH_AUTOSUGGEST_ACCEPT_WIDGETS" = "()";
+      } // lib.attrsets.optionalAttrs config.veritas.david.dotfiles.isNonNixOS {
+        # Needed for `home-manager switch` to work.
+        "NIX_PATH" = "${config.home.homeDirectory}/.nix-defexpr/channels\${NIX_PATH:+:}$NIX_PATH";
+      };
     shellAliases = {
       # Make `rm` prompt before removing more than three files or removing recursively.
       "rm" = "${pkgs.coreutils}/bin/rm -i";
@@ -245,13 +251,11 @@ in {
       "git" = "${pkgs.gitAndTools.hub}/bin/hub";
       # Build within a docker container with a rust and musl toolchain.
       "rust-musl-builder" =
-        "${pkgs.docker}/bin/docker run --rm -it -v \"$PWD\":/home/rust/src " +
-        "ekidd/rust-musl-builder:stable";
+        "${pkgs.docker}/bin/docker run --rm -it -v \"$PWD\":/home/rust/src " + "ekidd/rust-musl-builder:stable";
       # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
       # to unlock the key, but the pinentry prompt mangles the terminal with that command.
       "gpg-unlock-key" =
-        "echo 'foo' | ${pkgs.gnupg}/bin/gpg -o /dev/null --local-user " +
-        "${config.programs.git.signing.key} -as -";
+        "echo 'foo' | ${pkgs.gnupg}/bin/gpg -o /dev/null --local-user " + "${config.programs.git.signing.key} -as -";
       # Use this alias to make the GPG agent relearn what keys are connected and what keys they
       # have.
       "gpg-relearn-key" = "${pkgs.gnupg}/bin/gpg-connect-agent 'scd serialno' 'learn --force' /bye";

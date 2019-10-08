@@ -3,7 +3,8 @@
 let
   external = import ../../../shared/external.nix;
   cfg = config.veritas.david;
-in {
+in
+{
   imports = with external; [
     # Import shared configuration of overlays and nixpkgs.
     ../../../shared

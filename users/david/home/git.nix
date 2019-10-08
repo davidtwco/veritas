@@ -4,7 +4,8 @@
 
 let
   cfg = config.veritas.david;
-in {
+in
+{
   programs.git = {
     aliases = {
       # Debug a command or alias - preceed it with `debug`.
@@ -55,22 +56,39 @@ in {
     };
     ignores = [
       # Compiled source
-      "*.com" "*.class" "*.dll" "*.exe" "*.o" "*.so"
+      "*.com"
+      "*.class"
+      "*.dll"
+      "*.exe"
+      "*.o"
+      "*.so"
 
       # OS generated files
-      ".DS_Store" ".DS_Store?" "._*" ".Spotlight-V100" ".Trashes" "ehthumbs.db" "Thumbs.db"
+      ".DS_Store"
+      ".DS_Store?"
+      "._*"
+      ".Spotlight-V100"
+      ".Trashes"
+      "ehthumbs.db"
+      "Thumbs.db"
 
       # ctags
-      "tags" "tags.temp" "tags.lock" "tags.files"
+      "tags"
+      "tags.temp"
+      "tags.lock"
+      "tags.files"
 
       # Vim
-      ".lvimrc" "Session.vim"
+      ".lvimrc"
+      "Session.vim"
 
       # GDB
       ".gdb_history"
 
       # Workman
-      ".workman_active_working_directory" ".workman_do_not_assign" ".workman_needs_refresh"
+      ".workman_active_working_directory"
+      ".workman_do_not_assign"
+      ".workman_needs_refresh"
 
       # Ripgrep
       ".rgignore"
@@ -84,7 +102,8 @@ in {
         ref = "master";
         rev = "04410eab725ef152e1eb70a87cb6fd4f52f7b4ea";
       };
-    in [ { path = "${aliases}/gitalias.txt"; } ];
+    in
+      [ { path = "${aliases}/gitalias.txt"; } ];
     lfs = {
       enable = true;
       skipSmudge = false;

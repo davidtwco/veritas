@@ -6,7 +6,8 @@ with lib;
 let
   cfg = config.veritas.profiles.media-server;
   group = "media";
-in {
+in
+{
   options.veritas.profiles.media-server.enable = mkEnableOption "Enable media server configuration";
 
   config = mkIf cfg.enable {
@@ -72,9 +73,16 @@ in {
       };
     };
 
-    users.groups.media.members = [ config.users.users.david.name ] ++ (with config.services; [
-      deluge.user sabnzbd.user sonarr.user radarr.user plex.user lidarr.user
-    ]);
+    users.groups.media.members = [ config.users.users.david.name ] ++ (
+      with config.services; [
+        deluge.user
+        sabnzbd.user
+        sonarr.user
+        radarr.user
+        plex.user
+        lidarr.user
+      ]
+    );
   };
 }
 

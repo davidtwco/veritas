@@ -8,14 +8,17 @@
 
 let
   common = import ./common.nix { inherit pkgs; };
-in (pkgs.buildFHSUserEnv {
-  name = "llvm";
-  # `targetPkgs` contains packages to be installed for the main host's architecture.
-  targetPkgs = pkgs: (common.targetPkgs pkgs);
-  # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
-  multiPkgs = pkgs: (common.multiPkgs pkgs);
-  # `profile` can be used to set environment variables.
-  profile = common.profile;
-  # `runScript` determines the command that runs when the shell is entered.
-  runScript = "bash --norc";
-}).env
+in
+(
+  pkgs.buildFHSUserEnv {
+    name = "llvm";
+    # `targetPkgs` contains packages to be installed for the main host's architecture.
+    targetPkgs = pkgs: (common.targetPkgs pkgs);
+    # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
+    multiPkgs = pkgs: (common.multiPkgs pkgs);
+    # `profile` can be used to set environment variables.
+    profile = common.profile;
+    # `runScript` determines the command that runs when the shell is entered.
+    runScript = "bash --norc";
+  }
+).env

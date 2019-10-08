@@ -71,13 +71,17 @@ with lib.lists; with pkgs; {
     # Hard-drive health monitoring.
     smartmontools
     # Compress/uncompress `.zip` files.
-    unzip zip
+    unzip
+    zip
     # Uncompress `.rar` files.
     unrar
     # Compress/uncompress `.7z` files.
     p7zip
     # Man pages
-    man man-pages posix_man_pages stdman
+    man
+    man-pages
+    posix_man_pages
+    stdman
     # Benchmarking.
     hyperfine
     # Codebase statistics.
@@ -111,7 +115,9 @@ with lib.lists; with pkgs; {
     # Tools for manipulating patch files.
     patchutils
     # Alternative version control systems.
-    mercurial bazaar subversion
+    mercurial
+    bazaar
+    subversion
     # GnuPG
     gnupg
     # Keybase

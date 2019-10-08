@@ -4,7 +4,8 @@
 
 let
   colours = config.veritas.david.colourScheme.basic;
-in {
+in
+{
   xresources.properties = with colours; {
     # Hybrid colour scheme.
     "*background" = "#${background}";

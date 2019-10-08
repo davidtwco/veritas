@@ -14,8 +14,10 @@ let
         printf "`${pkgs.coreutils}/bin/whoami`@`${pkgs.inetutils}/bin/hostname`"
       fi
     '';
-  in "${dir}/bin/${name}";
-in {
+  in
+    "${dir}/bin/${name}";
+in
+{
   programs.tmux = {
     customPaneNavigationAndResize = true;
     enable = true;

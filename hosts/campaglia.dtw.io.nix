@@ -16,7 +16,13 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   boot.initrd.availableKernelModules = [
-    "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" "sr_mod"
+    "xhci_pci"
+    "ehci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "sr_mod"
   ];
   boot.supportedFilesystems = [ "ntfs" ];
   # }}}
@@ -24,17 +30,20 @@
   # Filesystems {{{
   # ===========
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/4bd2471e-40a7-45a7-85b3-d9cbaeceae8f";
+    {
+      device = "/dev/disk/by-uuid/4bd2471e-40a7-45a7-85b3-d9cbaeceae8f";
       fsType = "btrfs";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7890-1735";
+    {
+      device = "/dev/disk/by-uuid/7890-1735";
       fsType = "vfat";
     };
 
   fileSystems."/data" =
-    { device = "/dev/disk/by-uuid/84ddf5cd-d603-4e8b-8c5c-cf095c17973c";
+    {
+      device = "/dev/disk/by-uuid/84ddf5cd-d603-4e8b-8c5c-cf095c17973c";
       fsType = "btrfs";
     };
   # }}}

@@ -5,7 +5,8 @@
 
 let
   external = import ./external.nix;
-in {
+in
+{
   # `nixpkgs.overlays` is the canonical list of overlays used in the system. Overlays that are
   # merged into `nixpkgs.overlays` from other files (such as the qemu aarch64 module) won't be
   # available in home-manager.
@@ -24,17 +25,18 @@ in {
   # > recipe of boost in the above example, comes from super, as well as the callPackage function.
   nixpkgs.overlays = let
     unstable = import external.nixpkgsUnstable { config = config.nixpkgs.config; };
-  in [
-    # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
-    (self: super: { inherit unstable; })
-    # Add our own overlays.
-    (import ../overlays/computecpp.nix)
-    (import ../overlays/opencl.nix)
-    (import ../overlays/packages.nix)
-    (import ../overlays/plex.nix)
-    # Use Mozilla's overlay for `rustChannelOf` function.
-    (import external.mozillaOverlay)
-  ];
+  in
+    [
+      # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
+      (self: super: { inherit unstable; })
+      # Add our own overlays.
+      (import ../overlays/computecpp.nix)
+      (import ../overlays/opencl.nix)
+      (import ../overlays/packages.nix)
+      (import ../overlays/plex.nix)
+      # Use Mozilla's overlay for `rustChannelOf` function.
+      (import external.mozillaOverlay)
+    ];
 
   nixpkgs.config = import ./config.nix;
 }

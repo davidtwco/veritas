@@ -4,7 +4,8 @@
 
 let
   colours = config.veritas.david.colourScheme;
-in {
+in
+{
   # Install Starship package.
   home.packages = with pkgs; [ unstable.starship ];
 

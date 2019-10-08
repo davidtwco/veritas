@@ -4,7 +4,8 @@
 
 let
   cfg = config.veritas.david;
-in {
+in
+{
   xsession = {
     enable = !config.veritas.david.dotfiles.headless;
     initExtra = ''

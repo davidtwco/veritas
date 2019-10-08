@@ -161,7 +161,7 @@
         # Normal colors
         normal = {
           black = "0x${black}";
-          red =  "0x${red}";
+          red = "0x${red}";
           green = "0x${green}";
           yellow = "0x${yellow}";
           blue = "0x${blue}";
@@ -377,12 +377,12 @@
       #   - AppKeypad
       key_bindings = [
         { key = "Paste"; action = "Paste"; }
-        { key = "Copy";  action = "Copy"; }
+        { key = "Copy"; action = "Copy"; }
         { key = "L"; mods = "Control"; action = "ClearLogNotice"; }
         { key = "L"; mods = "Control"; chars = "\\x0c"; }
-        { key = "Home"; chars = "\\x1bOH"; mode = "AppCursor";  }
+        { key = "Home"; chars = "\\x1bOH"; mode = "AppCursor"; }
         { key = "Home"; chars = "\\x1b[H"; mode = "~AppCursor"; }
-        { key = "End"; chars = "\\x1bOF"; mode = "AppCursor";  }
+        { key = "End"; chars = "\\x1bOF"; mode = "AppCursor"; }
         { key = "End"; chars = "\\x1b[F"; mode = "~AppCursor"; }
         { key = "PageUp"; mods = "Shift"; action = "ScrollPageUp"; mode = "~Alt"; }
         { key = "PageUp"; mods = "Shift"; chars = "\\x1b[5;2~"; mode = "Alt"; }

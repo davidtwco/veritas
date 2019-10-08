@@ -64,34 +64,34 @@
 
   # Don't use `services.gpg-agent` until we can find a way to make it work with agent forwarding.
   home.file.".gnupg/gpg-agent.conf".text = let
-    pinentry = "${pkgs.pinentry}/bin/" +
-      (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
-  in ''
-    # Wait an hour before prompting again, always
-    # prompt if it has been 2 hours, regardless most
-    # recent use.
-    default-cache-ttl 600
-    max-cache-ttl 7200
+    pinentry = "${pkgs.pinentry}/bin/" + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
+  in
+    ''
+      # Wait an hour before prompting again, always
+      # prompt if it has been 2 hours, regardless most
+      # recent use.
+      default-cache-ttl 600
+      max-cache-ttl 7200
 
-    # Don't prompt for ssh. This is primarily so that
-    # async repository checks by prompts don't trigger
-    # random pinentry prompts.
-    default-cache-ttl-ssh 600
-    max-cache-ttl-ssh 7200
+      # Don't prompt for ssh. This is primarily so that
+      # async repository checks by prompts don't trigger
+      # random pinentry prompts.
+      default-cache-ttl-ssh 600
+      max-cache-ttl-ssh 7200
 
-    # Act as an SSH agent.
-    enable-ssh-support
+      # Act as an SSH agent.
+      enable-ssh-support
 
-    # Use different pinentry script depending on what is available.
-    # Redirect through a script so this works on all distros.
-    pinentry-program ${pinentry}
+      # Use different pinentry script depending on what is available.
+      # Redirect through a script so this works on all distros.
+      pinentry-program ${pinentry}
 
-    # Enable logging to a socket for debugging.
-    # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
-    # verbose
-    # debug-level guru
-    # log-file socket:///${config.home.homeDirectory}/.gnupg/S.log
-  '';
+      # Enable logging to a socket for debugging.
+      # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
+      # verbose
+      # debug-level guru
+      # log-file socket:///${config.home.homeDirectory}/.gnupg/S.log
+    '';
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

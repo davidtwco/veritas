@@ -9,14 +9,16 @@ let
     # from the NixOS configuration.
     self: super:
 
-    with super.lib;
-    let
-      # Use NixOS plumbing to evaluate the NixOS configuration and get the `nixpkgs.overlays`
-      # option.
-      eval = import <nixpkgs/nixos/lib/eval-config.nix>;
-      paths = (eval { modules = [ (import <nixos-config>) ]; }).config.nixpkgs.overlays;
-    in foldl' (flip extends) (_: super) paths self
+      with super.lib;
+      let
+        # Use NixOS plumbing to evaluate the NixOS configuration and get the `nixpkgs.overlays`
+        # option.
+        eval = import <nixpkgs/nixos/lib/eval-config.nix>;
+        paths = (eval { modules = [ (import <nixos-config>) ]; }).config.nixpkgs.overlays;
+      in
+        foldl' (flip extends) (_: super) paths self
   );
-in [ compat ]
+in
+[ compat ]
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

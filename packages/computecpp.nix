@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [];
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ncurses5 ocl-icd zlib  ];
+  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ncurses5 ocl-icd zlib ];
 
   patchPhase = ''
     runHook prePatch
@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
-    homepage    = https://www.codeplay.com/products/computesuite/computecpp;
-    license     = stdenv.lib.licenses.unfree;
-    platforms   = [ "x86_64-linux" ];
+    homepage = https://www.codeplay.com/products/computesuite/computecpp;
+    license = stdenv.lib.licenses.unfree;
+    platforms = [ "x86_64-linux" ];
     maintainers = [ stdenv.lib.maintainers.davidtwco ];
   };
 }

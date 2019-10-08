@@ -18,46 +18,50 @@ let
     eight = "8";
     nine = "9";
   };
-in {
+in
+{
   xsession.windowManager.i3 = {
     enable = !config.veritas.david.dotfiles.headless;
     config = {
       inherit fonts;
       assigns = {};
       bars = [];
-      colors = let asHex = c: "#${c}"; in {
-        background = asHex colours.basic.background;
-        # Customize our i3 colours:
-        #
-        # - `background` is the colour of the titlebar (only visible in tabbed or stacked mode).
-        # - `border` is the colour of the border around the titlebar.
-        # - `childBorder`: is the colour of the border around the whole window.
-        # - `indicator` is the colour of the side that indicates where new windows will appear.
-        # - `text` is the colour of the titlebar text.
-        focused = {
+      colors = let
+        asHex = c: "#${c}";
+      in
+        {
           background = asHex colours.basic.background;
-          border = asHex colours.basic.background;
-          childBorder = asHex colours.basic.red;
-          indicator = asHex colours.basic.brightRed;
-          text = asHex colours.basic.foreground;
+          # Customize our i3 colours:
+          #
+          # - `background` is the colour of the titlebar (only visible in tabbed or stacked mode).
+          # - `border` is the colour of the border around the titlebar.
+          # - `childBorder`: is the colour of the border around the whole window.
+          # - `indicator` is the colour of the side that indicates where new windows will appear.
+          # - `text` is the colour of the titlebar text.
+          focused = {
+            background = asHex colours.basic.background;
+            border = asHex colours.basic.background;
+            childBorder = asHex colours.basic.red;
+            indicator = asHex colours.basic.brightRed;
+            text = asHex colours.basic.foreground;
+          };
+          focusedInactive = cfg.colors.unfocused;
+          placeholder = cfg.colors.unfocused;
+          unfocused = {
+            background = asHex colours.basic.background;
+            border = asHex colours.basic.background;
+            childBorder = asHex colours.basic.background;
+            indicator = asHex colours.basic.background;
+            text = asHex colours.basic.foreground;
+          };
+          urgent = {
+            background = asHex colours.basic.background;
+            border = asHex colours.basic.brightRed;
+            childBorder = asHex colours.basic.brightRed;
+            indicator = asHex colours.basic.background;
+            text = asHex colours.basic.foreground;
+          };
         };
-        focusedInactive = cfg.colors.unfocused;
-        placeholder = cfg.colors.unfocused;
-        unfocused = {
-          background = asHex colours.basic.background;
-          border = asHex colours.basic.background;
-          childBorder = asHex colours.basic.background;
-          indicator = asHex colours.basic.background;
-          text = asHex colours.basic.foreground;
-        };
-        urgent = {
-          background = asHex colours.basic.background;
-          border = asHex colours.basic.brightRed;
-          childBorder = asHex colours.basic.brightRed;
-          indicator = asHex colours.basic.background;
-          text = asHex colours.basic.foreground;
-        };
-      };
       gaps = {
         inner = 2;
         outer = 2;
@@ -142,20 +146,21 @@ in {
     extraConfig = with pkgs; let
       i3msg = "${config.xsession.windowManager.i3.package}/bin/i3-msg";
       defaultWorkspace = "workspace ${workspaces.one}";
-    in ''
-      # Let GNOME handle complicated stuff like monitors, bluetooth, etc.
-      exec ${gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
+    in
+      ''
+        # Let GNOME handle complicated stuff like monitors, bluetooth, etc.
+        exec ${gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
 
-      # Instead of using `assigns` and `startup` to launch applications on startup, use exec with
-      # i3-msg. This will avoid having *every* instance of these applications start on the assigned
-      # workspace, only the initial instance.
-      exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
-      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${firefox}/bin/firefox; ${defaultWorkspace}'
-      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
+        # Instead of using `assigns` and `startup` to launch applications on startup, use exec with
+        # i3-msg. This will avoid having *every* instance of these applications start on the assigned
+        # workspace, only the initial instance.
+        exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
+        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${firefox}/bin/firefox; ${defaultWorkspace}'
+        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
 
-      # Always put the first workspace on the primary monitor.
-      ${defaultWorkspace} output primary
-    '';
+        # Always put the first workspace on the primary monitor.
+        ${defaultWorkspace} output primary
+      '';
   };
 }
 

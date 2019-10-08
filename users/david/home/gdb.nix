@@ -13,7 +13,8 @@ let
     rev = "d065c811649f0d0df5429741a9a3dd643e88a9fe";
     sha256 = "0qnszpkilkx4zacafdfhf5xwvdxjpzq5wjx1bx4nln8vvznmhqig";
   };
-in {
+in
+{
   home.file.".gdbinit".text = ''
     # Add libstdc++ pretty printers.
     python

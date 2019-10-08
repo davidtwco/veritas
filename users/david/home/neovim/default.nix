@@ -5,7 +5,8 @@
 let
   colours = config.veritas.david.colourScheme;
   plugins = pkgs.callPackage ./plugins.nix {};
-in {
+in
+{
   # Use NeoVim as editor. Don't use the full path to the binary as that won't be the customized
   # version.
   home.sessionVariables."EDITOR" = "nvim";
@@ -126,7 +127,14 @@ in {
           # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
           rust-vim
           # Other languages
-          pgsql-vim vim-graphql vim-hocon vim-jinja vim-nix vim-pandoc vim-pandoc-syntax vim-puppet
+          pgsql-vim
+          vim-graphql
+          vim-hocon
+          vim-jinja
+          vim-nix
+          vim-pandoc
+          vim-pandoc-syntax
+          vim-puppet
           vim-spirv
           # Generate ctags for projects.
           vim-gutentags
@@ -135,7 +143,8 @@ in {
           # Hybrid colour scheme
           vim-hybrid
           # Autocompletion/linting/fixing.
-          ale lightline-ale
+          ale
+          lightline-ale
           # Add operator to comment out lines.
           vim-commentary
           # Improvements to netrw.
@@ -143,19 +152,23 @@ in {
           # Show git changes in the sign column
           vim-signify
           # Git wrappers
-          vim-fugitive vim-rhubarb fugitive-gitlab-vim
+          vim-fugitive
+          vim-rhubarb
+          fugitive-gitlab-vim
           # Helper functions for unix commands.
           vim-eunuch
           # Easy navigation between vim splits and tmux panes.
           vim-tmux-navigator
           # Focus events and clipboard for tmux.
-          vim-tmux-clipboard vim-tmux-focus-events
+          vim-tmux-clipboard
+          vim-tmux-focus-events
           # GnuPG
           vim-gnupg
           # Switch to absolute line numbers for buffers that aren't focused.
           vim-numbertoggle
           # Fuzzy file search.
-          fzf fzf-vim
+          fzf
+          fzf-vim
           # Statusline
           lightline
           # Show marks in sign column.

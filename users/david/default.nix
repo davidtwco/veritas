@@ -4,7 +4,8 @@
 
 let
   cfg = config.veritas.david;
-in {
+in
+{
   options.veritas.david = import ./options.nix { inherit config; inherit lib; };
 
   config = {
@@ -25,8 +26,17 @@ in {
     users.users.david = {
       description = cfg.name;
       extraGroups = [
-        "adbusers" "audio" "disk" "video" "wheel" "docker" "libvirtd" "lxd" "plugdev"
-        "systemd-journal" "vboxusers"
+        "adbusers"
+        "audio"
+        "disk"
+        "video"
+        "wheel"
+        "docker"
+        "libvirtd"
+        "lxd"
+        "plugdev"
+        "systemd-journal"
+        "vboxusers"
       ];
       hashedPassword = "$6$kvMx6lEzQPhkSj8E$KfP/qM2cMz5VqNszLjeOBGnny3PdIyy0vnHzIgP.gb1XqTI/qq3nbt0Qg871pkmwJwIu3ZGt57yShMjFFMR3x1";
       isNormalUser = true;
