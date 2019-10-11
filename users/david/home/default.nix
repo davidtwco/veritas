@@ -1,11 +1,7 @@
 { config, pkgs, lib, ... }:
 
-let
-  external = import ../../../shared/external.nix;
-  cfg = config.veritas.david;
-in
 {
-  imports = with external; [
+  imports = [
     # Import shared configuration of overlays and nixpkgs.
     ../../../shared
     # Import other home configurations.
@@ -51,9 +47,6 @@ in
     ./xsession.nix
     ./xresources.nix
     ./zsh
-    # Import modules from unstable home-manager or forks.
-    "${homeManagerUnstable}/modules/programs/gpg.nix"
-    "${homeManagerSshForwardsFork}/modules/programs/ssh.nix"
   ];
 
   # Apply same nixpkgs configuration as outside of home-manager.

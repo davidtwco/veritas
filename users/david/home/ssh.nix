@@ -6,7 +6,7 @@
   home.file.".ssh/id_ecdsa_legacy.pub".source = ../public_keys/id_ecdsa_legacy.pub;
   home.file.".ssh/id_rsa_yubikey.pub".source = ../public_keys/id_rsa_yubikey.pub;
 
-  programs.ssh2 = {
+  programs.ssh = {
     compression = true;
     enable = true;
     controlMaster = "auto";

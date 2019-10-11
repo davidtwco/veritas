@@ -3,7 +3,7 @@
 # This file installs fonts and enables fontconfig.
 
 {
-  fonts.fontconfig.enableProfileFonts = config.veritas.david.dotfiles.isNonNixOS;
+  fonts.fontconfig.enable = config.veritas.david.dotfiles.isNonNixOS;
 
   home.packages = lib.lists.optionals (!config.veritas.david.dotfiles.headless) (
     with pkgs; [

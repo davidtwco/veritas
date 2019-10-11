@@ -32,7 +32,6 @@ in
       ''
     );
     initExtra = ''
-      eval "$(${pkgs.unstable.starship}/bin/starship init zsh)"
       ${builtins.readFile ./colours.zsh}
       ${builtins.readFile ./completions.zsh}
     '' + (

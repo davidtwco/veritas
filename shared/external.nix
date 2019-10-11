@@ -2,17 +2,11 @@
 # version is used by NixOS, nix tools and home-manager.
 
 {
-  # Upstream {{{
-  # ========
   homeManager = builtins.fetchGit {
-    url = "https://github.com/rycee/home-manager.git";
-    ref = "release-19.03";
-    rev = "8def3835111f0b16850736aa210ca542fcd02af6";
-  };
-  homeManagerUnstable = builtins.fetchGit {
-    url = "https://github.com/rycee/home-manager.git";
-    ref = "master";
-    rev = "761b3d0c124856433ae69c77b9c44e9b5e40e6ac";
+    # Temporarily use our fork of upstream's master to specify starship package.
+    url = "https://github.com/davidtwco/home-manager.git";
+    ref = "starship-package";
+    rev = "c4b77d90383e8777234793e32089b3acab28762f";
   };
   nixosUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
@@ -39,16 +33,6 @@
     ref = "master";
     rev = "76260ad60cd99d40ab25df1400b0663d48e736db";
   };
-  # }}}
-
-  # Forks {{{
-  # =====
-  homeManagerSshForwardsFork = builtins.fetchGit {
-    url = "https://github.com/davidtwco/home-manager.git";
-    ref = "internal/ssh/remote-dynamic-forwards";
-    rev = "94d668c03a6eb76fe84f17cc179a7179ed4c9422";
-  };
-  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
