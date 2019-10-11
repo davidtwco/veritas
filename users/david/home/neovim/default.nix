@@ -208,8 +208,6 @@ in
       vim-mundo
       # Search/substitution/abbreviation of word variations.
       vim-abolish
-      # Date manipulation commands.
-      vim-speeddating
       # Access unicode character metadata.
       vim-characterize
       # Session saving.
