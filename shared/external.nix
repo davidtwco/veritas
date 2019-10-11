@@ -21,17 +21,12 @@
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";
-    rev = "b52a8b7de89b1fac49302cbaffd4caed4551515f";
+    rev = "d46240e8755d91bc36c0c38621af72bf5c489e13";
   };
   dwarffs = builtins.fetchGit {
     url = "https://github.com/edolstra/dwarffs.git";
     ref = "master";
     rev = "531a2338101f0b6db2d9d512c3f98145f7b75397";
-  };
-  qemuAarch64 = builtins.fetchGit {
-    url = "https://github.com/cleverca22/nixos-configs.git";
-    ref = "master";
-    rev = "76260ad60cd99d40ab25df1400b0663d48e736db";
   };
 }
 

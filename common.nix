@@ -19,24 +19,14 @@ in
     "${homeManager}/nixos"
     # Enable dwarffs.
     "${dwarffs}/module.nix"
-    # Set up cross-compilation.
-    "${qemuAarch64}/qemu.nix"
-    # Disable modules from 19.03 and use the versions from the unstable channel that match
-    # versions we are using.
-    "${nixosUnstable}/nixos/modules/services/torrent/deluge.nix"
-    "${nixosUnstable}/nixos/modules/services/misc/lidarr.nix"
-    "${nixosUnstable}/nixos/modules/services/misc/jackett.nix"
-    "${nixosUnstable}/nixos/modules/services/misc/plex.nix"
-  ];
-  disabledModules = [
-    "services/torrent/deluge.nix"
-    "services/misc/jackett.nix"
-    "services/misc/lidarr.nix"
-    "services/misc/plex.nix"
   ];
 
-  # Clean temporary directory on boot.
-  boot.cleanTmpDir = true;
+  boot = {
+    # Enable running aarch64 binaries using qemu.
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
+    # Clean temporary directory on boot.
+    cleanTmpDir = true;
+  };
 
   environment = {
     pathsToLink = [ "/share/zsh" "/share" ];
@@ -88,6 +78,8 @@ in
       trustedInterfaces = [ "virbr0" "virbr0-nic" "lxdbr0" "docker0" ];
     };
     networkmanager.enable = false;
+    # Must be set per-interface.
+    useDHCP = false;
     useNetworkd = true;
   };
 

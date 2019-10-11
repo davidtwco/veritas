@@ -10,12 +10,6 @@
 
   imports = [ ../common.nix ];
 
-  # aarch64 {{{
-  # =======
-  # Enable qemu cross-compilation to aarch64.
-  qemu-user.aarch64 = true;
-  # }}}
-
   # Boot Loader {{{
   # ===========
   boot.loader.systemd-boot.enable = true;
@@ -82,9 +76,11 @@
 
   # Networking {{{
   # ==========
-  networking.hostName = "dtw-volkov";
-  networking.wireless.enable = false;
-  networking.useDHCP = true;
+  networking = {
+    hostName = "dtw-volkov";
+    interfaces.eno1.useDHCP = true;
+    wireless.enable = false;
+  };
   # }}}
 
   # Veritas {{{

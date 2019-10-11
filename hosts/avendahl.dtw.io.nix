@@ -48,7 +48,7 @@
   # ==========
   networking = {
     hostName = "dtw-avendahl";
-    useDHCP = true;
+    interfaces.enp0s31f6.useDHCP = true;
     wireless.enable = false;
   };
   # }}}

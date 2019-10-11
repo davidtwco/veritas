@@ -65,9 +65,11 @@
 
   # Networking {{{
   # ==========
-  networking.hostName = "dtw-campaglia";
-  networking.wireless.enable = false;
-  networking.useDHCP = true;
+  networking = {
+    hostName = "dtw-campaglia";
+    interfaces.eno1.useDHCP = true;
+    wireless.enable = false;
+  };
 
   services.ddclient = {
     enable = true;
