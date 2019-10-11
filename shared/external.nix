@@ -4,6 +4,8 @@
 {
   homeManager = builtins.fetchGit {
     # Temporarily use our fork of upstream's master to specify starship package.
+    # Remember to change the channels back on non-NixOS systems when going back
+    # to upstream.
     url = "https://github.com/davidtwco/home-manager.git";
     ref = "starship-package";
     rev = "c4b77d90383e8777234793e32089b3acab28762f";
