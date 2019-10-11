@@ -49,19 +49,13 @@
   ];
   # }}}
 
-  # Hardware + GNOME {{{
-  # ================
+  # Hardware {{{
+  # ========
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
   boot.vesa = false;
 
-  services = {
-    gnome3.chrome-gnome-shell.enable = true;
-    xserver = {
-      desktopManager.gnome3.enable = true;
-      videoDrivers = [ "nvidia" ];
-    };
-  };
+  services.xserver.videoDrivers = [ "nvidia" ];
   # }}}
 
   # Kernel {{{

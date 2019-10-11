@@ -124,6 +124,11 @@ in
       socketActivated = true;
       packages = with pkgs; [ gnome3.dconf ];
     };
+    # Enable parts of GNOME.
+    gnome3 = lib.mkIf (!config.veritas.david.dotfiles.headless) {
+      core-os-services.enable = true;
+      core-utilities.enable = true;
+    };
     # Enable locate to find files quickly.
     locate.enable = true;
     # Enable ssh server.
@@ -149,13 +154,9 @@ in
     printing.enable = true;
     # Enable Keybase.
     keybase.enable = true;
-
-    udev.packages = with pkgs; [
-      # Required for YubiKey devices to work.
-      yubikey-personalization
-      libu2f-host
-    ];
-
+    # Required for YubiKey devices to work.
+    udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
+    # Use gdm as display manager.
     xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       enable = true;
       displayManager.gdm = {

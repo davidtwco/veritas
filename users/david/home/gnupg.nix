@@ -64,7 +64,7 @@
 
   # Don't use `services.gpg-agent` until we can find a way to make it work with agent forwarding.
   home.file.".gnupg/gpg-agent.conf".text = let
-    pinentry = "${pkgs.pinentry}/bin/" + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
+    pinentry = "${pkgs.pinentry_gnome}/bin/" + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
   in
     ''
       # Wait an hour before prompting again, always
