@@ -23,8 +23,8 @@ self: super:
     src = super.fetchFromGitHub {
       owner = "nmattia";
       repo = "niv";
-      rev = "8b7b70465c130d8d7a98fba1396ad1481daee518";
-      sha256 = "0fgdrxn2vzpnzr6pxaiyn5zzbd812c6f7xjjhfir0kpzamjnxwwl";
+      rev = "1dd094156b249586b66c16200ecfd365c7428dc0";
+      sha256 = "1b2vjnn8iac5iiqszjc2v1s1ygh0yri998c0k3s4x4kn0dsqik21";
     };
   in
     (import src {}).niv;
