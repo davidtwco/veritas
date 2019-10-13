@@ -13,9 +13,8 @@ self: super:
     super.fetchFromGitHub {
       owner = "target";
       repo = "lorri";
-      # `rolling-release` branch.
-      rev = "38eae3d487526ece9d1b8c9bb0d27fb45cf60816";
-      sha256 = "11k9lxg9cv6dlxj4haydvw4dhcfyszwvx7jx9p24jadqsy9jmbj4";
+      rev = "d05f00a84f887b042c8feceb2c29bbdec438c9e6";
+      sha256 = "1rhykd65a6zh4ak3z0hz0hbg91ifc6q7lcfyqhdd8w72ywsx3kaw";
     }
   ) {};
 
