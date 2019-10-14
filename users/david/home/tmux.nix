@@ -106,7 +106,7 @@ in
         plugin = tmuxPlugins.resurrect;
         extraConfig = ''
           set -g @resurrect-strategy-nvim 'session'
-          set -g @resurrect-save-shell-history 'on'
+          set -g @resurrect-save-shell-history 'off'
           set -g @resurrect-capture-pane-contents 'on'
         '';
       }
