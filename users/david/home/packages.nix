@@ -118,6 +118,7 @@ with lib.lists; with pkgs; {
     mercurial
     bazaar
     subversion
+    pijul
     # GnuPG
     gnupg
     # Keybase
