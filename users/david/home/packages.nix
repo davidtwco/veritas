@@ -147,6 +147,8 @@ with lib.lists; with pkgs; {
     arping
     # dependency mgmt for nix projects
     niv
+    # Visualize Nix gc-roots to delete to free space.
+    unstable.nix-du
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
