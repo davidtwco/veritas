@@ -35,10 +35,6 @@ imap <c-x><C-l> <plug>(fzf-complete-line)
 " `w!!` will save a file opened without sudo.
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 
-" Bind quick shortcuts for sideways.
-nnoremap <C-,> :SidewaysJumpLeft<CR>
-nnoremap <C-.> :SidewaysJumpRight<CR>
-
 if has('nvim') || has('terminal')
   " Bind ESC to exit terminal mode.
   tnoremap <Esc> <C-\><c-n>

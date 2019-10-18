@@ -13,14 +13,6 @@
       rev = "f9322113095ac01c00d4c38da6aca715663e35cf";
     };
   };
-  editorconfig-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "editorconfig-vim";
-    src = builtins.fetchGit {
-      url = "https://github.com/editorconfig/editorconfig-vim.git";
-      ref = "master";
-      rev = "c718cefc51ccdaf7bd27c4c1ae2de55103434241";
-    };
-  };
   ferret = pkgs.vimUtils.buildVimPlugin {
     name = "ferret";
     src = builtins.fetchGit {
@@ -44,14 +36,6 @@
       url = "https://github.com/junegunn/fzf.vim.git";
       ref = "master";
       rev = "359a80e3a34aacbd5257713b6a88aa085337166f";
-    };
-  };
-  goyo-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "goyo.vim";
-    src = builtins.fetchGit {
-      url = "https://github.com/junegunn/goyo.vim.git";
-      ref = "master";
-      rev = "6b6ed2734084fdbb6315357ddcaecf9c8e6f143d";
     };
   };
   is-vim = pkgs.vimUtils.buildVimPlugin {
@@ -86,28 +70,12 @@
       rev = "a49b1473eca309e5f5cf2486100d9efe23a6e4ff";
     };
   };
-  pgsql-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "pgsql-vim";
-    src = builtins.fetchGit {
-      url = "https://github.com/lifepillar/pgsql.vim.git";
-      ref = "master";
-      rev = "f935de6621b573a100c0a80a472ceff544861b4e";
-    };
-  };
   scratch-vim = pkgs.vimUtils.buildVimPlugin {
     name = "scratch.vim";
     src = builtins.fetchGit {
       url = "https://github.com/mtth/scratch.vim.git";
       ref = "master";
       rev = "6df617ebc0695bd9839a4fe365a08df13d24bc05";
-    };
-  };
-  sideways-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "sideways.vim";
-    src = builtins.fetchGit {
-      url = "https://github.com/AndrewRadev/sideways.vim";
-      ref = "master";
-      rev = "17c03c59913f76bbdede07b8f9d4a1f163d9b2f2";
     };
   };
   split-term-vim = pkgs.vimUtils.buildVimPlugin {
@@ -126,28 +94,12 @@
       rev = "339091ac4dd1f17e225fe7d57b48aff55f99b23a";
     };
   };
-  tagbar = pkgs.vimUtils.buildVimPlugin {
-    name = "tagbar";
-    src = builtins.fetchGit {
-      url = "https://github.com/majutsushi/tagbar.git";
-      ref = "master";
-      rev = "387bbadda98e1376ff3871aa461b1f0abd4ece70";
-    };
-  };
   vim-abolish = pkgs.vimUtils.buildVimPlugin {
     name = "vim-abolish";
     src = builtins.fetchGit {
       url = "https://github.com/tpope/vim-abolish.git";
       ref = "master";
       rev = "b95463a1cffd8fc9aff2a1ff0ae9327944948699";
-    };
-  };
-  vim-characterize = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-characterize";
-    src = builtins.fetchGit {
-      url = "https://github.com/tpope/vim-characterize.git";
-      ref = "master";
-      rev = "c6d26e5017ab8637bac30db7448ddabfaa238cce";
     };
   };
   vim-commentary = pkgs.vimUtils.buildVimPlugin {
@@ -182,23 +134,6 @@
       rev = "442d56e23cd75a336b28cf5e46bf0def8c65dff5";
     };
   };
-  vim-gnupg = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-gnupg";
-    src = builtins.fetchGit {
-      url = "https://github.com/jamessan/vim-gnupg.git";
-      ref = "master";
-      rev = "6219a5a0d70dbc10c5e70289a2c400d6d8b62762";
-    };
-  };
-  vim-graphql = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-graphql";
-    src = builtins.fetchGit {
-      url = "https://github.com/jparise/vim-graphql.git";
-      ref = "master";
-      rev = "61e342c4facd5cbc645104262e866882ea1cf5c3";
-    };
-    dontBuild = true;
-  };
   vim-gutentags = pkgs.vimUtils.buildVimPlugin {
     name = "vim-gutentags";
     src = builtins.fetchGit {
@@ -221,22 +156,6 @@
       url = "https://github.com/w0ng/vim-hybrid.git";
       ref = "master";
       rev = "cc58baabeabc7b83768e25b852bf89c34756bf90";
-    };
-  };
-  vim-jinja = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-jinja";
-    src = builtins.fetchGit {
-      url = "https://github.com/lepture/vim-jinja.git";
-      ref = "master";
-      rev = "8d330a7aaf0763d080dc82204b4aaba6ac0605c6";
-    };
-  };
-  vim-livedown = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-livedown";
-    src = builtins.fetchGit {
-      url = "https://github.com/shime/vim-livedown.git";
-      ref = "master";
-      rev = "24c78c0c1177c0231bb542fa1e3807a3b089248e";
     };
   };
   vim-localvimrc = pkgs.vimUtils.buildVimPlugin {
@@ -264,28 +183,12 @@
       rev = "a32f8af11dee435a198bef3504f0aa594f960409";
     };
   };
-  vim-nix = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-nix";
-    src = builtins.fetchGit {
-      url = "https://github.com/LnL7/vim-nix.git";
-      ref = "master";
-      rev = "a3eed01f4de995a51dfdd06287e44fcb231f6adf";
-    };
-  };
   vim-numbertoggle = pkgs.vimUtils.buildVimPlugin {
     name = "vim-numbertoggle";
     src = builtins.fetchGit {
       url = "https://github.com/jeffkreeftmeijer/vim-numbertoggle.git";
       ref = "master";
       rev = "cfaecb9e22b45373bb4940010ce63a89073f6d8b";
-    };
-  };
-  vim-obsession = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-obsession";
-    src = builtins.fetchGit {
-      url = "https://github.com/tpope/vim-obsession.git";
-      ref = "master";
-      rev = "60f0ef80fd74b8c58fd0cc7a55b81846e06c04f3";
     };
   };
   vim-pandoc = pkgs.vimUtils.buildVimPlugin {
@@ -309,15 +212,7 @@
     src = builtins.fetchGit {
       url = "https://github.com/sheerun/vim-polyglot.git";
       ref = "master";
-      rev = "3ddca5da461ebfaa82104f82e3cbf19d1c326ade";
-    };
-  };
-  vim-puppet = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-puppet";
-    src = builtins.fetchGit {
-      url = "https://github.com/rodjek/vim-puppet.git";
-      ref = "master";
-      rev = "b2ae19b3ef397ed7404bf15051cbc5ff655b893e";
+      rev = "31c55b85a03d96252bba14d64911cc78a20369a1";
     };
   };
   vim-repeat = pkgs.vimUtils.buildVimPlugin {
@@ -377,14 +272,6 @@
     };
     dontBuild = true;
   };
-  vim-speeddating = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-speeddating";
-    src = builtins.fetchGit {
-      url = "https://github.com/tpope/vim-speeddating.git";
-      ref = "master";
-      rev = "ce2f1aae9f2be128b4ca322a8e797be3ae40c30b";
-    };
-  };
   vim-spirv = pkgs.vimUtils.buildVimPlugin {
     name = "vim-spirv";
     src = builtins.fetchGit {
@@ -399,14 +286,6 @@
       url = "https://github.com/tpope/vim-surround.git";
       ref = "master";
       rev = "fab8621670f71637e9960003af28365129b1dfd0";
-    };
-  };
-  vim-tbone = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-tbone";
-    src = builtins.fetchGit {
-      url = "https://github.com/tpope/vim-tbone.git";
-      ref = "master";
-      rev = "b7f41b10db9ed5e5854fc5fe3a619bc05f2d541a";
     };
   };
   vim-tmux-clipboard = pkgs.vimUtils.buildVimPlugin {

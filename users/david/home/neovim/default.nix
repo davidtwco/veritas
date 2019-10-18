@@ -130,14 +130,9 @@ in
       # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
       rust-vim
       # Other languages
-      pgsql-vim
-      vim-graphql
       vim-hocon
-      vim-jinja
-      vim-nix
       vim-pandoc
       vim-pandoc-syntax
-      vim-puppet
       vim-spirv
       # Generate ctags for projects.
       vim-gutentags
@@ -165,8 +160,6 @@ in
       # Focus events and clipboard for tmux.
       vim-tmux-clipboard
       vim-tmux-focus-events
-      # GnuPG
-      vim-gnupg
       # Switch to absolute line numbers for buffers that aren't focused.
       vim-numbertoggle
       # Fuzzy file search.
@@ -186,10 +179,6 @@ in
       vim-unimpaired
       # Commands for interactig with surroundings ("", '', {}, etc).
       vim-surround
-      # Move sideways left or right through argument lists, etc.
-      sideways-vim
-      # Apply indentation from `.editorconfig` files.
-      editorconfig-vim
       # Multi-file search (`Ack`)
       ferret
       # Improved incremental search - hides search highlighting after moving cursor.
@@ -200,18 +189,12 @@ in
       vim-localvimrc
       # Scratchpad
       scratch-vim
-      # Functions that interact with tmux.
-      vim-tbone
       # Text filtering and alignment.
       tabular
       # Visualize the undo tree.
       vim-mundo
       # Search/substitution/abbreviation of word variations.
       vim-abolish
-      # Access unicode character metadata.
-      vim-characterize
-      # Session saving.
-      vim-obsession
     ];
   };
 }

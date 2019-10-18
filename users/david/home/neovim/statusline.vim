@@ -69,7 +69,6 @@ let g:lightline.active = {
 \   'right': [
 \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
 \       [ 'gutentags' ],
-\       [ 'obsession' ],
 \       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
 \   ]
 \ }
@@ -91,7 +90,6 @@ let g:lightline.component_type = {
 let g:lightline.component_function = {
 \   'gitbranch': 'LightlineGitBranch',
 \   'gutentags': 'LightlineGutentags',
-\   'obsession': 'LightlineObsessionStatus',
 \   'readonly': 'LightlineReadonly',
 \   'charvaluehex': 'LightlineCharacterHex',
 \   'fileencoding': 'LightlineFileEncoding',
@@ -152,13 +150,6 @@ let s:collapse_threshold = 106
 function! LightlineGutentags()
   " Show the tag generation status, with detail depending on window width.
   return gutentags#statusline('', '', winwidth(0) > s:collapse_threshold ? '△ Tagging...' : '△')
-endfunction
-
-function! LightlineObsessionStatus()
-  " Show the obsession status if the plugin is enabled, with detail depending on window width.
-  let tracked = winwidth(0) > s:collapse_threshold ? '● Tracked' : '●'
-  let untracked = winwidth(0) > s:collapse_threshold ? '○ Untracked' : '○'
-  return exists('*ObsessionStatus') ? ObsessionStatus(tracked, untracked) : ''
 endfunction
 
 function! LightlineCharacterHex()
@@ -229,11 +220,10 @@ let s:p.normal.left = [
 \ ]
 let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
 " Normal mode's right status line has terminal background with green foreground (for ALE),
-" followed by white foreground (for Gutentags), and then by white foreground (for Obsession),
-" finished off with bright black foreground (for line/col/hex/encoding, etc).
+" followed by white foreground (for Gutentags), finished off with bright black foreground
+" (for line/col/hex/encoding, etc).
 let s:p.normal.right = [
 \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-\   [s:white, s:bg, s:c_white, s:c_bg],
 \   [s:white, s:bg, s:c_white, s:c_bg],
 \   s:p.normal.left[1], s:p.normal.left[2]
 \ ]
