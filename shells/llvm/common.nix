@@ -68,6 +68,7 @@ in
       ocl-icd
       # Intel's OpenCL runtime.
       intel-openclrt
+      unstable.intel-compute-runtime
       # clinfo - query available OpenCL devices.
       unstable.clinfo
 

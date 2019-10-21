@@ -18,7 +18,7 @@
   nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs.git";
     ref = "master";
-    rev = "8b46dcb3db505aa026ab6773ec34aa60a0c7e3fe";
+    rev = "fa4524d17865bf989ff821f2d0afac7fe641231e";
   };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";

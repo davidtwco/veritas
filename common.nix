@@ -56,6 +56,7 @@ in
     extraPackages = with pkgs; [
       # OpenCL
       intel-openclrt
+      unstable.intel-compute-runtime
       # VDPAU (hardware acceleration)
       vaapiIntel
       vaapiVdpau
