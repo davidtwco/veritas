@@ -14,19 +14,39 @@ in
     extraConfig = with colours; ''
       ${builtins.readFile ./functions.vim}
 
+      " Tell ALE where to look for `compilation-commands.json`.
+      let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin' ]
+
+      function! SearchBuildDirsOr(fallback_path)
+        " Get the name of the binary from the fallback path.
+        let binary_name = fnamemodify(a:fallback_path, ':t')
+
+        " Look in the build directories that ALE uses for a local-version of the
+        " binary.
+        for build_dir in g:ale_c_build_dir_names
+            let binary_path = './' . build_dir . '/bin/' . binary_name
+            if executable(binary_path)
+                return binary_path
+            endif
+        endfor
+
+        " If there wasn't one, use the fallback path.
+        return a:fallback_path
+      endfunction
+
       " Hardcode paths into the nix store.
       let g:ale_awk_gawk_executable = '${pkgs.gawk}/bin/gawk'
-      let g:ale_c_clang_executable = '${pkgs.unstable.clang}/bin/clang'
-      let g:ale_c_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
-      let g:ale_c_clangformat_executable = '${pkgs.unstable.clang-tools}/bin/clang-format'
-      let g:ale_c_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
-      let g:ale_cpp_clang_executable = '${pkgs.unstable.clang}/bin/clang++'
-      let g:ale_cpp_clangd_executable = '${pkgs.unstable.clang-tools}/bin/clangd'
-      let g:ale_cpp_clangtidy_executable = '${pkgs.unstable.clang-tools}/bin/clang-tidy'
-      let g:ale_cuda_clangformat_executable = '${pkgs.unstable.clang-tools}/bin/clang-format'
+      let g:ale_c_clang_executable = SearchBuildDirsOr('${pkgs.unstable.clang}/bin/clang')
+      let g:ale_c_clangd_executable = SearchBuildDirsOr('${pkgs.unstable.clang-tools}/bin/clangd')
+      let g:ale_c_clangformat_executable = SearchBuildDirsOr('${pkgs.unstable.clang-tools}/bin/clang-format')
+      let g:ale_c_clangtidy_executable = SearchBuildDirsOr('${pkgs.unstable.clang-tools}/bin/clang-tidy')
+      let g:ale_cpp_clang_executable = SearchBuildDirsOr('${pkgs.unstable.clang}/bin/clang++')
+      let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
+      let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+      let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
       let g:ale_cuda_nvcc_executable = '${pkgs.cudatoolkit_10}/bin/nvcc'
       let g:ale_json_jq_executable = '${pkgs.jq}/bin/jq'
-      let g:ale_llvm_llc_executable = '${pkgs.unstable.llvm}/bin/llc'
+      let g:ale_llvm_llc_executable = SearchBuildDirsOr('${pkgs.unstable.llvm}/bin/llc')
       let g:ale_lua_luac_executable = '${pkgs.lua}/bin/luac'
       let g:ale_nix_nixpkgsfmt_executable = '${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt'
       let g:ale_python_flake8_executable = '${pkgs.pythonPackages.flake8}/bin/flake8'

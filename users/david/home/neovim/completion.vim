@@ -30,9 +30,6 @@ let g:ale_linters = {
 " Use stable Rust for RLS.
 let g:ale_rust_rls_toolchain = 'stable'
 
-" Tell ALE where to look for `compilation-commands.json`.
-let g:ale_c_build_dir_names = [ 'build', 'bin' ]
-
 " Limit clangtidy checks.
 let g:ale_c_clangtidy_checks = [ 'clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*' ]
 let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
