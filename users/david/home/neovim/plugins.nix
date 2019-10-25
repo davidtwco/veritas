@@ -10,7 +10,7 @@
     src = builtins.fetchGit {
       url = "https://github.com/dense-analysis/ale.git";
       ref = "master";
-      rev = "f9322113095ac01c00d4c38da6aca715663e35cf";
+      rev = "67d0ccc398ca7650bb2c774a94d098bee3049169";
     };
   };
   ferret = pkgs.vimUtils.buildVimPlugin {
