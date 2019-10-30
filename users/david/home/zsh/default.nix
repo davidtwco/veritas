@@ -197,8 +197,7 @@ in
       bindkey -rM vicmd ':'
     '';
     plugins = import ./plugins.nix;
-    sessionVariables = let
-    in
+    sessionVariables =
       {
         # Enable true colour and use a 256-colour terminal.
         "COLORTERM" = "truecolor";
