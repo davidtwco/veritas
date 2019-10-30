@@ -140,7 +140,7 @@ with lib.lists; with pkgs; {
     # Yet another diff highlighting tool
     unstable.diffr
     # cat for markdown
-    mdcat
+    unstable.mdcat
     # command line image viewer
     unstable.viu
     # tool for discovering and probing hosts on a computer network
