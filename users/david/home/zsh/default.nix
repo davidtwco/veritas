@@ -228,7 +228,7 @@ in
       "fgrep" = "${pkgs.gnugrep}/bin/fgrep --color=auto";
       "egrep" = "${pkgs.gnugrep}/bin/egrep --color=auto";
       # Aliases for `cat` to `bat`.
-      "cat" = "${pkgs.bat}/bin/bat --paging=never -p";
+      "cat" = "${pkgs.bat}/bin/bat --theme=TwoDark --paging=never -p";
       # Aliases for `ls` to `exa`.
       "ls" = "${pkgs.exa}/bin/exa";
       "dir" = "${pkgs.exa}/bin/exa";

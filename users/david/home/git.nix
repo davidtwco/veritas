@@ -33,6 +33,7 @@ in
           ''
             ${pkgs.delta}/bin/delta \
               --dark \
+              --theme=TwoDark \
               --plus-color="#${plus.regular}" \
               --plus-emph-color="#${plus.emphasised}" \
               --minus-color="#${minus.regular}" \
