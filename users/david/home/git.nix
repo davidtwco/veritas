@@ -28,6 +28,16 @@ in
         template = "${config.xdg.dataHome}/git/template";
       };
       core = {
+        pager =
+          with config.veritas.david.colourScheme.delta;
+          ''
+            ${pkgs.delta}/bin/delta \
+              --dark \
+              --plus-color="#${plus.regular}" \
+              --plus-emph-color="#${plus.emphasised}" \
+              --minus-color="#${minus.regular}" \
+              --minus-emph-color="#${minus.emphasised}"
+          '';
         editor = config.home.sessionVariables."EDITOR";
       };
       diff = {

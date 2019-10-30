@@ -53,6 +53,17 @@ in
       brightCyan = mkColour "bright cyan" "8ABEB7";
       brightWhite = mkColour "bright white" "C5C8C6";
     };
+    # Colours specific to Delta.
+    delta = {
+      minus = {
+        regular = mkColour "delta's minus" "260808";
+        emphasised = mkColour "delta's emphasised minus" "3f0d0d";
+      };
+      plus = {
+        regular = mkColour "delta's plus" "0b2608";
+        emphasised = mkColour "delta's emphasised plus" "123f0d";
+      };
+    };
     # Colours specific to Starship.
     #
     # Starship seems to mangle the colour slightly, so this hex produces the same
