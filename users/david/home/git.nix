@@ -31,7 +31,7 @@ in
         pager =
           with config.veritas.david.colourScheme.delta;
           ''
-            ${pkgs.delta}/bin/delta \
+            ${pkgs.unstable.gitAndTools.delta}/bin/delta \
               --dark \
               --theme=TwoDark \
               --plus-color="#${plus.regular}" \

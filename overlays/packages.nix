@@ -31,11 +31,6 @@ self: super:
 
   # Add a package for Workman.
   workman = super.callPackage ../packages/workman.nix {};
-
-  # Add a package for Delta.
-  delta = super.callPackage ../packages/delta.nix {
-    inherit (super.darwin.apple_sdk.frameworks) Security;
-  };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

@@ -149,8 +149,6 @@ with lib.lists; with pkgs; {
     niv
     # Visualize Nix gc-roots to delete to free space.
     unstable.nix-du
-    # Improved git pager
-    delta
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
