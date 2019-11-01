@@ -49,7 +49,8 @@ in
       let g:ale_llvm_llc_executable = SearchBuildDirsOr('${pkgs.unstable.llvm}/bin/llc')
       let g:ale_lua_luac_executable = '${pkgs.lua}/bin/luac'
       let g:ale_nix_nixpkgsfmt_executable = '${pkgs.unstable.nixpkgs-fmt}/bin/nixpkgs-fmt'
-      let g:ale_python_flake8_executable = '${pkgs.pythonPackages.flake8}/bin/flake8'
+      let g:ale_python_black_executable = '${pkgs.unstable.python37Packages.black}/bin/black'
+      let g:ale_python_flake8_executable = '${pkgs.unstable.python37Packages.flake8}/bin/flake8'
       let g:ale_ruby_rubocop_executable = '${pkgs.rubocop}/bin/rubocop'
       let g:ale_rust_rls_executable = '${pkgs.latest.rustChannels.stable.rust}/bin/rls'
       let g:ale_sh_shellcheck_executable = '${pkgs.shellcheck}/bin/shellcheck'
@@ -217,6 +218,17 @@ in
       vim-abolish
     ];
   };
+
+  # Configure the `flake8` linter for Python to match `black`'s formatting.
+  xdg.configFile."flake8".text = ''
+    [flake8]
+    # Recommend matching the black line length (default 88),
+    # rather than using the flake8 default of 79:
+    max-line-length = 88
+    extend-ignore =
+        # See https://github.com/PyCQA/pycodestyle/issues/373
+        E203,
+  '';
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

@@ -42,6 +42,7 @@ let g:ale_fixers = {
 \   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'python': [ 'black', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
 \ }
@@ -54,6 +55,7 @@ let g:ale_fix_on_save_ignore = {
 \   'cmake': [ 'cmakeformat' ],
 \   'cuda': [ 'clang-format' ],
 \   'opencl': [ 'clang-format' ],
+\   'python': [ 'black' ],
 \   'rust': [ 'rustfmt' ],
 \ }
 
