@@ -2,11 +2,11 @@
 
 stdenv.mkDerivation rec {
   pname = "intel-openclrt";
-  version = "2019.8.8.0.0822";
+  version = "2019.9.11.0.1106";
 
   src = fetchzip {
-    url = "https://github.com/intel/llvm/releases/download/2019-09/oclcpuexp-${version}_rel.tar.gz";
-    sha256 = "1hsvwslhqznva0s496xv8dmp7lns9yavvqf8y8zwab16ccmm1d0p";
+    url = "https://github.com/intel/llvm/releases/download/2019-10/oclcpuexp-${version}_rel.tar.gz";
+    sha256 = "020sj5rl2srhgs72qrpbycl51ffi1b1hkl8jjr8dbd27pc9rlkai";
     stripRoot = false;
   };
 
