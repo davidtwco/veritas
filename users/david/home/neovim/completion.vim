@@ -1,8 +1,8 @@
 " Fix completion bug in some versions of Vim.
 set completeopt=menu,menuone,preview,noselect,noinsert
 
-" Enable completion.
-let g:ale_completion_enabled = 1
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
 
 " Set formatting.
 let g:ale_echo_msg_error_str = 'E'

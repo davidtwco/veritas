@@ -13,6 +13,15 @@
       rev = "67d0ccc398ca7650bb2c774a94d098bee3049169";
     };
   };
+  deoplete-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "deoplete.nvim";
+    src = builtins.fetchGit {
+      url = "https://github.com/Shougo/deoplete.nvim.git";
+      ref = "master";
+      rev = "ff09a7ab58e5271053c59825895d607316657023";
+    };
+    dontBuild = true;
+  };
   ferret = pkgs.vimUtils.buildVimPlugin {
     name = "ferret";
     src = builtins.fetchGit {

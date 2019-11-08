@@ -163,6 +163,7 @@ in
       vim-hybrid
       # Autocompletion/linting/fixing.
       ale
+      deoplete-nvim
       lightline-ale
       # Add operator to comment out lines.
       vim-commentary
