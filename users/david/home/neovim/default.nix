@@ -174,6 +174,8 @@ in
       vim-fugitive
       vim-rhubarb
       fugitive-gitlab-vim
+      # Async build and test dispatcher
+      vim-dispatch
       # Helper functions for unix commands.
       vim-eunuch
       # Easy navigation between vim splits and tmux panes.

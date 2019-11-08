@@ -110,6 +110,14 @@
       rev = "141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a";
     };
   };
+  vim-dispatch = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-dispatch";
+    src = builtins.fetchGit {
+      url = "https://github.com/tpope/vim-dispatch.git";
+      ref = "master";
+      rev = "4bd1ecd7f38206ef26c37d7d142df58c4237d9dc";
+    };
+  };
   vim-endwise = pkgs.vimUtils.buildVimPlugin {
     name = "vim-endwise";
     src = builtins.fetchGit {
