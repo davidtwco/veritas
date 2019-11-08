@@ -13,12 +13,12 @@
   nixosUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
-    rev = "8b46dcb3db505aa026ab6773ec34aa60a0c7e3fe";
+    rev = "7827d3f4497ed722fedca57fd4d5ca1a65c38256";
   };
   nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs.git";
     ref = "master";
-    rev = "91d5b3f07d27622ff620ff31fa5edce15a5822fa";
+    rev = "438a0cd40b2e40c0b85f6ea2eafaca094bd16bae";
   };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
