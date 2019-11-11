@@ -130,7 +130,7 @@ in
 
       " Lightline won't colour the single character between two statuslines when there is a
       " vertical split, this will.
-      hi StatusLine guifg=#${basic.background} guibg=#${basic.background}
+      hi StatusLine gui=NONE guifg=#${basic.background} guibg=#${basic.background}
 
       " Set the colour of the current debugger line and breakpoints in gutter.
       hi debugPC guibg=#${neovim.termdebugProgramCounter}
