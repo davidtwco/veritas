@@ -14,6 +14,15 @@ in
     # Install KVM kernel modules for AMD and Intel.
     boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
 
+    environment.systemPackages = with pkgs; [
+      # Interact with VM
+      looking-glass-client
+      # Receive audio from VM
+      scream-receivers
+      # Virtual machine manager
+      virtmanager
+    ];
+
     # Idempotently ensures the needed folders are there for LXC.
     system.activationScripts = {
       "lxc-folders" = {
@@ -22,6 +31,23 @@ in
           mkdir -p /var/lib/lxc/rootfs
         '';
         deps = [];
+      };
+    };
+
+    systemd = {
+      tmpfiles.rules = [
+        "f /dev/shm/looking-glass 0660 ${config.users.users.david.name} qemu-libvirtd -"
+        "f /dev/shm/scream 0660 ${config.users.users.david.name} qemu-libvirtd -"
+      ];
+      user.services.scream-ivshmem = {
+        enable = true;
+        description = "Scream IVSHMEM";
+        serviceConfig = {
+          "ExecStart" = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse /dev/shm/scream";
+          "Restart" = "always";
+        };
+        wantedBy = [ "multi-user.target" ];
+        requires = [ "pulseaudio.service" ];
       };
     };
 
@@ -35,7 +61,13 @@ in
         enable = true;
       };
       # Use libvirtd to manage virtual machines.
-      libvirtd.enable = true;
+      libvirtd = {
+        enable = true;
+        qemuOvmf = true;
+        qemuRunAsRoot = false;
+        onBoot = "ignore";
+        onShutdown = "shutdown";
+      };
       # Allow LXC/LXD containers.
       lxc = {
         defaultConfig = ''
