@@ -82,6 +82,12 @@ in
     # Must be set per-interface.
     useDHCP = false;
     useNetworkd = true;
+    wireless.networks = {
+      "The Ubiqitous Chip" = lib.mkIf (builtins.pathExists ./secrets/wifi/ubiqitous_chip.password) {
+        priority = 10;
+        psk = "${lib.removeSuffix "\n" (builtins.readFile ./secrets/wifi/ubiqitous_chip.password)}";
+      };
+    };
   };
 
   nix = {
