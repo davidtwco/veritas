@@ -108,6 +108,12 @@ in
       default = config.veritas.david.dotfiles.isWsl;
       description = "Is this a non-NixOS host?";
     };
+
+    uiScale = mkOption {
+      type = types.float;
+      default = 1.5;
+      description = "Fraction to scale font sizes by";
+    };
   };
 
   email = {

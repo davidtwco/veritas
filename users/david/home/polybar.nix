@@ -34,7 +34,12 @@ in
         "bottom" = false;
         # Bar is transparent.
         "background" = "#00000000";
-        "font-0" = "Iosevka:style=Bold:size=12";
+        "font-0" = let
+          defaultFontSize = 12;
+          fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
+        in
+          "Iosevka:style=Bold:size=${fontSize}";
+        "height" = "1.5%";
         "locale" = config.home.language.base;
         # Modules are one-and-a-half spaces apart.
         "module-margin" = "1.5";
@@ -47,7 +52,7 @@ in
         # `services.polybar.script`.
         "monitor" = "\${env:MONITOR:}";
         # Use border to add some spacing from the edge of the screen.
-        "border-top-size" = "10";
+        "border-top-size" = "15";
         "border-bottom-size" = "2";
         "border-right-size" = "10";
         "border-left-size" = "10";
