@@ -86,6 +86,11 @@ in
   };
 
   dotfiles = {
+    autorandrProfile = mkOption {
+      type = types.attrs;
+      description = "Configuration for autorandr";
+    };
+
     headless = mkOption {
       type = types.bool;
       default = true;

@@ -7,10 +7,10 @@ let
 in
 {
   xsession = {
-    enable = !config.veritas.david.dotfiles.headless;
+    enable = !cfg.dotfiles.headless;
     initExtra = ''
       # Load the monitor configuration.
-      ${pkgs.autorandr}/bin/autorandr --load ${cfg.hostName}
+      ${pkgs.autorandr}/bin/autorandr --load veritas
 
       # Set wallpaper.
       ${pkgs.hsetroot}/bin/hsetroot -solid "#${cfg.colourScheme.xsession.wallpaper}"
