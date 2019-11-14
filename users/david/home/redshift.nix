@@ -7,6 +7,10 @@
     enable = true;
     latitude = "55.953251";
     longitude = "-3.188267";
+    temperature = {
+      day = 5500;
+      night = 4800;
+    };
   };
 }
 
