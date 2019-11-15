@@ -10,51 +10,38 @@
 
   imports = [ ../common.nix ];
 
-  # Boot Loader {{{
-  # ===========
-  boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
-  boot.loader.grub.devices = [ "/dev/nvme0n1" "/dev/nvme1n1" ];
+  boot = {
+    loader.grub = {
+      enable = true;
+      version = 2;
+      devices = [ "/dev/nvme0n1" "/dev/nvme1n1" ];
+    };
+    initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+  };
 
-  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-  # }}}
-
-  # Filesystems {{{
-  # ===========
-  fileSystems."/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "/dev/disk/by-uuid/9c941292-69fb-4dcd-89e3-f255712700a5";
       fsType = "btrfs";
     };
-
-  fileSystems."/boot" =
-    {
+    "/boot" = {
       device = "/dev/disk/by-uuid/99b75992-0079-438c-ae96-a4edbfae52ab";
       fsType = "ext3";
     };
+  };
 
-  swapDevices =
-    [
-      { device = "/dev/disk/by-uuid/eb08dc81-dddc-4763-8a13-9b8270836df4"; }
-    ];
-  # }}}
-
-  # Microcode {{{
-  # =========
   hardware.cpu.intel.updateMicrocode = true;
-  # }}}
 
-  # Networking {{{
-  # ==========
   networking = {
     hostName = "dtw-avendahl";
     interfaces.enp0s31f6.useDHCP = true;
     wireless.enable = false;
   };
-  # }}}
 
-  # Veritas {{{
-  # =======
+  swapDevices = [
+    { device = "/dev/disk/by-uuid/eb08dc81-dddc-4763-8a13-9b8270836df4"; }
+  ];
+
   veritas = {
     david = {
       email.enable = true;
@@ -99,7 +86,6 @@
     };
     profiles.virtualisation.enable = true;
   };
-  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

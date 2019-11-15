@@ -10,75 +10,52 @@
 
   imports = [ ../common.nix ];
 
-  # Boot Loader {{{
-  # ===========
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot = {
+    blacklistedKernelModules = [ "nouveau" ];
+    initrd = {
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      luks.devices = [
+        {
+          name = "root";
+          device = "/dev/nvme0n1p2";
+          preLVM = true;
+        }
+      ];
+    };
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot.enable = true;
+    };
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
+    vesa = false;
+  };
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
-  # }}}
-
-  # Filesystems {{{
-  # ===========
-  fileSystems."/" =
-    {
+  fileSystems = {
+    "/" = {
       device = "/dev/disk/by-uuid/15e4642b-713f-4e33-bb57-bccba586ca9d";
       fsType = "btrfs";
     };
-
-  fileSystems."/boot" =
-    {
+    "/boot" = {
       device = "/dev/disk/by-uuid/54D5-DC0D";
       fsType = "vfat";
     };
-
-  fileSystems."/data" =
-    {
+    "/data" = {
       device = "/dev/disk/by-uuid/f09ffaad-ce2e-479d-857c-7cd1605c51d3";
       fsType = "btrfs";
     };
+  };
 
-  swapDevices = [];
-
-  boot.initrd.luks.devices = [
-    {
-      name = "root";
-      device = "/dev/nvme0n1p2";
-      preLVM = true;
-    }
-  ];
-  # }}}
-
-  # Hardware {{{
-  # ========
-  boot.blacklistedKernelModules = [ "nouveau" ];
-  boot.kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
-  boot.vesa = false;
+  hardware.cpu.intel.updateMicrocode = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  # }}}
 
-  # Kernel {{{
-  # ======
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  # }}}
-
-  # Microcode {{{
-  # =========
-  hardware.cpu.intel.updateMicrocode = true;
-  # }}}
-
-  # Networking {{{
-  # ==========
   networking = {
     hostName = "dtw-volkov";
     interfaces.eno1.useDHCP = true;
     wireless.enable = false;
   };
-  # }}}
 
-  # Veritas {{{
-  # ========
   veritas = {
     profiles.virtualisation.enable = true;
     david = {
@@ -113,7 +90,6 @@
       };
     };
   };
-  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

@@ -10,31 +10,6 @@
 
   imports = [ ../common.nix ];
 
-  # Filesystems {{{
-  # ===========
-  fileSystems."/" =
-    {
-      device = "/dev/disk/by-uuid/a449eeb7-aaf0-4b82-968c-519ff2c94a89";
-      fsType = "btrfs";
-    };
-
-  fileSystems."/home" =
-    {
-      device = "/dev/disk/by-uuid/f973fbf5-1f7f-4655-b5c9-0bba1ac85f50";
-      fsType = "btrfs";
-    };
-
-  fileSystems."/boot" =
-    {
-      device = "/dev/disk/by-uuid/AA8B-F94D";
-      fsType = "vfat";
-    };
-
-  swapDevices = [];
-  # }}}
-
-  # Hardware {{{
-  # ========
   boot =
     let
       devices = [
@@ -102,23 +77,32 @@
         vesa = false;
       };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/a449eeb7-aaf0-4b82-968c-519ff2c94a89";
+      fsType = "btrfs";
+    };
+    "/home" = {
+      device = "/dev/disk/by-uuid/f973fbf5-1f7f-4655-b5c9-0bba1ac85f50";
+      fsType = "btrfs";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/AA8B-F94D";
+      fsType = "vfat";
+    };
+  };
 
   hardware.cpu.amd.updateMicrocode = true;
-  # }}}
 
-  # Networking {{{
-  # ==========
+  services.xserver.videoDrivers = [ "nvidia" ];
+
   networking = {
     hostName = "dtw-jar-keurog";
     # `enp46s0` isn't available as it is used for GPU passthrough.
     interfaces.enp36s0.useDHCP = true;
     wireless.enable = true;
   };
-  # }}}
 
-  # Veritas {{{
-  # ========
   veritas = {
     profiles.virtualisation.enable = true;
     david.dotfiles = {
@@ -149,7 +133,6 @@
       uiScale = 1.5;
     };
   };
-  # }}}
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
