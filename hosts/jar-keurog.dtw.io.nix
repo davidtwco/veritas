@@ -84,18 +84,8 @@
   networking = {
     hostName = "dtw-jar-keurog";
     interfaces.enp36s0.useDHCP = true;
+    interfaces.enp46s0.useDHCP = true;
     wireless.enable = true;
-  };
-
-  systemd.network.networks = {
-    # Don't manage the non-Aquantia interface.
-    "20-enp43s0".extraConfig = ''
-      [Match]
-      Name=enp43s0
-
-      [Link]
-      Unmanaged=yes
-    '';
   };
   # }}}
 
