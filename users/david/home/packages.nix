@@ -149,6 +149,8 @@ with lib.lists; with pkgs; {
     niv
     # Visualize Nix gc-roots to delete to free space.
     unstable.nix-du
+    # Reading hardware sensors.
+    lm_sensors
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
@@ -168,6 +170,8 @@ with lib.lists; with pkgs; {
     paprefs
     # Provides an interface to X selections ("the clipboard") from the command line.
     xclip
+    # Monitor temperatures.
+    psensor
   ];
 }
 
