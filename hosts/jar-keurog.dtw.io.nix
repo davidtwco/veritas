@@ -35,47 +35,75 @@
 
   # Hardware {{{
   # ========
-  boot = {
-    blacklistedKernelModules = [ "nouveau" "nvidia" ];
-    # Use the `vfio-pci` driver for the RTX 2080 Ti.
-    extraModprobeConfig = ''
-      options vfio-pci ids=10de:1e07,10de:10f7
-    '';
-    initrd = {
-      availableKernelModules = [
-        "nvme"
-        "ahci"
-        "xhci_pci"
-        "usbhid"
-        "usb_storage"
-        "sd_mod"
-        "vfio_pci"
+  boot =
+    let
+      devices = [
+        # NVIDIA RTX 2080 Ti
+        "32:00.0"
+        "32:00.1"
+        "32:00.2"
+        "32:00.3"
+        # Intel Corporation I211 Gigabit Network Connection
+        "2b:00.0"
       ];
-      kernelModules = [ "dm-snapshot" ];
-    };
-    loader = {
-      efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
-    };
-    kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" "amd_iommu=on" "pci_aspm=off" ];
-    kernelModules = [
-      # Virtualization
-      "vfio_pci"
-      "vfio"
-      "vfio_iommu_type1"
-      "vfio_virqfd"
-      # Wi-Fi
-      "iwlwifi"
-    ];
-    vesa = false;
-  };
+    in
+      {
+        blacklistedKernelModules = [ "nouveau" "nvidia" ];
+        initrd = {
+          # Modules that are available to be loaded during initial ramdisk.
+          availableKernelModules = [
+            "nvme"
+            "ahci"
+            "xhci_pci"
+            "usbhid"
+            "usb_storage"
+            "sd_mod"
+            # GPU Passthrough
+            "vfio_pci"
+            "vfio"
+            "vfio_iommu_type1"
+            "vfio_virqfd"
+          ];
+          # Modules that are loaded during initial ramdisk.
+          kernelModules = [ "dm-snapshot" ];
+          # Force-load the drivers for the devices we want to passthrough.
+          preDeviceCommands = ''
+            for dev in ${builtins.concatStringsSep " " devices}; do
+              echo "vfio-pci" > /sys/bus/pci/devices/"0000:$dev"/driver_override
+            done
+            modprobe -i vfio-pci
+          '';
+        };
+        loader = {
+          efi.canTouchEfiVariables = true;
+          systemd-boot.enable = true;
+        };
+        kernelPackages = pkgs.linuxPackages_latest;
+        kernelParams = [
+          # NVIDIA
+          "nomodeset"
+          "video=vesa:off"
+          "vga=normal"
+          # GPU Passthrough
+          "amd_iommu=on"
+          "pci_aspm=off"
+          "iommu=pt"
+        ];
+        # Modules available during second stage of the boot process.
+        kernelModules = [
+          # GPU Passthrough - must be this order!
+          "vfio_pci"
+          "vfio"
+          "vfio_iommu_type1"
+          "vfio_virqfd"
+          # Wi-Fi
+          "iwlwifi"
+        ];
+        vesa = false;
+      };
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  # }}}
 
-  # Microcode {{{
-  # =========
   hardware.cpu.amd.updateMicrocode = true;
   # }}}
 
@@ -83,8 +111,8 @@
   # ==========
   networking = {
     hostName = "dtw-jar-keurog";
+    # `enp46s0` isn't available as it is used for GPU passthrough.
     interfaces.enp36s0.useDHCP = true;
-    interfaces.enp46s0.useDHCP = true;
     wireless.enable = true;
   };
   # }}}
