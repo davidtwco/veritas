@@ -6,7 +6,7 @@ let
   cfg = config.xsession.windowManager.i3.config;
   colours = config.veritas.david.colourScheme;
   fonts = let
-    defaultFontSize = 12;
+    defaultFontSize = 10;
     fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
   in
     [ "Iosevka ${fontSize}" ];

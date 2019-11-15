@@ -111,7 +111,7 @@ in
 
     uiScale = mkOption {
       type = types.float;
-      default = 1.5;
+      default = 1.0;
       description = "Fraction to scale font sizes by";
     };
   };
