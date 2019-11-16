@@ -64,6 +64,11 @@ in
         emphasised = mkColour "delta's emphasised plus" "123f0d";
       };
     };
+    # Colours specific to i3.
+    i3 = {
+      highlight = mkColour "i3's highlight" colours.basic.red;
+      highlightBright = mkColour "i3's bright highlight" colours.basic.brightRed;
+    };
     # Colours specific to Starship.
     #
     # Starship seems to mangle the colour slightly, so this hex produces the same

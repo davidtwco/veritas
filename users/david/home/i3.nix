@@ -45,8 +45,8 @@ in
           focused = {
             background = asHex colours.basic.background;
             border = asHex colours.basic.background;
-            childBorder = asHex colours.basic.red;
-            indicator = asHex colours.basic.brightRed;
+            childBorder = asHex colours.i3.highlight;
+            indicator = asHex colours.i3.highlightBright;
             text = asHex colours.basic.foreground;
           };
           focusedInactive = cfg.colors.unfocused;
@@ -60,8 +60,8 @@ in
           };
           urgent = {
             background = asHex colours.basic.background;
-            border = asHex colours.basic.brightRed;
-            childBorder = asHex colours.basic.brightRed;
+            border = asHex colours.i3.highlightBright;
+            childBorder = asHex colours.i3.highlightBright;
             indicator = asHex colours.basic.background;
             text = asHex colours.basic.foreground;
           };
