@@ -151,6 +151,10 @@ with lib.lists; with pkgs; {
     unstable.nix-du
     # Reading hardware sensors.
     lm_sensors
+    # Haskell toolchain manager - normally wouldn't install this globally and instead rely on
+    # `shell.nix` files, but using the Nix-integration in stack is easier and avoids the
+    # downsides of having stack installed globally for my purposes.
+    unstable.stack
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz

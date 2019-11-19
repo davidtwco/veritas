@@ -30,6 +30,11 @@
     ref = "master";
     rev = "531a2338101f0b6db2d9d512c3f98145f7b75397";
   };
+  all-hies = builtins.fetchGit {
+    url = "https://github.com/Infinisil/all-hies.git";
+    ref = "master";
+    rev = "c4fad117eb79305f5b8bc77a6a28562a5f8d2ca3";
+  };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

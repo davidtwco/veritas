@@ -4,6 +4,13 @@
 
 let
   colours = config.veritas.david.colourScheme;
+  external = import ../../../../shared/external.nix;
+  hie = let
+    all-hies = import external.all-hies {};
+  in
+    all-hies.selection {
+      selector = p: { inherit (p) ghc865; };
+    };
   plugins = pkgs.callPackage ./plugins.nix {};
 in
 {
@@ -45,6 +52,8 @@ in
       let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
       let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
       let g:ale_cuda_nvcc_executable = '${pkgs.cudatoolkit_10}/bin/nvcc'
+      let g:ale_haskell_hie_executable = '${hie}/bin/hie'
+      let g:ale_haskell_ormolu_executable = '${pkgs.ormolu}/bin/ormolu'
       let g:ale_json_jq_executable = '${pkgs.jq}/bin/jq'
       let g:ale_llvm_llc_executable = SearchBuildDirsOr('${pkgs.unstable.llvm}/bin/llc')
       let g:ale_lua_luac_executable = '${pkgs.lua}/bin/luac'

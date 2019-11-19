@@ -31,6 +31,18 @@ self: super:
 
   # Add a package for Workman.
   workman = super.callPackage ../packages/workman.nix {};
+
+  # Fetch ormolu from GitHub.
+  ormolu = let
+    src =
+      super.fetchFromGitHub {
+        owner = "tweag";
+        repo = "ormolu";
+        rev = "0.0.1.0";
+        sha256 = "0vqrb12bsp1dczff3i5pajzhjwz035rxg8vznrgj5p6j7mb2vcnd";
+      };
+  in
+    (import src {}).ormolu;
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

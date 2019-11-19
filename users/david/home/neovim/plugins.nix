@@ -7,10 +7,11 @@
 {
   ale = pkgs.vimUtils.buildVimPlugin {
     name = "ale";
+    # Use fork for ormolu support.
     src = builtins.fetchGit {
-      url = "https://github.com/dense-analysis/ale.git";
-      ref = "master";
-      rev = "67d0ccc398ca7650bb2c774a94d098bee3049169";
+      url = "https://github.com/davidtwco/ale.git";
+      ref = "ormolu-fixer";
+      rev = "aa4f8a4bec54cd7c1ce3a9fb15b3572015764476";
     };
   };
   deoplete-nvim = pkgs.vimUtils.buildVimPlugin {
