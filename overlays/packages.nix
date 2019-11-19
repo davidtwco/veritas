@@ -13,8 +13,8 @@ self: super:
     super.fetchFromGitHub {
       owner = "target";
       repo = "lorri";
-      rev = "d05f00a84f887b042c8feceb2c29bbdec438c9e6";
-      sha256 = "1rhykd65a6zh4ak3z0hz0hbg91ifc6q7lcfyqhdd8w72ywsx3kaw";
+      rev = "03f10395943449b1fc5026d3386ab8c94c520ee3";
+      sha256 = "0fcl79ndaziwd8d74mk1lsijz34p2inn64b4b4am3wsyk184brzq";
     }
   ) {};
 
@@ -23,8 +23,8 @@ self: super:
     src = super.fetchFromGitHub {
       owner = "nmattia";
       repo = "niv";
-      rev = "1dd094156b249586b66c16200ecfd365c7428dc0";
-      sha256 = "1b2vjnn8iac5iiqszjc2v1s1ygh0yri998c0k3s4x4kn0dsqik21";
+      rev = "064c17dc003c43d388ee36160182cc84e0f08ae1";
+      sha256 = "0k89liza0jwj6rrjkvxhl21xsswcc3m5flcx8q8h4i0vbyy0yba6";
     };
   in
     (import src {}).niv;
