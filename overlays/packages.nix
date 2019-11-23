@@ -32,6 +32,9 @@ self: super:
   # Add a package for Workman.
   workman = super.callPackage ../packages/workman.nix {};
 
+  # Add a package for rustfilt.
+  rustfilt = super.callPackage ../packages/rustfilt.nix {};
+
   # Fetch ormolu from GitHub.
   ormolu = let
     src =

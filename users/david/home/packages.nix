@@ -155,6 +155,8 @@ with lib.lists; with pkgs; {
     # `shell.nix` files, but using the Nix-integration in stack is easier and avoids the
     # downsides of having stack installed globally for my purposes.
     unstable.stack
+    # Symbol demangler for Rust.
+    rustfilt
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
