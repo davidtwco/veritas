@@ -164,6 +164,9 @@ in
 
         # Always put the first workspace on the primary monitor.
         ${defaultWorkspace} output primary
+      '' + lib.strings.optionalString config.services.polybar.enable ''
+        # Reload polybar so that it can connect to i3.
+        exec --no-startup-id '${systemd}/bin/systemctl --user restart polybar'
       '';
   };
 }
