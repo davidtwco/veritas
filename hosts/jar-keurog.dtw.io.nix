@@ -96,6 +96,13 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
+  # Disable `systemd-udev-settle` - it's required and just adds 1s to boot time.
+  # See nixospkgs#25311.
+  systemd.services.systemd-udev-settle.serviceConfig.ExecStart = [
+    ""
+    "${pkgs.coreutils}/bin/true"
+  ];
+
   networking = {
     hostName = "dtw-jar-keurog";
     # `enp46s0` isn't available as it is used for GPU passthrough.
