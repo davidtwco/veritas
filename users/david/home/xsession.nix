@@ -32,7 +32,10 @@ in
     pointerCursor = {
       package = pkgs.vanilla-dmz;
       name = "Vanilla-DMZ-AA";
-      size = 24;
+      size = let
+        floatToInt = x: with lib; toInt (builtins.head (splitString "." (builtins.toString (x))));
+      in
+        floatToInt (24 * cfg.dotfiles.uiScale);
     };
   };
 }
