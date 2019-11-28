@@ -166,6 +166,7 @@ in
     # Use gdm as display manager.
     xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       enable = true;
+      exportConfiguration = true;
       displayManager.gdm = {
         enable = true;
         # Not fully supported by NVIDIA drivers and need to upgrade to Sway to use Wayland.
