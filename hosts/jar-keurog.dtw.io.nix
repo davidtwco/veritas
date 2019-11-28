@@ -92,9 +92,18 @@
     };
   };
 
-  hardware.cpu.amd.updateMicrocode = true;
+  hardware = {
+    cpu.amd.updateMicrocode = true;
+    nvidia.modesetting.enable = true;
+  };
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    screenSection = ''
+      Option "AllowIndirectGLXProtocol" "off"
+      Option "TripleBuffer" "on"
+    '';
+    videoDrivers = [ "nvidiaBeta" ];
+  };
 
   # Disable `systemd-udev-settle` - it's required and just adds 1s to boot time.
   # See nixospkgs#25311.
@@ -142,6 +151,11 @@
           };
         };
         headless = false;
+        nvidiaSettings = {
+          "AllowGSYNCCompatible" = "On";
+          # See nixpkgs#34977.
+          "ForceFullCompositionPipeline" = "On";
+        };
         uiScale = 1.5;
       };
     };

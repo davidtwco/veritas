@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 # This file contains the configuration for the Xsession.
 
@@ -8,13 +8,27 @@ in
 {
   xsession = {
     enable = !cfg.dotfiles.headless;
-    initExtra = ''
+    initExtra = with lib; with pkgs; ''
       # Load the monitor configuration.
-      ${pkgs.autorandr}/bin/autorandr --load veritas
+      ${autorandr}/bin/autorandr --load veritas
 
       # Set wallpaper.
-      ${pkgs.hsetroot}/bin/hsetroot -solid "#${cfg.colourScheme.xsession.wallpaper}"
-    '';
+      ${hsetroot}/bin/hsetroot -solid "#${cfg.colourScheme.xsession.wallpaper}"
+    '' + optionalString (cfg.dotfiles.nvidiaSettings != []) (
+      with pkgs;
+      let
+        currentMetaMode = ''
+          $(${xorg.xrandr}/bin/xrandr | ${gnused}/bin/sed -nr '/(\S+) connected (primary )?[0-9]+x[0-9]+(\+\S+).*/{ s//\1: nvidia-auto-select \3 { ${options} }, /; H }; ''${ g; s/\n//g; s/, $//; p }')
+        '';
+        options =
+          builtins.concatStringsSep ", "
+            (mapAttrsToList (k: v: "${k}=${v}") cfg.dotfiles.nvidiaSettings);
+      in
+        ''
+          # Set settings using `nvidia-settings`.
+          nvidia-settings --assign CurrentMetaMode="${currentMetaMode}"
+        ''
+    );
     pointerCursor = {
       package = pkgs.vanilla-dmz;
       name = "Vanilla-DMZ-AA";

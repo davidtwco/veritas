@@ -114,6 +114,12 @@ in
       description = "Is this a non-NixOS host?";
     };
 
+    nvidiaSettings = mkOption {
+      type = types.attrsOf types.str;
+      default = [];
+      description = "Meta-mode settings to enable using `nvidia-settings`";
+    };
+
     uiScale = mkOption {
       type = types.float;
       default = 1.0;
