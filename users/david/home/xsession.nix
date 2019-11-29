@@ -14,7 +14,7 @@ in
 
       # Set wallpaper.
       ${hsetroot}/bin/hsetroot -solid "#${cfg.colourScheme.xsession.wallpaper}"
-    '' + optionalString (cfg.dotfiles.nvidiaSettings != []) (
+    '' + optionalString (cfg.dotfiles.nvidiaSettings != {}) (
       with pkgs;
       let
         currentMetaMode = ''

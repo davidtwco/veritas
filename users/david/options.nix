@@ -116,7 +116,7 @@ in
 
     nvidiaSettings = mkOption {
       type = types.attrsOf types.str;
-      default = [];
+      default = {};
       description = "Meta-mode settings to enable using `nvidia-settings`";
     };
 
