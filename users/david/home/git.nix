@@ -20,9 +20,7 @@ in
     };
     enable = true;
     extraConfig = {
-      color = {
-        ui = "auto";
-      };
+      color.ui = "auto";
       commit = {
         verbose = true;
         template = "${config.xdg.dataHome}/git/template";
@@ -45,25 +43,16 @@ in
         compactionHeuristic = true;
         indentHeuristic = true;
       };
+      pull.rebase = true;
       push = {
         default = "simple";
         followTags = true;
       };
-      status = {
-        showStash = true;
-      };
-      stash = {
-        showPatch = true;
-      };
-      submodule = {
-        fetchJobs = 4;
-      };
-      rebase = {
-        autosquash = true;
-      };
-      user = {
-        useConfigOnly = true;
-      };
+      status.showStash = true;
+      stash.showPatch = true;
+      submodule.fetchJobs = 4;
+      rebase.autosquash = true;
+      user.useConfigOnly = true;
     };
     ignores = [
       # Compiled source
