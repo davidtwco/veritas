@@ -10,7 +10,7 @@
   nixosUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
     ref = "nixos-unstable";
-    rev = "7827d3f4497ed722fedca57fd4d5ca1a65c38256";
+    rev = "3140fa89c51233397f496f49014f6b23216667c2";
   };
   nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs.git";
@@ -30,7 +30,7 @@
   all-hies = builtins.fetchGit {
     url = "https://github.com/Infinisil/all-hies.git";
     ref = "master";
-    rev = "c4fad117eb79305f5b8bc77a6a28562a5f8d2ca3";
+    rev = "8d9b0e770c8e2264ef4882623a205548d9fdaa03";
   };
 }
 
