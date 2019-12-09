@@ -32,37 +32,135 @@ in
       ''
     );
     initExtra = ''
-      ${builtins.readFile ./colours.zsh}
-      ${builtins.readFile ./completions.zsh}
+      if [ -t 1 ]; then
+        BLACK="$(tput setaf 0)"
+        RED="$(tput setaf 1)"
+        GREEN="$(tput setaf 2)"
+        YELLOW="$(tput setaf 3)"
+        BLUE="$(tput setaf 4)"
+        MAGENTA="$(tput setaf 5)"
+        CYAN="$(tput setaf 6)"
+        WHITE="$(tput setaf 7)"
+        BRIGHT_BLACK="$(tput setaf 8)"
+        BRIGHT_RED="$(tput setaf 9)"
+        BRIGHT_GREEN="$(tput setaf 10)"
+        BRIGHT_YELLOW="$(tput setaf 11)"
+        BRIGHT_BLUE="$(tput setaf 12)"
+        BRIGHT_MAGENTA="$(tput setaf 13)"
+        BRIGHT_CYAN="$(tput setaf 14)"
+        BRIGHT_WHITE="$(tput setaf 15)"
+        BOLD="$(tput bold)"
+        UNDERLINE="$(tput sgr 0 1)"
+        INVERT="$(tput sgr 1 0)"
+        RESET="$(tput sgr0)"
+      else
+        BLACK=""
+        RED=""
+        GREEN=""
+        YELLOW=""
+        BLUE=""
+        MAGENTA=""
+        CYAN=""
+        WHITE=""
+        BRIGHT_BLACK=""
+        BRIGHT_RED=""
+        BRIGHT_GREEN=""
+        BRIGHT_YELLOW=""
+        BRIGHT_BLUE=""
+        BRIGHT_MAGENTA=""
+        BRIGHT_CYAN=""
+        BRIGHT_WHITE=""
+        BOLD=""
+        UNDERLINE=""
+        INVERT=""
+        RESET=""
+      fi
+
+      # Use modern completion system.
+      autoload -Uz +X compinit && compinit
+
+      # Execute code in the background to not affect the current session.
+      {
+          # Compile zcompdump, if modified, to increase startup speed.
+          zcompdump="''${ZDOTDIR:-$HOME}/.zcompdump"
+          if [[ -s "$zcompdump" ]] && \
+             [[ (! -s "''${zcompdump}.zwc" || "$zcompdump" -nt "''${zcompdump}.zwc") ]]; then
+            zcompile -U "$zcompdump"
+          fi
+      } &!
+
+      # Load colour variables.
+      eval "$(dircolors -b)"
+
+      # Description for options that are not described by completion functions.
+      zstyle ':completion:*' auto-description "''${BRIGHT_BLACK}Specify %d''${RESET}"
+      # Enable corrections, expansions, completions and approximate completers.
+      zstyle ':completion:*' completer _expand _complete _correct _approximate
+      # Display 'Completing $section' between types of matches, ie. 'Completing external command'
+      zstyle ':completion:*' format "''${BRIGHT_BLACK}Completing %d''${RESET}"
+      # Display all types of matches separately (same types as above).
+      zstyle ':completion:*' group-name ''\'''\'
+      # Use menu selection if there are more than two matches (or when not on screen).
+      zstyle ':completion:*' menu select=2
+      zstyle ':completion:*' menu select=long
+      # Set colour specifications.
+      zstyle ':completion:*:default' list-colors ''${(s.:.)LS_COLORS}
+      zstyle ':completion:*' list-colors ''\'''\'
+      # Prompt to show when completions don't fit on screen.
+      zstyle ': completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+      zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+      # Define matcher specifications.
+      zstyle ':completion:*' matcher-list ''\'''\' 'm: { a-z }={A-Z}' 'm: { a-zA-Z }={A-Za-z}' \
+        'r: |[ ._- ]=* r:|=* l:|=*'
+      # Don't use legacy `compctl`.
+      zstyle ':completion:*' use-compctl false
+      # Show command descriptions.
+      zstyle ':completion:*' verbose true
+      # Extra patterns to accept.
+      zstyle ':completion:*' accept-exact '*(N)'
+      # Enable caching.
+      zstyle ':completion:*' use-cache on
+      zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+
+      # Extra settings for processes.
+      zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+      zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+      # Modify git completion for only local files and branches - much faster!
+      __git_files () { _wanted files expl 'local files' _files  }
+
+      # Configure message format for you-should-use.
+      export YSU_MESSAGE_FORMAT="''${BRIGHT_BLACK}Consider using the %alias_type\
+        \"''${WHITE}%alias''${BRIGHT_BLACK}\"''${RESET}"
     '' + (
       if config.veritas.david.dotfiles.isWsl then ''
         _run_npiperelay() {
-            # This function will forward a named pipe from Windows to a socket in WSL. It expects
-            # `npiperelay.exe` (from https://github.com/NZSmartie/npiperelay/releases) to exist at
-            # `C:\npiperelay.exe`.
-            SOCAT_PID_FILE="$1"
-            SOCKET_PATH="$2"
-            WINDOWS_PATH="$3"
+          # This function will forward a named pipe from Windows to a socket in WSL. It expects
+          # `npiperelay.exe` (from https://github.com/NZSmartie/npiperelay/releases) to exist at
+          # `C:\npiperelay.exe`.
+          SOCAT_PID_FILE="$1"
+          SOCKET_PATH="$2"
+          WINDOWS_PATH="$3"
 
-            if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(${pkgs.coreutils}/bin/cat $SOCAT_PID_FILE); then
-                : # Already running.
-            else
-                rm -f "$SOCKET_PATH"
-                EXEC="/mnt/c/npiperelay.exe -ei -ep -s -a '$WINDOWS_PATH'"
-                (trap "rm $SOCAT_PID_FILE" EXIT; \
-                  ${pkgs.socat}/bin/socat UNIX-LISTEN:$SOCKET_PATH,fork EXEC:$EXEC,nofork \
-                  </dev/null &>/dev/null) &
-                echo $! >$SOCAT_PID_FILE
-            fi
+          if [[ -f $SOCAT_PID_FILE ]] && kill -0 $(${pkgs.coreutils}/bin/cat $SOCAT_PID_FILE); then
+            : # Already running.
+          else
+            rm -f "$SOCKET_PATH"
+            EXEC="/mnt/c/npiperelay.exe -ei -ep -s -a '$WINDOWS_PATH'"
+            (trap "rm $SOCAT_PID_FILE" EXIT; \
+              ${pkgs.socat}/bin/socat UNIX-LISTEN:$SOCKET_PATH,fork EXEC:$EXEC,nofork \
+              </dev/null &>/dev/null) &
+            echo $! >$SOCAT_PID_FILE
+          fi
         }
 
         if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-            # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
-            # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
-            # This will be the exact same locations that files are placed when running on
-            # Linux, so that remote forwarding works.
-            ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
-              "${config.home.homeDirectory}/.gnupg/socketdir"
+          # On Windows, symlink the directory that contains `S.gpg-agent.ssh` from
+          # `wsl-pageant`. `npiperelay` will place `S.gpg-agent.extra` in this directory.
+          # This will be the exact same locations that files are placed when running on
+          # Linux, so that remote forwarding works.
+          ${pkgs.coreutils}/bin/ln -s "/mnt/c/wsl-pageant" \
+            "${config.home.homeDirectory}/.gnupg/socketdir"
         fi
 
         # When setting up GPG forwarding to WSL on Windows, get `npiperelay` (see comment in
@@ -74,14 +172,14 @@ in
         # Relay the primary GnuPG socket to `~/.gnupg/S.gpg-agent` which will be used by the
         # GPG agent.
         _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg.pid" \
-            "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
-            "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
+          "${config.home.homeDirectory}/.gnupg/S.gpg-agent" \
+          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent"
 
         # Relay the extra GnuPG socket to `~/.gnupg/S.gpg-agent.extra` which will be forwarded
         # to remote SSH hosts.
         _run_npiperelay "${config.home.homeDirectory}/.gnupg/socat-gpg-extra.pid" \
-            "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
-            "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
+          "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra" \
+          "C:/Users/David/AppData/Roaming/gnupg/S.gpg-agent.extra"
 
         # When setting up SSH forwarding to WSL on Windows, get `wsl-ssh-pageant`
         # (https://github.com/benpye/wsl-ssh-pageant) and place it in `C:\wsl-pageant`. Add a
@@ -99,23 +197,23 @@ in
         # ```
 
         # This file should exist because of `wsl-ssh-pageant`.
-        export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
+        export SSH_AUTH_SOCK = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
       '' else ''
         if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
-            # On Linux, symlink this to the directory where the sockets are placed by the GPG
-            # agent.
-            # This needs to exist for the remote forwarding.
-            ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
-              "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
-              "${config.home.homeDirectory}/.gnupg/socketdir"
+          # On Linux, symlink this to the directory where the sockets are placed by the GPG
+          # agent.
+          # This needs to exist for the remote forwarding.
+          ${pkgs.coreutils}/bin/ln -s "$(${pkgs.coreutils}/bin/dirname \
+                    "$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket)")" \
+            "${config.home.homeDirectory}/.gnupg/socketdir"
         fi
 
         export GPG_TTY=$(tty)
         export SSH_AUTH_SOCK="$(${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)"
         if [ -z $SSH_CONNECTION ] && [ -z $SSH_CLIENT ]; then
-            # Don't start the `gpg-agent` for remote connections. The sockets from the local
-            # host will be forwarded and picked up by the gpg client.
-            ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
+          # Don't start the `gpg-agent` for remote connections. The sockets from the local
+          # host will be forwarded and picked up by the gpg client.
+          ${pkgs.gnupg}/bin/gpgconf --launch gpg-agent
         fi
       ''
     ) + ''
@@ -154,9 +252,9 @@ in
 
       # Enable fasd integration.
       if [ "${pkgs.fasd}/bin/fasd" -nt "${config.xdg.cacheHome}/zsh/fasd" -o \
-            ! -s "${config.xdg.cacheHome}/zsh/fasd" ]; then
-          ${pkgs.fasd}/bin/fasd --init posix-alias zsh-hook zsh-ccomp \
-            zsh-ccomp-install >| "${config.xdg.cacheHome}/fasd"
+          ! -s "${config.xdg.cacheHome}/zsh/fasd" ]; then
+        ${pkgs.fasd}/bin/fasd --init posix-alias zsh-hook zsh-ccomp \
+          zsh-ccomp-install >| "${config.xdg.cacheHome}/fasd"
       fi
 
       # Define `fasd_cd` command.
@@ -164,7 +262,7 @@ in
         if [ $# -le 1 ]; then
           ${pkgs.fasd}/bin/fasd "$@"
         else
-          local _fasd_ret="$(${pkgs.fasd}/bin/fasd -e echo "$@")"
+          local _fasd_ret = "$(${pkgs.fasd}/bin/fasd -e echo "$@")"
           [ -z "$_fasd_ret" ] && return
           [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || echo "$_fasd_ret"
         fi
@@ -172,7 +270,7 @@ in
 
       # If running in Neovim terminal mode then don't let us launch Neovim.
       if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-          alias nvim='echo "No nesting!"'
+        alias nvim = 'echo "No nesting!"'
       fi
 
       # Use CTRL + ' ' to accept current autosuggestion.
@@ -194,9 +292,73 @@ in
       bindkey -M vicmd '^V' edit-command-line
 
       # Disable Ex mode with ':'.
-      bindkey -rM vicmd ':'
+      bindkey -rM vicmd ': '
     '';
-    plugins = import ./plugins.nix;
+    plugins = [
+      {
+        # Suggest using shorter aliases.
+        name = "you-should-use";
+        src = builtins.fetchGit {
+          url = "https://github.com/MichaelAquilina/zsh-you-should-use.git";
+          ref = "master";
+          rev = "e80ea3462514be31c43b65886105ac051114456e";
+        };
+      }
+      {
+        # Install and keep NVM up-to-date.
+        name = "zsh-nvm";
+        src = builtins.fetchGit {
+          url = "https://github.com/lukechilds/zsh-nvm.git";
+          ref = "master";
+          rev = "9ae1115e76a7ff1e8fcb42e530c196834609f76d";
+        };
+      }
+      {
+        # Additional completion definitions.
+        name = "zsh-completions";
+        src = builtins.fetchGit {
+          url = "https://github.com/zsh-users/zsh-completions.git";
+          ref = "master";
+          rev = "b512d57b6d0d2b85368a8068ec1a13288a93d267";
+        };
+      }
+      {
+        # Fish-like fast/unobtrustive autosuggestions.
+        name = "zsh-autosuggestions";
+        src = builtins.fetchGit {
+          url = "https://github.com/zsh-users/zsh-autosuggestions.git";
+          ref = "master";
+          rev = "43f3bc4010b2c697d2252fdd8b36a577ea125881";
+        };
+      }
+      {
+        # Faster syntax highlighting.
+        name = "fast-syntax-highlighting";
+        src = builtins.fetchGit {
+          url = "https://github.com/zdharma/fast-syntax-highlighting.git";
+          ref = "master";
+          rev = "581e75761c6bea46f2233dbc422d37566ce43f5e";
+        };
+      }
+      {
+        # Git fuzzy commands.
+        name = "forgit";
+        src = builtins.fetchGit {
+          url = "https://github.com/wfxr/forgit.git";
+          ref = "master";
+          rev = "106c1f86d16ba7aa3878f67952c5a0ac9d80e5b0";
+        };
+      }
+      {
+        # Jumping back directories.
+        name = "bd";
+        src = builtins.fetchGit {
+          url = "https://github.com/Tarrasch/zsh-bd.git";
+          ref = "master";
+          rev = "d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7";
+        };
+      }
+    ];
     sessionVariables =
       {
         # Enable true colour and use a 256-colour terminal.

@@ -32,7 +32,7 @@
     ./lorri.nix
     ./mail.nix
     ./manpages.nix
-    ./neovim
+    ./neovim.nix
     ./packages.nix
     ./polybar.nix
     ./qt.nix
@@ -47,7 +47,7 @@
     ./xdg.nix
     ./xresources.nix
     ./xsession.nix
-    ./zsh
+    ./zsh.nix
   ];
 
   # Apply same nixpkgs configuration as outside of home-manager.

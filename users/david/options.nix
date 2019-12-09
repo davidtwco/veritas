@@ -114,6 +114,12 @@ in
       description = "Is this a non-NixOS host?";
     };
 
+    minimal = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Omit parts of configuration that are expensive to build?";
+    };
+
     nvidiaSettings = mkOption {
       type = types.attrsOf types.str;
       default = {};

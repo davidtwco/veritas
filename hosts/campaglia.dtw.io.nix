@@ -68,9 +68,12 @@
     };
   };
 
-  veritas.profiles = {
-    media-server.enable = true;
-    virtualisation.enable = true;
+  veritas = {
+    david.dotfiles.minimal = true;
+    profiles = {
+      media-server.enable = true;
+      virtualisation.enable = true;
+    };
   };
 }
 
