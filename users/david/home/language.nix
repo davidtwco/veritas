@@ -5,7 +5,7 @@
 {
   home = {
     # Use a UK keyboard layout.
-    keyboard.layout = "uk";
+    keyboard.layout = "gb";
     # Set `en_GB.utf8` as the locale.
     language.base = "en_GB.utf8";
     packages = with pkgs; [ glibcLocales ];

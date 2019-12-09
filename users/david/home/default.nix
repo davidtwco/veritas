@@ -25,17 +25,18 @@
     ./hushlogin.nix
     ./i3.nix
     ./info.nix
-    ./inputrc.nix
     ./jq.nix
     ./keybase.nix
     ./language.nix
     ./less.nix
+    ./lorri.nix
     ./mail.nix
     ./manpages.nix
     ./neovim
     ./packages.nix
     ./polybar.nix
     ./qt.nix
+    ./readline.nix
     ./redshift.nix
     ./rofi.nix
     ./scripts.nix
@@ -44,8 +45,8 @@
     ./systemd.nix
     ./tmux.nix
     ./xdg.nix
-    ./xsession.nix
     ./xresources.nix
+    ./xsession.nix
     ./zsh
   ];
 

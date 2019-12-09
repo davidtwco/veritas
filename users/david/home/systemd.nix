@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
-# This file contains the configuration for systemd unit services - incl. workman, lorri and
-# failed unit email notifications.
+# This file contains the configuration for systemd unit services - incl. workman and failed unit
+# email notifications.
 
 let
   cfg = config.veritas.david;
@@ -41,30 +41,7 @@ in
           };
         }
       ) cfg.workman;
-      defaultServices = {
-        # Define a service for the lorri daemon.
-        lorri = {
-          "Unit" = {
-            "Description" = "Lorri build daemon";
-            "Documentation" = "https://github.com/target/lorri";
-            "ConditionUser" = "!@system";
-            "Requires" = "lorri.socket";
-            "After" = "lorri.socket";
-            "RefuseManualStart" = true;
-          };
-          "Service" = {
-            "ExecStart" = "${pkgs.lorri}/bin/lorri daemon";
-            "PrivateTmp" = true;
-            "ProtectSystem" = "strict";
-            "WorkingDirectory" = "%h";
-            "Restart" = "on-failure";
-            "Environment" = let
-              path = with pkgs; makeSearchPath "bin" [ nix gnutar git mercurial ];
-            in
-              concatStringsSep " " [ "PATH=${path}" "RUST_BACKTRACE=1" ];
-          };
-        };
-      } // (
+      defaultServices = (
         optionalAttrs cfg.email.enable {
           # Define a service for sending email when units fail.
           "systemd-notify-${config.home.username}-with-status@" = {
@@ -103,12 +80,6 @@ in
         "Timer"."OnCalendar" = workmanConfig.schedule;
       }
     ) cfg.workman;
-    # Define a socket to activate lorri with.
-    sockets.lorri = {
-      "Unit"."Description" = "Socket for lorri build daemon";
-      "Socket"."ListenStream" = "%t/lorri/daemon.socket";
-      "Install"."WantedBy" = [ "sockets.target" ];
-    };
   };
 }
 

@@ -3,12 +3,9 @@
 
 {
   homeManager = builtins.fetchGit {
-    # Temporarily use our fork of upstream's master to specify starship package.
-    # Remember to change the channels back on non-NixOS systems when going back
-    # to upstream.
-    url = "https://github.com/davidtwco/home-manager.git";
-    ref = "starship-package";
-    rev = "c4b77d90383e8777234793e32089b3acab28762f";
+    url = "https://github.com/rycee/home-manager.git";
+    ref = "master";
+    rev = "621c98f15a31e7f0c1389f69aaacd0ac267ce29e";
   };
   nixosUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs-channels.git";
