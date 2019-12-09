@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, ncurses5, ocl-icd, zlib }:
+{ stdenv, fetchzip, pkg-config, installShellFiles, ncurses5, ocl-icd, zlib }:
 
 stdenv.mkDerivation rec {
   name = "computecpp-${version}";
@@ -10,44 +10,65 @@ stdenv.mkDerivation rec {
     stripRoot = true;
   };
 
-  sourceRoot = ".";
+  dontStrip = true;
 
-  buildInputs = [];
+  nativeBuildInputs = [
+    # Adds `lib/pkgconfig` to `PKG_CONFIG_PATH`.
+    pkg-config
+    # Looks for shell completions and manpages.
+    installShellFiles
+  ];
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib ncurses5 ocl-icd zlib ];
+  patchPhase = let
+    binaries = [
+      # Not `compute` and `compute-cl` -- these are symlinks.
+      "compute++"
+      "computecpp_info"
+      "ld.ldd"
+      "ldd"
+      "ldd-link"
+      "llvm-spirv"
+      "module-pack-wrapper"
+      "sycl-bundler"
+    ];
+    libaries = stdenv.lib.makeLibraryPath [
+      stdenv.cc.cc.lib
+      ncurses5
+      ocl-icd
+      zlib
+    ];
+  in
+    ''
+      runHook prePatch
 
-  patchPhase = ''
-    runHook prePatch
+      for bin in ${builtins.concatStringsSep " " binaries}; do
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          --set-rpath "${libaries}:$out/lib/" ./bin/$bin || true
+      done
 
-    for bin in compute++ computecpp_info ld.ldd ldd ldd-link llvm-spirv sycl-bundler; do
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        --set-rpath "${libPath}:$out/lib/" source/bin/$bin || true
-    done
+      patchelf --set-rpath "${libaries}:$out/lib/" ./lib/libComputeCpp.so || true
 
-    patchelf --set-rpath "${libPath}:$out/lib/" source/lib/libComputeCpp.so || true
-
-    runHook postPatch
-  '';
+      runHook postPatch
+    '';
 
   installPhase = ''
     runHook preInstall
 
-    find source/lib -type f -exec install -D -m 0755 {} -t $out/lib \;
-    find source/bin -type l -exec install -D -m 0755 {} -t $out/bin \;
-    find source/bin -type f -exec install -D -m 0755 {} -t $out/bin \;
-    find source/doc -type f -exec install -D -m 0644 {} -t $out/doc \;
-    find source/include -type f -exec install -D -m 0644 {} -t $out/include \;
+    find ./lib -type f -exec install -D -m 0755 {} -t $out/lib \;
+    find ./bin -type l -exec install -D -m 0755 {} -t $out/bin \;
+    find ./bin -type f -exec install -D -m 0755 {} -t $out/bin \;
+    find ./doc -type f -exec install -D -m 0644 {} -t $out/doc \;
+    find ./include -type f -exec install -D -m 0644 {} -t $out/include \;
 
     runHook postInstall
   '';
 
-  dontStrip = true;
-
-  meta = {
-    description = "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
+  meta = with stdenv.lib; {
+    description =
+      "Accelerate Complex C++ Applications on Heterogeneous Compute Systems using Open Standards";
     homepage = https://www.codeplay.com/products/computesuite/computecpp;
-    license = stdenv.lib.licenses.unfree;
+    license = licenses.unfree;
+    maintainers = with maintainers; [ davidtwco ];
     platforms = [ "x86_64-linux" ];
-    maintainers = [ stdenv.lib.maintainers.davidtwco ];
   };
 }
