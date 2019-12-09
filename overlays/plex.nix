@@ -5,11 +5,11 @@ self: super:
 {
   plexPassRaw = super.unstable.plexRaw.overrideAttrs (
     old: rec {
-      version = "1.18.2.2041-3d469cb32";
+      version = "1.18.3.2129-41af4e729";
       name = "${old.pname}-${version}";
       src = super.fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
-        sha256 = "0md9zg1r7drdg84ij5sbgcv6xd1ikjxvqgni3y32djqxrma1rw4f";
+        sha256 = "1xn4csd3hhf226nz3vfbsc48xvwbhvbwhrgliqv7865n8wb6yqlg";
       };
     }
   );
