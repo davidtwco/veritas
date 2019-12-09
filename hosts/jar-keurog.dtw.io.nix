@@ -82,10 +82,6 @@
       device = "/dev/disk/by-uuid/a449eeb7-aaf0-4b82-968c-519ff2c94a89";
       fsType = "btrfs";
     };
-    "/home" = {
-      device = "/dev/disk/by-uuid/f973fbf5-1f7f-4655-b5c9-0bba1ac85f50";
-      fsType = "btrfs";
-    };
     "/boot" = {
       device = "/dev/disk/by-uuid/AA8B-F94D";
       fsType = "vfat";
