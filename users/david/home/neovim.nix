@@ -12,6 +12,9 @@ in
       enable = true;
       extraConfig = let
         prefix = ''
+          " Tell ALE where to look for `compilation-commands.json`.
+          let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin' ]
+
           function! SearchBuildDirsOr(fallback_path)
             " Get the name of the binary from the fallback path.
             let binary_name = fnamemodify(a:fallback_path, ':t')
@@ -159,9 +162,6 @@ in
           let g:ale_nix_nixpkgsfmt_executable = '${unstable.nixpkgs-fmt}/bin/nixpkgs-fmt'
           let g:gutentags_ctags_executable = '${universal-ctags}/bin/ctags'
           let termdebugger = '${gdb}/bin/gdb'
-
-          " Tell ALE where to look for `compilation-commands.json`.
-          let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin' ]
 
           " Set up persistent scratch space.
           let g:scratch_persistence_file = '${config.xdg.cacheHome}/nvim/scratch'

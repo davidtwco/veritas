@@ -197,7 +197,7 @@ in
         # ```
 
         # This file should exist because of `wsl-ssh-pageant`.
-        export SSH_AUTH_SOCK = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
+        export SSH_AUTH_SOCK="${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh"
       '' else ''
         if [ ! -d "${config.home.homeDirectory}/.gnupg/socketdir" ]; then
           # On Linux, symlink this to the directory where the sockets are placed by the GPG
@@ -262,7 +262,7 @@ in
         if [ $# -le 1 ]; then
           ${pkgs.fasd}/bin/fasd "$@"
         else
-          local _fasd_ret = "$(${pkgs.fasd}/bin/fasd -e echo "$@")"
+          local _fasd_ret="$(${pkgs.fasd}/bin/fasd -e echo "$@")"
           [ -z "$_fasd_ret" ] && return
           [ -d "$_fasd_ret" ] && cd "$_fasd_ret" || echo "$_fasd_ret"
         fi
@@ -270,7 +270,7 @@ in
 
       # If running in Neovim terminal mode then don't let us launch Neovim.
       if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
-        alias nvim = 'echo "No nesting!"'
+        alias nvim='echo "No nesting!"'
       fi
 
       # Use CTRL + ' ' to accept current autosuggestion.
