@@ -94,22 +94,7 @@ in
       }
       { plugin = tmuxPlugins.fzf-tmux-url; }
       { plugin = tmuxPlugins.logging; }
-      {
-        plugin = tmuxPlugins.continuum;
-        extraConfig = ''
-          set -g @continuum-restore 'on'
-          set -g @continuum-boot 'on'
-        '';
-      }
       { plugin = tmuxPlugins.copycat; }
-      {
-        plugin = tmuxPlugins.resurrect;
-        extraConfig = ''
-          set -g @resurrect-strategy-nvim 'session'
-          set -g @resurrect-save-shell-history 'off'
-          set -g @resurrect-capture-pane-contents 'on'
-        '';
-      }
       { plugin = tmuxPlugins.vim-tmux-navigator; }
       { plugin = tmuxPlugins.yank; }
     ];
