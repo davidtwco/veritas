@@ -6,6 +6,11 @@ let
   external = import ./shared/external.nix;
 in
 {
+  disabledModules = [
+    # Use unstable version of `locate` module so that we have `b407822`, remove when switching to
+    # 20.03.
+    "misc/locate.nix"
+  ];
   imports = with external; [
     <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     # Import shared configuration of overlays and nixpkgs.
@@ -19,6 +24,8 @@ in
     "${homeManager}/nixos"
     # Enable dwarffs.
     "${dwarffs}/module.nix"
+    # Enable unstable versions of disabled modules.
+    "${external.nixosUnstable}/nixos/modules/misc/locate.nix"
   ];
 
   boot = {
