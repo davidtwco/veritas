@@ -35,6 +35,44 @@ in
     };
 
     systemd = {
+      network.networks = {
+        # Don't manage the interfaces created by Docker, libvirt or VirtualBox.
+        "60-docker".extraConfig = ''
+          [Match]
+          Name=docker*
+
+          [Link]
+          Unmanaged=yes
+        '';
+        "61-virbr".extraConfig = ''
+          [Match]
+          Name=virbr*
+
+          [Link]
+          Unmanaged=yes
+        '';
+        "62-lxdbr".extraConfig = ''
+          [Match]
+          Name=lxdbr*
+
+          [Link]
+          Unmanaged=yes
+        '';
+        "63-veth".extraConfig = ''
+          [Match]
+          Name=veth*
+
+          [Link]
+          Unmanaged=yes
+        '';
+        "64-vboxnet".extraConfig = ''
+          [Match]
+          Name=vboxnet*
+
+          [Link]
+          Unmanaged=yes
+        '';
+      };
       tmpfiles.rules = [
         "f /dev/shm/looking-glass 0660 ${config.users.users.david.name} qemu-libvirtd -"
         "f /dev/shm/scream 0660 ${config.users.users.david.name} qemu-libvirtd -"
@@ -52,7 +90,6 @@ in
     };
 
     virtualisation = {
-      # Enable docker.
       docker = {
         autoPrune = {
           dates = "weekly";
@@ -60,7 +97,6 @@ in
         };
         enable = true;
       };
-      # Use libvirtd to manage virtual machines.
       libvirtd = {
         enable = true;
         qemuOvmf = true;
@@ -68,7 +104,6 @@ in
         onBoot = "ignore";
         onShutdown = "shutdown";
       };
-      # Allow LXC/LXD containers.
       lxc = {
         defaultConfig = ''
           # Network interface piggy-backed from libvirt.

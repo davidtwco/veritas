@@ -191,38 +191,10 @@ in
   systemd.network = {
     enable = true;
     networks = {
-      # Don't manage the interfaces created by Docker, libvirt or OpenVPN.
-      "10-docker".extraConfig = ''
-        [Match]
-        Name=docker*
-
-        [Link]
-        Unmanaged=yes
-      '';
-      "11-virbr".extraConfig = ''
-        [Match]
-        Name=virbr*
-
-        [Link]
-        Unmanaged=yes
-      '';
-      "12-openvpn-tunnels".extraConfig = ''
+      # Don't manage the interfaces created by OpenVPN.
+      "10-openvpn-tunnels".extraConfig = ''
         [Match]
         Name=tun*
-
-        [Link]
-        Unmanaged=yes
-      '';
-      "13-lxdbr".extraConfig = ''
-        [Match]
-        Name=lxdbr*
-
-        [Link]
-        Unmanaged=yes
-      '';
-      "14-veth".extraConfig = ''
-        [Match]
-        Name=veth*
 
         [Link]
         Unmanaged=yes
