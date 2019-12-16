@@ -46,6 +46,15 @@ self: super:
       };
   in
     (import src {}).ormolu;
+
+  pypi2nix = let
+    src = builtins.fetchGit {
+      url = "https://github.com/nix-community/pypi2nix.git";
+      ref = "master";
+      rev = "b27dc306db167e4c5ff06ff90ed825b0f35c51a1";
+    };
+  in
+    (import src {});
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

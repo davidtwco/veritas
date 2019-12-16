@@ -157,6 +157,10 @@ with lib.lists; with pkgs; {
     unstable.stack
     # Symbol demangler for Rust.
     rustfilt
+    # NFS debugging utilities
+    nfsUtils
+    # Generate `requirements.nix` from `requirements.txt` for Python projects
+    pypi2nix
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
