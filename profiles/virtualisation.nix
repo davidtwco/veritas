@@ -122,6 +122,11 @@ in
         '';
       };
       lxd.enable = true;
+      virtualbox.host = {
+        enable = false;
+        enableExtensionPack = true;
+        package = pkgs.unstable.virtualbox;
+      };
     };
   };
 }
