@@ -26,7 +26,6 @@
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
-    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
     vesa = false;
   };

@@ -123,7 +123,7 @@ in
       };
       lxd.enable = true;
       virtualbox.host = {
-        enable = false;
+        enable = config.boot.kernelPackages != pkgs.linuxPackages_latest;
         enableExtensionPack = true;
         package = pkgs.unstable.virtualbox;
       };
