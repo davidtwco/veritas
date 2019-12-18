@@ -58,6 +58,7 @@ in
                 let g:ale_python_flake8_executable = '${unstable.python37Packages.flake8}/bin/flake8'
                 let g:ale_ruby_rubocop_executable = '${rubocop}/bin/rubocop'
                 let g:ale_rust_rls_executable = '${latest.rustChannels.stable.rust}/bin/rls'
+                let g:ale_rust_rustfmt_executable = '${latest.rustChannels.stable.rust}/bin/rustfmt'
                 let g:ale_sh_shellcheck_executable = '${shellcheck}/bin/shellcheck'
                 let g:ale_vim_vint_executable = '${vim-vint}/bin/vint'
                 let g:spirv_as_path = '${unstable.spirv-tools}/bin/spirv-as'
