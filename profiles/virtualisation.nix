@@ -97,6 +97,7 @@ in
       virtualbox.host = {
         enable = config.boot.kernelPackages != pkgs.linuxPackages_latest;
         enableExtensionPack = true;
+        headless = config.veritas.david.dotfiles.headless;
         package = pkgs.unstable.virtualbox;
       };
     };
