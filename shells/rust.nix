@@ -3,7 +3,7 @@
 
 let
   # Import unstable channel for newer versions of packages.
-  pkgs = import (import ../shared/external.nix).nixpkgsUnstable {};
+  pkgs = import (import ../nix/sources.nix).nixpkgs-unstable {};
   # Build configuration for rust-lang/rust. Based on `config.toml.example` from
   # `1bd30ce2aac40c7698aa4a1b9520aa649ff2d1c5`.
   config = pkgs.writeText "rust-config" ''

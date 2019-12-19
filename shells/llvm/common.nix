@@ -5,8 +5,8 @@
 
 let
   # Import unstable channel for newer versions of packages.
-  external = import ../../shared/external.nix;
-  unstable = import external.nixpkgsUnstable {};
+  sources = import ../../nix/sources.nix;
+  unstable = import sources.nixpkgs-unstable {};
   # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
   # what the original CUDA toolkit package would contain and is expected to have.
   cuda-toolkit-joined = pkgs.symlinkJoin {

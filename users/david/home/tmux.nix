@@ -85,11 +85,7 @@ in
         plugin = tmuxPlugins.mkDerivation {
           # Script is named differently from the plugin.
           pluginName = "scroll_copy_mode";
-          src = builtins.fetchGit {
-            url = "https://github.com/NHDaly/tmux-better-mouse-mode.git";
-            ref = "master";
-            rev = "aa59077c635ab21b251bd8cb4dc24c415e64a58e";
-          };
+          src = (import ../../../nix/sources.nix).tmux-better-mouse-mode;
         };
       }
       { plugin = tmuxPlugins.fzf-tmux-url; }

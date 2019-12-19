@@ -82,15 +82,11 @@ The structure of this repository is described below:
 Path                       | Description
 ----                       | -----------
 `/hosts`                   | top-level expressions specific to individual workstations or servers
-`/overlays`                | overlays containing packages/overrides used in the configuration
 `/packages`                | custom packages
 `/profiles`                | common configurations shared between hosts
 `/modules`                 | re-usable configuration modules
+`/nix`                     | [niv](https://github.com/nmattia/niv) managed dependencies and `nixpkgs.config`
 `/secrets`                 | directory containing passwords and keys for some services
-`/shared/compat.nix`       | compatibility overlay to allow nix tools to use NixOS overlays
-`/shared/config.nix`       | `nixpkgs.config.*` configuration, shared between home-manager and NixOS
-`/shared/default.nix`      | `nixpkgs.*` configuration, shared between home-manager and NixOS
-`/shared/external.nix`     | expression containing pinned commits of upstream repositories
 `/shells`                  | contains development shells
 `/users/david/default.nix` | module that creates `david` user and instantiates home-manager config
 `/users/david/options.nix` | `veritas.david` module options, shared between home-manager and NixOS

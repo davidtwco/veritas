@@ -3,33 +3,9 @@
 # This file contains common configuration shared amongst all hosts.
 
 let
-  external = import ./shared/external.nix;
+  sources = import ./nix/sources.nix;
 in
 {
-  disabledModules = [
-    # Use unstable version of `locate` module so that we have `b407822`, remove when switching to
-    # 20.03.
-    "misc/locate.nix"
-  ];
-  imports = with external; [
-    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
-    # Import shared configuration of overlays and nixpkgs.
-    ./shared
-    # Always create my user account and dotfiles.
-    ./users/david
-    # Import custom modules and profiles.
-    ./modules
-    ./profiles
-    # Enable home-manager.
-    "${homeManager}/nixos"
-    # Enable dwarffs.
-    "${dwarffs}/module.nix"
-    # Enable unstable versions of disabled modules.
-    "${external.nixosUnstable}/nixos/modules/misc/locate.nix"
-    # Enable upstreaming-in-progress Wooting support.
-    "${external.nixosWootingFork}/nixos/modules/hardware/wooting.nix"
-  ];
-
   boot = {
     # Enable running aarch64 binaries using qemu.
     binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -80,6 +56,21 @@ in
     defaultLocale = "en_GB.UTF-8";
   };
 
+  imports = with sources; [
+    <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    # Always create my user account and dotfiles.
+    ./users/david
+    # Import custom modules and profiles.
+    ./modules
+    ./profiles
+    # Enable home-manager.
+    "${home-manager}/nixos"
+    # Enable dwarffs.
+    "${dwarffs}/module.nix"
+    # Enable upstreaming-in-progress Wooting support.
+    "${nixos-wooting-fork}/nixos/modules/hardware/wooting.nix"
+  ];
+
   networking = {
     firewall = {
       allowPing = true;
@@ -102,14 +93,29 @@ in
   nix = {
     # Automatically optimise the Nix store.
     autoOptimiseStore = true;
-    # Add compatibility overlay to the $NIX_PATH, this overlay enables Nix tools (such as
-    # `nix-shell`) to use the overlays defined in `nixpkgs.overlays`.
-    nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=/etc/nixos/shared/compat.nix" ];
     # Enable serving packages over SSH when authenticated by the same keys as the `david` user.
     sshServe = {
       enable = true;
       keys = config.users.users.david.openssh.authorizedKeys.keys;
     };
+  };
+
+  # This configuration only applies to the NixOS configuration! Not home-manager or nix-shell, etc.
+  nixpkgs = {
+    config = import ./nix/config.nix;
+    overlays = let
+      unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
+      wootingFork = import sources.nixos-wooting-fork { config = config.nixpkgs.config; };
+    in
+      [
+        (_: _: { inherit unstable; })
+        (_: _: { inherit (wootingFork) wootility wooting-udev-rules; })
+        (
+          _: super: {
+            intel-openclrt = super.callPackage ./packages/intel-openclrt.nix {};
+          }
+        )
+      ];
   };
 
   programs = {

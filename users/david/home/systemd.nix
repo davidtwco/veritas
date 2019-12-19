@@ -34,7 +34,10 @@ in
               environment = defaultEnvironment // workmanConfig.environment;
             in
               concatStringsSep " " (mapAttrsToList (k: v: ''${k}="${v}"'') environment);
-            "ExecStart" = "${pkgs.bash}/bin/bash -c '${pkgs.workman}/bin/workman update'";
+            "ExecStart" = let
+              workman = pkgs.callPackage ../../../packages/workman.nix {};
+            in
+              "${pkgs.bash}/bin/bash -c '${pkgs.workman}/bin/workman update'";
             "RemainAfterExit" = false;
             "Type" = "oneshot";
             "WorkingDirectory" = workmanConfig.directory;

@@ -34,8 +34,8 @@ in
         '' + (
           optionalString (!cfg.dotfiles.minimal) (
             let
-              external = import ../../../shared/external.nix;
-              hie = (import external.all-hies {}).selection {
+              sources = import ../../../nix/sources.nix;
+              hie = (import sources.all-hies {}).selection {
                 selector = p: { inherit (p) ghc865; };
               };
             in
@@ -854,460 +854,148 @@ in
       withPython3 = true;
       package = unstable.neovim;
       plugins =
-        # Define our own plugin list with pinned versions so that we can guarantee
-        # a working configuration. Some plugins require `dontBuild` as they include
-        # `Makefile`s to run tests and build docs.
-        [
-          (
+        let
+          sources = import ../../../nix/sources.nix;
+        in
+          # Define our own plugin list with pinned versions so that we can guarantee
+          # a working configuration. Some plugins require `dontBuild` as they include
+          # `Makefile`s to run tests and build docs.
+          [
             # Sensible defaults for Vim.
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-sensible";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-sensible.git";
-                ref = "master";
-                rev = "b9febff7aac028a851d2568d3dcef91d9b6971bc";
-              };
-            }
-          )
-          # Polyglot adds a bunch of syntax handling for different languages and tools, check if
-          # new languages are included before adding them manually.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-polyglot";
-              src = builtins.fetchGit {
-                url = "https://github.com/sheerun/vim-polyglot.git";
-                ref = "master";
-                rev = "31c55b85a03d96252bba14d64911cc78a20369a1";
-              };
-            }
-          )
-          # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "rust.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/rust-lang/rust.vim.git";
-                ref = "master";
-                rev = "a49b1473eca309e5f5cf2486100d9efe23a6e4ff";
-              };
-            }
-          )
-          # Other languages
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-hocon";
-              src = builtins.fetchGit {
-                url = "https://github.com/GEverding/vim-hocon.git";
-                ref = "master";
-                rev = "bb8fb14e00f8fc1eec27dd39dcc605aac43328a3";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-pandoc";
-              src = builtins.fetchGit {
-                url = "https://github.com/vim-pandoc/vim-pandoc.git";
-                ref = "master";
-                rev = "b41a18b75dd8dee5217bca9f68d91f8fd2ea6084";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-pandoc-syntax";
-              src = builtins.fetchGit {
-                url = "https://github.com/vim-pandoc/vim-pandoc-syntax.git";
-                ref = "master";
-                rev = "6710d46c8b772f77248f30d650c83f90c68f37ab";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-spirv";
-              src = builtins.fetchGit {
-                url = "https://github.com/kbenzie/vim-spirv.git";
-                ref = "master";
-                rev = "4ef79b3854b7dd336afa4cd4dbea84667535435d";
-              };
-            }
-          )
-          # Generate ctags for projects.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-gutentags";
-              src = builtins.fetchGit {
-                url = "https://github.com/ludovicchabant/vim-gutentags.git";
-                ref = "master";
-                rev = "eecb136fae97e30d5f01e71f0d3b775c8b017385";
-              };
-            }
-          )
-          # Auto-adds `end` where appropriate.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-endwise";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-endwise.git";
-                ref = "master";
-                rev = "f67d022169bd04d3c000f47b1c03bfcbc4209470";
-              };
-            }
-          )
-          # Hybrid colour scheme
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-hybrid";
-              src = builtins.fetchGit {
-                url = "https://github.com/w0ng/vim-hybrid.git";
-                ref = "master";
-                rev = "cc58baabeabc7b83768e25b852bf89c34756bf90";
-              };
-            }
-          )
-          # Autocompletion/linting/fixing.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "ale";
-              # Use fork for ormolu support.
-              src = builtins.fetchGit {
-                url = "https://github.com/davidtwco/ale.git";
-                ref = "ormolu-fixer";
-                rev = "aa4f8a4bec54cd7c1ce3a9fb15b3572015764476";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "deoplete.nvim";
-              src = builtins.fetchGit {
-                url = "https://github.com/Shougo/deoplete.nvim.git";
-                ref = "master";
-                rev = "ff09a7ab58e5271053c59825895d607316657023";
-              };
-              dontBuild = true;
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "lightline-ale";
-              src = builtins.fetchGit {
-                url = "https://github.com/maximbaz/lightline-ale.git";
-                ref = "master";
-                rev = "dd59077f9537b344f7ae80f713c1e4856ec1520c";
-              };
-            }
-          )
-          # Add operator to comment out lines.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-commentary";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-commentary.git";
-                ref = "master";
-                rev = "141d9d32a9fb58fe474fcc89cd7221eb2dd57b3a";
-              };
-            }
-          )
-          # Improvements to netrw.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-vinegar";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-vinegar.git";
-                ref = "master";
-                rev = "09ac84c4d152a944caa341e913220087211c72ef";
-              };
-            }
-          )
-          # Show git changes in the sign column
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-signify";
-              src = builtins.fetchGit {
-                url = "https://github.com/mhinz/vim-signify.git";
-                ref = "master";
-                rev = "ffab0c9d71bf33529b3dd52783b45652e8b500ad";
-              };
-            }
-          )
-          # Git wrappers
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-fugitive";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-fugitive.git";
-                ref = "master";
-                rev = "442d56e23cd75a336b28cf5e46bf0def8c65dff5";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-rhubarb";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-rhubarb.git";
-                ref = "master";
-                rev = "c509c7eedeea641f5b0bdae708581ff610fbff5b";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "fugitive-gitlab.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/shumphrey/fugitive-gitlab.vim.git";
-                ref = "master";
-                rev = "43a13dbbc9aae85338877329ed28c9e4d8488db1";
-              };
-            }
-          )
-          # Async build and test dispatcher
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-dispatch";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-dispatch.git";
-                ref = "master";
-                rev = "4bd1ecd7f38206ef26c37d7d142df58c4237d9dc";
-              };
-            }
-          )
-          # Helper functions for unix commands.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-eunuch";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-eunuch.git";
-                ref = "master";
-                rev = "e066a0999e442d9d96f24ad9d203b1bd030ef72e";
-              };
-            }
-          )
-          # Easy navigation between vim splits and tmux panes.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-tmux-navigator";
-              src = builtins.fetchGit {
-                url = "https://github.com/christoomey/vim-tmux-navigator.git";
-                ref = "master";
-                rev = "4e1a877f51a17a961b8c2a285ee80aebf05ccf42";
-              };
-            }
-          )
-          # Focus events and clipboard for tmux.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-tmux-clipboard";
-              src = builtins.fetchGit {
-                url = "https://github.com/roxma/vim-tmux-clipboard.git";
-                ref = "master";
-                rev = "47187740b88f9dab213f44678800cc797223808e";
-              };
-            }
-          )
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-tmux-focus-events";
-              src = builtins.fetchGit {
-                url = "https://github.com/tmux-plugins/vim-tmux-focus-events.git";
-                ref = "master";
-                rev = "0f89b1ada151e22882a5a47a1ee2b6d6135bc5c1";
-              };
-            }
-          )
-          # Switch to absolute line numbers for buffers that aren't focused.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-numbertoggle";
-              src = builtins.fetchGit {
-                url = "https://github.com/jeffkreeftmeijer/vim-numbertoggle.git";
-                ref = "master";
-                rev = "cfaecb9e22b45373bb4940010ce63a89073f6d8b";
-              };
-            }
-          )
-          # Fuzzy file search.
-          (pkgs.vimPlugins.fzfWrapper)
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "fzf.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/junegunn/fzf.vim.git";
-                ref = "master";
-                rev = "359a80e3a34aacbd5257713b6a88aa085337166f";
-              };
-            }
-          )
-          # Statusline
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "lightline";
-              src = builtins.fetchGit {
-                url = "https://github.com/itchyny/lightline.vim.git";
-                ref = "master";
-                rev = "09c61dc3f650eccd2c165c36db8330496321aa50";
-              };
-            }
-          )
-          # Show marks in sign column.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-signature";
-              src = builtins.fetchGit {
-                url = "https://github.com/kshenoy/vim-signature.git";
-                ref = "master";
-                rev = "6bc3dd1294a22e897f0dcf8dd72b85f350e306bc";
-              };
-            }
-          )
-          # Adds `s` motion for matching any two characters.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-sneak";
-              src = builtins.fetchGit {
-                url = "https://github.com/justinmk/vim-sneak.git";
-                ref = "master";
-                rev = "5b670df36291ca75f5ded5cd7608948d58ff6325";
-              };
-              dontBuild = true;
-            }
-          )
-          # Improve `.` (repeat) for plugin maps.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-repeat";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-repeat.git";
-                ref = "master";
-                rev = "ae361bea990e27d5beade3a8d9fa22e25cec3100";
-              };
-            }
-          )
-          # Terminal utilities.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "split-term.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/vimlab/split-term.vim.git";
-                ref = "master";
-                rev = "a4e28cab77ad07fc8a0ebb62a982768c02eb287c";
-              };
-            }
-          )
-          # Handy bracket matchings.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-unimpaired";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-unimpaired.git";
-                ref = "master";
-                rev = "ab7082c0e89df594a5ba111e18af17b3377d216d";
-              };
-            }
-          )
-          # Commands for interactig with surroundings ("", '', {}, etc).
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-surround";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-surround.git";
-                ref = "master";
-                rev = "fab8621670f71637e9960003af28365129b1dfd0";
-              };
-            }
-          )
-          # Multi-file search (`Ack`)
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "ferret";
-              src = builtins.fetchGit {
-                url = "https://github.com/wincent/ferret.git";
-                ref = "master";
-                rev = "aeb47b01b36021aaf84ff4f7f1a4cf64bc68fe53";
-              };
-            }
-          )
-          # Improved incremental search - hides search highlighting after moving cursor.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "is.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/haya14busa/is.vim.git";
-                ref = "master";
-                rev = "61d5029310c69bde700b2d46a454f80859b5af17";
-              };
-            }
-          )
-          # Enhanced `%` functionality.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-matchit";
-              src = builtins.fetchGit {
-                url = "https://github.com/geoffharcourt/vim-matchit.git";
-                ref = "master";
-                rev = "44267b436d3d73c8adfb23537a1b86862239ad12";
-              };
-            }
-          )
-          # Look for project specific `.lvimrc` files.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-localvimrc";
-              src = builtins.fetchGit {
-                url = "https://github.com/embear/vim-localvimrc.git";
-                ref = "master";
-                rev = "0b36a367f4d46b7f060836fcbfec029cce870ea9";
-              };
-              dontBuild = true;
-            }
-          )
-          # Scratchpad
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "scratch.vim";
-              src = builtins.fetchGit {
-                url = "https://github.com/mtth/scratch.vim.git";
-                ref = "master";
-                rev = "6df617ebc0695bd9839a4fe365a08df13d24bc05";
-              };
-            }
-          )
-          # Text filtering and alignment.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "tabular";
-              src = builtins.fetchGit {
-                url = "https://github.com/godlygeek/tabular.git";
-                ref = "master";
-                rev = "339091ac4dd1f17e225fe7d57b48aff55f99b23a";
-              };
-            }
-          )
-          # Visualize the undo tree.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-mundo";
-              src = builtins.fetchGit {
-                url = "https://github.com/simnalamburt/vim-mundo.git";
-                ref = "master";
-                rev = "a32f8af11dee435a198bef3504f0aa594f960409";
-              };
-            }
-          )
-          # Search/substitution/abbreviation of word variations.
-          (
-            pkgs.vimUtils.buildVimPlugin {
-              name = "vim-abolish";
-              src = builtins.fetchGit {
-                url = "https://github.com/tpope/vim-abolish.git";
-                ref = "master";
-                rev = "b95463a1cffd8fc9aff2a1ff0ae9327944948699";
-              };
-            }
-          )
-        ];
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-sensible"; src = sources.vim-sensible; })
+            # Polyglot adds a bunch of syntax handling for different languages and tools, check if
+            # new languages are included before adding them manually.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-polyglot"; src = sources.vim-polyglot; })
+            # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
+            (pkgs.vimUtils.buildVimPlugin { name = "rust.vim"; src = sources."rust.vim"; })
+            # Other languages
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-hocon"; src = sources.vim-hocon; })
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-pandoc"; src = sources.vim-pandoc; })
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-pandoc-syntax";
+                src = sources.vim-pandoc-syntax;
+              }
+            )
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-spirv"; src = sources.vim-spirv; })
+            # Generate ctags for projects.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-gutentags"; src = sources.vim-gutentags; })
+            # Auto-adds `end` where appropriate.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-endwise"; src = sources.vim-endwise; })
+            # Hybrid colour scheme
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-hybrid"; src = sources.vim-hybrid; })
+            # Autocompletion/linting/fixing.
+            (pkgs.vimUtils.buildVimPlugin { name = "ale"; src = sources.ale; })
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "deoplete.nvim";
+                src = sources."deoplete.nvim";
+                dontBuild = true;
+              }
+            )
+            (pkgs.vimUtils.buildVimPlugin { name = "lightline-ale"; src = sources.lightline-ale; })
+            # Add operator to comment out lines.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-commentary"; src = sources.vim-commentary; })
+            # Improvements to netrw.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-vinegar"; src = sources.vim-vinegar; })
+            # Show git changes in the sign column
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-signify"; src = sources.vim-signify; })
+            # Git wrappers
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-fugitive"; src = sources.vim-fugitive; })
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-rhubarb"; src = sources.vim-rhubarb; })
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "fugitive-gitlab.vim";
+                src = sources."fugitive-gitlab.vim";
+              }
+            )
+            # Async build and test dispatcher
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-dispatch"; src = sources.vim-dispatch; })
+            # Helper functions for unix commands.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-eunuch"; src = sources.vim-eunuch; })
+            # Easy navigation between vim splits and tmux panes.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-tmux-navigator";
+                src = sources.vim-tmux-navigator;
+              }
+            )
+            # Focus events and clipboard for tmux.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-tmux-clipboard";
+                src = sources.vim-tmux-clipboard;
+              }
+            )
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-tmux-focus-events";
+                src = sources.vim-tmux-focus-events;
+              }
+            )
+            # Switch to absolute line numbers for buffers that aren't focused.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-numbertoggle";
+                src = sources.vim-numbertoggle;
+              }
+            )
+            # Fuzzy file search.
+            (pkgs.vimPlugins.fzfWrapper)
+            (pkgs.vimUtils.buildVimPlugin { name = "fzf.vim"; src = sources."fzf.vim"; })
+            # Statusline
+            (pkgs.vimUtils.buildVimPlugin { name = "lightline"; src = sources."lightline.vim"; })
+            # Show marks in sign column.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-signature"; src = sources.vim-signature; })
+            # Adds `s` motion for matching any two characters.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-sneak";
+                src = sources.vim-sneak;
+                dontBuild = true;
+              }
+            )
+            # Improve `.` (repeat) for plugin maps.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-repeat";
+                src = sources.vim-repeat;
+              }
+            )
+            # Terminal utilities.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "split-term.vim";
+                src = sources."split-term.vim";
+              }
+            )
+            # Handy bracket matchings.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-unimpaired"; src = sources.vim-unimpaired; })
+            # Commands for interactig with surroundings ("", '', {}, etc).
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-surround"; src = sources.vim-surround; })
+            # Multi-file search (`Ack`)
+            (pkgs.vimUtils.buildVimPlugin { name = "ferret"; src = sources.ferret; })
+            # Improved incremental search - hides search highlighting after moving cursor.
+            (pkgs.vimUtils.buildVimPlugin { name = "is.vim"; src = sources."is.vim"; })
+            # Enhanced `%` functionality.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-matchit"; src = sources.vim-matchit; })
+            # Look for project specific `.lvimrc` files.
+            (
+              pkgs.vimUtils.buildVimPlugin {
+                name = "vim-localvimrc";
+                src = sources.vim-localvimrc;
+                dontBuild = true;
+              }
+            )
+            # Scratchpad
+            (pkgs.vimUtils.buildVimPlugin { name = "scratch.vim"; src = sources."scratch.vim"; })
+            # Text filtering and alignment.
+            (pkgs.vimUtils.buildVimPlugin { name = "tabular"; src = sources.tabular; })
+            # Visualize the undo tree.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-mundo"; src = sources.vim-mundo; })
+            # Search/substitution/abbreviation of word variations.
+            (pkgs.vimUtils.buildVimPlugin { name = "vim-abolish"; src = sources.vim-abolish; })
+          ];
     };
 
     # Configure the `flake8` linter for Python to match `black`'s formatting.

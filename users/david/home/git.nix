@@ -96,14 +96,7 @@ in
       # C/C++
       "compile_commands.json"
     ];
-    includes = let
-      aliases = builtins.fetchGit {
-        url = "https://github.com/GitAlias/gitalias.git";
-        ref = "master";
-        rev = "04410eab725ef152e1eb70a87cb6fd4f52f7b4ea";
-      };
-    in
-      [ { path = "${aliases}/gitalias.txt"; } ];
+    includes = [ { path = "${(import ../../../nix/sources.nix).gitalias}/gitalias.txt"; } ];
     lfs = {
       enable = true;
       skipSmudge = false;

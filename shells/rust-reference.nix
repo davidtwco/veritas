@@ -2,9 +2,9 @@
 
 let
   # Import unstable channel for newer versions of packages.
-  external = import ../shared/external.nix;
-  unstable = import external.nixpkgsUnstable {
-    overlays = [ (import external.mozillaOverlay) ];
+  sources = import ../nix/sources.nix;
+  unstable = import sources.nixpkgs-unstable {
+    overlays = [ (import sources.nixpkgs-mozilla) ];
   };
 in
 unstable.mkShell {

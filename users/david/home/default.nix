@@ -2,9 +2,6 @@
 
 {
   imports = [
-    # Import shared configuration of overlays and nixpkgs.
-    ../../../shared
-    # Import other home configurations.
     ./alacritty.nix
     ./autorandr.nix
     ./bash.nix
@@ -50,8 +47,37 @@
     ./zsh.nix
   ];
 
-  # Apply same nixpkgs configuration as outside of home-manager.
-  xdg.configFile."nixpkgs/config.nix".source = ../../../shared/config.nix;
+  # This configuration only applies to home-manager, not NixOS or nix-shell.
+  nixpkgs = {
+    config = import ../../../nix/config.nix;
+    overlays = let
+      sources = import ../../../nix/sources.nix;
+      unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
+    in
+      [
+        (_: _: { inherit unstable; })
+        (import sources.nixpkgs-mozilla)
+        (
+          _: _: {
+            niv = (import sources.niv {}).niv;
+
+            lorri = import sources.lorri {};
+
+            ormolu = (import sources.ormolu {}).ormolu;
+
+            pypi2nix = import sources.pypi2nix {};
+          }
+        )
+        (
+          _: super: {
+            rustfilt = super.callPackage ../../../packages/rustfilt.nix {};
+            workman = super.callPackage ../../../packages/workman.nix {};
+          }
+        )
+      ];
+  };
+
+  xdg.configFile."nixpkgs/config.nix".source = ../../../nix/config.nix;
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
