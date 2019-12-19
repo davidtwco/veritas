@@ -37,37 +37,9 @@ in
     systemd = {
       network.networks = {
         # Don't manage the interfaces created by Docker, libvirt or VirtualBox.
-        "60-docker".extraConfig = ''
+        "20-virtualization-interfaces".extraConfig = ''
           [Match]
-          Name=docker*
-
-          [Link]
-          Unmanaged=yes
-        '';
-        "61-virbr".extraConfig = ''
-          [Match]
-          Name=virbr*
-
-          [Link]
-          Unmanaged=yes
-        '';
-        "62-lxdbr".extraConfig = ''
-          [Match]
-          Name=lxdbr*
-
-          [Link]
-          Unmanaged=yes
-        '';
-        "63-veth".extraConfig = ''
-          [Match]
-          Name=veth*
-
-          [Link]
-          Unmanaged=yes
-        '';
-        "64-vboxnet".extraConfig = ''
-          [Match]
-          Name=vboxnet*
+          Name=docker* virbr* lxdbr* veth* vboxnet*
 
           [Link]
           Unmanaged=yes
