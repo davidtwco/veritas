@@ -45,7 +45,10 @@
     };
   };
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware = {
+    cpu.intel.updateMicrocode = true;
+    wooting.enable = true;
+  };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
@@ -56,7 +59,6 @@
   };
 
   veritas = {
-    hardware.wooting.enable = true;
     profiles.virtualisation.enable = true;
     david = {
       # Set the email address that should be used by the dotfiles in configuration files

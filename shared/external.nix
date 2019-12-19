@@ -12,6 +12,11 @@
     ref = "nixos-unstable";
     rev = "3140fa89c51233397f496f49014f6b23216667c2";
   };
+  nixosWootingFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "wooting-init";
+    rev = "4adcb4a9d63dffd9dfe0c186b8cf82a114bf0bad";
+  };
   nixpkgsUnstable = builtins.fetchGit {
     url = "https://github.com/NixOS/nixpkgs.git";
     ref = "master";

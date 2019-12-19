@@ -34,7 +34,14 @@ in
       (import ../overlays/opencl.nix)
       (import ../overlays/packages.nix)
       (import ../overlays/plex.nix)
-      (import ../overlays/wooting.nix)
+      # Import some packages from a fork so that a module works.
+      (
+        self: super: with external; {
+          wootility = super.callPackage "${nixosWootingFork}/pkgs/tools/misc/wootility" {};
+          wooting-udev-rules =
+            super.callPackage "${nixosWootingFork}/pkgs/os-specific/linux/wooting-udev-rules" {};
+        }
+      )
       # Use Mozilla's overlay for `rustChannelOf` function.
       (import external.mozillaOverlay)
     ];

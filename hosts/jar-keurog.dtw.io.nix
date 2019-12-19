@@ -91,6 +91,7 @@
   hardware = {
     cpu.amd.updateMicrocode = true;
     nvidia.modesetting.enable = true;
+    wooting.enable = true;
   };
 
   services.xserver = {
@@ -116,7 +117,6 @@
   };
 
   veritas = {
-    hardware.wooting.enable = true;
     profiles.virtualisation.enable = true;
     david = {
       colourScheme.i3 = {

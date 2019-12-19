@@ -26,6 +26,8 @@ in
     "${dwarffs}/module.nix"
     # Enable unstable versions of disabled modules.
     "${external.nixosUnstable}/nixos/modules/misc/locate.nix"
+    # Enable upstreaming-in-progress Wooting support.
+    "${external.nixosWootingFork}/nixos/modules/hardware/wooting.nix"
   ];
 
   boot = {
