@@ -22,6 +22,11 @@
     ref = "master";
     rev = "3726e168dcbc3d199e5a71ad2a456217dac3dd1d";
   };
+  nixpkgsComputeCppFork = builtins.fetchGit {
+    url = "https://github.com/davidtwco/nixpkgs.git";
+    ref = "computecpp-init";
+    rev = "d7607220ecec4a42ab5f792b908ab81a670caec2";
+  };
   mozillaOverlay = builtins.fetchGit {
     url = "https://github.com/mozilla/nixpkgs-mozilla.git";
     ref = "master";

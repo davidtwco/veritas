@@ -25,12 +25,12 @@ in
   # > recipe of boost in the above example, comes from super, as well as the callPackage function.
   nixpkgs.overlays = let
     unstable = import external.nixpkgsUnstable { config = config.nixpkgs.config; };
+    computeCppFork = import external.nixpkgsComputeCppFork { config = config.nixpkgs.config; };
   in
     [
       # Define a simple overlay that roots the unstable channel at `pkgs.unstable`.
       (self: super: { inherit unstable; })
       # Add our own overlays.
-      (import ../overlays/computecpp.nix)
       (import ../overlays/opencl.nix)
       (import ../overlays/packages.nix)
       (import ../overlays/plex.nix)
@@ -42,6 +42,7 @@ in
             super.callPackage "${nixosWootingFork}/pkgs/os-specific/linux/wooting-udev-rules" {};
         }
       )
+      (self: super: { inherit (computeCppFork) computecpp computecpp-unwrapped; })
       # Use Mozilla's overlay for `rustChannelOf` function.
       (import external.mozillaOverlay)
     ];
