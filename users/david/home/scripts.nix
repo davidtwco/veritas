@@ -36,6 +36,28 @@
         done;
       ''
     )
+    (
+      writeScriptBin "print-fish-colours" ''
+        #! ${pkgs.unstable.fish}/bin/fish
+        set -l clr_list (set -n | grep fish | grep color | grep -v __)
+        if test -n "$clr_list"
+          set -l bclr (set_color normal)
+          set -l bold (set_color --bold)
+          printf "\n| %-35s | %-35s |\n" Variable Definition
+          echo '|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|'
+          for var in $clr_list
+            set -l def $$var
+            set -l clr (set_color $def ^/dev/null)
+            or begin
+              printf "| %-35s | %s%-35s$bclr |\n" "$var" (set_color --bold white --background=red) "$def"
+              continue
+            end
+            printf "| $clr%-35s$bclr | $bold%-35s$bclr |\n" "$var" "$def"
+          end
+          echo '|_____________________________________|_____________________________________|'\n
+        end
+      ''
+    )
   ];
 }
 

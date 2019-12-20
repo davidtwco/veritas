@@ -1,7 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 # This file contains the configuration for GnuPG.
 
+with lib;
 {
   programs.gpg = {
     enable = true;
@@ -62,36 +63,41 @@
     };
   };
 
-  # Don't use `services.gpg-agent` until we can find a way to make it work with agent forwarding.
-  home.file.".gnupg/gpg-agent.conf".text = let
-    pinentry = "${pkgs.pinentry_gnome}/bin/" + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
+  services.gpg-agent = let
+    # Enable logging to a socket for debugging.
+    # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
+    enableLogging = false;
+    pinentry =
+      "${pkgs.pinentry_gnome}/bin/"
+      + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
   in
-    ''
-      # Wait an hour before prompting again, always
-      # prompt if it has been 2 hours, regardless most
-      # recent use.
-      default-cache-ttl 600
-      max-cache-ttl 7200
+    {
+      defaultCacheTtl = 600;
+      defaultCacheTtlSsh = 600;
+      enable = true;
+      enableExtraSocket = true;
+      enableScDaemon = true;
+      enableSshSupport = true;
+      extraConfig = ''
+        # Use different pinentry script depending on what is available.
+        # Redirect through a script so this works on all distros.
+        pinentry-program ${pinentry}
+      '' + (
+        optionalString enableLogging ''
+          debug-level guru
+          log-file socket:///${config.home.homeDirectory}/.gnupg/S.log
+        ''
+      );
+      grabKeyboardAndMouse = true;
+      maxCacheTtl = 7200;
+      maxCacheTtlSsh = 7200;
+      verbose = enableLogging;
+    };
 
-      # Don't prompt for ssh. This is primarily so that
-      # async repository checks by prompts don't trigger
-      # random pinentry prompts.
-      default-cache-ttl-ssh 600
-      max-cache-ttl-ssh 7200
-
-      # Act as an SSH agent.
-      enable-ssh-support
-
-      # Use different pinentry script depending on what is available.
-      # Redirect through a script so this works on all distros.
-      pinentry-program ${pinentry}
-
-      # Enable logging to a socket for debugging.
-      # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
-      # verbose
-      # debug-level guru
-      # log-file socket:///${config.home.homeDirectory}/.gnupg/S.log
-    '';
+  # Tell SSH where to find GnuPG-Agent.
+  programs.fish.interactiveShellInit = ''
+    set -x SSH_AUTH_SOCK (${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
+  '';
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

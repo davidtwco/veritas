@@ -20,8 +20,6 @@ in
         glibcLocales
         # Required for `fzf.vim` to fuzzy search tags.
         perl
-        # Required for `runScript` below.
-        zsh
       ]
     );
     # `multiPkgs` contains packages to be installed for the all architecture's supported by the host.
@@ -32,6 +30,6 @@ in
       export PATH=$PATH:$HOME/.nix-profile/bin
     '';
     # `runScript` determines the command that runs when the shell is entered.
-    runScript = "zsh";
+    runScript = "fish";
   }
 ).env

@@ -8,7 +8,8 @@ in
 {
   programs.starship = {
     enable = true;
-    enableZshIntegration = true;
+    enableBashIntegration = false;
+    enableFishIntegration = true;
     package = pkgs.unstable.starship;
     settings = with colours; {
       "aws"."disabled" = true;
@@ -30,6 +31,10 @@ in
         "symbol" = "";
         "style" = "#${starship.mutedGrey}";
       };
+      "git_commit" = {
+        "disabled" = false;
+        "style" = "#${starship.mutedGrey}";
+      };
       "git_state" = {
         "rebase" = "rebasing";
         "merge" = "merging";
@@ -41,37 +46,43 @@ in
         "style" = "#${basic.yellow}";
       };
       "git_status" = {
-        "conflicted" = "⨯";
         "ahead" = "↑";
         "behind" = "↓";
-        "diverged" = "⇅";
-        "untracked" = "";
-        "stashed" = "";
-        "modified" = "∙";
-        "staged" = "";
-        "renamed" = "";
+        "conflicted" = "⨯";
         "deleted" = "";
+        "diverged" = "⇅";
+        "modified" = "∙";
+        "prefix" = "";
+        "renamed" = "";
+        "staged" = "";
+        "stashed" = "";
         "style" = "#${starship.mutedGrey}";
+        "suffix" = " ";
+        "untracked" = "";
       };
       "golang"."disabled" = true;
+      "hg_branch"."disabled" = true;
       "hostname"."style" = "#${basic.green}";
+      "java"."disabled" = true;
       "jobs" = {
         "style" = "#${basic.black}";
         "symbol" = "";
         "threshold" = 0;
       };
       "kubernetes"."disabled" = true;
+      "memory_usage"."disabled" = true;
       "nix_shell" = {
         "style" = "#${basic.red}";
         "use_name" = true;
       };
-      "memory_usage"."disabled" = true;
-      "java"."disabled" = true;
       "nodejs"."disabled" = true;
       "package"."disabled" = true;
+      "php"."disabled" = true;
+      "prompt"."scan_timeout" = 10;
       "python"."disabled" = true;
       "ruby"."disabled" = true;
       "rust"."disabled" = true;
+      "terraform"."disabled" = true;
       "time"."disabled" = true;
       "username" = {
         "style_root" = "#${basic.red}";

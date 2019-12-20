@@ -7,12 +7,9 @@
   programs.bash = with lib; {
     enable = true;
     profileExtra = mkIf (config.veritas.david.dotfiles.isNonNixOS) (
-      config.programs.zsh.profileExtra + # Can't set a shell on WSL 1 and can't set the shell to zsh from `.nix-profile` in WSL 2.
-      (
-        optionalString
-          config.veritas.david.dotfiles.isWsl
-          "exec ${config.home.profileDirectory}/bin/zsh"
-      )
+      optionalString
+        config.veritas.david.dotfiles.isWsl
+        "exec ${config.home.profileDirectory}/bin/fish"
     );
   };
 }

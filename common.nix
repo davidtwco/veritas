@@ -14,7 +14,7 @@ in
   };
 
   environment = {
-    pathsToLink = [ "/share/zsh" "/share" ];
+    pathsToLink = [ "/share/fish" "/share" ];
     systemPackages = with pkgs; [
       # Logitech Devices
       solaar

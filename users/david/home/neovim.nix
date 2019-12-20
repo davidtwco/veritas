@@ -737,7 +737,7 @@ in
           \   s:p.normal.left[1], s:p.normal.left[2]
           \ ]
           let s:p.replace.middle = s:p.normal.middle
-          let s:p.replace.right = s:p.normal.left
+          let s:p.replace.right = s:p.normal.right
 
           " Visual mode has terminal background and yellow foreground, followed by the same as normal
           " mode.

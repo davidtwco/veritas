@@ -47,7 +47,7 @@ in
       ];
       # `shell` attribute cannot be removed! If no value is present then there will be no shell
       # configured for the user and SSH will not allow logins!
-      shell = pkgs.zsh;
+      shell = pkgs.unstable.fish;
       uid = 1000;
     };
 

@@ -11,6 +11,7 @@
     ./direnv.nix
     ./eyaml.nix
     ./feh.nix
+    ./fish.nix
     ./fonts.nix
     ./fzf.nix
     ./gdb.nix
@@ -44,7 +45,6 @@
     ./xdg.nix
     ./xresources.nix
     ./xsession.nix
-    ./zsh.nix
   ];
 
   # This configuration only applies to home-manager, not NixOS or nix-shell.
@@ -58,18 +58,11 @@
         (_: _: { inherit unstable; })
         (import sources.nixpkgs-mozilla)
         (
-          _: _: {
-            niv = (import sources.niv {}).niv;
-
-            lorri = import sources.lorri {};
-
-            ormolu = (import sources.ormolu {}).ormolu;
-
-            pypi2nix = import sources.pypi2nix {};
-          }
-        )
-        (
           _: super: {
+            niv = (import sources.niv {}).niv;
+            lorri = import sources.lorri {};
+            ormolu = (import sources.ormolu {}).ormolu;
+            pypi2nix = import sources.pypi2nix {};
             rustfilt = super.callPackage ../../../packages/rustfilt.nix {};
             workman = super.callPackage ../../../packages/workman.nix {};
           }

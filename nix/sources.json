@@ -71,18 +71,6 @@
         "url": "https://github.com/wincent/ferret/archive/d03f7ebeb0cea0311d23888adb1d62efcf04021a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "forgit": {
-        "branch": "master",
-        "description": ":zzz: A utility tool powered by fzf for using git interactively.",
-        "homepage": "",
-        "owner": "wfxr",
-        "repo": "forgit",
-        "rev": "10308be2c37f100304156d9984f8621119ed8b19",
-        "sha256": "1mavjmi6nkasyh9ldr8mjpj4fxvyh1p91hfrka3vcd5wvwzlpgrc",
-        "type": "tarball",
-        "url": "https://github.com/wfxr/forgit/archive/10308be2c37f100304156d9984f8621119ed8b19.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "fugitive-gitlab.vim": {
         "branch": "master",
         "description": "An extension to fugitive.vim for gitlab support",
@@ -693,66 +681,6 @@
         "sha256": "0zxqdyla40xcp0ps362b85bqwl3mp4zfmfdggl0gwvgd5m949yk0",
         "type": "tarball",
         "url": "https://github.com/tpope/vim-vinegar/archive/fcce70f1403ba4101668a4c960c577bddbd00f06.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-autosuggestions": {
-        "branch": "master",
-        "description": "Fish-like autosuggestions for zsh",
-        "homepage": null,
-        "owner": "zsh-users",
-        "repo": "zsh-autosuggestions",
-        "rev": "d43c309f888153d6c46d8b6a3a0186f4148680fd",
-        "sha256": "0nkkw5wczz44qs4mgbfh84snf8mhr5kcpi9k1sddb755n987j8zz",
-        "type": "tarball",
-        "url": "https://github.com/zsh-users/zsh-autosuggestions/archive/d43c309f888153d6c46d8b6a3a0186f4148680fd.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-bd": {
-        "branch": "master",
-        "description": "Jump back to a specific directory, without doing `cd ../../..`",
-        "homepage": "",
-        "owner": "Tarrasch",
-        "repo": "zsh-bd",
-        "rev": "d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7",
-        "sha256": "020f8nq86g96cps64hwrskppbh2dapfw2m9np1qbs5pgh16z4fcb",
-        "type": "tarball",
-        "url": "https://github.com/Tarrasch/zsh-bd/archive/d4a55e661b4c9ef6ae4568c6abeff48bdf1b1af7.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-completions": {
-        "branch": "master",
-        "description": "Additional completion definitions for Zsh.",
-        "homepage": "",
-        "owner": "zsh-users",
-        "repo": "zsh-completions",
-        "rev": "8def5f15835f294ec6a1bf220fb330efddbe2575",
-        "sha256": "1rhjnm6vw4kpl39zk32svlhlznrrw7722kwk13625fc0pmvlssqn",
-        "type": "tarball",
-        "url": "https://github.com/zsh-users/zsh-completions/archive/8def5f15835f294ec6a1bf220fb330efddbe2575.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-nvm": {
-        "branch": "master",
-        "description": "Zsh plugin for installing, updating and loading nvm",
-        "homepage": null,
-        "owner": "lukechilds",
-        "repo": "zsh-nvm",
-        "rev": "251cd3091d1748a8f72ec1a5b3e7827a6b4da668",
-        "sha256": "1v7bs1dwb68nm2nc4bg3vzn07g94929wa92gf64lvlgv57iprkl9",
-        "type": "tarball",
-        "url": "https://github.com/lukechilds/zsh-nvm/archive/251cd3091d1748a8f72ec1a5b3e7827a6b4da668.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "zsh-you-should-use": {
-        "branch": "master",
-        "description": "📎 ZSH plugin that reminds you to use existing aliases for commands you just typed",
-        "homepage": "",
-        "owner": "MichaelAquilina",
-        "repo": "zsh-you-should-use",
-        "rev": "4e2d5a2d79d14e4d79c749ef5dc08d8fbb7b0bf1",
-        "sha256": "1xzq7xmmx4rg53pd69d0s9n561q4z35hlbb2sq2xd76gk3x6fars",
-        "type": "tarball",
-        "url": "https://github.com/MichaelAquilina/zsh-you-should-use/archive/4e2d5a2d79d14e4d79c749ef5dc08d8fbb7b0bf1.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
