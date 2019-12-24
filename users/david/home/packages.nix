@@ -163,8 +163,8 @@ in
       nfsUtils
       # Generate `requirements.nix` from `requirements.txt` for Python projects
       pypi2nix
-      # Niv dependency manager
-      niv
+      # Personal project for managing working directories.
+      workman
     ] ++ optionals (!config.veritas.david.dotfiles.headless) [
       # Multiple-service messaging client.
       unstable.franz
