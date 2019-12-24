@@ -48,10 +48,10 @@ in
       "git_status" = {
         "ahead" = "↑";
         "behind" = "↓";
-        "conflicted" = "⨯";
+        "conflicted" = "✖";
         "deleted" = "";
         "diverged" = "⇅";
-        "modified" = "∙";
+        "modified" = "⬢";
         "prefix" = "";
         "renamed" = "";
         "staged" = "";
