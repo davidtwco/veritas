@@ -143,18 +143,6 @@
         "url": "https://github.com/itchyny/lightline.vim/archive/ef6df46efe5ac5289f084045e57c492205bd08b5.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "lorri": {
-        "branch": "master",
-        "description": "Your project's nix-env",
-        "homepage": "",
-        "owner": "target",
-        "repo": "lorri",
-        "rev": "61caab4d1a79fe7ec9470d5670677ee3e8b84e4f",
-        "sha256": "1savc0cc6ijkw5zhxgra405r8zyfb52rihlp95i8qcp9f859ask2",
-        "type": "tarball",
-        "url": "https://github.com/target/lorri/archive/61caab4d1a79fe7ec9470d5670677ee3e8b84e4f.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "niv": {
         "branch": "master",
         "description": "Easy dependency management for Nix projects",

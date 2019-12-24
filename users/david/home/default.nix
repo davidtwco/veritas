@@ -60,7 +60,6 @@
         (
           _: super: {
             niv = (import sources.niv {}).niv;
-            lorri = import sources.lorri {};
             ormolu = (import sources.ormolu {}).ormolu;
             pypi2nix = import sources.pypi2nix {};
             rustfilt = super.callPackage ../../../packages/rustfilt.nix {};

@@ -91,8 +91,6 @@ in
       tokei
       # Source `.envrc` when entering a directory.
       direnv
-      # Improved nix-shell.
-      lorri
       # Arbitrary-precision calculator.
       bc
       # Password manager.
