@@ -532,7 +532,6 @@ in
           \   'cuda': [ 'clang-format' ],
           \   'opencl': [ 'clang-format' ],
           \   'python': [ 'black' ],
-          \   'rust': [ 'rustfmt' ],
           \ }
 
           " Disable Ale for `.tex.njk` files.
