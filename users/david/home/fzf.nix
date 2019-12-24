@@ -11,10 +11,7 @@
     "FZF_DEFAULT_OPTS" = "";
   };
 
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-  };
+  programs.fzf.enable = true;
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

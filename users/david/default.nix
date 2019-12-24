@@ -22,6 +22,9 @@ in
       config.veritas.david = cfg;
     };
 
+    # Required to use `fish` as a shell on a remote host, else no SSH.
+    programs.fish.enable = true;
+
     # Create user account.
     users.users.david = {
       description = cfg.name;

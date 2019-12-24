@@ -47,18 +47,6 @@
         "url": "https://github.com/edolstra/dwarffs/archive/531a2338101f0b6db2d9d512c3f98145f7b75397.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "fast-syntax-highlighting": {
-        "branch": "master",
-        "description": "(Short name F-Sy-H or FSH). Syntax-highlighting for Zshell – fine granularity, number of features, 40 work hours themes",
-        "homepage": "http://zdharma.org",
-        "owner": "zdharma",
-        "repo": "fast-syntax-highlighting",
-        "rev": "634ab246365ef6b465b4cdf7c6f0727ec04759a9",
-        "sha256": "19hxd3176m1kz5969hfhgsjk5cjfxiacvzn47wm77vxg8zihrq89",
-        "type": "tarball",
-        "url": "https://github.com/zdharma/fast-syntax-highlighting/archive/634ab246365ef6b465b4cdf7c6f0727ec04759a9.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "ferret": {
         "branch": "master",
         "description": "🐀 Enhanced multi-file search for Vim",
