@@ -2,8 +2,11 @@
 # directory where Rust is being worked on.
 
 let
-  # Import unstable channel for newer versions of packages.
-  pkgs = import (import ../nix/sources.nix).nixpkgs-unstable {};
+  pkgs = import (import ../nix/sources.nix).nixpkgs {
+    overlays = [
+      (_: super: { workman = super.callPackage ../packages/workman.nix {}; })
+    ];
+  };
   # Build configuration for rust-lang/rust. Based on `config.toml.example` from
   # `1bd30ce2aac40c7698aa4a1b9520aa649ff2d1c5`.
   config = pkgs.writeText "rust-config" ''
@@ -148,7 +151,7 @@ let
 
     # The path to (or name of) the GDB executable to use. This is only used for
     # executing the debuginfo test suite.
-    gdb = "${pkgs.unstable.gdb}/bin/gdb"
+    gdb = "${pkgs.gdb}/bin/gdb"
 
     # The node.js executable to use. Note that this is only used for the emscripten
     # target when running tests, otherwise this can be omitted.
@@ -307,13 +310,13 @@ let
     debuginfo-level = 2
 
     # Debuginfo level for the compiler.
-    #debuginfo-level-rustc = debuginfo-level
+    debuginfo-level-rustc = 2
 
     # Debuginfo level for the standard library.
-    #debuginfo-level-std = debuginfo-level
+    debuginfo-level-std = 2
 
     # Debuginfo level for the tools.
-    #debuginfo-level-tools = debuginfo-level
+    debuginfo-level-tools = 2
 
     # Debuginfo level for the test suites run with compiletest.
     # FIXME(#61117): Some tests fail when this option is enabled.
@@ -631,4 +634,8 @@ pkgs.mkShell rec {
 
   # Environment variable used by `workman` to find configuration.
   WORKMAN_CONFIG_FILE = workmanConfig;
+  # Environment variable for local use.
+  RUSTC_CONFIG = config;
+  RGIGNORE = rgignore;
+  LVIMRC = lvimrc;
 }
