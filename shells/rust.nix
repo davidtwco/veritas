@@ -526,13 +526,13 @@ let
   # Custom Vim configuration to disable ctags on directories we never want to look at.
   lvimrc = pkgs.writeText "rust-lvimrc" ''
     let g:gutentags_ctags_exclude = [
-      "src/llvm-project",
-      "src/librustdoc/html",
-      "src/doc",
-      "src/ci",
-      "src/bootstrap",
-      "*.md"
-    ]
+    \   "src/llvm-project",
+    \   "src/librustdoc/html",
+    \   "src/doc",
+    \   "src/ci",
+    \   "src/bootstrap",
+    \   "*.md"
+    \ ]
   '';
   # Files that are ignored by ripgrep when searching.
   rgignore = pkgs.writeText "rust-rgignore" ''
