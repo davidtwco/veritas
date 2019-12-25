@@ -11,6 +11,11 @@ in
     binfmt.emulatedSystems = [ "aarch64-linux" ];
     # Clean temporary directory on boot.
     cleanTmpDir = true;
+    # Make memtest available as a boot option.
+    loader = {
+      grub.memtest86.enable = true;
+      systemd-boot.memtest86.enable = true;
+    };
   };
 
   environment = {
