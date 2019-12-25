@@ -51,13 +51,13 @@ in
         "conflicted" = "✖";
         "deleted" = "";
         "diverged" = "⇅";
-        "modified" = "⬢";
-        "prefix" = "";
+        "modified" = "※";
+        "prefix" = "(";
         "renamed" = "";
         "staged" = "";
         "stashed" = "";
         "style" = "#${starship.mutedGrey}";
-        "suffix" = " ";
+        "suffix" = ") ";
         "untracked" = "";
       };
       "golang"."disabled" = true;
