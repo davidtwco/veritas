@@ -9,18 +9,18 @@
   firefox.enableGnomeExtensions = true;
 
   packageOverrides = pkgs: rec {
-    plexPassRaw = pkgs.unstable.plexRaw.overrideAttrs (
+    plexPassRaw = pkgs.plexRaw.overrideAttrs (
       old: rec {
-        version = "1.18.3.2129-41af4e729";
+        version = "1.18.4.2171-ac2afe5f8";
         name = "${old.pname}-${version}";
         src = pkgs.fetchurl {
           url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
-          sha256 = "1xn4csd3hhf226nz3vfbsc48xvwbhvbwhrgliqv7865n8wb6yqlg";
+          sha256 = "10x4cf1c826vj9gqr7r6k70rrjifmi36sd7imfi7pdw5swizjzqv";
         };
       }
     );
 
-    plexPass = pkgs.unstable.plex.override { plexRaw = plexPassRaw; };
+    plexPass = pkgs.plex.override { plexRaw = plexPassRaw; };
 
     vaapiIntel = pkgs.vaapiIntel.override {
       enableHybridCodec = true;
