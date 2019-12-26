@@ -158,6 +158,9 @@ in
     };
     # Enable locate to find files quickly.
     locate.enable = true;
+    logind.extraConfig = ''
+      RuntimeDirectorySize=20%
+    '';
     # Enable ssh server.
     openssh = {
       enable = true;
