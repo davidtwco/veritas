@@ -34,25 +34,26 @@ in
     ];
   };
 
-  hardware.pulseaudio = lib.mkIf (!config.veritas.david.dotfiles.headless) {
-    enable = true;
-    support32Bit = true;
-    package = pkgs.pulseaudioFull;
-  };
-
-  hardware.opengl = {
-    driSupport32Bit = true;
-    enable = true;
-    extraPackages = with pkgs; [
-      # OpenCL
-      intel-openclrt
-      unstable.intel-compute-runtime
-      # VDPAU (hardware acceleration)
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-      intel-media-driver
-    ];
+  hardware = {
+    pulseaudio = lib.mkIf (!config.veritas.david.dotfiles.headless) {
+      enable = true;
+      support32Bit = true;
+      package = pkgs.pulseaudioFull;
+    };
+    opengl = {
+      driSupport32Bit = true;
+      enable = true;
+      extraPackages = with pkgs; [
+        # OpenCL
+        intel-openclrt
+        unstable.intel-compute-runtime
+        # VDPAU (hardware acceleration)
+        vaapiIntel
+        vaapiVdpau
+        libvdpau-va-gl
+        intel-media-driver
+      ];
+    };
   };
 
   i18n = {
