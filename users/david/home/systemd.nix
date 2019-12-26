@@ -37,7 +37,7 @@ in
             "ExecStart" = let
               workman = pkgs.callPackage ../../../packages/workman.nix {};
             in
-              "${pkgs.bash}/bin/bash -c '${pkgs.workman}/bin/workman update'";
+              "${pkgs.nix}/bin/nix-shell --run '${pkgs.workman}/bin/workman update'";
             "RemainAfterExit" = false;
             "Type" = "oneshot";
             "WorkingDirectory" = workmanConfig.directory;

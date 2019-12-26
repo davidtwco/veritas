@@ -323,7 +323,7 @@ let
     #debuginfo-level-tests = 0
 
     # Whether or not `panic!`s generate backtraces (RUST_BACKTRACE)
-    backtrace = true
+    #backtrace = true
 
     # Whether to always use incremental compilation when building rustc
     incremental = true
@@ -638,4 +638,6 @@ pkgs.mkShell rec {
   RUSTC_CONFIG = config;
   RGIGNORE = rgignore;
   LVIMRC = lvimrc;
+  # Always show backtraces.
+  RUST_BACKTRACE = 1;
 }
