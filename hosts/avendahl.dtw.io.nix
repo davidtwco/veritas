@@ -17,6 +17,7 @@
       devices = [ "/dev/nvme0n1" "/dev/nvme1n1" ];
     };
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
+    kernelPackages = pkgs.linuxPackages_latest;
   };
 
   fileSystems = {
