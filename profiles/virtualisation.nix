@@ -21,6 +21,8 @@ in
       scream-receivers
       # Virtual machine manager
       virtmanager
+      # Utilities for bridge interfaces
+      bridge-utils
     ];
 
     # Idempotently ensures the needed folders are there for LXC.
@@ -78,9 +80,10 @@ in
       };
       lxc = {
         defaultConfig = ''
-          # Network interface piggy-backed from libvirt.
           lxc.network.type = veth
+          # Link to the virbr0 interface from libvirt.
           lxc.network.link = virbr0
+          # Name of the interface within the container
           lxc.network.name = eth0
           lxc.network.flags = up
 
@@ -95,12 +98,15 @@ in
       };
       lxd.enable = true;
       virtualbox.host = {
-        enable = config.boot.kernelPackages != pkgs.linuxPackages_latest;
-        enableExtensionPack = true;
+        enable = config.boot.kernelPackages == pkgs.linuxPackages;
+        enableExtensionPack = config.virtualisation.virtualbox.host.enable;
         headless = config.veritas.david.dotfiles.headless;
         package = pkgs.unstable.virtualbox;
       };
     };
+
+    # Allow the root user to remap the uid of the `david` user.
+    users.users.root.subUidRanges = [ { count = 1; startUid = config.users.users.david.uid; } ];
   };
 }
 
