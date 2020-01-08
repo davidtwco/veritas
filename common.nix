@@ -16,6 +16,8 @@ in
       grub.memtest86.enable = true;
       systemd-boot.memtest86.enable = true;
     };
+    # Enable support for nfs and ntfs.
+    supportedFilesystems = [ "ntfs" "nfs" ];
   };
 
   environment = {
