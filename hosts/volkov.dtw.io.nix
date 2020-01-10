@@ -59,7 +59,10 @@
   };
 
   veritas = {
-    profiles.virtualisation.enable = true;
+    profiles.virtualisation = {
+      enable = true;
+      enableVirtualBox = true;
+    };
     david = {
       # Set the email address that should be used by the dotfiles in configuration files
       # (eg. `.gitconfig`).

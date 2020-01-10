@@ -7,8 +7,11 @@ let
   cfg = config.veritas.profiles.virtualisation;
 in
 {
-  options.veritas.profiles.virtualisation.enable =
-    mkEnableOption "Enable virtualisation daemons and tools";
+  options.veritas.profiles.virtualisation = {
+    enable = mkEnableOption "Enable virtualisation daemons and tools";
+
+    enableVirtualBox = mkEnableOption "Enable VirtualBox";
+  };
 
   config = mkIf cfg.enable {
     # Install KVM kernel modules for AMD and Intel.
@@ -98,8 +101,8 @@ in
       };
       lxd.enable = true;
       virtualbox.host = {
-        enable = config.boot.kernelPackages == pkgs.linuxPackages;
-        enableExtensionPack = config.virtualisation.virtualbox.host.enable;
+        enable = cfg.enableVirtualBox;
+        enableExtensionPack = cfg.enableVirtualBox;
         headless = config.veritas.david.dotfiles.headless;
         package = pkgs.unstable.virtualbox;
       };
