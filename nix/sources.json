@@ -203,18 +203,6 @@
         "url": "https://github.com/NixOS/nixpkgs/archive/c3b0e1268a3786b0ec00f1bd6accca5b1d57d550.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
-    "nixpkgs-computecpp-fork": {
-        "branch": "computecpp-init",
-        "description": "Nix Packages collection",
-        "homepage": null,
-        "owner": "davidtwco",
-        "repo": "nixpkgs",
-        "rev": "d7607220ecec4a42ab5f792b908ab81a670caec2",
-        "sha256": "1kvcprg7wdclc2a2qhy9ji2sjy9fw4wk6w3jj9fxzrxa725jkqk6",
-        "type": "tarball",
-        "url": "https://github.com/davidtwco/nixpkgs/archive/d7607220ecec4a42ab5f792b908ab81a670caec2.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
     "nixpkgs-mozilla": {
         "branch": "master",
         "description": "mozilla related nixpkgs (extends nixos/nixpkgs repo)",
