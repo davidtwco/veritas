@@ -61,7 +61,10 @@
   veritas = {
     profiles.virtualisation = {
       enable = true;
-      enableVirtualBox = true;
+      virtualbox = {
+        enable = true;
+        headless = true;
+      };
     };
     david = {
       # Set the email address that should be used by the dotfiles in configuration files

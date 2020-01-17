@@ -10,7 +10,15 @@ in
   options.veritas.profiles.virtualisation = {
     enable = mkEnableOption "Enable virtualisation daemons and tools";
 
-    enableVirtualBox = mkEnableOption "Enable VirtualBox";
+    virtualbox = {
+      enable = mkEnableOption "Enable VirtualBox";
+
+      headless = mkOption {
+        default = config.veritas.david.dotfiles.headless;
+        type = types.bool;
+        description = "Use a headless install of VirtualBox?";
+      };
+    };
   };
 
   config = mkIf cfg.enable {
@@ -101,9 +109,9 @@ in
       };
       lxd.enable = true;
       virtualbox.host = {
-        enable = cfg.enableVirtualBox;
-        enableExtensionPack = cfg.enableVirtualBox;
-        headless = config.veritas.david.dotfiles.headless;
+        enable = cfg.virtualbox.enable;
+        enableExtensionPack = cfg.virtualbox.enable;
+        headless = cfg.virtualbox.headless;
         package = pkgs.unstable.virtualbox;
       };
     };
