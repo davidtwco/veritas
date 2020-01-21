@@ -84,7 +84,6 @@ in
       allowPing = true;
       enable = true;
       pingLimit = "--limit 1/minute --limit-burst 5";
-      trustedInterfaces = [ "virbr0" "virbr0-nic" "lxdbr0" "docker0" ];
     };
     networkmanager.enable = false;
     # Must be set per-interface.

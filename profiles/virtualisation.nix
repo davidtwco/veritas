@@ -36,6 +36,14 @@ in
       bridge-utils
     ];
 
+    networking.firewall.trustedInterfaces = [
+      "virbr0"
+      "virbr0-nic"
+      "lxdbr0"
+      "docker0"
+      "vboxnet0"
+    ];
+
     # Idempotently ensures the needed folders are there for LXC.
     system.activationScripts = {
       "lxc-folders" = {
