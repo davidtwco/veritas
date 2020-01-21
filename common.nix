@@ -156,7 +156,7 @@ in
       socketActivated = true;
       packages = with pkgs; [ gnome3.dconf ];
     };
-    # Run dnsmasq on another interface so as not to interfere with `systemd-resolvd`.
+    # Run dnsmasq on another interface so as not to interfere with `systemd-resolved`.
     dnsmasq = {
       # Need to `mkForce` to override the options set by `services.nixops-dns`.
       extraConfig = lib.mkForce ''
