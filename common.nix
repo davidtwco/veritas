@@ -187,6 +187,13 @@ in
     pcscd.enable = true;
     # Enable CUPS for printing.
     printing.enable = true;
+    # Fallback to Cloudflare DNS instead of Google.
+    resolved.fallbackDns = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "2606:4700:4700::1111"
+      "2606:4700:4700::1001"
+    ];
     # Required for YubiKey devices to work.
     udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
     # Use gdm as display manager.
