@@ -88,6 +88,7 @@ in
     networkmanager.enable = false;
     # Must be set per-interface.
     useDHCP = false;
+    # Prefer networkd on all hosts.
     useNetworkd = true;
     wireless.networks = {
       "The Ubiqitous Chip" = lib.mkIf (builtins.pathExists ./secrets/wifi/ubiqitous_chip.password) {
@@ -158,6 +159,8 @@ in
       core-os-services.enable = true;
       core-utilities.enable = true;
     };
+    # Enable Keybase.
+    keybase.enable = true;
     # Enable locate to find files quickly.
     locate.enable = true;
     logind.extraConfig = ''
@@ -184,8 +187,6 @@ in
     pcscd.enable = true;
     # Enable CUPS for printing.
     printing.enable = true;
-    # Enable Keybase.
-    keybase.enable = true;
     # Required for YubiKey devices to work.
     udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
     # Use gdm as display manager.
