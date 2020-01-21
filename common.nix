@@ -86,6 +86,8 @@ in
       pingLimit = "--limit 1/minute --limit-burst 5";
     };
     networkmanager.enable = false;
+    # Add dnsmasq's listen address as a nameserver.
+    nameservers = [ "127.0.0.2" ];
     # Must be set per-interface.
     useDHCP = false;
     # Prefer networkd on all hosts.
@@ -154,6 +156,15 @@ in
       socketActivated = true;
       packages = with pkgs; [ gnome3.dconf ];
     };
+    # Run dnsmasq on another interface so as not to interfere with `systemd-resolvd`.
+    dnsmasq = {
+      # Need to `mkForce` to override the options set by `services.nixops-dns`.
+      extraConfig = lib.mkForce ''
+        bind-interfaces
+        listen-address=127.0.0.2
+      '';
+      resolveLocalQueries = lib.mkForce false;
+    };
     # Enable parts of GNOME.
     gnome3 = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       core-os-services.enable = true;
@@ -166,6 +177,13 @@ in
     logind.extraConfig = ''
       RuntimeDirectorySize=20%
     '';
+    # Run a DNS server that dynamically maps `<hostname>.local` to running NixOps
+    # machines.
+    nixops-dns = {
+      dnsmasq = true;
+      domain = "nixops";
+      enable = true;
+    };
     # Enable ssh server.
     openssh = {
       enable = true;

@@ -22,6 +22,9 @@ in
       config.veritas.david = cfg;
     };
 
+    # Run NixOps DNS as the user which runs NixOps.
+    services.nixops-dns.user = config.users.users.david.name;
+
     # Required to use `fish` as a shell on a remote host, else no SSH.
     programs.fish.enable = true;
 
