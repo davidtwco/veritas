@@ -177,7 +177,7 @@ in
     logind.extraConfig = ''
       RuntimeDirectorySize=20%
     '';
-    # Run a DNS server that dynamically maps `<hostname>.local` to running NixOps
+    # Run a DNS server that dynamically maps `<hostname>.nixops` to running NixOps
     # machines.
     nixops-dns = {
       dnsmasq = true;
