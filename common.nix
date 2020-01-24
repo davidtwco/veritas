@@ -17,7 +17,7 @@ in
       systemd-boot.memtest86.enable = true;
     };
     # Enable support for nfs and ntfs.
-    supportedFilesystems = [ "ntfs" "nfs" ];
+    supportedFilesystems = [ "cifs" "ntfs" "nfs" ];
   };
 
   environment = {
