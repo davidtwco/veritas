@@ -11,11 +11,11 @@
   packageOverrides = pkgs: rec {
     plexPassRaw = pkgs.plexRaw.overrideAttrs (
       old: rec {
-        version = "1.18.4.2171-ac2afe5f8";
+        version = "1.18.5.2309-f5213a238";
         name = "${old.pname}-${version}";
         src = pkgs.fetchurl {
           url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
-          sha256 = "10x4cf1c826vj9gqr7r6k70rrjifmi36sd7imfi7pdw5swizjzqv";
+          sha256 = "1w8v2v4i4bg3pr8rxxyc1zjkifihv1bhar7pb4dmf2qpbbcx1knw";
         };
       }
     );
