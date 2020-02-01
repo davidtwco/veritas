@@ -163,6 +163,8 @@ in
       pypi2nix
       # Personal project for managing working directories.
       workman
+      # Recover dead disks :(
+      ddrescue
     ] ++ optionals (!config.veritas.david.dotfiles.headless) [
       # Multiple-service messaging client.
       unstable.franz
