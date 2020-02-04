@@ -165,6 +165,8 @@ in
       workman
       # Recover dead disks :(
       ddrescue
+      # Encrypted files in Git repositories
+      git-crypt
     ] ++ optionals (!config.veritas.david.dotfiles.headless) [
       # Multiple-service messaging client.
       unstable.franz
