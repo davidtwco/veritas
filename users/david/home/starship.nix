@@ -73,7 +73,7 @@ in
       "memory_usage"."disabled" = true;
       "nix_shell" = {
         "style" = "#${basic.red}";
-        "use_name" = true;
+        "use_name" = false;
       };
       "nodejs"."disabled" = true;
       "package"."disabled" = true;
