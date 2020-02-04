@@ -141,11 +141,11 @@ in
       unstable.diffr
       # cat for markdown
       unstable.mdcat
-      # command line image viewer
+      # Command line image viewer
       unstable.viu
-      # tool for discovering and probing hosts on a computer network
+      # Tool for discovering and probing hosts on a computer network
       arping
-      # dependency mgmt for nix projects
+      # Dependency mgmt for nix projects
       niv
       # Visualize Nix gc-roots to delete to free space.
       unstable.nix-du
