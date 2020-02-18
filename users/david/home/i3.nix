@@ -159,7 +159,7 @@ in
         # i3-msg. This will avoid having *every* instance of these applications start on the assigned
         # workspace, only the initial instance.
         exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
-        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${firefox}/bin/firefox; ${defaultWorkspace}'
+        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.firefox-bin}/bin/firefox; ${defaultWorkspace}'
         exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
 
         # Always put the first workspace on the primary monitor.

@@ -171,7 +171,7 @@ in
       # Multiple-service messaging client.
       unstable.franz
       # Mozilla Firefox is a free and open-source web browser.
-      firefox
+      unstable.firefox-bin
       # Remmina is a remote desktop client written in GTK+.
       remmina
       # Create simple animated gifs.
