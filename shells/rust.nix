@@ -131,6 +131,13 @@ let
     \   "src/bootstrap",
     \   "*.md"
     \ ]
+
+    " Don't format automatically.
+    let g:ale_fix_on_save_ignore['rust'] = [ 'rustfmt' ]
+
+    " Same configuration as `x.py fmt`.
+    let g:ale_rust_rustfmt_options = '--edition 2018 --unstable-features --skip-children'
+    let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'
   '';
   # Files that are ignored by ripgrep when searching.
   rgignore = pkgs.writeText "rust-rgignore" ''
@@ -238,4 +245,7 @@ pkgs.mkShell rec {
   LVIMRC = lvimrc;
   # Always show backtraces.
   RUST_BACKTRACE = 1;
+
+  # Disable compiler hardening for formatting - required for LLVM.
+  hardeningDisable = [ "format" ];
 }
