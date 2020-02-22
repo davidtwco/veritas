@@ -40,13 +40,13 @@ in
             dns = {
               ipv4 = {
                 primary = mkOption {
-                  default = "8.8.4.4";
+                  default = "1.1.1.1";
                   description = "Primary IPv4 DNS server to use for VPN traffic.";
                   type = str;
                 };
 
                 secondary = mkOption {
-                  default = "4.4.4.4";
+                  default = "1.0.0.1";
                   description = "Secondary IPv4 DNS server to use for VPN traffic.";
                   type = str;
                 };
@@ -54,13 +54,13 @@ in
 
               ipv6 = {
                 primary = mkOption {
-                  default = "2001:4860:4860::8888";
+                  default = "2606:4700:4700::1111";
                   description = "Primary IPv6 DNS server to use for VPN traffic.";
                   type = str;
                 };
 
                 secondary = mkOption {
-                  default = "2001:4860:4860::8844";
+                  default = "2606:4700:4700::1001";
                   description = "Secondary IPv6 DNS server to use for VPN traffic.";
                   type = str;
                 };
