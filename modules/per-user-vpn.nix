@@ -92,6 +92,12 @@ in
               type = str;
             };
 
+            protocol = mkOption {
+              default = "udp";
+              description = "Protocol to use when connecting to OpenVPN server";
+              type = enum [ "udp" "tcp" ];
+            };
+
             remotes = mkOption {
               description = "List of OpenVPN remote servers that will be used";
               type = listOf str;
@@ -334,7 +340,7 @@ in
         dev-type tun
 
         # Specify the underlying protocol beyond the Internet.
-        proto tcp
+        proto ${srv.protocol}
 
         # The destination hostname / IP address, and port number of
         # the target VPN Server.
