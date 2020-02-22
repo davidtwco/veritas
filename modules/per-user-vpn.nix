@@ -344,7 +344,7 @@ in
 
         # The destination hostname / IP address, and port number of
         # the target VPN Server.
-        ${builtins.concatStringsSep "\n" (builtins.map (r: "remote ${r} 443") srv.remotes)}
+        ${builtins.concatStringsSep "\n" (builtins.map (r: "remote ${r}") srv.remotes)}
         remote-random
 
         # Other parameters necessary to connect to the VPN Server.
@@ -355,13 +355,13 @@ in
         nobind
         verb 4
         reneg-sec 0
-        route-method exe
         route-delay 2
         comp-lzo
         tun-mtu 1500
 
         # The encryption and authentication algorithm.
         cipher AES-256-CBC
+        tls-cipher TLS-DHE-RSA-WITH-AES-256-GCM-SHA384:TLS-DHE-RSA-WITH-AES-256-CBC-SHA
         auth SHA512
 
         # The certificate file of the destination VPN Server.

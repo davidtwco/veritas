@@ -61,13 +61,20 @@ in
     veritas.services.per-user-vpn = {
       enable = true;
       servers."${group}" = {
-        certificate = builtins.fetchurl https://proxy.sh/proxysh.crt;
+        certificate = ../secrets/mullvad.crt;
         credentials = {
-          username = ../secrets/proxy_sh.username;
-          password = ../secrets/proxy_sh.password;
+          username = ../secrets/mullvad.username;
+          password = ../secrets/mullvad.password;
         };
         mark = "0x1";
-        remotes = [ "eu.proxy.sh" ];
+        protocol = "udp";
+        remotes = [
+          "es-mad-002.mullvad.net 1196"
+          "es-mad-001.mullvad.net 1196"
+          "es-mad-003.mullvad.net 1196"
+          "es-mad-005.mullvad.net 1196"
+          "es-mad-004.mullvad.net 1196"
+        ];
         routeTableId = 42;
         users = [ config.services.jackett.user config.services.deluge.user ];
       };
