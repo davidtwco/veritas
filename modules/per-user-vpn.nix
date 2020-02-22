@@ -317,10 +317,10 @@ in
             ${pkgs.gnugrep}/bin/grep -c tun-${srvName} || true)"
           if [[ $HAS_VPN_INTERFACE == "1" ]]; then
             HAS_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
-              ${pkgs.gnugrep}/bin/grep -cPo '(?<= inet )([0-9\.]+)' || true)"
+              ${pkgs.gnugrep}/bin/grep -cPo '(?<= inet )([0-9\.]+) ' || true)"
             if [[ $HAS_IP == "1" ]]; then
               VPN_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
-                ${pkgs.gnugrep}/bin/grep -Po '(?<= inet )([0-9\.]+)')"
+                ${pkgs.gnugrep}/bin/grep -Po '(?<= inet )([0-9\.]+) ')"
 
               ${pkgs.iproute}/bin/ip route replace default via $VPN_IP \
                 table ${builtins.toString srv.routeTableId}
