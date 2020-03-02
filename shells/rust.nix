@@ -16,7 +16,7 @@ let
     [llvm]
 
     # Indicates whether the LLVM build is a Release or Debug build
-    optimize = false
+    optimize = true
 
     # Indicates whether the LLVM assertions are enabled or not
     assertions = true
@@ -79,6 +79,29 @@ let
     # fail to build without this optimization (c.f. #65352).
     optimize = true
 
+    # Indicates that the build should be configured for debugging Rust. A
+    # `debug`-enabled compiler and standard library will be somewhat
+    # slower (due to e.g. checking of debug assertions) but should remain
+    # usable.
+    #
+    # Note: If this value is set to `true`, it will affect a number of
+    #       configuration options below as well, if they have been left
+    #       unconfigured in this file.
+    #
+    # Note: changes to the `debug` setting do *not* affect `optimize`
+    #       above. In theory, a "maximally debuggable" environment would
+    #       set `optimize` to `false` above to assist the introspection
+    #       facilities of debuggers like lldb and gdb. To recreate such an
+    #       environment, explicitly set `optimize` to `false` and `debug`
+    #       to `true`. In practice, everyone leaves `optimize` set to
+    #       `true`, because an unoptimized rustc with debugging
+    #       enabled becomes *unusably slow* (e.g. rust-lang/rust#24840
+    #       reported a 25x slowdown) and bootstrapping the supposed
+    #       "maximally debuggable" environment (notably libstd) takes
+    #       hours to build.
+    #
+    debug = false
+
     # Whether or not debug assertions are enabled for the compiler and standard
     # library.
     debug-assertions = true
@@ -90,7 +113,7 @@ let
     # Can be overriden for specific subsets of Rust code (rustc, std or tools).
     # Debuginfo for tests run with compiletest is not controlled by this option
     # and needs to be enabled separately with `debuginfo-level-tests`.
-    debuginfo-level = 2
+    debuginfo-level = 1
 
     # Whether or not `panic!`s generate backtraces (RUST_BACKTRACE)
     backtrace = true
