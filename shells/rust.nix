@@ -90,7 +90,7 @@ let
     # Can be overriden for specific subsets of Rust code (rustc, std or tools).
     # Debuginfo for tests run with compiletest is not controlled by this option
     # and needs to be enabled separately with `debuginfo-level-tests`.
-    debuginfo-level = 1
+    debuginfo-level = 2
 
     # Whether or not `panic!`s generate backtraces (RUST_BACKTRACE)
     backtrace = true
