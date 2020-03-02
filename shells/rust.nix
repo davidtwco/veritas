@@ -38,7 +38,7 @@ let
     # support. You'll need to write a target specification at least, and most
     # likely, teach rustc about the C ABI of the target. Get in touch with the
     # Rust team and file an issue if you need assistance in porting!
-    targets = "X86"
+    targets = "AArch64;ARM;Hexagon;MSP430;Mips;NVPTX;PowerPC;RISCV;Sparc;SystemZ;WebAssembly;X86"
 
     # =============================================================================
     # General build configuration options
