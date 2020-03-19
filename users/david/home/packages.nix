@@ -167,6 +167,8 @@ in
       ddrescue
       # Encrypted files in Git repositories
       git-crypt
+      # Query SNMP servers
+      net_snmp
     ] ++ optionals (!config.veritas.david.dotfiles.headless) [
       # Multiple-service messaging client.
       unstable.franz
