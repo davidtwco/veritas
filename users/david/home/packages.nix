@@ -190,6 +190,8 @@ in
       xclip
       # Monitor temperatures.
       psensor
+      # Voice chat
+      mumble
     ];
   }
 
