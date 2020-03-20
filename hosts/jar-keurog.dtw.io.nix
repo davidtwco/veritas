@@ -61,12 +61,25 @@
     wooting.enable = true;
   };
 
-  services.xserver = {
-    screenSection = ''
-      Option "AllowIndirectGLXProtocol" "off"
-      Option "TripleBuffer" "on"
-    '';
-    videoDrivers = [ "nvidiaBeta" ];
+  services = {
+    openvpn.servers.codeplay = {
+      autoStart = false;
+      config = ''
+        script-security 2
+        config /etc/nixos/secrets/codeplay.ovpn
+        up ${pkgs.unstable.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
+        up-restart
+        down ${pkgs.unstable.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
+        down-pre
+      '';
+    };
+    xserver = {
+      screenSection = ''
+        Option "AllowIndirectGLXProtocol" "off"
+        Option "TripleBuffer" "on"
+      '';
+      videoDrivers = [ "nvidiaBeta" ];
+    };
   };
 
   # Disable `systemd-udev-settle` - it's required and just adds 1s to boot time.
