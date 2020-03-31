@@ -169,6 +169,8 @@ in
       git-crypt
       # Query SNMP servers
       net_snmp
+      # Used by `breakpointHook` in nixpkgs.
+      cntr
     ] ++ optionals (!config.veritas.david.dotfiles.headless) [
       # Multiple-service messaging client.
       unstable.franz
