@@ -97,7 +97,10 @@
   };
 
   veritas = {
-    profiles.virtualisation.enable = true;
+    profiles.virtualisation = {
+      enable = true;
+      virtualbox.enable = true;
+    };
     david = {
       colourScheme.i3 = {
         highlight = config.veritas.david.colourScheme.basic.yellow;
