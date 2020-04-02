@@ -88,6 +88,12 @@ in
     networkmanager.enable = false;
     # Add dnsmasq's listen address as a nameserver.
     nameservers = [ "127.0.0.2" ];
+    timeServers = options.networking.timeServers.default ++ [
+      "0.uk.pool.ntp.org"
+      "1.uk.pool.ntp.org"
+      "2.uk.pool.ntp.org"
+      "3.uk.pool.ntp.org"
+    ];
     # Must be set per-interface.
     useDHCP = false;
     # Prefer networkd on all hosts.
