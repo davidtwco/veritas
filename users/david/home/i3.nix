@@ -24,6 +24,35 @@ let
   };
 in
 {
+  home.packages = with pkgs; [
+    (
+      writeScriptBin "i3-get-window-criteria" ''
+        #! ${runtimeShell} -e
+        match_int='[0-9][0-9]*'
+        match_string='".*"'
+        match_qstring='"[^"\\]*(\\.[^"\\]*)*"'
+
+        {
+            # Run `xwininfo`, get window ID.
+            window_id=`${xorg.xwininfo}/bin/xwininfo -int | \
+                       ${gnused}/bin/sed -nre "s/^xwininfo: Window id: ($match_int) .*$/\1/p"`
+            echo "id=$window_id"
+
+            # Run `xprop`, transform its output into i3 criteria. Handle fallback to
+            # `WM_NAME` when `_NET_WM_NAME` isn't set
+            ${xorg.xprop}/bin/xprop -id $window_id |
+                ${gnused}/bin/sed -nr \
+                    -e "s/^WM_CLASS\(STRING\) = ($match_qstring), ($match_qstring)$/instance=\1\nclass=\3/p" \
+                    -e "s/^WM_WINDOW_ROLE\(STRING\) = ($match_qstring)$/window_role=\1/p" \
+                    -e "/^WM_NAME\(STRING\) = ($match_string)$/{s//title=\1/; h}" \
+                    -e "/^_NET_WM_NAME\(UTF8_STRING\) = ($match_qstring)$/{s//title=\1/; h}" \
+                    -e ${"'\${g; p}'"}
+        } | ${coreutils}/bin/sort | ${coreutils}/bin/tr "\n" " " | \
+            ${gnused}/bin/sed -r 's/^(.*) $/[\1]\n/'
+      ''
+    )
+  ];
+
   xsession.windowManager.i3 = {
     enable = !config.veritas.david.dotfiles.headless;
     config = {
