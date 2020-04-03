@@ -95,6 +95,7 @@ in
             text = asHex colours.basic.foreground;
           };
         };
+      floating.criteria = [ { class = "Peek"; } ];
       gaps = {
         inner = 2;
         outer = 2;
