@@ -9,13 +9,16 @@ in
   boot = {
     # Enable running aarch64 binaries using qemu.
     binfmt.emulatedSystems = [ "aarch64-linux" ];
+
     # Clean temporary directory on boot.
     cleanTmpDir = true;
+
     # Make memtest available as a boot option.
     loader = {
       grub.memtest86.enable = true;
       systemd-boot.memtest86.enable = true;
     };
+
     # Enable support for nfs and ntfs.
     supportedFilesystems = [ "cifs" "ntfs" "nfs" ];
   };
@@ -42,6 +45,7 @@ in
       support32Bit = true;
       package = pkgs.pulseaudioFull;
     };
+
     opengl = {
       driSupport32Bit = true;
       enable = true;
@@ -155,13 +159,13 @@ in
   '';
 
   services = {
-    # Enable cron jobs.
     cron.enable = true;
-    # Enable user services.
+
     dbus = {
       socketActivated = true;
       packages = with pkgs; [ gnome3.dconf ];
     };
+
     # Run dnsmasq on another interface so as not to interfere with `systemd-resolved`.
     dnsmasq = {
       # Need to `mkForce` to override the options set by `services.nixops-dns`.
@@ -171,18 +175,20 @@ in
       '';
       resolveLocalQueries = lib.mkForce false;
     };
-    # Enable parts of GNOME.
+
     gnome3 = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       core-os-services.enable = true;
       core-utilities.enable = true;
     };
-    # Enable Keybase.
+
     keybase.enable = true;
-    # Enable locate to find files quickly.
+
     locate.enable = true;
+
     logind.extraConfig = ''
       RuntimeDirectorySize=20%
     '';
+
     # Run a DNS server that dynamically maps `<hostname>.nixops` to running NixOps
     # machines.
     nixops-dns = {
@@ -190,7 +196,7 @@ in
       domain = "nixops";
       enable = true;
     };
-    # Enable ssh server.
+
     openssh = {
       enable = true;
       extraConfig = ''
@@ -207,10 +213,12 @@ in
       passwordAuthentication = false;
       permitRootLogin = "no";
     };
+
     # Required to let smart card mode of YubiKey to work.
     pcscd.enable = true;
-    # Enable CUPS for printing.
+
     printing.enable = true;
+
     # Fallback to Cloudflare DNS instead of Google.
     resolved.fallbackDns = [
       "1.1.1.1"
@@ -218,9 +226,10 @@ in
       "2606:4700:4700::1111"
       "2606:4700:4700::1001"
     ];
+
     # Required for YubiKey devices to work.
     udev.packages = with pkgs; [ yubikey-personalization libu2f-host ];
-    # Use gdm as display manager.
+
     xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       enable = true;
       exportConfiguration = true;
