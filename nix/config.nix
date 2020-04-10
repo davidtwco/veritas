@@ -8,6 +8,8 @@
 
   firefox.enableGnomeExtensions = true;
 
+  pulseaudio = true;
+
   packageOverrides = pkgs: rec {
     plexPassRaw = pkgs.plexRaw.overrideAttrs (
       old: rec {
