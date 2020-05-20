@@ -7,7 +7,6 @@
     ./bash.nix
     ./ccache.nix
     ./command-not-found.nix
-    ./compton.nix
     ./direnv.nix
     ./eyaml.nix
     ./feh.nix
@@ -32,6 +31,7 @@
     ./manpages.nix
     ./neovim.nix
     ./packages.nix
+    ./picom.nix
     ./polybar.nix
     ./qt.nix
     ./readline.nix

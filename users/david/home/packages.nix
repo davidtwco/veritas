@@ -19,8 +19,6 @@ in
       wget
       # Return metainformation about installed libraries.
       pkgconfig
-      # Tools for querying id database.
-      idutils
       # List directory contents in tree-like format.
       tree
       # Interactive process viewer.

@@ -1,9 +1,9 @@
 { config, pkgs, ... }:
 
-# This file contains the configuration for compton.
+# This file contains the configuration for picom.
 
 {
-  services.compton = {
+  services.picom = {
     enable = true;
     noDockShadow = false;
   };

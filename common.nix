@@ -1,7 +1,6 @@
 { config, pkgs, options, lib, ... }:
 
 # This file contains common configuration shared amongst all hosts.
-
 let
   sources = import ./nix/sources.nix;
 in
@@ -21,6 +20,11 @@ in
 
     # Enable support for nfs and ntfs.
     supportedFilesystems = [ "cifs" "ntfs" "nfs" ];
+  };
+
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = "uk";
   };
 
   environment = {
@@ -63,8 +67,6 @@ in
   };
 
   i18n = {
-    consoleFont = "Lat2-Terminus16";
-    consoleKeyMap = "uk";
     defaultLocale = "en_GB.UTF-8";
   };
 
@@ -79,8 +81,8 @@ in
     "${home-manager}/nixos"
     # Enable dwarffs.
     "${dwarffs}/module.nix"
-    # Enable upstreaming-in-progress Wooting support.
-    "${nixos-wooting-fork}/nixos/modules/hardware/wooting.nix"
+    # Enable Wooting support from unstable.
+    "${nixpkgs}/nixos/modules/hardware/wooting.nix"
   ];
 
   networking = {
@@ -123,16 +125,16 @@ in
   # This configuration only applies to the NixOS configuration! Not home-manager or nix-shell, etc.
   nixpkgs = {
     config = import ./nix/config.nix;
-    overlays = let
-      unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
-      wootingFork = import sources.nixos-wooting-fork { config = config.nixpkgs.config; };
-    in
+    overlays =
+      let
+        unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
+      in
       [
         (_: _: { inherit unstable; })
-        (_: _: { inherit (wootingFork) wootility wooting-udev-rules; })
+        (_: _: { inherit (unstable) wootility wooting-udev-rules; })
         (
           _: super: {
-            intel-openclrt = super.callPackage ./packages/intel-openclrt.nix {};
+            intel-openclrt = super.callPackage ./packages/intel-openclrt.nix { };
           }
         )
       ];

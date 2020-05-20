@@ -85,6 +85,7 @@ in
         plugin = tmuxPlugins.mkDerivation {
           # Script is named differently from the plugin.
           pluginName = "scroll_copy_mode";
+          version = "aa59077";
           src = (import ../../../nix/sources.nix).tmux-better-mouse-mode;
         };
       }
