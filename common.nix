@@ -235,10 +235,14 @@ in
     xserver = lib.mkIf (!config.veritas.david.dotfiles.headless) {
       enable = true;
       exportConfiguration = true;
+      # i3 is the primary desktop but without GNOME being enabled, gdm doesn't have any session
+      # files and crashes as a result.
+      desktopManager.gnome3.enable = true;
       displayManager.gdm = {
         enable = true;
-        # Not fully supported by NVIDIA drivers and need to upgrade to Sway to use Wayland.
+        # Need to upgrade to Sway to use Wayland.
         wayland = false;
+        nvidiaWayland = true;
       };
       layout = "gb";
     };

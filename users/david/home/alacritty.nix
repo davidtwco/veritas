@@ -45,25 +45,7 @@
         # Number of lines the viewport will move for every line scrolled when
         # scrollback is enabled (history > 0).
         multiplier = 3;
-        # Faux Scrolling
-        #
-        # The `faux_multiplier` setting controls the number of lines the terminal
-        # should scroll when the alternate screen buffer is active. This is used
-        # to allow mouse scrolling for applications like `man`.
-        #
-        # Specifying `0` will disable faux scrolling.
-        faux_multiplier = 3;
-        # Scroll to the bottom when new text is written to the terminal.
-        auto_scroll = false;
       };
-      # Spaces per Tab (changes require restart)
-      #
-      # This setting defines the width of a tab in cells.
-      #
-      # Some applications, like Emacs, rely on knowing about the width of a tab.
-      # To prevent unexpected behavior in these applications, it's also required to
-      # change the `it` value in terminfo when altering this setting.
-      tabspaces = 4;
       # Font configuration (changes require restart)
       font = {
         # Normal (roman) font face
@@ -188,7 +170,7 @@
         # Example:
         #   `- { index: 16, color: '0xff00ff' }`
         #
-        indexed_colors = [];
+        indexed_colors = [ ];
       };
       # Visual Bell
       #
