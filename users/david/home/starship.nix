@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 # This file contains the configuration for starship. This isn't used yet.
-
 let
   colours = config.veritas.david.colourScheme;
 in
@@ -20,13 +19,18 @@ in
       };
       "cmd_duration"."style" = "#${basic.yellow}";
       "conda"."disabled" = true;
+      "crystal"."disabled" = true;
       "directory" = {
         "style" = "#${basic.blue}";
         "truncation_length" = 8;
         "truncate_to_repo" = false;
       };
+      "docker_context"."disabled" = true;
       "dotnet"."disabled" = true;
+      "elixir"."disabled" = true;
+      "elm"."disabled" = true;
       "env_var"."disabled" = true;
+      "erlang"."disabled" = true;
       "git_branch" = {
         "symbol" = "";
         "style" = "#${starship.mutedGrey}";
@@ -61,6 +65,7 @@ in
         "untracked" = "";
       };
       "golang"."disabled" = true;
+      "haskell"."disabled" = true;
       "hg_branch"."disabled" = true;
       "hostname"."style" = "#${basic.green}";
       "java"."disabled" = true;
@@ -69,6 +74,7 @@ in
         "symbol" = "";
         "threshold" = 0;
       };
+      "julia"."disabled" = true;
       "kubernetes"."disabled" = true;
       "memory_usage"."disabled" = true;
       "nix_shell" = {
@@ -82,6 +88,7 @@ in
       "python"."disabled" = true;
       "ruby"."disabled" = true;
       "rust"."disabled" = true;
+      "singularity"."disabled" = true;
       "terraform"."disabled" = true;
       "time"."disabled" = true;
       "username" = {
