@@ -1,20 +1,20 @@
 { config, pkgs, ... }:
 
 # This file contains the configuration for tmux.
-
 let
   # This script prints the username and hostname of a host if there is an
   # active SSH connection, otherwise, it prints nothing.
-  statuslineSsh = let
-    name = "tmux-statusline-ssh";
-    dir = pkgs.writeScriptBin name ''
-      #! ${pkgs.runtimeShell} -e
-      ${pkgs.unstable.tmux}/bin/tmux show-environment -g SSH_CONNECTION &>/dev/null
-      if [ $? -eq 0 ]; then
-        printf "`${pkgs.coreutils}/bin/whoami`@`${pkgs.inetutils}/bin/hostname`"
-      fi
-    '';
-  in
+  statuslineSsh =
+    let
+      name = "tmux-statusline-ssh";
+      dir = pkgs.writeScriptBin name ''
+        #! ${pkgs.runtimeShell} -e
+        ${pkgs.unstable.tmux}/bin/tmux show-environment -g SSH_CONNECTION &>/dev/null
+        if [ $? -eq 0 ]; then
+          printf "`${pkgs.coreutils}/bin/whoami`@`${pkgs.inetutils}/bin/hostname`"
+        fi
+      '';
+    in
     "${dir}/bin/${name}";
 in
 {

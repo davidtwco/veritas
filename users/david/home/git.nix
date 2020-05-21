@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 # This file contains the configuration for Git.
-
 let
   cfg = config.veritas.david;
 in
@@ -96,7 +95,7 @@ in
       # C/C++
       "compile_commands.json"
     ];
-    includes = [ { path = "${(import ../../../nix/sources.nix).gitalias}/gitalias.txt"; } ];
+    includes = [{ path = "${(import ../../../nix/sources.nix).gitalias}/gitalias.txt"; }];
     lfs = {
       enable = true;
       skipSmudge = false;

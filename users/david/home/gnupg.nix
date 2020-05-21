@@ -63,14 +63,15 @@ with lib;
     };
   };
 
-  services.gpg-agent = let
-    # Enable logging to a socket for debugging.
-    # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
-    enableLogging = false;
-    pinentry =
-      "${pkgs.pinentry_gnome}/bin/"
-      + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
-  in
+  services.gpg-agent =
+    let
+      # Enable logging to a socket for debugging.
+      # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
+      enableLogging = false;
+      pinentry =
+        "${pkgs.pinentry_gnome}/bin/"
+        + (if config.veritas.david.dotfiles.headless then "pinentry-tty" else "pinentry-gnome3");
+    in
     {
       defaultCacheTtl = 600;
       defaultCacheTtlSsh = 600;

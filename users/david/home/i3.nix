@@ -1,14 +1,14 @@
 { config, pkgs, lib, ... }:
 
 # This file contains the configuration for i3.
-
 let
   cfg = config.xsession.windowManager.i3.config;
   colours = config.veritas.david.colourScheme;
-  fonts = let
-    defaultFontSize = 10;
-    fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
-  in
+  fonts =
+    let
+      defaultFontSize = 10;
+      fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
+    in
     [ "Iosevka ${fontSize}" ];
   modifier = config.xsession.windowManager.i3.config.modifier;
   workspaces = {
@@ -57,11 +57,12 @@ in
     enable = !config.veritas.david.dotfiles.headless;
     config = {
       inherit fonts;
-      assigns = {};
-      bars = [];
-      colors = let
-        asHex = c: "#${c}";
-      in
+      assigns = { };
+      bars = [ ];
+      colors =
+        let
+          asHex = c: "#${c}";
+        in
         {
           background = asHex colours.basic.background;
           # Customize our i3 colours:
@@ -95,7 +96,7 @@ in
             text = asHex colours.basic.foreground;
           };
         };
-      floating.criteria = [ { class = "Peek"; } { class = "qjackctl"; } ];
+      floating.criteria = [{ class = "Peek"; } { class = "qjackctl"; }];
       gaps = {
         inner = 2;
         outer = 2;
@@ -171,7 +172,7 @@ in
       };
       # Use Windows key instead of ALT.
       modifier = "Mod4";
-      startup = [];
+      startup = [ ];
       window = {
         titlebar = false;
         hideEdgeBorders = "none";
@@ -181,23 +182,23 @@ in
       i3msg = "${config.xsession.windowManager.i3.package}/bin/i3-msg";
       defaultWorkspace = "workspace ${workspaces.one}";
     in
-      ''
-        # Let GNOME handle complicated stuff like monitors, bluetooth, etc.
-        exec ${gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
+    ''
+      # Let GNOME handle complicated stuff like monitors, bluetooth, etc.
+      exec ${gnome3.gnome_settings_daemon}/libexec/gnome-settings-daemon
 
-        # Instead of using `assigns` and `startup` to launch applications on startup, use exec with
-        # i3-msg. This will avoid having *every* instance of these applications start on the assigned
-        # workspace, only the initial instance.
-        exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
-        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.firefox-bin}/bin/firefox; ${defaultWorkspace}'
-        exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
+      # Instead of using `assigns` and `startup` to launch applications on startup, use exec with
+      # i3-msg. This will avoid having *every* instance of these applications start on the assigned
+      # workspace, only the initial instance.
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.one}; exec ${alacritty}/bin/alacritty; ${defaultWorkspace}'
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.firefox-bin}/bin/firefox; ${defaultWorkspace}'
+      exec --no-startup-id ${i3msg} 'workspace ${workspaces.two}; exec ${unstable.franz}/bin/franz; ${defaultWorkspace}'
 
-        # Always put the first workspace on the primary monitor.
-        ${defaultWorkspace} output primary
-      '' + lib.strings.optionalString config.services.polybar.enable ''
-        # Reload polybar so that it can connect to i3.
-        exec --no-startup-id '${systemd}/bin/systemctl --user restart polybar'
-      '';
+      # Always put the first workspace on the primary monitor.
+      ${defaultWorkspace} output primary
+    '' + lib.strings.optionalString config.services.polybar.enable ''
+      # Reload polybar so that it can connect to i3.
+      exec --no-startup-id '${systemd}/bin/systemctl --user restart polybar'
+    '';
   };
 }
 

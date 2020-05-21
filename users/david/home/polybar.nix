@@ -1,30 +1,30 @@
 { config, pkgs, ... }:
 
 # This file contains the configuration for polybar.
-
 let
   barName = "veritas";
   colours = config.veritas.david.colourScheme;
   # Define a helper function for creating short shell scripts that have some colours available
   # to them.
-  mkBarScript = module: contents: let
-    name = "veritas-polybar-${module}";
-    dir = pkgs.writeScriptBin name (
-      with pkgs; ''
-        #! ${runtimeShell} -e
-        xres() {
-          ${xlibs.xrdb}/bin/xrdb -query | \
-          ${gnugrep}/bin/grep -w $1 | \
-          ${gawk}/bin/awk '{print $2}'
-        }
+  mkBarScript = module: contents:
+    let
+      name = "veritas-polybar-${module}";
+      dir = pkgs.writeScriptBin name (
+        with pkgs; ''
+          #! ${runtimeShell} -e
+          xres() {
+            ${xlibs.xrdb}/bin/xrdb -query | \
+            ${gnugrep}/bin/grep -w $1 | \
+            ${gawk}/bin/awk '{print $2}'
+          }
 
-        foreground="$(xres color15)"
-        muted="$(xres color7)"
+          foreground="$(xres color15)"
+          muted="$(xres color7)"
 
-        ${contents}
-      ''
-    );
-  in
+          ${contents}
+        ''
+      );
+    in
     "${dir}/bin/${name}";
 in
 {
@@ -34,10 +34,11 @@ in
         "bottom" = false;
         # Bar is transparent.
         "background" = "#00000000";
-        "font-0" = let
-          defaultFontSize = 12;
-          fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
-        in
+        "font-0" =
+          let
+            defaultFontSize = 12;
+            fontSize = builtins.toString (defaultFontSize * config.veritas.david.dotfiles.uiScale);
+          in
           "Iosevka:style=Bold:size=${fontSize}";
         "height" = "1.5%";
         "locale" = config.home.language.base;

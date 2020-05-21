@@ -76,8 +76,9 @@ in
     starship.mutedGrey = mkColour "starship's muted grey" "6B6B6B";
     # Colours specific to Neovim.
     neovim = {
-      termdebugProgramCounter = mkColour "termdebug's gutter breakpoint indicator"
-        colours.neovim.termdebugBreakpoint.bg;
+      termdebugProgramCounter =
+        mkColour "termdebug's gutter breakpoint indicator"
+          colours.neovim.termdebugBreakpoint.bg;
       termdebugBreakpoint = mkColourWithFgBg "termdebug's current line" "B2B2B2" "2B2B2B";
     };
     # Colours specific to the xsession.
@@ -122,7 +123,7 @@ in
 
     nvidiaSettings = mkOption {
       type = types.attrsOf types.str;
-      default = {};
+      default = { };
       description = "Meta-mode settings to enable using `nvidia-settings`";
     };
 
@@ -169,13 +170,13 @@ in
 
           environment = mkOption {
             type = types.attrsOf types.str;
-            default = {};
+            default = { };
             description = "Environment variables to set";
           };
 
           path = mkOption {
             type = types.listOf types.package;
-            default = [];
+            default = [ ];
             description = "Packages to add to path";
           };
 
@@ -187,7 +188,7 @@ in
         };
       }
     );
-    default = {};
+    default = { };
     description = "Project directories to be automatically updated using Workman";
   };
 }

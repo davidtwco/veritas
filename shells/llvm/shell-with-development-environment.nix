@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> { } }:
 
 # This file contains a development shell for working on LLVM and Clang which includes impure
 # additions that allow using the same development environment and tools as a regular impure
@@ -6,7 +6,6 @@
 #
 # `buildFHSUserEnv` is used instead of `mkShell` so that the headers expected by an unwrapped
 # clang can be found in the expected location.
-
 let
   common = import ./common.nix { inherit pkgs; };
 in

@@ -1,7 +1,6 @@
 { config, pkgs, lib, ... }:
 
 # This file contains the configuration for mail accounts and msmtp.
-
 let
   cfg = config.veritas.david;
 in

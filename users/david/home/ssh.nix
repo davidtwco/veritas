@@ -31,18 +31,19 @@
     };
     forwardAgent = false;
     hashKnownHosts = true;
-    matchBlocks = let
-      remoteForwards = [
-        {
-          bind.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent";
-          host.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra";
-        }
-        {
-          bind.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh";
-          host.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh";
-        }
-      ];
-    in
+    matchBlocks =
+      let
+        remoteForwards = [
+          {
+            bind.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent";
+            host.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra";
+          }
+          {
+            bind.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh";
+            host.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh";
+          }
+        ];
+      in
       {
         "github.com" = {
           extraOptions = {

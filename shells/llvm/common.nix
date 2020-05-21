@@ -2,11 +2,10 @@
 
 # This file contains the packages and configuration that is shared between the pure
 # and impure LLVM development shells defined in this directory.
-
 let
   # Import unstable channel for newer versions of packages.
   sources = import ../../nix/sources.nix;
-  unstable = import sources.nixpkgs {};
+  unstable = import sources.nixpkgs { };
   # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
   # what the original CUDA toolkit package would contain and is expected to have.
   cuda-toolkit-joined = pkgs.symlinkJoin {
@@ -25,7 +24,7 @@ let
     paths = with pkgs; [ gcc8 gcc8.cc ];
   };
   # Use latest version of the Intel OpenCL runtime.
-  intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix {};
+  intel-openclrt = pkgs.callPackage ../../packages/intel-openclrt.nix { };
   # Define a python package with pygments, psutil and PyYAML.
   python3WithExtraPackages =
     pkgs.python37Full.withPackages (pkgs: with pkgs; [ psutil pygments pyyaml ]);
@@ -94,7 +93,7 @@ in
       glibcLocales
     ]
   );
-  multiPkgs = pkgs: (with pkgs; []);
+  multiPkgs = pkgs: (with pkgs; [ ]);
   profile = ''
     # Use icd files from the chroot.
     export OCL_ICD_VENDORS=/etc/OpenCL/vendors

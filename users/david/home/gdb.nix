@@ -1,5 +1,4 @@
 { config, pkgs, lib, ... }:
-
 let
   # gcc contains libstdc++ pretty printers.
   libStdCppPrettyPrinters = pkgs.fetchsvn {

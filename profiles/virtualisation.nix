@@ -51,7 +51,7 @@ in
           mkdir -p /var/cache/lxc
           mkdir -p /var/lib/lxc/rootfs
         '';
-        deps = [];
+        deps = [ ];
       };
     };
 
@@ -125,7 +125,7 @@ in
     };
 
     # Allow the root user to remap the uid of the `david` user.
-    users.users.root.subUidRanges = [ { count = 1; startUid = config.users.users.david.uid; } ];
+    users.users.root.subUidRanges = [{ count = 1; startUid = config.users.users.david.uid; }];
   };
 }
 

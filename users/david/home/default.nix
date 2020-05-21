@@ -50,20 +50,21 @@
   # This configuration only applies to home-manager, not NixOS or nix-shell.
   nixpkgs = {
     config = import ../../../nix/config.nix;
-    overlays = let
-      sources = import ../../../nix/sources.nix;
-      unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
-    in
+    overlays =
+      let
+        sources = import ../../../nix/sources.nix;
+        unstable = import sources.nixpkgs { config = config.nixpkgs.config; };
+      in
       [
         (_: _: { inherit unstable; })
         (import sources.nixpkgs-mozilla)
         (
           _: super: {
-            niv = (import sources.niv {}).niv;
-            ormolu = (import sources.ormolu {}).ormolu;
-            pypi2nix = import sources.pypi2nix {};
-            rustfilt = super.callPackage ../../../packages/rustfilt.nix {};
-            workman = super.callPackage ../../../packages/workman.nix {};
+            niv = (import sources.niv { }).niv;
+            ormolu = (import sources.ormolu { }).ormolu;
+            pypi2nix = import sources.pypi2nix { };
+            rustfilt = super.callPackage ../../../packages/rustfilt.nix { };
+            workman = super.callPackage ../../../packages/workman.nix { };
           }
         )
       ];

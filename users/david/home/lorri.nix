@@ -9,8 +9,8 @@
     # Override default path to include `git` and `mercurial`.
     path = with pkgs; makeSearchPath "bin" [ nix gnutar gzip git mercurial ];
   in
-    # Add `RUST_BACKTRACE=1` too.
-    mkForce (concatStringsSep " " [ "PATH=${path}" "RUST_BACKTRACE=1" ]);
+  # Add `RUST_BACKTRACE=1` too.
+  mkForce (concatStringsSep " " [ "PATH=${path}" "RUST_BACKTRACE=1" ]);
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

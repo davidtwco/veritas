@@ -1,5 +1,4 @@
 # This file contains a development shell for working on the Rust reference.
-
 let
   # Import unstable channel for newer versions of packages.
   sources = import ../nix/sources.nix;

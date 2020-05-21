@@ -7,7 +7,7 @@
   imports = [ ../users/david/home ];
 
   # Add the `veritas.david` configuration options. These are also used from NixOS.
-  options.veritas.david = import ../users/david/options.nix { inherit config; inherit lib; };
+  options.veritas.david = import ../users/david/options.nix { inherit config;inherit lib; };
   config.veritas.david = {
     dotfiles.isNonNixOS = true;
     email.address = "david.wood@codeplay.com";

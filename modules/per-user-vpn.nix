@@ -15,7 +15,7 @@ in
     enable = mkEnableOption "Enable per-user-vpn configurations";
 
     servers = mkOption {
-      default = {};
+      default = { };
       description = "Options for each per-user-vpn configuration";
       type = attrsOf (
         submodule {
@@ -123,18 +123,19 @@ in
 
   config = lib.mkIf cfg.enable (
     let
-      mkFirewallRules = name: srv: let
-        # Define chain names for the firewall.
-        chains = {
-          input = "${name}-vpn-input";
-          output = "${name}-vpn-output";
-          prerouting = "${name}-vpn-prerouting";
-          postrouting = "${name}-vpn-postrouting";
-        };
-        # Concatenate networks for use in iptables rules.
-        ipv4Networks = builtins.concatStringsSep "," srv.localNetworks.ipv4;
-        ipv6Networks = builtins.concatStringsSep "," srv.localNetworks.ipv6;
-      in
+      mkFirewallRules = name: srv:
+        let
+          # Define chain names for the firewall.
+          chains = {
+            input = "${name}-vpn-input";
+            output = "${name}-vpn-output";
+            prerouting = "${name}-vpn-prerouting";
+            postrouting = "${name}-vpn-postrouting";
+          };
+          # Concatenate networks for use in iptables rules.
+          ipv4Networks = builtins.concatStringsSep "," srv.localNetworks.ipv4;
+          ipv6Networks = builtins.concatStringsSep "," srv.localNetworks.ipv6;
+        in
         ''
           # Create the chains in the filter table.
           #
@@ -189,46 +190,47 @@ in
           ip46tables -t mangle -A ${chains.output} -j CONNMARK --restore-mark
 
           ${
-        builtins.concatStringsSep "\n" (
-          builtins.map (
-            user: ''
-              # Mark all outgoing packets from the VPN user (these will be unmarked later). An
-              # initial mark followed by an unmark is used because it isn't possible to check for
-              # multiple destinations and negate that check (i.e. `! --dest W.X.Y.Z/F,A.B.C.D/G`
-              # is disallowed) and if these checks were split up then all but one would always be
-              # triggered.
-              ip46tables -t mangle -A ${chains.output} ! -o lo -m owner --uid-owner ${user} \
-                -j MARK --set-mark ${srv.mark}
+          builtins.concatStringsSep "\n" (
+            builtins.map (
+                user: ''
+                  # Mark all outgoing packets from the VPN user (these will be unmarked later). An
+                  # initial mark followed by an unmark is used because it isn't possible to check for
+                  # multiple destinations and negate that check (i.e. `! --dest W.X.Y.Z/F,A.B.C.D/G`
+                  # is disallowed) and if these checks were split up then all but one would always be
+                  # triggered.
+                  ip46tables -t mangle -A ${chains.output} ! -o lo -m owner --uid-owner ${user} \
+                    -j MARK --set-mark ${srv.mark}
 
-              # Unmark outgoing packets from the VPN user when being sent to a private network.
-              # This means that hosts on the local network will still be able to browse to any web
-              # services without being blocked.
-              iptables -t mangle -A ${chains.output} --dest "${ipv4Networks}" \
-                -m owner --uid-owner ${user} -j MARK --xor-mark ${srv.mark}
-              ip6tables -t mangle -A ${chains.output} --dest "${ipv6Networks}" \
-                -m owner --uid-owner ${user} -j MARK --xor-mark ${srv.mark}
+                  # Unmark outgoing packets from the VPN user when being sent to a private network.
+                  # This means that hosts on the local network will still be able to browse to any web
+                  # services without being blocked.
+                  iptables -t mangle -A ${chains.output} --dest "${ipv4Networks}" \
+                    -m owner --uid-owner ${user} -j MARK --xor-mark ${srv.mark}
+                  ip6tables -t mangle -A ${chains.output} --dest "${ipv6Networks}" \
+                    -m owner --uid-owner ${user} -j MARK --xor-mark ${srv.mark}
 
-              # Re-mark packets on the private network if they are DNS. This forces DNS to go
-              # through the VPN.
-              ${
-            builtins.concatStringsSep "\n" (
-              builtins.map (
-                { command, networks }: ''
-                  ${command} -t mangle -A ${chains.output} --dest "${networks}" -p udp \
-                    --dport domain -m owner --uid-owner ${user} -j MARK --set-mark ${srv.mark}
-                  ${command} -t mangle -A ${chains.output} --dest "${networks}" -p tcp \
-                    --dport domain -m owner --uid-owner ${user} -j MARK --set-mark ${srv.mark}
+                  # Re-mark packets on the private network if they are DNS. This forces DNS to go
+                  # through the VPN.
+                  ${
+                    builtins.concatStringsSep "\n" (
+                        builtins.map (
+                              { command, networks }: ''
+                                ${command} -t mangle -A ${chains.output} --dest "${networks}" -p udp \
+                                  --dport domain -m owner --uid-owner ${user} -j MARK --set-mark ${srv.mark}
+                                ${command} -t mangle -A ${chains.output} --dest "${networks}" -p tcp \
+                                  --dport domain -m owner --uid-owner ${user} -j MARK --set-mark ${srv.mark}
+                              ''
+                              )
+                          [
+                              { command = "iptables"; networks = ipv4Networks; }
+                              { command = "ip6tables"; networks = ipv6Networks; }
+                            ]
+                          )
+                  }
                 ''
-              ) [
-                { command = "iptables"; networks = ipv4Networks; }
-                { command = "ip6tables"; networks = ipv6Networks; }
-              ]
-            )
-            }
-            ''
-          ) srv.users
-        )
-        }
+                ) srv.users
+              )
+          }
 
           # Copy packet mark to the connection mark.
           ip46tables -t mangle -A ${chains.output} -j CONNMARK --save-mark
@@ -238,101 +240,103 @@ in
 
           # Make any DNS from the VPN user go to the VPN provider's DNS.
           ${
-        builtins.concatStringsSep "\n" (
-          builtins.map (
-            user: ''
-              ${
-            builtins.concatStringsSep "\n" (
-              builtins.map (
-                { command, networks, dns, protocol }: ''
-                  ${command} -t nat -A ${chains.output} --dest "${networks}" \
-                    -p ${protocol} --dport domain -m owner --uid-owner ${user} -j DNAT \
-                    --to-destination ${dns.primary}
-                  ${command} -t nat -A ${chains.output} --dest "${networks}" \
-                    -p ${protocol} --dport domain -m owner --uid-owner ${user} -j DNAT \
-                    --to-destination ${dns.secondary}
-                ''
-              ) [
-                {
-                  command = "iptables";
-                  networks = ipv4Networks;
-                  dns = srv.dns.ipv4;
-                  protocol = "tcp";
-                }
-                {
-                  command = "iptables";
-                  networks = ipv4Networks;
-                  dns = srv.dns.ipv4;
-                  protocol = "udp";
-                }
-                {
-                  command = "ip6tables";
-                  networks = ipv6Networks;
-                  dns = srv.dns.ipv6;
-                  protocol = "tcp";
-                }
-                {
-                  command = "ip6tables";
-                  networks = ipv6Networks;
-                  dns = srv.dns.ipv6;
-                  protocol = "udp";
-                }
-              ]
-            )
-            }
+          builtins.concatStringsSep "\n" (
+            builtins.map (
+                user: ''
+                  ${
+                    builtins.concatStringsSep "\n" (
+                        builtins.map (
+                              { command, networks, dns, protocol }: ''
+                                ${command} -t nat -A ${chains.output} --dest "${networks}" \
+                                  -p ${protocol} --dport domain -m owner --uid-owner ${user} -j DNAT \
+                                  --to-destination ${dns.primary}
+                                ${command} -t nat -A ${chains.output} --dest "${networks}" \
+                                  -p ${protocol} --dport domain -m owner --uid-owner ${user} -j DNAT \
+                                  --to-destination ${dns.secondary}
+                              ''
+                              )
+                          [
+                              {
+                                command = "iptables";
+                                networks = ipv4Networks;
+                                dns = srv.dns.ipv4;
+                                protocol = "tcp";
+                                }
+                              {
+                                command = "iptables";
+                                networks = ipv4Networks;
+                                dns = srv.dns.ipv4;
+                                protocol = "udp";
+                                }
+                              {
+                                command = "ip6tables";
+                                networks = ipv6Networks;
+                                dns = srv.dns.ipv6;
+                                protocol = "tcp";
+                                }
+                              {
+                                command = "ip6tables";
+                                networks = ipv6Networks;
+                                dns = srv.dns.ipv6;
+                                protocol = "udp";
+                                }
+                            ]
+                          )
+                  }
 
-              # Accept all outgoing packets on `lo` and the VPN interface from the VPN user.
-              ip46tables -t filter -A ${chains.output} -o lo -m owner --uid-owner ${user} \
-                -j ACCEPT
-              ip46tables -t filter -A ${chains.output} -o tun-${name} -m owner \
-                --uid-owner ${user} -j ACCEPT
-            ''
-          ) srv.users
-        )
-        }
+                  # Accept all outgoing packets on `lo` and the VPN interface from the VPN user.
+                  ip46tables -t filter -A ${chains.output} -o lo -m owner --uid-owner ${user} \
+                    -j ACCEPT
+                  ip46tables -t filter -A ${chains.output} -o tun-${name} -m owner \
+                    --uid-owner ${user} -j ACCEPT
+                ''
+                ) srv.users
+              )
+          }
 
           # Masquerade all packets on the VPN interface.
           ip46tables -t nat -A ${chains.postrouting} -o tun-${name} -j MASQUERADE
         '';
-      mkRoutingScript = srvName: srv: let
-        name = "${srvName}-vpn-routes";
-        dir = pkgs.writeScriptBin name ''
-          #! ${pkgs.runtimeShell} -e
-          # Flush routes currently in the table.
-          ${pkgs.iproute}/bin/ip route flush table ${builtins.toString srv.routeTableId}
+      mkRoutingScript = srvName: srv:
+        let
+          name = "${srvName}-vpn-routes";
+          dir = pkgs.writeScriptBin name ''
+            #! ${pkgs.runtimeShell} -e
+            # Flush routes currently in the table.
+            ${pkgs.iproute}/bin/ip route flush table ${builtins.toString srv.routeTableId}
 
-          # Add a rule to the routing rules for marked packets. These rules are checked in priority
-          # order (lowest first - see `ip rule list`) and if no routes within match, then the next
-          # rule is checked. This rule will be the second rule (the first being local packets) and
-          # will apply for the marked packets.
-          HAS_RULE="$(${pkgs.iproute}/bin/ip rule list | \
-            ${pkgs.gnugrep}/bin/grep -c ${srv.mark} || true)"
-          if [[ $HAS_RULE == "0" ]]; then
-            ${pkgs.iproute}/bin/ip rule add from all fwmark ${srv.mark} \
-              lookup ${builtins.toString srv.routeTableId}
-          fi
-
-          HAS_VPN_INTERFACE="$(${pkgs.iproute}/bin/ip -o link show | \
-            ${pkgs.gawk}/bin/awk -F': ' '{print $2}' | \
-            ${pkgs.gnugrep}/bin/grep -c tun-${srvName} || true)"
-          if [[ $HAS_VPN_INTERFACE == "1" ]]; then
-            HAS_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
-              ${pkgs.gnugrep}/bin/grep -cPo '(?<= inet )([0-9\.]+) ' || true)"
-            if [[ $HAS_IP == "1" ]]; then
-              VPN_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
-                ${pkgs.gnugrep}/bin/grep -Po '(?<= inet )([0-9\.]+) ')"
-
-              ${pkgs.iproute}/bin/ip route replace default via $VPN_IP \
-                table ${builtins.toString srv.routeTableId}
+            # Add a rule to the routing rules for marked packets. These rules are checked in priority
+            # order (lowest first - see `ip rule list`) and if no routes within match, then the next
+            # rule is checked. This rule will be the second rule (the first being local packets) and
+            # will apply for the marked packets.
+            HAS_RULE="$(${pkgs.iproute}/bin/ip rule list | \
+              ${pkgs.gnugrep}/bin/grep -c ${srv.mark} || true)"
+            if [[ $HAS_RULE == "0" ]]; then
+              ${pkgs.iproute}/bin/ip rule add from all fwmark ${srv.mark} \
+                lookup ${builtins.toString srv.routeTableId}
             fi
-          fi
 
-          ${pkgs.iproute}/bin/ip route append default via 127.0.0.1 dev lo \
-            table ${builtins.toString srv.routeTableId}
+            HAS_VPN_INTERFACE="$(${pkgs.iproute}/bin/ip -o link show | \
+              ${pkgs.gawk}/bin/awk -F': ' '{print $2}' | \
+              ${pkgs.gnugrep}/bin/grep -c tun-${srvName} || true)"
+            if [[ $HAS_VPN_INTERFACE == "1" ]]; then
+              HAS_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
+                ${pkgs.gnugrep}/bin/grep -cPo '(?<= inet )([0-9\.]+) ' || true)"
+              if [[ $HAS_IP == "1" ]]; then
+                VPN_IP="$(${pkgs.iproute}/bin/ip addr show tun-${srvName} | \
+                  ${pkgs.gnugrep}/bin/grep -Po '(?<= inet )([0-9\.]+) ')"
 
-          ${pkgs.iproute}/bin/ip route flush cache
-        '';
-      in
+                ${pkgs.iproute}/bin/ip route replace default via $VPN_IP \
+                  table ${builtins.toString srv.routeTableId}
+              fi
+            fi
+
+            ${pkgs.iproute}/bin/ip route append default via 127.0.0.1 dev lo \
+              table ${builtins.toString srv.routeTableId}
+
+            ${pkgs.iproute}/bin/ip route flush cache
+          '';
+        in
         "${dir}/bin/${name}";
       mkOpenVpnConfig = name: srv: ''
         # Specify the type of the layer of the VPN connection.
@@ -386,65 +390,73 @@ in
         ${mkRoutingScript name srv}
       '';
     in
-      {
-        # Set kernel reverse path filtering to loose.
-        boot.kernel.sysctl = {
-          "net.ipv4.conf.all.rp_filter" = 2;
-          "net.ipv4.conf.default.rp_filter" = 2;
-        } // mapAttrs' (name: _: nameValuePair "net.ipv4.conf.${name}.rp_filter" 2) cfg.servers;
+    {
+      # Set kernel reverse path filtering to loose.
+      boot.kernel.sysctl = {
+        "net.ipv4.conf.all.rp_filter" = 2;
+        "net.ipv4.conf.default.rp_filter" = 2;
+      } // mapAttrs' (name: _: nameValuePair "net.ipv4.conf.${name}.rp_filter" 2) cfg.servers;
 
-        # Set NixOS' firewall reverse path filtering to loose.
-        networking.firewall.checkReversePath = "loose";
+      # Set NixOS' firewall reverse path filtering to loose.
+      networking.firewall.checkReversePath = "loose";
 
-        # Enable ip routing and add route tables for each server.
-        networking.iproute2 = {
-          enable = true;
-          rttablesExtraConfig = builtins.concatStringsSep "\n"
+      # Enable ip routing and add route tables for each server.
+      networking.iproute2 = {
+        enable = true;
+        rttablesExtraConfig =
+          builtins.concatStringsSep "\n"
             (mapAttrsToList (name: srv: "${builtins.toString srv.routeTableId} ${name}") cfg.servers);
-        };
+      };
 
-        # Create a service that runs on system start, so that the rule to `/dev/null` all marked
-        # packets always applies. The same script will be invoked when OpenVPN starts to add a new
-        # route that will go through the VPN.
-        systemd.services = mapAttrs' (
-          name: srv: nameValuePair "${name}-vpn-routes" {
-            after = [ "systemd-modules-load.service" ];
-            before = [ "network-pre.target" ];
-            description = "Routing for ${name} VPN";
-            path = [ pkgs.iproute pkgs.gnugrep pkgs.gawk ];
-            reloadIfChanged = false;
-            serviceConfig = {
-              "Type" = "oneshot";
-              "RemainAfterExit" = true;
-              "ExecStart" = "${mkRoutingScript name srv}";
-            };
-            unitConfig = {
-              "ConditionCapability" = "CAP_NET_ADMIN";
-              "DefaultDependencies" = false;
-            };
-            wantedBy = [ "sysinit.target" ];
-            wants = [ "network-pre.target" ];
-          }
-        ) cfg.servers;
+      # Create a service that runs on system start, so that the rule to `/dev/null` all marked
+      # packets always applies. The same script will be invoked when OpenVPN starts to add a new
+      # route that will go through the VPN.
+      systemd.services =
+        mapAttrs'
+          (
+            name: srv: nameValuePair "${name}-vpn-routes" {
+              after = [ "systemd-modules-load.service" ];
+              before = [ "network-pre.target" ];
+              description = "Routing for ${name} VPN";
+              path = [ pkgs.iproute pkgs.gnugrep pkgs.gawk ];
+              reloadIfChanged = false;
+              serviceConfig = {
+                "Type" = "oneshot";
+                "RemainAfterExit" = true;
+                "ExecStart" = "${mkRoutingScript name srv}";
+              };
+              unitConfig = {
+                "ConditionCapability" = "CAP_NET_ADMIN";
+                "DefaultDependencies" = false;
+              };
+              wantedBy = [ "sysinit.target" ];
+              wants = [ "network-pre.target" ];
+            }
+          )
+          cfg.servers;
 
-        # Set up VPN service.
-        services.openvpn.servers = mapAttrs (
-          name: srv: {
-            autoStart = true;
-            authUserPass = {
-              username = lib.removeSuffix "\n" (builtins.readFile srv.credentials.username);
-              password = lib.removeSuffix "\n" (builtins.readFile srv.credentials.password);
-            };
-            config = mkOpenVpnConfig name srv;
-            up = mkOpenVpnUpScript name srv;
-            updateResolvConf = true;
-          }
-        ) cfg.servers;
+      # Set up VPN service.
+      services.openvpn.servers =
+        mapAttrs
+          (
+            name: srv: {
+              autoStart = true;
+              authUserPass = {
+                username = lib.removeSuffix "\n" (builtins.readFile srv.credentials.username);
+                password = lib.removeSuffix "\n" (builtins.readFile srv.credentials.password);
+              };
+              config = mkOpenVpnConfig name srv;
+              up = mkOpenVpnUpScript name srv;
+              updateResolvConf = true;
+            }
+          )
+          cfg.servers;
 
-        # Create firewall rules to mark packets from targetted users.
-        networking.firewall.extraCommands = builtins.concatStringsSep "\n"
+      # Create firewall rules to mark packets from targetted users.
+      networking.firewall.extraCommands =
+        builtins.concatStringsSep "\n"
           (mapAttrsToList mkFirewallRules cfg.servers);
-      }
+    }
   );
 }
 

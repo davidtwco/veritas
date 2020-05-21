@@ -1,16 +1,16 @@
 { config, pkgs, lib, ... }:
 
 # This file contains the configuration for NeoVim.
-
 let
   cfg = config.veritas.david;
 in
-  with pkgs; with lib; {
-    home.sessionVariables."EDITOR" = "${config.programs.neovim.finalPackage}/bin/nvim";
+with pkgs; with lib; {
+  home.sessionVariables."EDITOR" = "${config.programs.neovim.finalPackage}/bin/nvim";
 
-    programs.neovim = {
-      enable = true;
-      extraConfig = let
+  programs.neovim = {
+    enable = true;
+    extraConfig =
+      let
         prefix = ''
           " Tell ALE where to look for `compilation-commands.json`.
           let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin' ]
@@ -40,35 +40,35 @@ in
           optionalString (!cfg.dotfiles.minimal) (
             let
               sources = import ../../../nix/sources.nix;
-              hie = (import sources.all-hies {}).selection {
+              hie = (import sources.all-hies { }).selection {
                 selector = p: { inherit (p) ghc865; };
               };
             in
-              ''
-                let g:ale_c_clang_executable = SearchBuildDirsOr('${unstable.clang}/bin/clang')
-                let g:ale_c_clangd_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clangd')
-                let g:ale_c_clangformat_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clang-format')
-                let g:ale_c_clangtidy_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clang-tidy')
-                let g:ale_cpp_clang_executable = SearchBuildDirsOr('${unstable.clang}/bin/clang++')
-                let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
-                let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
-                let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
-                let g:ale_cuda_nvcc_executable = '${cudatoolkit_10}/bin/nvcc'
-                let g:ale_haskell_hie_executable = '${hie}/bin/hie'
-                let g:ale_haskell_ormolu_executable = '${ormolu}/bin/ormolu'
-                let g:ale_json_jq_executable = '${jq}/bin/jq'
-                let g:ale_llvm_llc_executable = SearchBuildDirsOr('${unstable.llvm}/bin/llc')
-                let g:ale_lua_luac_executable = '${lua}/bin/luac'
-                let g:ale_python_black_executable = '${unstable.python37Packages.black}/bin/black'
-                let g:ale_python_flake8_executable = '${unstable.python37Packages.flake8}/bin/flake8'
-                let g:ale_ruby_rubocop_executable = '${rubocop}/bin/rubocop'
-                let g:ale_rust_rls_executable = '${latest.rustChannels.stable.rust}/bin/rls'
-                let g:ale_rust_rustfmt_executable = '${latest.rustChannels.stable.rust}/bin/rustfmt'
-                let g:ale_sh_shellcheck_executable = '${shellcheck}/bin/shellcheck'
-                let g:ale_vim_vint_executable = '${vim-vint}/bin/vint'
-                let g:spirv_as_path = '${unstable.spirv-tools}/bin/spirv-as'
-                let g:spirv_dis_path = '${unstable.spirv-tools}/bin/spirv-dis'
-              ''
+            ''
+              let g:ale_c_clang_executable = SearchBuildDirsOr('${unstable.clang}/bin/clang')
+              let g:ale_c_clangd_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clangd')
+              let g:ale_c_clangformat_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clang-format')
+              let g:ale_c_clangtidy_executable = SearchBuildDirsOr('${unstable.clang-tools}/bin/clang-tidy')
+              let g:ale_cpp_clang_executable = SearchBuildDirsOr('${unstable.clang}/bin/clang++')
+              let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
+              let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+              let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
+              let g:ale_cuda_nvcc_executable = '${cudatoolkit_10}/bin/nvcc'
+              let g:ale_haskell_hie_executable = '${hie}/bin/hie'
+              let g:ale_haskell_ormolu_executable = '${ormolu}/bin/ormolu'
+              let g:ale_json_jq_executable = '${jq}/bin/jq'
+              let g:ale_llvm_llc_executable = SearchBuildDirsOr('${unstable.llvm}/bin/llc')
+              let g:ale_lua_luac_executable = '${lua}/bin/luac'
+              let g:ale_python_black_executable = '${unstable.python37Packages.black}/bin/black'
+              let g:ale_python_flake8_executable = '${unstable.python37Packages.flake8}/bin/flake8'
+              let g:ale_ruby_rubocop_executable = '${rubocop}/bin/rubocop'
+              let g:ale_rust_rls_executable = '${latest.rustChannels.stable.rust}/bin/rls'
+              let g:ale_rust_rustfmt_executable = '${latest.rustChannels.stable.rust}/bin/rustfmt'
+              let g:ale_sh_shellcheck_executable = '${shellcheck}/bin/shellcheck'
+              let g:ale_vim_vint_executable = '${vim-vint}/bin/vint'
+              let g:spirv_as_path = '${unstable.spirv-tools}/bin/spirv-as'
+              let g:spirv_dis_path = '${unstable.spirv-tools}/bin/spirv-dis'
+            ''
           )
         );
         body = with cfg.colourScheme; ''
@@ -850,168 +850,168 @@ in
           hi debugBreakpoint guifg=#${neovim.termdebugBreakpoint.fg} guibg=#${neovim.termdebugBreakpoint.bg}
         '';
       in
-        prefix + body;
-      viAlias = true;
-      vimAlias = true;
-      withNodeJs = true;
-      withPython = true;
-      withPython3 = true;
-      package = unstable.neovim;
-      plugins =
-        let
-          sources = import ../../../nix/sources.nix;
-        in
-          # Define our own plugin list with pinned versions so that we can guarantee
-          # a working configuration. Some plugins require `dontBuild` as they include
-          # `Makefile`s to run tests and build docs.
-          [
-            # Sensible defaults for Vim.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-sensible"; src = sources.vim-sensible; })
-            # Polyglot adds a bunch of syntax handling for different languages and tools, check if
-            # new languages are included before adding them manually.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-polyglot"; src = sources.vim-polyglot; })
-            # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
-            (pkgs.vimUtils.buildVimPlugin { name = "rust.vim"; src = sources."rust.vim"; })
-            # Other languages
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-hocon"; src = sources.vim-hocon; })
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-pandoc"; src = sources.vim-pandoc; })
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-pandoc-syntax";
-                src = sources.vim-pandoc-syntax;
-              }
-            )
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-spirv"; src = sources.vim-spirv; })
-            # Generate ctags for projects.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-gutentags"; src = sources.vim-gutentags; })
-            # Auto-adds `end` where appropriate.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-endwise"; src = sources.vim-endwise; })
-            # Hybrid colour scheme
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-hybrid"; src = sources.vim-hybrid; })
-            # Autocompletion/linting/fixing.
-            (pkgs.vimUtils.buildVimPlugin { name = "ale"; src = sources.ale; })
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "deoplete.nvim";
-                src = sources."deoplete.nvim";
-                dontBuild = true;
-              }
-            )
-            (pkgs.vimUtils.buildVimPlugin { name = "lightline-ale"; src = sources.lightline-ale; })
-            # Add operator to comment out lines.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-commentary"; src = sources.vim-commentary; })
-            # Improvements to netrw.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-vinegar"; src = sources.vim-vinegar; })
-            # Show git changes in the sign column
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-signify"; src = sources.vim-signify; })
-            # Git wrappers
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-fugitive"; src = sources.vim-fugitive; })
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-rhubarb"; src = sources.vim-rhubarb; })
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "fugitive-gitlab.vim";
-                src = sources."fugitive-gitlab.vim";
-              }
-            )
-            # Async build and test dispatcher
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-dispatch"; src = sources.vim-dispatch; })
-            # Helper functions for unix commands.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-eunuch"; src = sources.vim-eunuch; })
-            # Easy navigation between vim splits and tmux panes.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-tmux-navigator";
-                src = sources.vim-tmux-navigator;
-              }
-            )
-            # Focus events and clipboard for tmux.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-tmux-clipboard";
-                src = sources.vim-tmux-clipboard;
-              }
-            )
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-tmux-focus-events";
-                src = sources.vim-tmux-focus-events;
-              }
-            )
-            # Switch to absolute line numbers for buffers that aren't focused.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-numbertoggle";
-                src = sources.vim-numbertoggle;
-              }
-            )
-            # Fuzzy file search.
-            (pkgs.vimPlugins.fzfWrapper)
-            (pkgs.vimUtils.buildVimPlugin { name = "fzf.vim"; src = sources."fzf.vim"; })
-            # Statusline
-            (pkgs.vimUtils.buildVimPlugin { name = "lightline"; src = sources."lightline.vim"; })
-            # Show marks in sign column.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-signature"; src = sources.vim-signature; })
-            # Adds `s` motion for matching any two characters.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-sneak";
-                src = sources.vim-sneak;
-                dontBuild = true;
-              }
-            )
-            # Improve `.` (repeat) for plugin maps.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-repeat";
-                src = sources.vim-repeat;
-              }
-            )
-            # Terminal utilities.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "split-term.vim";
-                src = sources."split-term.vim";
-              }
-            )
-            # Handy bracket matchings.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-unimpaired"; src = sources.vim-unimpaired; })
-            # Commands for interactig with surroundings ("", '', {}, etc).
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-surround"; src = sources.vim-surround; })
-            # Multi-file search (`Ack`)
-            (pkgs.vimUtils.buildVimPlugin { name = "ferret"; src = sources.ferret; })
-            # Improved incremental search - hides search highlighting after moving cursor.
-            (pkgs.vimUtils.buildVimPlugin { name = "is.vim"; src = sources."is.vim"; })
-            # Enhanced `%` functionality.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-matchit"; src = sources.vim-matchit; })
-            # Look for project specific `.lvimrc` files.
-            (
-              pkgs.vimUtils.buildVimPlugin {
-                name = "vim-localvimrc";
-                src = sources.vim-localvimrc;
-                dontBuild = true;
-              }
-            )
-            # Scratchpad
-            (pkgs.vimUtils.buildVimPlugin { name = "scratch.vim"; src = sources."scratch.vim"; })
-            # Text filtering and alignment.
-            (pkgs.vimUtils.buildVimPlugin { name = "tabular"; src = sources.tabular; })
-            # Visualize the undo tree.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-mundo"; src = sources.vim-mundo; })
-            # Search/substitution/abbreviation of word variations.
-            (pkgs.vimUtils.buildVimPlugin { name = "vim-abolish"; src = sources.vim-abolish; })
-          ];
-    };
+      prefix + body;
+    viAlias = true;
+    vimAlias = true;
+    withNodeJs = true;
+    withPython = true;
+    withPython3 = true;
+    package = unstable.neovim;
+    plugins =
+      let
+        sources = import ../../../nix/sources.nix;
+      in
+      # Define our own plugin list with pinned versions so that we can guarantee
+        # a working configuration. Some plugins require `dontBuild` as they include
+        # `Makefile`s to run tests and build docs.
+      [
+        # Sensible defaults for Vim.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-sensible"; src = sources.vim-sensible; })
+        # Polyglot adds a bunch of syntax handling for different languages and tools, check if
+        # new languages are included before adding them manually.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-polyglot"; src = sources.vim-polyglot; })
+        # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
+        (pkgs.vimUtils.buildVimPlugin { name = "rust.vim"; src = sources."rust.vim"; })
+        # Other languages
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-hocon"; src = sources.vim-hocon; })
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-pandoc"; src = sources.vim-pandoc; })
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-pandoc-syntax";
+            src = sources.vim-pandoc-syntax;
+          }
+        )
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-spirv"; src = sources.vim-spirv; })
+        # Generate ctags for projects.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-gutentags"; src = sources.vim-gutentags; })
+        # Auto-adds `end` where appropriate.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-endwise"; src = sources.vim-endwise; })
+        # Hybrid colour scheme
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-hybrid"; src = sources.vim-hybrid; })
+        # Autocompletion/linting/fixing.
+        (pkgs.vimUtils.buildVimPlugin { name = "ale"; src = sources.ale; })
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "deoplete.nvim";
+            src = sources."deoplete.nvim";
+            dontBuild = true;
+          }
+        )
+        (pkgs.vimUtils.buildVimPlugin { name = "lightline-ale"; src = sources.lightline-ale; })
+        # Add operator to comment out lines.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-commentary"; src = sources.vim-commentary; })
+        # Improvements to netrw.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-vinegar"; src = sources.vim-vinegar; })
+        # Show git changes in the sign column
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-signify"; src = sources.vim-signify; })
+        # Git wrappers
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-fugitive"; src = sources.vim-fugitive; })
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-rhubarb"; src = sources.vim-rhubarb; })
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "fugitive-gitlab.vim";
+            src = sources."fugitive-gitlab.vim";
+          }
+        )
+        # Async build and test dispatcher
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-dispatch"; src = sources.vim-dispatch; })
+        # Helper functions for unix commands.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-eunuch"; src = sources.vim-eunuch; })
+        # Easy navigation between vim splits and tmux panes.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-tmux-navigator";
+            src = sources.vim-tmux-navigator;
+          }
+        )
+        # Focus events and clipboard for tmux.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-tmux-clipboard";
+            src = sources.vim-tmux-clipboard;
+          }
+        )
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-tmux-focus-events";
+            src = sources.vim-tmux-focus-events;
+          }
+        )
+        # Switch to absolute line numbers for buffers that aren't focused.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-numbertoggle";
+            src = sources.vim-numbertoggle;
+          }
+        )
+        # Fuzzy file search.
+        (pkgs.vimPlugins.fzfWrapper)
+        (pkgs.vimUtils.buildVimPlugin { name = "fzf.vim"; src = sources."fzf.vim"; })
+        # Statusline
+        (pkgs.vimUtils.buildVimPlugin { name = "lightline"; src = sources."lightline.vim"; })
+        # Show marks in sign column.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-signature"; src = sources.vim-signature; })
+        # Adds `s` motion for matching any two characters.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-sneak";
+            src = sources.vim-sneak;
+            dontBuild = true;
+          }
+        )
+        # Improve `.` (repeat) for plugin maps.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-repeat";
+            src = sources.vim-repeat;
+          }
+        )
+        # Terminal utilities.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "split-term.vim";
+            src = sources."split-term.vim";
+          }
+        )
+        # Handy bracket matchings.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-unimpaired"; src = sources.vim-unimpaired; })
+        # Commands for interactig with surroundings ("", '', {}, etc).
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-surround"; src = sources.vim-surround; })
+        # Multi-file search (`Ack`)
+        (pkgs.vimUtils.buildVimPlugin { name = "ferret"; src = sources.ferret; })
+        # Improved incremental search - hides search highlighting after moving cursor.
+        (pkgs.vimUtils.buildVimPlugin { name = "is.vim"; src = sources."is.vim"; })
+        # Enhanced `%` functionality.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-matchit"; src = sources.vim-matchit; })
+        # Look for project specific `.lvimrc` files.
+        (
+          pkgs.vimUtils.buildVimPlugin {
+            name = "vim-localvimrc";
+            src = sources.vim-localvimrc;
+            dontBuild = true;
+          }
+        )
+        # Scratchpad
+        (pkgs.vimUtils.buildVimPlugin { name = "scratch.vim"; src = sources."scratch.vim"; })
+        # Text filtering and alignment.
+        (pkgs.vimUtils.buildVimPlugin { name = "tabular"; src = sources.tabular; })
+        # Visualize the undo tree.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-mundo"; src = sources.vim-mundo; })
+        # Search/substitution/abbreviation of word variations.
+        (pkgs.vimUtils.buildVimPlugin { name = "vim-abolish"; src = sources.vim-abolish; })
+      ];
+  };
 
-    # Configure the `flake8` linter for Python to match `black`'s formatting.
-    xdg.configFile."flake8".text = ''
-      [flake8]
-      # Recommend matching the black line length (default 88),
-      # rather than using the flake8 default of 79:
-      max-line-length = 88
-      extend-ignore =
-          # See https://github.com/PyCQA/pycodestyle/issues/373
-          E203,
-    '';
-  }
+  # Configure the `flake8` linter for Python to match `black`'s formatting.
+  xdg.configFile."flake8".text = ''
+    [flake8]
+    # Recommend matching the black line length (default 88),
+    # rather than using the flake8 default of 79:
+    max-line-length = 88
+    extend-ignore =
+        # See https://github.com/PyCQA/pycodestyle/issues/373
+        E203,
+  '';
+}
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

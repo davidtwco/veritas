@@ -1,12 +1,11 @@
 { config, pkgs, lib, ... }:
 
 # This file contains a NixOS module for creating my user account and dotfiles.
-
 let
   cfg = config.veritas.david;
 in
 {
-  options.veritas.david = import ./options.nix { inherit config; inherit lib; };
+  options.veritas.david = import ./options.nix { inherit config;inherit lib; };
 
   config = {
     # This option can be set automatically here for all NixOS hosts, it must be set manually
@@ -18,7 +17,7 @@ in
       imports = [ ./home ];
 
       # Add the `veritas.david` configuration options that are set in NixOS.
-      options.veritas.david = import ./options.nix { inherit config; inherit lib; };
+      options.veritas.david = import ./options.nix { inherit config;inherit lib; };
       config.veritas.david = cfg;
     };
 

@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 
 # This file contains the configuration for Xresources.
-
 let
   colours = config.veritas.david.colourScheme.basic;
 in

@@ -1,10 +1,9 @@
 # This file contains a development shell for working on rustc. To use, symlink it into the
 # directory where Rust is being worked on.
-
 let
   pkgs = import (import ../nix/sources.nix).nixpkgs {
     overlays = [
-      (_: super: { workman = super.callPackage ../packages/workman.nix {}; })
+      (_: super: { workman = super.callPackage ../packages/workman.nix { }; })
     ];
   };
   # Build configuration for rust-lang/rust. Based on `config.toml.example` from
