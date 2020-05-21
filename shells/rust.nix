@@ -129,10 +129,6 @@ let
     # sysroot.
     llvm-tools = true
 
-    # Indicates whether LLDB will be made available in the sysroot.
-    # This is only built if LLVM is also being built.
-    lldb = true
-
     # Whether to deny warnings in crates
     deny-warnings = true
 
