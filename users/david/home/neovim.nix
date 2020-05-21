@@ -28,6 +28,11 @@ in
                 endif
             endfor
 
+            " Check the PATH (useful for overriding the version using shell.nix)
+            if executable(binary_name)
+                return binary_name
+            endif
+
             " If there wasn't one, use the fallback path.
             return a:fallback_path
           endfunction
@@ -160,7 +165,7 @@ in
           endfunc
 
           let g:ale_awk_gawk_executable = '${gawk}/bin/gawk'
-          let g:ale_nix_nixpkgsfmt_executable = '${unstable.nixpkgs-fmt}/bin/nixpkgs-fmt'
+          let g:ale_nix_nixpkgsfmt_executable = SearchBuildDirsOr('${unstable.nixpkgs-fmt}/bin/nixpkgs-fmt')
           let g:gutentags_ctags_executable = '${universal-ctags}/bin/ctags'
           let termdebugger = '${gdb}/bin/gdb'
 
