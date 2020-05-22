@@ -78,6 +78,7 @@ in
       "kubernetes"."disabled" = true;
       "memory_usage"."disabled" = true;
       "nix_shell" = {
+        "symbol" = "";
         "style" = "#${basic.red}";
         "use_name" = false;
       };
