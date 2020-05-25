@@ -96,6 +96,9 @@
     wireless.enable = true;
   };
 
+  # Avoid issues with dual-booting.
+  time.hardwareClockInLocalTime = true;
+
   veritas = {
     profiles.virtualisation = {
       enable = true;
