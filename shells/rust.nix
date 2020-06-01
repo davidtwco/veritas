@@ -234,9 +234,11 @@ pkgs.mkShell rec {
     curl
     clang
 
+    pkg-config
     libxml2
     ncurses
     swig
+    openssl
 
     # If `llvm.ninja` is `true` in `config.toml`.
     ninja
