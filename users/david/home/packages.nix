@@ -168,6 +168,10 @@ with lib.lists; with pkgs; {
     net_snmp
     # Used by `breakpointHook` in nixpkgs.
     cntr
+    # Required to mount encrypted USB drives.
+    cryptsetup
+    # Check which process is using a mountpoint.
+    lsof
   ] ++ optionals (!config.veritas.david.dotfiles.headless) [
     # Multiple-service messaging client.
     unstable.franz
