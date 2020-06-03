@@ -66,7 +66,7 @@
       autoStart = false;
       config = ''
         script-security 2
-        config /etc/nixos/secrets/codeplay.ovpn
+        config /etc/nixos/secrets/codeplay-admin.ovpn
         up ${pkgs.unstable.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
         up-restart
         down ${pkgs.unstable.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
