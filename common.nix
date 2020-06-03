@@ -120,6 +120,12 @@ in
       enable = true;
       keys = config.users.users.david.openssh.authorizedKeys.keys;
     };
+
+    # Enable flakes.
+    package = pkgs.unstable.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
   };
 
   # This configuration only applies to the NixOS configuration! Not home-manager or nix-shell, etc.
