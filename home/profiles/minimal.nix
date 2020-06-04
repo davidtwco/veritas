@@ -10,9 +10,9 @@ in
   config = mkIf cfg.enable {
     veritas = {
       configs = {
-        feh.enable = mkPriority false;
-        jq.enable = mkPriority false;
-        mail.enable = mkPriority false;
+        feh.enable = mkForce false;
+        jq.enable = mkForce false;
+        mail.enable = mkForce false;
       };
       profiles.common.withTools = mkDefault false;
     };
