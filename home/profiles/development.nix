@@ -9,8 +9,6 @@ in
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # Encrypted files in Git repositories
-      git-crypt
       # Haskell toolchain manager - normally wouldn't install this globally and instead rely on
       # `shell.nix` files, but using the Nix-integration in stack is easier and avoids the
       # downsides of having stack installed globally for my purposes.

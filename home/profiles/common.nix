@@ -181,6 +181,8 @@ in
         cryptsetup
         # Check which process is using a mountpoint.
         lsof
+        # Encrypted files in Git repositories
+        git-crypt
       ];
       sessionVariables = {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
