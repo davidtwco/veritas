@@ -58,7 +58,6 @@
   system.stateVersion = "19.03";
 
   veritas.profiles = {
-    common.enable = true;
     desktop.enable = true;
     development.enable = true;
   };

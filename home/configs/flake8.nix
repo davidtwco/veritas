@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.flake8;
 in
 {
-  options.veritas.configs.flake8 = mkEnableOption "flake8 configuration";
+  options.veritas.configs.flake8.enable = mkEnableOption "flake8 configuration";
 
   config = mkIf cfg.enable {
     # Configure the `flake8` linter for Python to match `black`'s formatting.

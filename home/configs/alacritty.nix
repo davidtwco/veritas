@@ -139,7 +139,7 @@ in
         # If `true`, bold text is drawn using the bright color variants.
         draw_bold_text_with_bright_colors = true;
         # Colors (Hybrid)
-        colors = with config.veritas.david.colourScheme.basic; {
+        colors = with config.veritas.profiles.common.colourScheme; {
           # Default colors
           primary = {
             background = "0x${background}";

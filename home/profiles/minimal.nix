@@ -14,10 +14,7 @@ in
         jq.enable = mkPriority false;
         mail.enable = mkPriority false;
       };
-      profiles = {
-        common.withTools = mkDefault false;
-        development = mkDefault false;
-      };
+      profiles.common.withTools = mkDefault false;
     };
   };
 }

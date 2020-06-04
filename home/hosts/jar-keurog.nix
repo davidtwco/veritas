@@ -41,9 +41,13 @@
       };
     };
 
-    profiles.desktop = {
-      enable = true;
-      uiScale = 1.5;
+    profiles = {
+      common.enable = true;
+      desktop = {
+        enable = true;
+        uiScale = 1.5;
+      };
+      development.enable = true;
     };
   };
 }

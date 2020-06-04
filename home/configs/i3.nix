@@ -1,6 +1,6 @@
 { config, lib, pkgs, ... }:
 
-# This file contains the configuration for i3.
+with lib;
 let
   cfg = config.xsession.windowManager.i3.config;
 
@@ -172,7 +172,7 @@ in
           "${modifier}+Shift+q" = "kill";
           "${modifier}+Shift+r" = "restart";
           # Lock the screen.
-          "${modifier}+q" = "exec ${pkgs.i3lock}/bin/i3lock -c ${colours.xsession.wallpaper}";
+          "${modifier}+q" = "exec ${pkgs.i3lock}/bin/i3lock -c ${config.veritas.configs.xsession.wallpaperColour}";
         };
         modes = {
           resize = {

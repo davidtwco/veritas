@@ -133,8 +133,6 @@ in
         man-pages
         posix_man_pages
         stdman
-        # Compress/uncompress `.7z` files.
-        p7zip
         # Arbitrary-precision calculator.
         bc
         # Copy files/archives/repositories into the nix store.
@@ -214,7 +212,6 @@ in
       jq.enable = true;
       less.enable = true;
       mail.enable = true;
-      manpages.enable = true;
       neovim.enable = true;
       readline.enable = true;
       ssh.enable = true;

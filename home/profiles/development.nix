@@ -5,7 +5,7 @@ let
   cfg = config.veritas.profiles.development;
 in
 {
-  options.veritas.profiles.development.enable = mkEnableOption "development configurations";
+  options.veritas.profiles.development.enable = mkEnableOption "development configuration";
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
@@ -19,7 +19,7 @@ in
       rustfilt
       # Alternative version control systems.
       mercurial
-      bazaar
+      breezy
       subversion
       pijul
       # Incremental git merging/rebasing.
@@ -59,7 +59,6 @@ in
       flake8.enable = true;
       gdb.enable = true;
       lorri.enable = true;
-      neovim.withDevelopmentTools = true;
     };
   };
 }

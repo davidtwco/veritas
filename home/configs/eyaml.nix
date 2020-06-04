@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.eyaml;
 in
 {
-  options.veritas.configs.eyaml = mkEnableOption "eyaml configuration";
+  options.veritas.configs.eyaml.enable = mkEnableOption "eyaml configuration";
 
   config = mkIf cfg.enable {
     home.file.".eyaml/config.yaml".text = ''

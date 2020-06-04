@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = stdenv.lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  cargoSha256 = "0a4z1fx86faxna82v5sa19ms2mzkq6w6sknf7vjzms92ahz4a546";
+  cargoSha256 = "sha256:ZNiTzBbJIWd6oiffzVMN/RGMU0lRTh5+DOPEWF7dk6Y=";
 
   meta = with stdenv.lib; {
     description = "A minimal, blazing fast, and extremely customizable prompt for any shell";

@@ -32,7 +32,10 @@
       mail.email = "david.wood@codeplay.com";
     };
 
-    profiles.desktop.enable = true;
+    profiles = {
+      desktop.enable = true;
+      development.enable = true;
+    };
   };
 }
 

@@ -3,9 +3,8 @@
 with lib;
 let
   cfg = config.veritas.configs.polybar;
-
   barName = "veritas";
-  colours = config.veritas.david.colourScheme;
+
   # Define a helper function for creating short shell scripts that have some colours available
   # to them.
   mkBarScript = module: contents:
@@ -106,15 +105,15 @@ in
             ''
           );
         };
-        "module/i3" = {
+        "module/i3" = with config.veritas.profiles.common.colourScheme; {
           "type" = "internal/i3";
           "enable-click" = true;
           "enable-scroll" = true;
           "index-sort" = true;
-          "label-focused-foreground" = "#${colours.basic.brightWhite}";
-          "label-unfocused-foreground" = "#${colours.basic.black}";
-          "label-visible-foreground" = "#${colours.basic.white}";
-          "label-urgent-foreground" = "#${colours.basic.red}";
+          "label-focused-foreground" = "#${brightWhite}";
+          "label-unfocused-foreground" = "#${black}";
+          "label-visible-foreground" = "#${white}";
+          "label-urgent-foreground" = "#${red}";
         };
         "module/memory" = {
           type = "custom/script";

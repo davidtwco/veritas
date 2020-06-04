@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.picom;
 in
 {
-  options.veritas.configs.picom.enable = mkEnableOption = "picom configuration";
+  options.veritas.configs.picom.enable = mkEnableOption "picom configuration";
 
   config = mkIf cfg.enable {
     services.picom = {

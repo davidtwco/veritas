@@ -84,8 +84,8 @@
 
       # Define the home-manager configuration for a host (for use as both input to the NixOS
       # home-manager module; and to the `homeManagerConfiguration` function).
-      mkHomeManagerConfiguration = _: { system, config }:
-        { ... }: {
+      mkHomeManagerConfiguration = name: { system, config }:
+        nameValuePair name ({ ... }: {
           imports = [
             (import ./home/configs)
             (import ./home/modules)
@@ -93,15 +93,10 @@
             (import config)
           ];
 
-          nixpkgs = {
-            config = import ./nix/config.nix;
-            overlays = self.overlays."${system}";
-          };
-
           # For compatibility with nix-shell, nix-build, etc.
           home.file.".nixpkgs".source = inputs.nixpkgs;
           systemd.user.sessionVariables."NIX_PATH" =
-            lib.mkForce "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+            mkForce "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
 
           # Use the same Nix configuration throughout the system.
           xdg.configFile."nixpkgs/config.nix".source = ./nix/config.nix;
@@ -132,13 +127,20 @@
                 }
               ];
           };
-        };
+        });
 
       # Define a home-manager configuration for a host.
       mkHomeManagerHostConfiguration = name: { system }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
           inherit system;
-          configuration = self.internal.homeManagerConfigurations."${name}";
+          configuration = { ... }: {
+            imports = [ self.internal.homeManagerConfigurations."${name}" ];
+
+            nixpkgs = {
+              config = import ./nix/config.nix;
+              overlays = self.overlays."${system}";
+            };
+          };
           homeDirectory = "/home/david";
           pkgs = pkgsBySystem."${system}";
           username = "david";

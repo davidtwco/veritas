@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.lorri;
 in
 {
-  options.veritas.configs.lorri = mkEnableOption "lorri configuration";
+  options.veritas.configs.lorri.enable = mkEnableOption "lorri configuration";
 
   config = mkIf cfg.enable {
     services.lorri.enable = true;

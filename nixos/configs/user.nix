@@ -1,5 +1,6 @@
 { config, inputs, lib, name, pkgs, ... }:
 
+with pkgs;
 with lib;
 let
   cfg = config.veritas.configs.user;
@@ -10,7 +11,7 @@ in
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
   config = mkIf cfg.enable {
-    home-manager = mkIf (hasAttr name inputs.self.homeManagerConfigurations) {
+    home-manager = mkIf (hasAttr name inputs.self.internal.homeManagerConfigurations) {
       useUserPackages = true;
       useGlobalPkgs = true;
       users.david = inputs.self.internal.homeManagerConfigurations."${name}";
@@ -31,7 +32,7 @@ in
 
     # Enable user units to persist after sessions end.
     system.activationScripts.loginctl-enable-linger-david = lib.stringAfter [ "users" ] ''
-      ${pkgs.systemd}/bin/loginctl enable-linger ${config.users.users.david.name}
+      ${systemd}/bin/loginctl enable-linger ${config.users.users.david.name}
     '';
 
     # Required to use `fish` as a shell on a remote host, else no SSH.
@@ -62,7 +63,7 @@ in
         ];
         # `shell` attribute cannot be removed! If no value is present then there will be no shell
         # configured for the user and SSH will not allow logins!
-        shell = pkgs.fish;
+        shell = fish;
         uid = 1000;
       };
 

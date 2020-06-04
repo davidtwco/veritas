@@ -31,33 +31,25 @@ in
         type = types.str;
       };
     };
-
-    withDevelopmentTools = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Install plugins and add configuration used in development.";
-    };
   };
 
   config = mkIf cfg.enable {
     home = {
       # Make binaries expected by the Neovim configuration available.
-      packages = mkIf cfg.withDevelopmentTools (with pkgs;
-        [
-          gawk
-          nixpkgs-fmt
-          universal-ctags
-          gdb
-          ripgrep
-        ]
-      );
+      packages = with pkgs; [
+        gawk
+        nixpkgs-fmt
+        universal-ctags
+        gdb
+        ripgrep
+      ];
 
       sessionVariables."EDITOR" = "${config.programs.neovim.finalPackage}/bin/nvim";
     };
 
     programs.neovim = {
       enable = true;
-      extraConfig = ''
+      extraConfig = with config.veritas.profiles.common.colourScheme; with cfg.colourScheme; ''
         " Define colour variables.
         let s:black = '#${black}'
         let s:c_black = 0
@@ -173,7 +165,7 @@ in
         # Easy navigation between vim splits and tmux panes.
         vim-tmux-navigator
         # Focus events for tmux.
-        vim-tmux-focux-events
+        vim-tmux-focus-events
         # Fuzzy file search.
         fzfWrapper
         fzf-vim
@@ -195,7 +187,7 @@ in
         # Multi-file search (`Ack`)
         ferret
         # Enhanced `%` functionality.
-        vim-matchit
+        matchit-zip
         # Look for project specific `.lvimrc` files.
         vim-localvimrc
         # Text filtering and alignment.
@@ -227,9 +219,8 @@ in
           name = "vim-hybrid";
           src = pkgs.fetchFromGitHub {
             owner = "w0ng";
-            repo =
-              name
-                rev = "cc58baabeabc7b83768e25b852bf89c34756bf90";
+            repo = name;
+            rev = "cc58baabeabc7b83768e25b852bf89c34756bf90";
             sha256 = "1c3q39121hiw85r9ymiyhz5zsf6bl9pwk4pgj6nh6ckwns4cgcmw";
           };
         })

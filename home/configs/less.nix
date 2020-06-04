@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.less;
 in
 {
-  options.veritas.configs.less.enable = mkEnableOption = "less configuration";
+  options.veritas.configs.less.enable = mkEnableOption "less configuration";
 
   config = mkIf cfg.enable {
     # Allow scrolling left and right with `h` and `l` in `less`.

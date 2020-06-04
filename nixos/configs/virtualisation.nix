@@ -129,6 +129,9 @@ in
       };
     };
 
+    # Enable VirtualBox by default if virtualisation is enabled.
+    veritas.configs.virtualisation.virtualbox.enable = mkDefault true;
+
     # Allow the root user to remap the uid of the `david` user.
     users.users.root.subUidRanges = [{ count = 1; startUid = config.users.users.david.uid; }];
   };

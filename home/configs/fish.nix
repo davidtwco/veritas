@@ -5,7 +5,7 @@ let
   cfg = config.veritas.configs.fish;
 in
 {
-  options.veritas.configs.fish = mkEnableOption "fish configuration";
+  options.veritas.configs.fish.enable = mkEnableOption "fish configuration";
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [

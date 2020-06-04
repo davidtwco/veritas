@@ -26,7 +26,7 @@
     # Required for 2080Ti
     kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
 
-    # Required for Aquantia Wi-Fi card.
+    # Required for Intel Wi-Fi AX200 card.
     kernelModules = [ "iwlwifi" ];
 
     vesa = false;
@@ -49,10 +49,7 @@
     wooting.enable = true;
   };
 
-  networking = {
-    interfaces.enp36s0.useDHCP = true;
-    wireless.enable = true;
-  };
+  networking.interfaces.enp36s0.useDHCP = true;
 
   nix.maxJobs = lib.mkDefault 24;
 
