@@ -75,6 +75,9 @@ in
       printing.enable = true;
     };
 
+    # `nix-daemon` will hit the stack limit when using `nixFlakes`.
+    systemd.services.nix-daemon.serviceConfig."LimitSTACK" = "infinity";
+
     time.timeZone = "Europe/London";
 
     veritas.configs = {

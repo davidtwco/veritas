@@ -20,6 +20,11 @@ in
     # Use regular SSH keys for SSH-serving Nix packages.
     nix.sshServe.keys = config.users.users.david.openssh.authorizedKeys.keys;
 
+    # Nix will hit the stack limit when using `nixFlakes`.
+    security.pam.loginLimits = [
+      { domain = config.users.users.david.name; item = "stack"; type = "-"; value = "unlimited"; }
+    ];
+
     services = {
       # Make `/run/user/X` larger.
       logind.extraConfig = ''
