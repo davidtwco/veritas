@@ -214,6 +214,7 @@ in
       jq.enable = true;
       less.enable = true;
       mail.enable = true;
+      netrc.enable = true;
       neovim.enable = true;
       readline.enable = true;
       ssh.enable = true;

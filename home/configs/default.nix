@@ -26,6 +26,7 @@
     ./less.nix
     ./lorri.nix
     ./mail.nix
+    ./netrc.nix
     ./neovim
     ./picom.nix
     ./polybar.nix
