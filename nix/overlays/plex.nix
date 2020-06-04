@@ -4,11 +4,11 @@ self: super:
 lib.optionalAttrs (system == "x86_64-linux") {
   plexPassRaw = super.plexRaw.overrideAttrs (
     old: rec {
-      version = "1.19.3.2831-181d9145d";
+      version = "1.19.4.2902-69560ce1e";
       name = "${old.pname}-${version}";
       src = super.fetchurl {
         url = "https://downloads.plex.tv/plex-media-server-new/${version}/redhat/plexmediaserver-${version}.x86_64.rpm";
-        sha256 = "0igm3p1b63gl214zsjk9nnw39f9r7mc5gb40dqf31l90pnvfciq7";
+        hash = "sha256-kH+GAXyYHxyp1OBvBw4N1jNis0SQLLkqvGNwXQyXHas=";
       };
     }
   );
