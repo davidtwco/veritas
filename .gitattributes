@@ -1,0 +1,2 @@
+nixos/secrets/** filter=git-crypt diff=git-crypt
+home/secrets/** filter=git-crypt diff=git-crypt

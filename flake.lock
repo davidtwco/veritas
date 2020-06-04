@@ -1,0 +1,51 @@
+{
+  "nodes": {
+    "home-manager": {
+      "info": {
+        "lastModified": 1589826413,
+        "narHash": "sha256-0qaxqdvPhRiaxtRLdhIYS384gP2VtHG2CzlxZzbfhwI="
+      },
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "owner": "rycee",
+        "repo": "home-manager",
+        "rev": "a7a96ab121a3df4386499ebaacf23e726f0c5711",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rycee",
+        "ref": "bqv-flakes",
+        "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "info": {
+        "lastModified": 1591238169,
+        "narHash": "sha256-bujdyZ8+xqYtjP/axVTBhuRLYIRvlvzaR087C5zqH+M="
+      },
+      "locked": {
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "1ae28ebfdb7e7d48f003881967db67c156724912",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs-channels",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "home-manager": "home-manager",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 5
+}
