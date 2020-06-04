@@ -42,6 +42,8 @@ in
       enable = true;
       volumeStep = "5%";
     };
+
+    veritas.configs.virtualisation.virtualbox.headless = false;
   };
 }
 
