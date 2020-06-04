@@ -303,7 +303,15 @@ in
           dir = pkgs.writeScriptBin name ''
             #! ${pkgs.runtimeShell} -e
             # Flush routes currently in the table.
-            ${pkgs.iproute}/bin/ip route flush table ${builtins.toString srv.routeTableId}
+            HAS_TABLE="$(${pkgs.iproute}/bin/ip route show table all | \
+              ${pkgs.gnugrep}/bin/grep "table" | \
+              ${pkgs.gnused}/bin/sed 's/.*\(table.*\)/\1/g' | \
+              ${pkgs.gawk}/bin/awk '{ print $2 }' | \
+              ${pkgs.coreutils}/bin/sort -u | \
+              ${pkgs.gnugrep}/bin/grep -c "${srvName}" || true)"
+            if [[ $HAS_TABLE == "1" ]]; then
+              ${pkgs.iproute}/bin/ip route flush table ${builtins.toString srv.routeTableId}
+            fi
 
             # Add a rule to the routing rules for marked packets. These rules are checked in priority
             # order (lowest first - see `ip rule list`) and if no routes within match, then the next
