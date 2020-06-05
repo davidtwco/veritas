@@ -209,6 +209,11 @@
 
       # Create the overlays for each system.
       developmentShells = genAttrs systems mkShells;
+
+      # Import the modules exported by this flake.
+      nixosModules = {
+        perUserVpn = import ./nixos/modules/per-user-vpn.nix;
+      };
     };
 }
 
