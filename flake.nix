@@ -27,6 +27,7 @@
       # Define the systems that are supported by this flake (e.g. used by some NixOS
       # configurations).
       systems = [ "x86_64-linux" "aarch64-linux" ];
+      forEachSystem = genAttrs systems;
 
       # Import nixpkgs for a given system with this repository's config and overlays.
       mkNixpkgs = system:
@@ -37,7 +38,7 @@
         };
 
       # Import nixpkgs for each supported system.
-      pkgsBySystem = genAttrs systems mkNixpkgs;
+      pkgsBySystem = forEachSystem mkNixpkgs;
 
       # Define a NixOS configuration with a name and config path (for a specific system).
       mkNixOsConfiguration = name: { system, config }:
@@ -202,13 +203,13 @@
       homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration { };
 
       # Create the package set for each system.
-      packages = genAttrs systems mkPackages;
+      packages = forEachSystem mkPackages;
 
       # Create the overlays for each system.
-      overlays = genAttrs systems mkOverlays;
+      overlays = forEachSystem mkOverlays;
 
       # Create the overlays for each system.
-      developmentShells = genAttrs systems mkShells;
+      developmentShells = forEachSystem mkShells;
 
       # Import the modules exported by this flake.
       nixosModules = {
