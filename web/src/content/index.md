@@ -1,5 +1,5 @@
 ---
-template: base.html
+template: index.html
 title: Hello, world!
 ---
 # Hello!

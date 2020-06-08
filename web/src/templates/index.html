@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+  <link rel="stylesheet" href="/reboot.css">
+  <link rel="stylesheet" href="/site.css">
+{% endblock %}
+{% block body %}
+  <div id="header">
+    {{ header }}
+  </div>
+  <div id="content">
+    {{ content }}
+  </div>
+  <div id="footer">
+    {{ footer }}
+  </div>
+{% endblock %}
