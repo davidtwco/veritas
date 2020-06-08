@@ -1,5 +1,24 @@
 {
   "nodes": {
+    "gitignore-nix": {
+      "flake": false,
+      "info": {
+        "lastModified": 1591602231,
+        "narHash": "sha256-WzXd1PHI8DMq7VRDxUk7722F2wnLkQ2z01+Md2cUf6w="
+      },
+      "locked": {
+        "owner": "hercules-ci",
+        "repo": "gitignore.nix",
+        "rev": "3f94c456e32e9f735241dd481f687acbfd4fa261",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "ref": "master",
+        "repo": "gitignore.nix",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "info": {
         "lastModified": 1589826413,
@@ -39,10 +58,31 @@
         "type": "github"
       }
     },
+    "nixpkgs-mozilla": {
+      "flake": false,
+      "info": {
+        "lastModified": 1582134900,
+        "narHash": "sha256-Qw75AH10FsjcFMNKEFQ+VRNXQvvQx8CWmnMBxNH62yE="
+      },
+      "locked": {
+        "owner": "mozilla",
+        "repo": "nixpkgs-mozilla",
+        "rev": "e912ed483e980dfb4666ae0ed17845c4220e5e7c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "mozilla",
+        "ref": "master",
+        "repo": "nixpkgs-mozilla",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
+        "gitignore-nix": "gitignore-nix",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-mozilla": "nixpkgs-mozilla"
       }
     }
   },

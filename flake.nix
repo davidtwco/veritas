@@ -19,6 +19,22 @@
       ref = "bqv-flakes";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixpkgs-mozilla = {
+      type = "github";
+      owner = "mozilla";
+      repo = "nixpkgs-mozilla";
+      ref = "master";
+      flake = false;
+    };
+
+    gitignore-nix = {
+      type = "github";
+      owner = "hercules-ci";
+      repo = "gitignore.nix";
+      ref = "master";
+      flake = false;
+    };
   };
 
   outputs = { self, ... } @ inputs:
@@ -148,6 +164,7 @@
             pkgs = pkgsBySystem."${system}";
           in
           {
+            generic-nightly-rust = import ./nix/shells/generic-nightly-rust.nix { inherit pkgs; };
             llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
             rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
           }
@@ -167,6 +184,16 @@
         # Overlays consumed by the home-manager/NixOS configuration.
         overlays = forEachSystem (system: [
           (self.overlay."${system}")
+          (import inputs.nixpkgs-mozilla)
+          (
+            _: _:
+              let
+                gitignore-nix = import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; };
+              in
+              {
+                inherit (gitignore-nix) gitignoreSource;
+              }
+          )
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
@@ -210,6 +237,7 @@
         {
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
           workman = pkgs.callPackage ./nix/packages/workman.nix { };
+          tera-template = pkgs.callPackage ./nix/packages/tera-template { };
         } // optionalAttrs (system == "x86_64-linux") {
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
         }
