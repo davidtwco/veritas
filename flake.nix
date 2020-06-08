@@ -24,23 +24,15 @@
   outputs = { self, ... } @ inputs:
     with inputs.nixpkgs.lib;
     let
-      # Define the systems that are supported by this flake (e.g. used by some NixOS
-      # configurations).
-      systems = [ "x86_64-linux" "aarch64-linux" ];
-      forEachSystem = genAttrs systems;
-
-      # Import nixpkgs for a given system with this repository's config and overlays.
-      mkNixpkgs = system:
+      forEachSystem = genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      pkgsBySystem = forEachSystem (system:
         import inputs.nixpkgs {
           inherit system;
           config = import ./nix/config.nix;
           overlays = self.internal.overlays."${system}";
-        };
+        }
+      );
 
-      # Import nixpkgs for each supported system.
-      pkgsBySystem = forEachSystem mkNixpkgs;
-
-      # Define a NixOS configuration with a name and config path (for a specific system).
       mkNixOsConfiguration = name: { system, config }:
         nameValuePair name (nixosSystem {
           inherit system;
@@ -83,8 +75,6 @@
           specialArgs = { inherit name inputs; };
         });
 
-      # Define the home-manager configuration for a host (for use as both input to the NixOS
-      # home-manager module; and to the `homeManagerConfiguration` function).
       mkHomeManagerConfiguration = name: { system, config }:
         nameValuePair name ({ ... }: {
           imports = [
@@ -130,7 +120,6 @@
           };
         });
 
-      # Define a home-manager configuration for a host.
       mkHomeManagerHostConfiguration = name: { system }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
           inherit system;
@@ -146,34 +135,27 @@
           pkgs = pkgsBySystem."${system}";
           username = "david";
         });
-
-      # Define the packages exposed by this flake for a system.
-      mkPackages = system:
-        let
-          pkgs = pkgsBySystem."${system}";
-        in
-        {
-          rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
-          workman = pkgs.callPackage ./nix/packages/workman.nix { };
-        }
-        // (
-          optionalAttrs (system == "x86_64-linux") {
-            intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
-          }
-        );
     in
     {
-      # Create the NixOS configurations for each host.
-      nixosConfigurations = mapAttrs' mkNixOsConfiguration {
-        dtw-campaglia = { system = "x86_64-linux"; config = ./nixos/hosts/campaglia.nix; };
-
-        dtw-jar-keurog = { system = "x86_64-linux"; config = ./nixos/hosts/jar-keurog.nix; };
-
-        dtw-volkov = { system = "x86_64-linux"; config = ./nixos/hosts/volkov.nix; };
-      };
-
-      # Create the home-manager configurations for each host.
+      # `internal` isn't a known output attribute for flakes. It is used here to contain
+      # anything that isn't meant to be re-usable.
       internal = {
+        # Expose the development shells defined in the repository, run these with:
+        #
+        #   nix dev-shell 'self#devShells.x86_64-linux.rustc'
+        devShells = forEachSystem (system:
+          let
+            pkgs = pkgsBySystem."${system}";
+          in
+          {
+            llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
+            rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
+          }
+        );
+
+        # Attribute set of hostnames to home-manager modules with the entire configuration for
+        # that host - consumed by the home-manager NixOS module for that host (if it exists)
+        # or by `mkHomeManagerHostConfiguration` for home-manager-only hosts.
         homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
           dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
@@ -191,24 +173,15 @@
         ]);
       };
 
-      # Create the evaluated home-manager configurations for each home-manager-only host.
-      homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration { };
+      # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
+      # on those hosts.
+      nixosConfigurations = mapAttrs' mkNixOsConfiguration {
+        dtw-campaglia = { system = "x86_64-linux"; config = ./nixos/hosts/campaglia.nix; };
 
-      # Create the package set for each system.
-      packages = forEachSystem mkPackages;
+        dtw-jar-keurog = { system = "x86_64-linux"; config = ./nixos/hosts/jar-keurog.nix; };
 
-      # Expose the development shells defined in the repository, run these with:
-      #
-      #   nix dev-shell 'self#devShells.x86_64-linux.rustc'
-      devShells = forEachSystem (system:
-        let
-          pkgs = pkgsBySystem."${system}";
-        in
-        {
-          llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
-          rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
-        }
-      );
+        dtw-volkov = { system = "x86_64-linux"; config = ./nixos/hosts/volkov.nix; };
+      };
 
       # Import the modules exported by this flake. Explicitly don't expose profiles in
       # `nixos/configs` and `nixos/profiles` - these are only used for internal organization
@@ -219,11 +192,28 @@
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
       };
 
-      # Expose an overlay which provides the packages defined by this repository - overlays
-      # are used more widely in this repository, but often for modifying upstream packages
+      # Expose an overlay which provides the packages defined by this repository.
+      #
+      # Overlays are used more widely in this repository, but often for modifying upstream packages
       # or making third-party packages easier to access - it doesn't make sense to share those,
       # so they in the flake output `internal.overlays`.
+      #
+      # These are meant to be consumed by other projects that might import this flake.
       overlay = forEachSystem (system: _: _: self.packages."${system}");
+
+      # Expose the packages defined in this flake, built for any supported systems. These are
+      # meant to be consumed by other projects that might import this flake.
+      packages = forEachSystem (system:
+        let
+          pkgs = pkgsBySystem."${system}";
+        in
+        {
+          rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
+          workman = pkgs.callPackage ./nix/packages/workman.nix { };
+        } // optionalAttrs (system == "x86_64-linux") {
+          intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
+        }
+      );
     };
 }
 
