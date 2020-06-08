@@ -7,7 +7,7 @@ in
 rec {
   # Apply a template (determined by the `template` attribute in `path`'s frontmatter) to the
   # content of `path`, rendered as HTML.
-  mkHtmlPageWithContext = extraContext: templatesPath: path:
+  mkHtmlPageWithContext = templatesPath: path: extraContext:
     let
       content = convertHtml' path;
       frontmatter = extractFrontmatter path;
@@ -16,7 +16,7 @@ rec {
     renderTemplate templatesPath context path;
 
   # Render content as HTML page without extra context.
-  mkHtmlPage = mkHtmlPageWithContext { };
+  mkHtmlPage = templatesPath: path: mkHtmlPageWithContext templatesPath path { };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
