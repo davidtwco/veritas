@@ -1,6 +1,6 @@
 { pkgs, lib, site }:
 let
-  inherit (site.conversion) convertHtml;
+  inherit (site.conversion) convertHtml';
   inherit (site.frontmatter) extractFrontmatter;
   inherit (site.template) renderTemplate;
 in
@@ -9,7 +9,7 @@ rec {
   # content of `path`, rendered as HTML.
   mkHtmlPageWithContext = extraContext: templatesPath: path:
     let
-      content = builtins.readFile (convertHtml path);
+      content = convertHtml' path;
       frontmatter = extractFrontmatter path;
       context = { inherit content; } // frontmatter // extraContext;
     in

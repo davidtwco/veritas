@@ -9,16 +9,17 @@ let
       conversion = callSite ./conversion.nix { };
       derivation = callSite ./derivation.nix { inherit system; };
       frontmatter = callSite ./frontmatter.nix { };
+      helpers = callSite ./helpers.nix { };
       page = callSite ./page.nix { };
       site = callSite ./site.nix { };
       template = callSite ./template.nix { };
     });
 in
 {
-  inherit (site) conversion derivation frontmatter page site template;
+  inherit (site) conversion derivation frontmatter helpers page site template;
 
   # Re-exports for convenience.
-  inherit (site.conversion) convertType convertHtml;
+  inherit (site.conversion) convertType convertType' convertHtml convertHtml';
   inherit (site.derivation) mkDerivation;
   inherit (site.frontmatter) extractFrontmatter;
   inherit (site.page) mkHtmlPage mkHtmlPageWithContext;
