@@ -19,7 +19,7 @@ in
   inherit (site) conversion derivation frontmatter helpers page site template;
 
   # Re-exports for convenience.
-  inherit (site.conversion) convertType convertType' convertHtml convertHtml';
+  inherit (site.conversion) convert convert' convertHtml convertHtml';
   inherit (site.derivation) mkDerivation;
   inherit (site.frontmatter) extractFrontmatter;
   inherit (site.page) mkHtmlPage mkHtmlPageWithContext;

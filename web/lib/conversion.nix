@@ -5,7 +5,7 @@ let
 in
 rec {
   # Convert content at `path` to `type` using pandoc and return path to converted file.
-  convertType = type: path:
+  convert = type: path:
     let
       name = builtins.baseNameOf (toString path);
       drv = mkDerivation {
@@ -16,10 +16,13 @@ rec {
     in
     "${drv}";
 
-  convertType' = compose builtins.readFile convertType;
+  # Convert content and return converted output.
+  convert' = compose builtins.readFile convert;
 
-  convertHtml = convertType "html";
+  # Convert content to HTML and return path to converted file.
+  convertHtml = convert "html";
 
+  # Convert content to HTML and return converted output.
   convertHtml' = compose builtins.readFile convertHtml;
 }
 
