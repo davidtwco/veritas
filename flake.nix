@@ -1,7 +1,8 @@
 {
   description = ''
-    Veritas is the declarative configuration of David Wood's servers, desktops and laptops, as
-    well as a collection of packages.
+    Veritas is the personal mono-repo of David Wood; containing the declarative configuration of
+    servers, desktops and laptops - including dotfiles; a collection of packages; a static site
+    generator and source of "davidtw.co".
   '';
 
   inputs = {
@@ -198,6 +199,22 @@
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
         ]);
+
+        # Expose the static site generator as a re-usable library of sorts - it definitely isn't
+        # a recognized output by Nix and there's no stability guarantees.
+        staticSiteGenerator = forEachSystem (system:
+          import ./web/lib { inherit system; pkgs = pkgsBySystem."${system}"; }
+        );
+
+        # Expose any websites built by the static site generator as outputs too.
+        staticSites = forEachSystem (system:
+          let
+            site = self.internal.staticSiteGenerator."${system}";
+          in
+          {
+            "davidtw.co" = import ./web/src { inherit site; };
+          }
+        );
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
