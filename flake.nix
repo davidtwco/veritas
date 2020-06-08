@@ -162,11 +162,6 @@
           }
         );
 
-      # Define the overlays exposed by this flake for a system.
-      mkOverlays = system:
-        [ (_: _: self.packages."${system}") ]
-        ++ (import ./nix/overlays { inherit system; lib = inputs.nixpkgs.lib; });
-
       # Define the shells exposed by this flake for a system.
       mkShells = system:
         let
@@ -206,7 +201,12 @@
       packages = forEachSystem mkPackages;
 
       # Create the overlays for each system.
-      overlays = forEachSystem mkOverlays;
+      overlays = forEachSystem (system: [
+        (_: _: self.packages."${system}")
+        (import ./nix/overlays/vaapi.nix)
+      ] ++ optionals (system == "x86_64-linux") [
+        (import ./nix/overlays/plex.nix)
+      ]);
 
       # Create the overlays for each system.
       developmentShells = forEachSystem mkShells;

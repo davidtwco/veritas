@@ -1,7 +1,6 @@
-{ lib, system }:
 self: super:
 
-lib.optionalAttrs (system == "x86_64-linux") {
+{
   plexPassRaw = super.plexRaw.overrideAttrs (
     old: rec {
       version = "1.19.4.2902-69560ce1e";
