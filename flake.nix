@@ -34,7 +34,7 @@
         import inputs.nixpkgs {
           inherit system;
           config = import ./nix/config.nix;
-          overlays = self.overlays."${system}";
+          overlays = self.internal.overlays."${system}";
         };
 
       # Import nixpkgs for each supported system.
@@ -139,7 +139,7 @@
 
             nixpkgs = {
               config = import ./nix/config.nix;
-              overlays = self.overlays."${system}";
+              overlays = self.internal.overlays."${system}";
             };
           };
           homeDirectory = "/home/david";
@@ -173,12 +173,22 @@
       };
 
       # Create the home-manager configurations for each host.
-      internal.homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
-        dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
+      internal = {
+        homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
+          dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
-        dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
+          dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
 
-        dtw-volkov = { system = "x86_64-linux"; config = ./home/hosts/volkov.nix; };
+          dtw-volkov = { system = "x86_64-linux"; config = ./home/hosts/volkov.nix; };
+        };
+
+        # Overlays consumed by the home-manager/NixOS configuration.
+        overlays = forEachSystem (system: [
+          (self.overlay."${system}")
+          (import ./nix/overlays/vaapi.nix)
+        ] ++ optionals (system == "x86_64-linux") [
+          (import ./nix/overlays/plex.nix)
+        ]);
       };
 
       # Create the evaluated home-manager configurations for each home-manager-only host.
@@ -186,14 +196,6 @@
 
       # Create the package set for each system.
       packages = forEachSystem mkPackages;
-
-      # Create the overlays for each system.
-      overlays = forEachSystem (system: [
-        (_: _: self.packages."${system}")
-        (import ./nix/overlays/vaapi.nix)
-      ] ++ optionals (system == "x86_64-linux") [
-        (import ./nix/overlays/plex.nix)
-      ]);
 
       # Expose the development shells defined in the repository, run these with:
       #
@@ -208,10 +210,20 @@
         }
       );
 
-      # Import the modules exported by this flake.
+      # Import the modules exported by this flake. Explicitly don't expose profiles in
+      # `nixos/configs` and `nixos/profiles` - these are only used for internal organization
+      # of my configurations.
+      #
+      # These are only used by other projects that might import this flake.
       nixosModules = {
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
       };
+
+      # Expose an overlay which provides the packages defined by this repository - overlays
+      # are used more widely in this repository, but often for modifying upstream packages
+      # or making third-party packages easier to access - it doesn't make sense to share those,
+      # so they in the flake output `internal.overlays`.
+      overlay = forEachSystem (system: _: _: self.packages."${system}");
     };
 }
 
