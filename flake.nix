@@ -161,19 +161,6 @@
             intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
           }
         );
-
-      # Define the shells exposed by this flake for a system.
-      mkShells = system:
-        let
-          pkgs = pkgsBySystem."${system}";
-        in
-        {
-          llvm-clang = import ./nix/shells/llvm-clang/shell.nix { inherit pkgs; };
-          llvm-clang-dev =
-            import ./nix/shells/llvm-clang/shell-with-development-environment.nix { inherit pkgs; };
-
-          rust = import ./nix/shells/rust/shell.nix { inherit pkgs; };
-        };
     in
     {
       # Create the NixOS configurations for each host.
@@ -208,8 +195,18 @@
         (import ./nix/overlays/plex.nix)
       ]);
 
-      # Create the overlays for each system.
-      developmentShells = forEachSystem mkShells;
+      # Expose the development shells defined in the repository, run these with:
+      #
+      #   nix dev-shell 'self#devShells.x86_64-linux.rustc'
+      devShells = forEachSystem (system:
+        let
+          pkgs = pkgsBySystem."${system}";
+        in
+        {
+          llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
+          rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
+        }
+      );
 
       # Import the modules exported by this flake.
       nixosModules = {

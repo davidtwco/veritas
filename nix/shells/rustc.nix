@@ -1,7 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 
-# This file contains a development shell for working on rustc. To use, symlink it into the
-# directory where Rust is being worked on.
+# This file contains a development shell for working on rustc.
 let
   # Build configuration for rust-lang/rust. Based on `config.toml.example` from
   # `1bd30ce2aac40c7698aa4a1b9520aa649ff2d1c5`.
@@ -182,7 +181,7 @@ let
   '';
 in
 pkgs.mkShell rec {
-  name = "rust";
+  name = "rustc";
   buildInputs = with pkgs; [
     git
     pythonFull
@@ -211,7 +210,7 @@ pkgs.mkShell rec {
     rustup
   ];
 
-  # Environment variable for local use.
+  # Environment variables for local use.
   RUSTC_CONFIG = config;
   RGIGNORE = rgignore;
   LVIMRC = lvimrc;
