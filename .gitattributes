@@ -1,3 +1,4 @@
 .gitattributes !filter !diff
 nixos/secrets/** filter=git-crypt diff=git-crypt
 home/secrets/** filter=git-crypt diff=git-crypt
+web/src/fonts/rotunda-* filter=git-crypt diff=git-crypt

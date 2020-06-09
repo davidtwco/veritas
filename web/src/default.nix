@@ -11,8 +11,8 @@ site.mkSite {
       footer = site.convertHtml' ./content/footer.md;
     };
 
-    "/reboot.css" = ./static/reboot.css;
-    "/site.css" = ./static/site.css;
+    "/css" = ./css;
+    "/fonts" = ./fonts;
   };
 }
 

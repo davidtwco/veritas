@@ -1,23 +1,26 @@
 body {
   margin-top: 4em;
 
+  font-family: "Rotunda", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
   grid-template-rows: 3fr;
 }
 
-#header {
+#header, #footer, #content {
   grid-column: 2 / span 10;
+}
+
+#header {
   grid-row: 1;
 }
 
 #content {
-  grid-column: 2 / span 10;
   grid-row: 2;
 }
 
 #footer {
-  grid-column: 2 / span 10;
   grid-row: 3;
 }
 
@@ -26,9 +29,8 @@ body {
     grid-template-rows: 2fr;
   }
 
-  #header {
+  #header, #footer {
     grid-column: 9 / 13;
-    grid-row: 1;
   }
 
   #content {
@@ -37,21 +39,20 @@ body {
   }
 
   #footer {
-    grid-column: 9 / 13;
-    grid-row: 2;
+    grid-row: 3;
   }
 }
 
 @media(min-width: 1200px) {
-  #header {
+  #header, #footer {
     grid-column: 8 / 10;
   }
 
   #content {
     grid-column: 4 / 8;
   }
-
-  #footer {
-    grid-column: 8 / 10;
-  }
 }
+
+/*
+ * vim:foldmethod=marker:foldlevel=0:et:ts=2:sts=2:sw=2:nowrap
+ */

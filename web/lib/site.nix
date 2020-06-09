@@ -5,7 +5,7 @@ let
 
   copyRoute = outputPath: inputPath: ''
     mkdir -p "$(dirname ${outputPath})"
-    cp ${inputPath} $out/${outputPath}
+    cp -r ${inputPath} $out/${outputPath}
   '';
 in
 {
