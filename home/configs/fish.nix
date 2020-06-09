@@ -3,6 +3,12 @@
 with lib;
 let
   cfg = config.veritas.configs.fish;
+
+  lscolors = pkgs.fetchgit {
+    url = "https://github.com/trapd00r/LS_COLORS.git";
+    rev = "034aee597117492778c9223b7e2188ed6a5bef54";
+    sha256 = "sha256-fq9nDGHSz/xjHYtioQzt2O/oxn55kWV+PgRFa6fzlXM=";
+  };
 in
 {
   options.veritas.configs.fish.enable = mkEnableOption "fish configuration";
@@ -42,6 +48,7 @@ in
         # Set environment variables.
         set -x COLORTERM truecolor
         set -x TERM xterm-256color
+        eval (${pkgs.coreutils}/bin/dircolors -c ${lscolors}/LS_COLORS)
 
         # Use vi keybinds.
         fish_vi_key_bindings
