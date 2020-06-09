@@ -168,6 +168,7 @@
             generic-nightly-rust = import ./nix/shells/generic-nightly-rust.nix { inherit pkgs; };
             llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
             rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
+            zulip = import ./nix/shells/zulip.nix { inherit pkgs; };
           }
         );
 
