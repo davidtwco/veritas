@@ -53,6 +53,28 @@ in
         # Use vi keybinds.
         fish_vi_key_bindings
 
+        # Accept autosuggestions with CTRL+SPACE
+        bind -k nul accept-autosuggestion
+        bind -M insert -k nul accept-autosuggestion
+
+        # Make sure HOME + END works as expected everywhere
+        bind \e\[1~ beginning-of-line
+        bind -M insert \e\[1~ beginning-of-line
+        bind \e\[4~ end-of-line
+        bind -M insert \e\[4~ end-of-line
+        bind \e\[7~ beginning-of-line
+        bind -M insert \e\[7~ beginning-of-line
+        bind \e\[8~ end-of-line
+        bind -M insert \e\[8~ end-of-line
+        bind \eOH beginning-of-line
+        bind -M insert \eOH beginning-of-line
+        bind \eOF end-of-line
+        bind -M insert \eOF end-of-line
+        bind \e\[H beginning-of-line
+        bind -M insert \e\[H beginning-of-line
+        bind \e\[F end-of-line
+        bind -M insert \e\[F end-of-line
+
         # Use hybrid colour scheme.
         set fish_color_autosuggestion ${white}
         set fish_color_command ${brightYellow}

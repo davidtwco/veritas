@@ -11,23 +11,25 @@ in
     programs.readline = {
       bindings = {
         # Fix bindings for beginning of line and end of line on some machines
-        "OH" = "beginning-of-line";
-        "[1~" = "beginning-of-line";
-        "[2~" = "beginning-of-line";
-        "OF" = "end-of-line";
-        "[3~" = "end-of-line";
-        "[4~" = "end-of-line";
+        "\\e[1~" = "beginning-of-line";
+        "\\e[4~" = "end-of-line";
+        "\\e[7~" = "beginning-of-line";
+        "\\e[8~" = "end-of-line";
+        "\\eOH" = "beginning-of-line";
+        "\\eOF" = "end-of-line";
+        "\\e[H" = "beginning-of-line";
+        "\\e[F" = "end-of-line";
 
         # Disable clearing the screen with CTRL+L.
-        "\C-l" = "nop";
+        "\\C-l" = "nop";
 
         # Use the text that has already been typed as the prefix for searching through
         # commands (basically more intelligent Up/Down behavior)
-        "\e[A" = "history-search-backward";
-        "\e[B" = "history-search-forward";
+        "\\e[A" = "history-search-backward";
+        "\\e[B" = "history-search-forward";
 
         # Use Alt/Meta + Delete to delete the preceding word
-        "\e[3;3~" = "kill-word";
+        "\\e[3;3~" = "kill-word";
       };
       enable = true;
       extraConfig = ''
