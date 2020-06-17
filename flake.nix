@@ -168,6 +168,7 @@
             generic-nightly-rust = import ./nix/shells/generic-nightly-rust.nix { inherit pkgs; };
             llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
             rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
+            rustc-perf = import ./nix/shells/rustc-perf.nix { inherit pkgs; };
             zulip = import ./nix/shells/zulip.nix { inherit pkgs; };
           }
         );
@@ -254,8 +255,10 @@
         in
         {
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
-          workman = pkgs.callPackage ./nix/packages/workman.nix { };
+          rustup-toolchain-install-master =
+            pkgs.callPackage ./nix/packages/rustup-toolchain-install-master.nix { };
           tera-template = pkgs.callPackage ./nix/packages/tera-template { };
+          workman = pkgs.callPackage ./nix/packages/workman.nix { };
         } // optionalAttrs (system == "x86_64-linux") {
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
         }

@@ -16,7 +16,7 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256:ZNiTzBbJIWd6oiffzVMN/RGMU0lRTh5+DOPEWF7dk6Y=";
 
   meta = with stdenv.lib; {
-    description = "A minimal, blazing fast, and extremely customizable prompt for any shell";
+    description = "Demangle Rust symbols";
     homepage = "https://github.com/luser/rustfilt";
     license = licenses.asl20;
     maintainers = with maintainers; [ davidtwco ];
