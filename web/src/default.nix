@@ -1,5 +1,30 @@
-{ site }:
-
+{ pkgs, site }:
+let
+  browserConfigData = pkgs.writeText "site-browserconfig.xml" ''
+    <browserconfig>
+      <msapplication>
+        <tile>
+          <square70x70logo src="favicons/mstile-70x70.png"/>
+          <square150x150logo src="favicons/mstile-150x150.png"/>
+          <wide310x150logo src="favicons/mstile-310x150.png"/>
+          <square310x310logo src="favicons/mstile-310x310.png"/>
+          <TileColor>#141414</TileColor>
+        </tile>
+      </msapplication>
+    </browserconfig>
+  '';
+  manifestData = {
+    "name" = "David Wood";
+    "short_name" = "David Wood";
+    "description" = "Personal website of David Wood";
+    "dir" = "auto";
+    "lang" = "en-GB";
+    "display" = "standalone";
+    "orientation" = "portrait";
+    "start_url" = "/";
+    "background_color" = "#141414";
+  };
+in
 site.mkSite {
   name = "davidtw.co";
   routes = {
@@ -14,6 +39,7 @@ site.mkSite {
     "/css" = ./css;
     "/fonts" = ./fonts;
     "/images" = ./images;
+    "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
   };
 }
 

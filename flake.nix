@@ -211,10 +211,11 @@
         # Expose any websites built by the static site generator as outputs too.
         staticSites = forEachSystem (system:
           let
+            pkgs = pkgsBySystem."${system}";
             site = self.internal.staticSiteGenerator."${system}";
           in
           {
-            "davidtw.co" = import ./web/src { inherit site; };
+            "davidtw.co" = import ./web/src { inherit pkgs site; };
           }
         );
       };
