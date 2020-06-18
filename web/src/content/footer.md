@@ -1,3 +1,8 @@
+<div id="intro">
+## David Wood
+Systems and infrastructure software engineer
+</div>
+
 #### email
 [`hello@davidtw.co`](mailto:hello@davidtw.co)
 
