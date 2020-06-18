@@ -1,5 +1,6 @@
 body {
-  margin-top: 4em;
+  margin-top: 2em;
+  margin-bottom: 1em;
 
   color: #2f2f2f;
 
@@ -20,7 +21,7 @@ body {
 
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
-  grid-template-rows: auto 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
 }
 
 code {
@@ -72,11 +73,12 @@ h1, h2, h3, h4, h5, h6 {
 
 @media(min-width: 800px) {
   body {
+    margin-top: 4em;
     grid-template-rows: auto 1fr;
   }
 
   #header, #footer {
-    grid-column: 9 / 13;
+    grid-column: 9 / 12;
   }
 
   #content {
@@ -90,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media(min-width: 1500px) {
+@media(min-width: 1200px) {
   #header, #footer {
     grid-column: 8 / 10;
   }
