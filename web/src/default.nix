@@ -37,9 +37,10 @@ site.mkSite {
     };
 
     "/css" = ./css;
+    "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
     "/fonts" = ./fonts;
     "/images" = ./images;
-    "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
+    "/media" = ./media;
   };
 }
 
