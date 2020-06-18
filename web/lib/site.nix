@@ -4,7 +4,7 @@ let
   inherit (site.derivation) mkDerivation;
 
   copyRoute = outputPath: inputPath: ''
-    mkdir -p "$(dirname ${outputPath})"
+    mkdir -p $out/"$(dirname ${outputPath})"
     cp -r ${inputPath} $out/${outputPath}
   '';
 in

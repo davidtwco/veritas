@@ -36,6 +36,10 @@ site.mkSite {
       footer = site.convertHtml' ./content/footer.md;
     };
 
+    # Random email address generator - useful for generating unique email addresses on mobile
+    # devices.
+    "/email-generator/index.html" = site.mkHtmlPage ./templates ./content/email-generator.md;
+
     "/css" = ./css;
     "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
     "/fonts" = ./fonts;
