@@ -264,6 +264,8 @@
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
         }
       );
+
+      defaultPackage.x86_64-linux = self.internal.staticSites.x86_64-linux."davidtw.co";
     };
 }
 
