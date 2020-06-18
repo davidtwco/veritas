@@ -10,7 +10,7 @@ in
       name = builtins.baseNameOf (toString path);
       tmpl = pkgs.writeText "site-frontmatter.pandoc-tpl" "$meta-json$";
       drv = mkDerivation {
-        name = "site-frontmatter-${name}.json";
+        name = "frontmatter-${name}.json";
         inputs = with pkgs; [ pandoc ];
         command = ''
           # Must specify `-t html` even though template will mean that all output is in JSON. If

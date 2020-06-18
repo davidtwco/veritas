@@ -9,7 +9,7 @@ rec {
     let
       name = builtins.baseNameOf (toString path);
       drv = mkDerivation {
-        name = "site-pandoc-${name}.${type}";
+        name = "pandoc-${name}.${type}";
         inputs = with pkgs; [ pandoc ];
         command = "pandoc -t ${type} ${path} -o $out";
       };

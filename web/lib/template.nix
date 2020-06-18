@@ -9,7 +9,7 @@ in
       name = builtins.baseNameOf (toString path);
       ctx = builtins.toFile "site-context-${name}" (builtins.toJSON context);
       drv = mkDerivation {
-        name = "site-render-${name}";
+        name = "render-${name}";
         inputs = [ pkgs.tera-template ];
         command =
           "tera-template -c ${ctx} -p ${templatesPath} -t ${context.template} > $out";
