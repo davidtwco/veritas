@@ -19,7 +19,7 @@ I've also contributed to other open source projects, such as NixOS - a reproduci
 distribution - and Zulip - a real-time chat application with threading. You can find [an exhaustive
 list of my open source contributions on GitHub][prs].
 
-## Veritas
+## Personal Infrastructure
 Reproducibility is one of my core values, evidenced by my investment in reproducible personal
 infrastructure - [`veritas`][veritas] is my personal mono-repo which contains the declarative
 configuration for all of my desktops, servers and laptops - including dotfiles, packages and
