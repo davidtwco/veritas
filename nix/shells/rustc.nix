@@ -180,7 +180,7 @@ let
     src/tools/rls/rls-analysis/test_data/
   '';
 in
-pkgs.mkShell rec {
+pkgs.clangMultiStdenv.mkDerivation rec {
   name = "rustc";
   buildInputs = with pkgs; [
     git
@@ -188,7 +188,6 @@ pkgs.mkShell rec {
     gnumake
     cmake
     curl
-    clang
 
     pkg-config
     libxml2
@@ -218,8 +217,8 @@ pkgs.mkShell rec {
   # Always show backtraces.
   RUST_BACKTRACE = 1;
 
-  # Disable compiler hardening for formatting - required for LLVM.
-  hardeningDisable = [ "format" ];
+  # Disable compiler hardening - required for LLVM.
+  hardeningDisable = [ "all" ];
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
