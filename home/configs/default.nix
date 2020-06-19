@@ -5,6 +5,7 @@
     ./alacritty.nix
     ./autorandr.nix
     ./bash.nix
+    ./cargo.nix
     ./ccache.nix
     ./command-not-found.nix
     ./direnv.nix
