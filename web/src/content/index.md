@@ -29,7 +29,8 @@ this website!
 I work within the infrastructure team at [Codeplay Software][codeplay], where I'm
 responsible for the continuous integration infrastructure and lead the effort to make the core
 infrastructure reproducible. In addition, I've been a compiler engineer on engineering projects at
-Codeplay where I've worked with LLVM, Clang, SPIR-V and NVPTX.
+Codeplay where I've worked with LLVM, Clang, SPIR-V and NVPTX. You can download [my curriculum
+vitae here](/curriculum_vitae.pdf).
 
 ## Contact
 If you'd like to chat, send me a message [on Keybase][keybase] or shoot me an email at

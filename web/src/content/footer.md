@@ -3,6 +3,9 @@
 Systems and infrastructure software engineer
 </div>
 
+#### curriculum vitae
+[`curriculum_vitae.pdf`](/curriculum_vitae.pdf)
+
 #### email
 [`hello@davidtw.co`](mailto:hello@davidtw.co)
 

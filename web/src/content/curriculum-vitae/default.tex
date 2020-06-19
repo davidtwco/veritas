@@ -1,0 +1,258 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{fontspec}
+\usepackage{fullpage}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{textcomp}
+\usepackage{xcolor}
+
+\hypersetup{%
+  colorlinks=false,
+  linkbordercolor={0 0 0},
+  pdfborder={0 0 0},
+  pdftitle={David Wood's Curriculum Vitae},
+  pdfauthor={David Wood},
+  pdfsubject={},
+  pdfkeywords={}
+}
+
+\setmainfont{austeratext}[
+  Extension=.otf,
+  Path=fonts/,
+  UprightFont=*-regular,
+  ItalicFont=*-regular-italic,
+  BoldFont=*-bold,
+  BoldItalicFont=*-bold-italic,
+]
+
+\textheight=10in
+\pagestyle{fancy}
+\raggedright
+
+\def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
+
+\newcommand{\area} [2] {
+  \vspace*{-9pt}
+  \begin{verse}
+    \textbf{#1}   #2
+  \end{verse}
+}
+
+\newcommand{\lineunder} {
+  \vspace*{-8pt} \\
+  \hspace*{-18pt} \hrulefill \\
+}
+
+\newcommand{\header} [1] {
+  {\hspace*{-18pt}\vspace*{6pt} \textsc{#1}}
+  \vspace*{-6pt} \lineunder
+}
+
+\newcommand{\employer} [3] {
+  { \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }
+}
+
+\newcommand{\contact} [3] {
+  \vspace*{-10pt}
+  \begin{center}
+      {\Huge \scshape {#1}} \\
+      #2 \\ #3
+  \end{center}
+  \vspace*{-8pt}
+}
+
+\newenvironment{achievements}{
+  \begin{list}
+    {$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}
+  \end{list}
+}
+
+\newcommand{\schoolwithcourses} [4] {
+  \textbf{#1} #2 $\bullet$ #3 \\
+  #4 \\
+  \vspace*{5pt}
+}
+
+\newcommand{\school} [4] {
+  \textbf{#1} #2 $\bullet$ #3 \\
+  #4 \\
+}
+
+\begin{document}
+
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancyfoot{}
+\fancyfoot[L]{\scriptsize\scshape\color{gray} Generated \today}
+\fancyfoot[C]{\scriptsize\scshape\color{gray} David Wood's Curriculum Vitae}
+\fancyfoot[R]{\scriptsize\scshape\color{gray} \thepage}
+
+\vspace*{-40pt}
+
+\vspace*{-10pt}
+\begin{center}
+  {\Huge \scshape {David Wood}} \\
+  \vspace{1mm}
+  Software Engineer $\cdot$
+  Edinburgh, Scotland $\cdot$
+  \href{mailto:hello@davidtw.co}{hello@davidtw.co} $\cdot$
+  \href{https://davidtw.co}{davidtw.co} $\cdot$
+  \href{https://github.com/davidtwco}{@davidtwco} \\
+\end{center}
+
+\header{Open Source}
+\vspace{1mm}
+
+\textbf{Rust Programming Language} \\
+\textit{Compiler Team Contributor} \hfill {\color{gray} Oct 2017 - Present} \\
+\vspace{2mm}
+I’m a regular contributor to the rustc, the Rust compiler. Currently, I'm a member of the
+non-lexical lifetimes (NLL), async/await and diagnostics working groups, and a co-lead of the
+polymorphisation and meta working groups. Amongst my most notable contributions, I've implemented
+the non-exhaustive attribute from RFC 2008, and polymorphisation, a code-size and compile-time
+optimisation which reduces unnecessary monomorphisation.
+\vspace{2mm}
+
+\header{Work Experience}
+\vspace{1mm}
+
+\textbf{Codeplay Software Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
+\textit{Software Engineer, Infrastructure Team} \hfill {\color{gray} Sep 2017 - Present} \\
+\vspace{2mm}
+At Codeplay, I'm the primary maintainer of the continuous integration infrastructure and lead
+the effort to rebuild the core infrastructure with NixOps to improve reproducibility. \\
+\vspace{2mm}
+Within this effort, I'm responsible for providing technical leadership on ..., and in addition,
+mentoring colleagues and creating internal resources to teach new technologies, such as Nix, within
+the infrastructure team. For example, a container-based learning environment when enables
+experimentation with NixOS was developed alongside documentation for a guided introduction.
+Furthermore, I maintain a handful of internal tools, both for use within the infrastructure team
+and in engineering teams. \\
+\vspace{2mm}
+In addition, I've been a compiler engineer at Codeplay on customer projects working with LLVM,
+Clang, SPIR-V and NVPTX.
+\vspace{2mm}
+
+\textbf{Scottish Engineering} \hfill {\color{gray} Glasgow, Scotland} \\
+\textit{Software Consultant} \hfill {\color{gray} Sep 2018 - Nov 2018} \\
+\vspace{2mm}
+Following the success of previous work with Polaroid Eyewear and West Dunbartonshire Leisure, I
+was contracted to work on a data analysis tool for Scottish Engineering which enabled summarization
+and filtering of yearly survey results. Working with stakeholders from Scottish Engineering and
+understanding their business requirements was essential before designing an appropriate solution.
+\vspace{2mm}
+
+\textbf{Codeplay Software Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
+\textit{Intern Software Engineer, Infrastructure Team} \hfill {\color{gray} May 2017 - Sep 2017} \\
+\vspace{2mm}
+During a summer, I rebuilt the entirety of Codeplay's continuous integration infrastructure
+in my internship - introducing automated re-provisioning of Ubuntu, CentOS and Windows build nodes
+and improving the configuration management, vastly reducing the turn-around time of changes
+requested by engineering teams and downtime which impacted engineering team productivity. In
+addition, I made various improvements to internal tools relied on by engineering teams.
+\vspace{2mm}
+
+\textbf{West Dunbartonshire Leisure} \hfill {\color{gray} Alexandria, Scotland} \\
+\textit{Software Consultant} \hfill {\color{gray} Apr 2015 - Feb 2017} \\
+\vspace{2mm}
+Following my work with Polaroid Eyewear on their 10K Race Series website, I worked closely with
+West Dunbartonshire Leisure to create a landing page for their 10K race series - a continuation of
+Polaroid Eyewear’s series. After consultation with the team at West Dunbartonshire Leisure to
+understand their requirements, I built a functional, easy-to-use and easy-to-update website which
+requires very little maintenance and launched to great user feedback in February, 2017.
+\vspace{2mm}
+
+\textbf{Polaroid Eyewear} \hfill {\color{gray} Dumbarton, Scotland} \\
+\textit{Intern Software Developer} \hfill {\color{gray} Apr 2015 - Jul 2015} \\
+\vspace{2mm}
+During the summer of 2015, I built and designed a fully-featured web-based Inventory Manager system
+and a suite of desktop applications for tracking the performance of the Warehouse. Both projects
+required independence and coordination with other departments and employees. These well-designed
+applications released on schedule with brilliant feedback from users.
+\vspace{2mm}
+
+\textbf{Polaroid Eyewear} \hfill {\color{gray} Dumbarton, Scotland} \\
+\textit{Software Consultant} \hfill {\color{gray} Jun 2014 - Jun 2016} \\
+\vspace{2mm}
+Polaroid Eyewear contracted me to build a shop floor information system - MIDAS - an ASP.NET
+system which is the backbone of Polaroid Eyewear's lens manufacturing. Working within the structure
+of the IT team, I worked closely with the final users to define new features and enhancements.
+MIDAS went live in September, 2014 to excellent user feedback. \\
+\vspace{2mm}
+Following the success of MIDAS, I worked on creating an updated, modern website for Polaroid
+Eyewear's 10K Race Series - the e-commerce website allowed runners to enter any of the four races
+in the series and be assigned and shipped their race number. After launching the new website to
+great feedback, the series saw an incease in runners, charitable donations and saved money on
+payment processing costs.
+\vspace{2mm}
+
+\header{Education}
+\vspace{1mm}
+
+\textbf{University of Glasgow} \hfill {\color{gray} Glasgow, Scotland} \\
+\textit{MSci Software Engineering with Work Placement, Honours of the First Class} \hfill {\color{gray} Sep 2015 - Jun 2020} \\
+\vspace{2mm}
+I graduated with a GPA of 20.0 and completed my Master's Project on ``Polymorphisation''
+\footnotemark[1], an code-size optimisation in the Rust compiler to reduce unnecessary
+monomorphisation during code generation. \\
+\vspace{2mm}
+In my second year, I led a team which developed a domain-specific continuous integration platform
+in Python for testing coursework of ``Web App Development 2''. Docker containers were dynamically
+provisioned which ran testing on student-provided Git repositories containing their coursework. \\
+\vspace{2mm}
+Similarly, in my third year, I worked in a team tasked with creating a event-sourced financial
+platform \footnotemark[2] \footnotemark[3] for Avaloq, a banking software company. For the duration
+of the project, I managed and led development on the event bus and the ``superclient''. Both written
+in Rust, the event bus is the central server that manages and persists events while ensuring
+consistency, correlation and horizontal scaling of microservice clients; the superclient is a
+framework for building client applications in Lua with persistence and exposing a REST API. \\
+\vspace{2mm}
+Additionally, this involved working with the team to design and implement the various solutions that
+allowed the system to achieve the desired properties; to streamline and improve our development
+processes; and to mentor other team members in fixing bugs and building features when working with
+unfamiliar technologies.
+\vspace{2mm}
+
+\textbf{Glasgow Calidonian University} \hfill {\color{gray} Glasgow, Scotland} \\
+\textit{Nuffield Foundation Placement} \hfill {\color{gray} May 2014 - July 2014} \\
+\vspace{2mm}
+While on a summer placement at Glasgow Caledonian University, I implemented a colour-based
+tracking algorithm from a research paper in C++ with OpenCV \footnotemark[4] \footnotemark[5] which
+was capable of full 360 tracking of multiple objects simultaneously including when the object
+leaves and re-enters the frame. \\
+\vspace{2mm}
+Furthermore, I built a tool for non-photorealistic rendering using OpenCV to make an image look
+less realistic - in essence, creating a cartoon out of an image. Images were processed in two
+distinct stages - extracting the edges from the image and overlaying them on a copy of the
+original image that uses a reduced set of colours.
+\vspace{2mm}
+
+\textbf{Vale of Leven Academy} \hfill {\color{gray} Alexandria, Scotland} \\
+\textit{Secondary Education} \hfill {\color{gray} Aug 2009 - May 2015} \\
+\vspace{2mm}
+\textbf{Advanced Highers:} Computing (A), Graphic Communication (A) \\
+\textbf{Highers:} Mathematics (A), Physics (B), Chemistry (B), Geography (B) \\
+\textbf{Standard Grades:} English (2), German (2)
+\vspace{2mm}
+
+\header{Memberships}
+\textbf{Open Source Initiative} \\
+\textit{Individual Membership} \hfill {\color{gray} Feb 2020 - Present} \\
+\vspace{2mm}
+
+\footnotetext[1]{\href{https://davidtw.co/media/masters_dissertation.pdf}{https://davidtw.co/media/masters{\_}dissertation.pdf}}
+\footnotetext[2]{\href{https://davidtw.co/media/autokrator_dissertation.pdf}{https://davidtw.co/media/autokrator{\_}dissertation.pdf}}
+\footnotetext[3]{\href{https://davidtw.co/media/autokrator_presentation.pdf}{https://davidtw.co/media/autokrator{\_}presentation.pdf}}
+\footnotetext[4]{\href{https://davidtw.co/media/camshift_report.pdf}{https://davidtw.co/media/camshift{\_}report.pdf}}
+\footnotetext[5]{\href{https://davidtw.co/media/camshift_poster.pdf}{https://davidtw.co/media/camshift{\_}poster.pdf}}
+
+\end{document}
+
+% vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

@@ -1,5 +1,7 @@
 { pkgs, site }:
 let
+  curriculumVitae = pkgs.callPackage ./content/curriculum-vitae { };
+
   browserConfigData = pkgs.writeText "site-browserconfig.xml" ''
     <browserconfig>
       <msapplication>
@@ -36,6 +38,10 @@ site.mkSite {
       footer = site.convertHtml' ./content/footer.md;
     };
 
+    # This is the same path as the old website for backwards compatibility.
+    "/cv.pdf" = curriculumVitae;
+    "/curriculum_vitae.pdf" = curriculumVitae;
+
     # Random email address generator - useful for generating unique email addresses on mobile
     # devices.
     "/email-generator/index.html" = site.mkHtmlPage ./templates ./content/email-generator.md;
@@ -43,8 +49,8 @@ site.mkSite {
     "/css" = ./css;
     "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
     "/fonts" = ./fonts;
-    "/images" = ./images;
-    "/media" = ./media;
+    "/images" = ./content/images;
+    "/media" = ./content/media;
   };
 }
 
