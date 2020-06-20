@@ -1,6 +1,7 @@
 { pkgs, site }:
 let
   curriculumVitae = pkgs.callPackage ./content/curriculum-vitae { };
+  favicons = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
 
   browserConfigData = pkgs.writeText "site-browserconfig.xml" ''
     <browserconfig>
@@ -47,7 +48,8 @@ site.mkSite {
     "/email-generator/index.html" = site.mkHtmlPage ./templates ./content/email-generator.md;
 
     "/css" = ./css;
-    "/favicons" = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
+    "/favicons" = favicons;
+    "/favicon.ico" = "${favicons}/favicon.ico";
     "/fonts" = ./fonts;
     "/images" = ./content/images;
     "/media" = ./content/media;
