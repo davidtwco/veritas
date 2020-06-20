@@ -9,6 +9,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-q8qrYi7IjZWSE/Pn1JoBEZlrz4qqFp5FMUb37SBP9pQ=";
 
+  doCheck = false;
+
   meta = {
     description = "Template rendering utility";
     license = with licenses; [ mit asl20 ];

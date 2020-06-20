@@ -5,7 +5,12 @@ stdenv.mkDerivation rec {
 
   src = gitignoreSource ./.;
 
-  nativeBuildInputs = [ texlive.combined.scheme-full ];
+  nativeBuildInputs = [
+    (texlive.combine {
+      inherit (texlive) amsfonts amsmath fancyhdr fontspec hyperref preprint scheme-basic xcolor;
+      inherit (texlive) xetex;
+    })
+  ];
 
   buildPhase = ''
     runHook preBuild
