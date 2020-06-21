@@ -48,6 +48,8 @@ in
       workman
       # Used by `breakpointHook` in nixpkgs.
       cntr
+      # Download rust toolchains from CI builds.
+      rustup-install-toolchain-master
     ];
 
     veritas.configs = {

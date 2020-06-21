@@ -9,13 +9,17 @@ pkgs.mkShell rec {
     curl
     gnumake
     cmake
+    file
+    python
+
     pkg-config
+    expat
+    freetype
     openssl
+    xorg.libX11
     zlib
 
-    # rustup for toolchain management
     rustup
-    rustup-toolchain-install-master
   ];
 
   # Always show backtraces.
