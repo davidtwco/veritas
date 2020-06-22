@@ -12,19 +12,23 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
-      - name: Unlock secrets
-        uses: alexburlton-sonocent/github-action-git-crypt-unlock@quote-env-var
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
-
       - name: Install Nix
         uses: cachix/install-nix-action@v10
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           skip_adding_nixpkgs_channel: true
 
+      - name: Unlock secrets
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+        run: |
+          echo "$GIT_CRYPT_KEY" | base64 -d > ./git-crypt-key
+          nix-shell ./compat.nix -A shellNix --run "git-crypt unlock ./git-crypt-key"
+          rm ./git-crypt-key
+
       - name: Build website
-        run: cp -R "$(nix-build ./compat.nix -A defaultNix --no-out-link)" result
+        run: |
+          cp -R "$(nix-build ./compat.nix -A defaultNix --no-out-link)" result
 
       - name: Publish
         uses: netlify/actions/cli@master

@@ -239,6 +239,18 @@
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
       };
 
+      # Expose a dev shell which contains tools for working on this repository.
+      devShell = forEachSystem (system:
+        with pkgsBySystem."${system}";
+
+        mkShell {
+          name = "veritas";
+          buildInputs = [
+            git-crypt
+          ];
+        }
+      );
+
       # Expose an overlay which provides the packages defined by this repository.
       #
       # Overlays are used more widely in this repository, but often for modifying upstream packages
