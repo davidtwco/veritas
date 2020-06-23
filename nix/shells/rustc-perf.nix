@@ -19,6 +19,10 @@ pkgs.mkShell rec {
     xorg.libX11
     zlib
 
+    valgrind
+    linuxPackages.perf
+    oprofile
+
     rustup
   ];
 
