@@ -15,36 +15,6 @@ in
   options.veritas.configs.git = {
     enable = mkEnableOption "git configuration";
 
-    colourScheme = {
-      deltaMinusRegular = mkOption {
-        default = "260808";
-        description = "Define the colour for delta's regular minus.";
-        example = "FFFFFF";
-        type = types.str;
-      };
-
-      deltaMinusEmphasised = mkOption {
-        default = "3f0d0d";
-        description = "Define the colour for delta's emphasised minus.";
-        example = "FFFFFF";
-        type = types.str;
-      };
-
-      deltaPlusRegular = mkOption {
-        default = "0b2608";
-        description = "Define the colour for delta's regular plus.";
-        example = "FFFFFF";
-        type = types.str;
-      };
-
-      deltaPlusEmphasised = mkOption {
-        default = "123f0d";
-        description = "Define the colour for delta's emphasised plus.";
-        example = "FFFFFF";
-        type = types.str;
-      };
-    };
-
     email = mkOption {
       type = types.str;
       default = config.veritas.configs.mail.email;
@@ -78,20 +48,7 @@ in
           verbose = true;
           template = "${config.xdg.dataHome}/git/template";
         };
-        core = {
-          pager =
-            with config.veritas.david.colourScheme.delta;
-            ''
-              ${pkgs.gitAndTools.delta}/bin/delta \
-                --dark \
-                --theme=TwoDark \
-                --plus-color="#${cfg.colourScheme.deltaPlusRegular}" \
-                --plus-emph-color="#${cfg.colourScheme.deltaPlusEmphasised}" \
-                --minus-color="#${cfg.colourScheme.deltaMinusRegular}" \
-                --minus-emph-color="#${cfg.colourScheme.deltaMinusEmphasised}"
-            '';
-          editor = config.home.sessionVariables."EDITOR";
-        };
+        core.editor = config.home.sessionVariables."EDITOR";
         diff = {
           compactionHeuristic = true;
           indentHeuristic = true;
