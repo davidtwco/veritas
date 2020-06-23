@@ -101,7 +101,7 @@ in
         "fgrep" = "${gnugrep}/bin/fgrep --color=auto";
         "egrep" = "${gnugrep}/bin/egrep --color=auto";
         # Aliases for `cat` to `bat`.
-        "cat" = "${bat}/bin/bat --paging=never -p";
+        "cat" = "${bat}/bin/bat";
         # Aliases for `ls` to `exa`.
         "ls" = "${exa}/bin/exa";
         "dir" = "${exa}/bin/exa";
