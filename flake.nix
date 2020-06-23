@@ -216,7 +216,7 @@
             site = self.internal.staticSiteGenerator."${system}";
           in
           {
-            "davidtw.co" = import ./web/src { inherit pkgs site; };
+            "davidtwco" = import ./web/src { inherit pkgs site; };
           }
         );
       };
@@ -278,7 +278,7 @@
         }
       );
 
-      defaultPackage.x86_64-linux = self.internal.staticSites.x86_64-linux."davidtw.co";
+      defaultPackage.x86_64-linux = self.internal.staticSites.x86_64-linux."davidtwco";
     };
 }
 
