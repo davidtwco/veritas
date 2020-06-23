@@ -85,6 +85,9 @@ in
       yubikey.enable = true;
       user.enable = true;
     };
+
+    # Silence warning about an invalid password hash.
+    users.users.root.hashedPassword = null;
   };
 }
 

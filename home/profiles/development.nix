@@ -49,7 +49,7 @@ in
       # Used by `breakpointHook` in nixpkgs.
       cntr
       # Download rust toolchains from CI builds.
-      rustup-install-toolchain-master
+      rustup-toolchain-install-master
     ];
 
     veritas.configs = {

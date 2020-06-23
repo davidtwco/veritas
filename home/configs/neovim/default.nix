@@ -195,75 +195,19 @@ in
         # Search/substitution/abbreviation of word variations.
         vim-abolish
         # Syntax highlighting for HOCON
-        (buildVimPlugin rec {
-          name = "vim-hocon";
-          src = pkgs.fetchFromGitHub {
-            owner = "GEverding";
-            repo = name;
-            rev = "bb8fb14e00f8fc1eec27dd39dcc605aac43328a3";
-            sha256 = "0w6ckm931zpm1k3w02gl58hgfxzfy53sgcc9m8jz3vgi3zz0vki2";
-          };
-        })
+        vim-hocon
         # Rich syntax highlighting for disassembled SPIR-V (and automatic disassembly)
-        (buildVimPlugin rec {
-          name = "vim-spirv";
-          src = pkgs.fetchFromGitHub {
-            owner = "kbenzie";
-            repo = name;
-            rev = "e71404f92990aa4718925ade568427c0d8631469";
-            sha256 = "0aimpcz6vvrkcfgsj0xp12xdy1l83n387rsy74dzk23a220d59na";
-          };
-        })
+        vim-spirv
         # Colour scheme
-        (buildVimPlugin rec {
-          name = "vim-hybrid";
-          src = pkgs.fetchFromGitHub {
-            owner = "w0ng";
-            repo = name;
-            rev = "cc58baabeabc7b83768e25b852bf89c34756bf90";
-            sha256 = "1c3q39121hiw85r9ymiyhz5zsf6bl9pwk4pgj6nh6ckwns4cgcmw";
-          };
-        })
+        vim-hybrid
         # Clipboard sync between Vim and tmux.
-        (buildVimPlugin rec {
-          name = "vim-tmux-clipboard";
-          src = pkgs.fetchFromGitHub {
-            owner = "roxma";
-            repo = name;
-            rev = "47187740b88f9dab213f44678800cc797223808e";
-            sha256 = "1a7rpbvb7dgjfnrh95zg2ia6iiz2mz2xps31msb8h14hcj6dsv6y";
-          };
-        })
+        vim-tmux-clipboard
         # Switch to absolute line numbers for buffers that aren't focused.
-        (buildVimPlugin rec {
-          name = "vim-numbertoggle";
-          src = pkgs.fetchFromGitHub {
-            owner = "jeffkreeftmeijer";
-            repo = name;
-            rev = "cfaecb9e22b45373bb4940010ce63a89073f6d8b";
-            sha256 = "1rrmvv7ali50rpbih1s0fj00a3hjspwinx2y6nhwac7bjsnqqdwi";
-          };
-        })
+        vim-numbertoggle
         # Improved incremental search - hides search highlighting after moving cursor.
-        (buildVimPlugin rec {
-          name = "is.vim";
-          src = pkgs.fetchFromGitHub {
-            owner = "haya14busa";
-            repo = name;
-            rev = "61d5029310c69bde700b2d46a454f80859b5af17";
-            sha256 = "1nnf6y62mc0rj7hbrapfkmr91ypsqkzhwgpfx7pahz8m3a2324q6";
-          };
-        })
+        is-vim
         # Visualize the undo tree.
-        (buildVimPlugin rec {
-          name = "vim-mundo";
-          src = pkgs.fetchFromGitHub {
-            owner = "simnalamburt";
-            repo = name;
-            rev = "fb866924ba0c64d3f9c57ebcf4d1b451d190a03e";
-            sha256 = "0q5v1lknm76k9a1abi8dw4lpa6mysm14mk4zdyq7a4khzfpmr0q0";
-          };
-        })
+        vim-mundo
       ];
     };
   };
