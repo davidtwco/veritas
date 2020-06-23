@@ -4,7 +4,7 @@
 let
   # Build configuration for rust-lang/rust. Based on `config.toml.example` from
   # `1bd30ce2aac40c7698aa4a1b9520aa649ff2d1c5`.
-  config = pkgs.writeText "rust-config" ''
+  config = pkgs.writeText "rustc-config" ''
     # =============================================================================
     # Tweaking how LLVM is compiled
     # =============================================================================
@@ -137,7 +137,7 @@ let
   '';
 
   # Custom Vim configuration to disable ctags on directories we never want to look at.
-  lvimrc = pkgs.writeText "rust-lvimrc" ''
+  lvimrc = pkgs.writeText "rustc-lvimrc" ''
     let g:gutentags_ctags_exclude = [
     \   "src/llvm-project",
     \   "src/librustdoc/html",
@@ -155,30 +155,37 @@ let
     let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'
   '';
 
-  # Files that are ignored by ripgrep when searching.
-  rgignore = pkgs.writeText "rust-rgignore" ''
-    configure
-    config.toml.example
-    x.py
-    LICENSE-MIT
-    LICENSE-APACHE
-    COPYRIGHT
-    **/*.txt
-    **/*.toml
-    **/*.yml
-    **/*.nix
-    *.md
-    src/bootstrap
-    src/ci
-    src/doc/
-    src/etc/
-    src/llvm-emscripten/
-    src/llvm-project/
-    src/rtstartup/
-    src/rustllvm/
-    src/stdsimd/
-    src/tools/rls/rls-analysis/test_data/
-  '';
+  ripgrep-wrapper =
+    let
+      # Files that are ignored by ripgrep when searching.
+      ignoreFile = pkgs.writeText "rust-rgignore" ''
+        configure
+        config.toml.example
+        x.py
+        LICENSE-MIT
+        LICENSE-APACHE
+        COPYRIGHT
+        **/*.txt
+        **/*.toml
+        **/*.yml
+        **/*.nix
+        *.md
+        src/bootstrap
+        src/ci
+        src/doc/
+        src/etc/
+        src/llvm-emscripten/
+        src/llvm-project/
+        src/rtstartup/
+        src/rustllvm/
+        src/stdsimd/
+        src/tools/rls/rls-analysis/test_data/
+      '';
+    in
+    pkgs.writeScriptBin "rg" ''
+      #! ${pkgs.runtimeShell} -e
+      ${pkgs.ripgrep}/bin/rg --ignore-file ${ignoreFile} $@
+    '';
 in
 pkgs.clangMultiStdenv.mkDerivation rec {
   name = "rustc";
@@ -204,6 +211,9 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     # Used with emscripten target.
     nodejs
 
+    # ripgrep but with a rustc-specific ignore-file.
+    ripgrep-wrapper
+
     # Local toolchain is added to rustup to avoid needing to set up
     # environment variables.
     rustup
@@ -213,7 +223,6 @@ pkgs.clangMultiStdenv.mkDerivation rec {
   RUST_BOOTSTRAP_CONFIG = config;
 
   # Environment variables for local use.
-  RGIGNORE = rgignore;
   LVIMRC = lvimrc;
 
   # Always show backtraces.
