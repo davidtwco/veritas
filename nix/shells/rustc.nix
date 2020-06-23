@@ -209,8 +209,10 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     rustup
   ];
 
+  # Environment variables consumed by tooling.
+  RUST_BOOTSTRAP_CONFIG = config;
+
   # Environment variables for local use.
-  RUSTC_CONFIG = config;
   RGIGNORE = rgignore;
   LVIMRC = lvimrc;
 
