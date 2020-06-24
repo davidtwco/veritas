@@ -23,12 +23,12 @@ jobs:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
         run: |
           echo "$GIT_CRYPT_KEY" | base64 -d > ./git-crypt-key
-          nix-shell ./compat.nix -A shellNix --run "git-crypt unlock ./git-crypt-key"
+          nix-shell --run "git-crypt unlock ./git-crypt-key"
           rm ./git-crypt-key
 
       - name: Build website
         run: |
-          cp -R "$(nix-build ./compat.nix -A defaultNix --no-out-link)" result
+          cp -R "$(nix-build --no-out-link)" result
 
       - name: Publish
         uses: netlify/actions/cli@master
