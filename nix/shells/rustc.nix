@@ -155,10 +155,10 @@ let
     let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'
   '';
 
-  ripgrep-wrapper =
+  ripgrepConfig =
     let
       # Files that are ignored by ripgrep when searching.
-      ignoreFile = pkgs.writeText "rust-rgignore" ''
+      ignoreFile = pkgs.writeText "rustc-rgignore" ''
         configure
         config.toml.example
         x.py
@@ -182,10 +182,7 @@ let
         src/tools/rls/rls-analysis/test_data/
       '';
     in
-    pkgs.writeScriptBin "rg" ''
-      #! ${pkgs.runtimeShell} -e
-      ${pkgs.ripgrep}/bin/rg --ignore-file ${ignoreFile} $@
-    '';
+    pkgs.writeText "rustc-ripgreprc" "--ignore-file=${ignoreFile}";
 in
 pkgs.clangMultiStdenv.mkDerivation rec {
   name = "rustc";
@@ -211,9 +208,6 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     # Used with emscripten target.
     nodejs
 
-    # ripgrep but with a rustc-specific ignore-file.
-    ripgrep-wrapper
-
     # Local toolchain is added to rustup to avoid needing to set up
     # environment variables.
     rustup
@@ -221,6 +215,7 @@ pkgs.clangMultiStdenv.mkDerivation rec {
 
   # Environment variables consumed by tooling.
   RUST_BOOTSTRAP_CONFIG = config;
+  RIPGREP_CONFIG_PATH = ripgrepConfig;
 
   # Environment variables for local use.
   LVIMRC = lvimrc;
