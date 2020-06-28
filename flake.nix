@@ -165,6 +165,7 @@
             pkgs = pkgsBySystem."${system}";
           in
           {
+            cargo = import ./nix/shells/cargo.nix { inherit pkgs; };
             generic-nightly-rust = import ./nix/shells/generic-nightly-rust.nix { inherit pkgs; };
             llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
             rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
