@@ -2,11 +2,9 @@
   "nodes": {
     "gitignore-nix": {
       "flake": false,
-      "info": {
-        "lastModified": 1591774229,
-        "narHash": "sha256-LXgvQm0kJZWnuk50j6iKgDMNvUxzbgdw4lyKT9k+Q08="
-      },
       "locked": {
+        "lastModified": 1591774229,
+        "narHash": "sha256-LXgvQm0kJZWnuk50j6iKgDMNvUxzbgdw4lyKT9k+Q08=",
         "owner": "hercules-ci",
         "repo": "gitignore.nix",
         "rev": "647d0821b590ee96056f4593640534542d8700e5",
@@ -20,14 +18,14 @@
       }
     },
     "home-manager": {
-      "info": {
-        "lastModified": 1591751635,
-        "narHash": "sha256-KgGtyFlkI/fsp+j8VEgJ/ynY9B91aX35Xp04HlDLRTo="
-      },
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
+        "lastModified": 1591751635,
+        "narHash": "sha256-KgGtyFlkI/fsp+j8VEgJ/ynY9B91aX35Xp04HlDLRTo=",
         "owner": "rycee",
         "repo": "home-manager",
         "rev": "b3fee796fcd5531693d9b84ece76ad6836bb1cfa",
@@ -41,30 +39,26 @@
       }
     },
     "nixpkgs": {
-      "info": {
-        "lastModified": 1592526205,
-        "narHash": "sha256-P9bv8abVtQT+7oNMRt2kibJ2DPp5HQX/hcb4iBI7QBI="
-      },
       "locked": {
+        "lastModified": 1593341336,
+        "narHash": "sha256-GT0jCWFQ7FTwoRodXS4dSJeJyX9nCkNo861kdD762oA=",
         "owner": "NixOS",
-        "repo": "nixpkgs-channels",
-        "rev": "a84cbb60f0296210be03c08d243670dd18a3f6eb",
+        "repo": "nixpkgs",
+        "rev": "595a3d14b7bf11049087d3cd5b9153548b8133c2",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs-channels",
+        "ref": "master",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
     "nixpkgs-mozilla": {
       "flake": false,
-      "info": {
-        "lastModified": 1582134900,
-        "narHash": "sha256-Qw75AH10FsjcFMNKEFQ+VRNXQvvQx8CWmnMBxNH62yE="
-      },
       "locked": {
+        "lastModified": 1582134900,
+        "narHash": "sha256-Qw75AH10FsjcFMNKEFQ+VRNXQvvQx8CWmnMBxNH62yE=",
         "owner": "mozilla",
         "repo": "nixpkgs-mozilla",
         "rev": "e912ed483e980dfb4666ae0ed17845c4220e5e7c",
@@ -87,5 +81,5 @@
     }
   },
   "root": "root",
-  "version": 5
+  "version": 7
 }

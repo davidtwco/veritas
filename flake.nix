@@ -9,8 +9,8 @@
     nixpkgs = {
       type = "github";
       owner = "NixOS";
-      repo = "nixpkgs-channels";
-      ref = "nixpkgs-unstable";
+      repo = "nixpkgs";
+      ref = "master";
     };
 
     home-manager = {
@@ -197,7 +197,6 @@
                 inherit (gitignore-nix) gitignoreSource;
               }
           )
-          (import ./nix/overlays/nvidia { inherit inputs; })
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
