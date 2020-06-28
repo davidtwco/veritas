@@ -183,6 +183,8 @@ in
         lsof
         # Encrypted files in Git repositories
         git-crypt
+        # Keybase
+        keybase
       ];
       sessionVariables = {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";

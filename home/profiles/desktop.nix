@@ -44,7 +44,7 @@ in
       # Password manager.
       keepassxc
       # Keybase
-      keybase
+      keybase-gui
       # Fonts
       meslo-lg
       source-code-pro
