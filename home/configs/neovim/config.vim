@@ -338,6 +338,31 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 
+" Tell ALE where to look for `compilation-commands.json`.
+let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin', '' ]
+
+function! SearchBuildDirsOr(fallback_path)
+  " Get the name of the binary from the fallback path.
+  let binary_name = fnamemodify(a:fallback_path, ':t')
+
+  " Look in the build directories that ALE uses for a local-version of the
+  " binary.
+  for build_dir in g:ale_c_build_dir_names
+    let binary_path = './' . build_dir . '/bin/' . binary_name
+    if executable(binary_path)
+      return binary_path
+    endif
+  endfor
+
+  " Check the PATH (useful for overriding the version using `shell.nix`)
+  if executable(binary_name)
+    return binary_name
+  endif
+
+  " If there wasn't one, use the fallback path.
+  return a:fallback_path
+endfunction
+
 " Set formatting.
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -404,6 +429,28 @@ let g:ale_set_balloons = 1
 
 " Use clippy instead of cargo.
 let g:ale_rust_cargo_use_clippy = 1
+
+let g:ale_c_clang_executable = SearchBuildDirsOr('@aleClang@')
+let g:ale_c_clangd_executable = SearchBuildDirsOr('@aleClangd@')
+let g:ale_c_clangformat_executable = SearchBuildDirsOr('@aleClangFormat@')
+let g:ale_c_clangtidy_executable = SearchBuildDirsOr('@aleClangTidy@')
+let g:ale_cpp_clang_executable = SearchBuildDirsOr('@aleClangPlusPlus@')
+let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
+let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
+let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
+let g:ale_cuda_nvcc_executable = SearchBuildDirsOr('@aleNvcc@')
+let g:ale_haskell_ormolu_executable = SearchBuildDirsOr('@aleOrmolu@')
+let g:ale_json_jq_executable = SearchBuildDirsOr('@aleJq@')
+let g:ale_llvm_llc_executable = SearchBuildDirsOr('@aleLlc@')
+let g:ale_lua_luac_executable = SearchBuildDirsOr('@aleLuac@')
+let g:ale_nix_nixpkgsfmt_executable = SearchBuildDirsOr('@aleNixpkgsfmt@')
+let g:ale_python_black_executable = SearchBuildDirsOr('@aleBlack@')
+let g:ale_python_flake8_executable = SearchBuildDirsOr('@aleFlake8@')
+let g:ale_ruby_rubocop_executable = SearchBuildDirsOr('@aleRubocop@')
+let g:ale_sh_shellcheck_executable = SearchBuildDirsOr('@aleShellcheck@')
+let g:ale_vim_vint_executable = SearchBuildDirsOr('@aleVint@')
+let g:spirv_as_path = SearchBuildDirsOr('@aleSpirvAs@')
+let g:spirv_dis_path = SearchBuildDirsOr('@aleSpirvDis@')
 
 let g:lightline = {}
 let g:lightline.colorscheme = 'davidtwco'

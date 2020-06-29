@@ -6,13 +6,34 @@ let
   cfg = config.veritas.configs.neovim;
   colourScheme = config.veritas.profiles.common.colourScheme;
 
-  extraConfig = pkgs.substituteAll {
+  cfgDevTool = pkg: binaryName:
+    if cfg.withDeveloperTools then "${pkg}/bin/${binaryName}" else binaryName;
+
+  extraConfig = substituteAll {
     src = ./config.vim;
     inherit (cfg.colourScheme) termdebugBreakpointBackground termdebugBreakpointForeground;
     inherit (cfg.colourScheme) termdebugProgramCounter;
     inherit (colourScheme) black red green yellow blue magenta cyan white brightBlack brightRed;
     inherit (colourScheme) brightGreen brightYellow brightBlue brightMagenta brightCyan;
     inherit (colourScheme) brightWhite background;
+    aleBlack = cfgDevTool python38Packages.black "black";
+    aleClang = cfgDevTool clang "clang";
+    aleClangFormat = cfgDevTool clang-tools "clang-format";
+    aleClangPlusPlus = cfgDevTool clang "clang++";
+    aleClangTidy = cfgDevTool clang-tools "clang-tidy";
+    aleClangd = cfgDevTool clang-tools "clangd";
+    aleFlake8 = cfgDevTool python38Packages.flake8 "flake8";
+    aleJq = "${jq}/bin/jq";
+    aleLlc = cfgDevTool llvm "llc";
+    aleLuac = cfgDevTool lua "luac";
+    aleNixpkgsfmt = cfgDevTool nixpkgs-fmt "nixpkgs-fmt";
+    aleNvcc = cfgDevTool cudatoolkit_10 "nvcc";
+    aleOrmolu = cfgDevTool ormolu "ormolu";
+    aleRubocop = cfgDevTool rubocop "rubocop";
+    aleShellcheck = "${shellcheck}/bin/shellcheck";
+    aleSpirvAs = cfgDevTool spirv-tools "spirv-as";
+    aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
+    aleVint = cfgDevTool vim-vint "vint";
     cacheHome = config.xdg.cacheHome;
   };
 in
@@ -41,6 +62,12 @@ in
         example = "FFFFFF";
         type = types.str;
       };
+    };
+
+    withDeveloperTools = mkOption {
+      default = false;
+      description = "Make additional development tools available to Vim configuration.";
+      type = types.bool;
     };
   };
 

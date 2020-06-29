@@ -60,6 +60,7 @@ in
       flake8.enable = true;
       gdb.enable = true;
       lorri.enable = true;
+      neovim.withDeveloperTools = true;
     };
   };
 }
