@@ -15,4 +15,4 @@ self: super:
   plexPass = super.plex.override { plexRaw = self.plexPassRaw; };
 }
 
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
+# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

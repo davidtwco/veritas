@@ -32,4 +32,4 @@ pkgs.mkShell {
   LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
 }
 
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
+# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

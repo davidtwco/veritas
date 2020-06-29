@@ -760,4 +760,4 @@ if exists("$DTW_LOCALVIMRC") && filereadable($DTW_LOCALVIMRC)
   source $DTW_LOCALVIMRC
 endif
 
-" vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap
+" vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

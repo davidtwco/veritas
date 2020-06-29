@@ -22,5 +22,5 @@ title: Per-site Email Generator | David Wood
 </script>
 
 <!--
-  vim:foldmethod=marker:foldlevel=0:et:ts=2:sts=2:sw=2:nowrap
+  vim:foldmethod=marker:foldlevel=0:et:ts=2:sts=2:sw=2:et:nowrap
 -->
