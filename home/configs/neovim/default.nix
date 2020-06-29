@@ -4,6 +4,17 @@ with pkgs;
 with lib;
 let
   cfg = config.veritas.configs.neovim;
+  colourScheme = config.veritas.profiles.common.colourScheme;
+
+  extraConfig = pkgs.substituteAll {
+    src = ./config.vim;
+    inherit (cfg.colourScheme) termdebugBreakpointBackground termdebugBreakpointForeground;
+    inherit (cfg.colourScheme) termdebugProgramCounter;
+    inherit (colourScheme) black red green yellow blue magenta cyan white brightBlack brightRed;
+    inherit (colourScheme) brightGreen brightYellow brightBlue brightMagenta brightCyan;
+    inherit (colourScheme) brightWhite background;
+    cacheHome = config.xdg.cacheHome;
+  };
 in
 {
   options.veritas.configs.neovim = {
@@ -49,78 +60,7 @@ in
 
     programs.neovim = {
       enable = true;
-      extraConfig = with config.veritas.profiles.common.colourScheme; with cfg.colourScheme; ''
-        " Define colour variables.
-        let s:black = '#${black}'
-        let s:c_black = 0
-        let s:red = '#${red}'
-        let s:c_red = 1
-        let s:green = '#${green}'
-        let s:c_green = 2
-        let s:yellow = '#${yellow}'
-        let s:c_yellow = 3
-        let s:blue = '#${blue}'
-        let s:c_blue = 4
-        let s:magenta = '#${magenta}'
-        let s:c_magenta = 5
-        let s:cyan = '#${cyan}'
-        let s:c_cyan = 6
-        let s:white = '#${white}'
-        let s:c_white = 7
-        let s:bright_black = '#${brightBlack}'
-        let s:c_bright_black = 8
-        let s:bright_red = '#${brightRed}'
-        let s:c_bright_red = 9
-        let s:bright_green = '#${brightGreen}'
-        let s:c_bright_green = 10
-        let s:bright_yellow = '#${brightYellow}'
-        let s:c_bright_yellow = 11
-        let s:bright_blue = '#${brightBlue}'
-        let s:c_bright_blue = 12
-        let s:bright_magenta = '#${brightMagenta}'
-        let s:c_bright_magenta = 13
-        let s:bright_cyan = '#${brightCyan}'
-        let s:c_bright_cyan = 14
-        let s:bright_white = '#${brightWhite}'
-        let s:c_bright_white = 15
-
-        ${builtins.readFile ./config.vim}
-
-        " Change backup, swap and undo directory. If a path ends in '//' then the file name
-        " is built from the entire path. No more issues between projects.
-        call MaybeMkdir('${config.xdg.cacheHome}/nvim/swap/')
-        set directory=${config.xdg.cacheHome}/nvim/swap//
-
-        call MaybeMkdir('${config.xdg.cacheHome}/nvim/backup/')
-        set backupdir=${config.xdg.cacheHome}/nvim/backup//
-
-        if exists('+undofile')
-          call MaybeMkdir('${config.xdg.cacheHome}/nvim/undo/')
-          set undodir=${config.xdg.cacheHome}/nvim/undo//
-        end
-
-        if exists('+shada')
-          " Change SHAred DAta path.
-          set shada+=n${config.xdg.cacheHome}/nvim/shada
-        else
-          " Change viminfo path.
-          set viminfo+=n${config.xdg.cacheHome}/nvim/viminfo
-        endif
-
-        " Set the colour of the colour column (used to highlight where lines should wrap).
-        hi ColorColumn guibg=#${brightBlack}
-
-        " Set the background colour.
-        hi Normal guibg=#${background}
-
-        " Lightline won't colour the single character between two statuslines when there is a
-        " vertical split, this will.
-        hi StatusLine gui=NONE guifg=#${background} guibg=#${background}
-
-        " Set the colour of the current debugger line and breakpoints in gutter.
-        hi debugPC guibg=#${termdebugProgramCounter}
-        hi debugBreakpoint guifg=#${termdebugBreakpointForeground} guibg=#${termdebugBreakpointBackground}
-      '';
+      extraConfig = "source ${extraConfig}";
       viAlias = true;
       vimAlias = true;
       withNodeJs = true;
