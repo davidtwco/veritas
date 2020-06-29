@@ -37,7 +37,7 @@
     ./rofi.nix
     ./ssh.nix
     ./starship.nix
-    ./tmux.nix
+    ./tmux
     ./xdg.nix
     ./xresources.nix
     ./xsession.nix
