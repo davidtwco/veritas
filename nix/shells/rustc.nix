@@ -150,6 +150,9 @@ let
     " Don't format automatically.
     let g:ale_fix_on_save_ignore['rust'] = [ 'rustfmt' ]
 
+    " Only use rust-analyzer.
+    let g:ale_linters['rust'] = [ 'analyzer' ]
+
     " Same configuration as `x.py fmt`.
     let g:ale_rust_rustfmt_options = '--edition 2018 --unstable-features --skip-children'
     let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'

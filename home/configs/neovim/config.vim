@@ -383,14 +383,11 @@ let g:ale_linters = {
 \   'json': [ 'jq' ],
 \   'python': [ 'flake8' ],
 \   'ruby': [ 'rubocop' ],
-\   'rust': [ 'cargo', 'rls' ],
+\   'rust': [ 'analyzer' ],
 \   'sh': [ 'shell', 'shellcheck' ],
 \   'vim': [ 'vint' ],
 \   'zsh': [ 'shell', 'shellcheck' ],
 \ }
-
-" Use stable Rust for RLS.
-let g:ale_rust_rls_toolchain = 'stable'
 
 " Limit clangtidy checks.
 let g:ale_c_clangtidy_checks = [ 'clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*' ]
@@ -429,9 +426,6 @@ let g:ale_pattern_options = {
 " Show hover balloon when over a definition.
 let g:ale_set_balloons = 1
 
-" Use clippy instead of cargo.
-let g:ale_rust_cargo_use_clippy = 1
-
 let g:ale_c_clang_executable = SearchBuildDirsOr('@aleClang@')
 let g:ale_c_clangd_executable = SearchBuildDirsOr('@aleClangd@')
 let g:ale_c_clangformat_executable = SearchBuildDirsOr('@aleClangFormat@')
@@ -449,6 +443,7 @@ let g:ale_nix_nixpkgsfmt_executable = SearchBuildDirsOr('@aleNixpkgsfmt@')
 let g:ale_python_black_executable = SearchBuildDirsOr('@aleBlack@')
 let g:ale_python_flake8_executable = SearchBuildDirsOr('@aleFlake8@')
 let g:ale_ruby_rubocop_executable = SearchBuildDirsOr('@aleRubocop@')
+let g:ale_rust_analyzer_executable = SearchBuildDirsOr('@aleRustAnalyzer@')
 let g:ale_sh_shellcheck_executable = SearchBuildDirsOr('@aleShellcheck@')
 let g:ale_vim_vint_executable = SearchBuildDirsOr('@aleVint@')
 let g:spirv_as_path = SearchBuildDirsOr('@aleSpirvAs@')

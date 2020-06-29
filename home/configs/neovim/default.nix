@@ -30,6 +30,7 @@ let
     aleNvcc = cfgDevTool cudatoolkit_10 "nvcc";
     aleOrmolu = cfgDevTool ormolu "ormolu";
     aleRubocop = cfgDevTool rubocop "rubocop";
+    aleRustAnalyzer = cfgDevTool rust-analyzer "rust-analyzer";
     aleShellcheck = "${shellcheck}/bin/shellcheck";
     aleSpirvAs = cfgDevTool spirv-tools "spirv-as";
     aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
