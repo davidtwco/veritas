@@ -20,6 +20,9 @@ pkgs.mkShell {
     clang-tools
     llvmPackages.llvm
     llvmPackages.libclang.lib
+
+    # Required for nested shells in lorri to work correctly.
+    bashInteractive
   ];
 
   # Always show backtraces.

@@ -11,6 +11,9 @@ pkgs.mkShell rec {
     openssl
 
     rustup
+
+    # Required for nested shells in lorri to work correctly.
+    bashInteractive
   ];
 
   # Always show backtraces.

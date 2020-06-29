@@ -211,6 +211,9 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     # Local toolchain is added to rustup to avoid needing to set up
     # environment variables.
     rustup
+
+    # Required for nested shells in lorri to work correctly.
+    bashInteractive
   ];
 
   # Environment variables consumed by tooling.

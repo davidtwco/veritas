@@ -95,6 +95,9 @@ let
 
         # Required to stop shell mangling on tab completion.
         glibcLocales
+
+        # Required for nested shells in lorri to work correctly.
+        bashInteractive
       ]
     );
 
