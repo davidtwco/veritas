@@ -296,16 +296,6 @@ let g:gutentags_file_list_command = {
       \   'markers': { '.git': 'git ls-files', '.hg': 'hg files'  },
       \ }
 
-" Enable global loading of local .vimrc files.
-let g:localvimrc_enable = 1
-
-" Ask me before loading any files.
-let g:localvimrc_ask = 1
-
-" Keep track of which files I've loaded in the past and don't ask again.
-" (only if answer was uppercase)
-let g:localvimrc_persistent = 1
-
 " Disable pandoc's markdown folding.
 let g:pandoc#filetypes#pandoc_markdown = 0
 let g:pandoc#folding#fdc = 0
@@ -695,5 +685,10 @@ nmap <leader>ap <plug>(ale_previous_wrap)
 " Set quicker mappings for ALE.
 nmap <C-n> <plug>(ale_next_wrap)
 nmap <C-m> <plug>(ale_previous_wrap)
+
+" Read custom vimrc files from `DTW_LOCALVIMRC` (e.g. exposed by development shells).
+if exists("$DTW_LOCALVIMRC") && filereadable($DTW_LOCALVIMRC)
+  source $DTW_LOCALVIMRC
+endif
 
 " vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:nowrap

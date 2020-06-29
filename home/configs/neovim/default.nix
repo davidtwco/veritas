@@ -107,9 +107,6 @@ in
           set viminfo+=n${config.xdg.cacheHome}/nvim/viminfo
         endif
 
-        " Save the `.lvimrc` persistence file in the cache folder.
-        let g:localvimrc_persistence_file = '${config.xdg.cacheHome}/nvim/lvimrc_persistence'
-
         " Set the colour of the colour column (used to highlight where lines should wrap).
         hi ColorColumn guibg=#${brightBlack}
 
@@ -188,8 +185,6 @@ in
         ferret
         # Enhanced `%` functionality.
         matchit-zip
-        # Look for project specific `.lvimrc` files.
-        vim-localvimrc
         # Text filtering and alignment.
         tabular
         # Search/substitution/abbreviation of word variations.

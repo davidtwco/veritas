@@ -216,9 +216,7 @@ pkgs.clangMultiStdenv.mkDerivation rec {
   # Environment variables consumed by tooling.
   RUST_BOOTSTRAP_CONFIG = config;
   RIPGREP_CONFIG_PATH = ripgrepConfig;
-
-  # Environment variables for local use.
-  LVIMRC = lvimrc;
+  DTW_LOCALVIMRC = lvimrc;
 
   # Always show backtraces.
   RUST_BACKTRACE = 1;

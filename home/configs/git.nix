@@ -89,7 +89,6 @@ in
         "tags.files"
 
         # Vim
-        ".lvimrc"
         "Session.vim"
 
         # GDB
