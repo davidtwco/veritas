@@ -1,3 +1,5 @@
+scriptencoding utf-8
+
 " Define colour variables.
 let s:black = '#@black@'
 let s:c_black = 0
@@ -98,13 +100,13 @@ endfunc
 if has('autocmd')
   augroup llvm
     function! DisassembleLLVM()
-      if getline(1) =~ 'BC\%xC0\%xDE'
+      if getline(1) =~? 'BC\%xC0\%xDE'
         " Keep track of whether this buffer was disassembled so that it can be reassembled.
         let b:isLLVM = 1
 
         setl binary
         %!llvm-dis
-        setl ft=llvm nobinary ro
+        setl filetype=llvm nobinary ro
         call EchoAU('None', 'Disassembled LLVM IR, viewing as read-only')
       endif
     endfunc
@@ -529,7 +531,7 @@ function! LightlineFilename()
 
   " Take the first character from each part of the path (except the tidle and filename).
   let initial_position = was_shortened ? 0 : 1
-  let excluded_parts = filepath_parts[initial_position:-2]
+  let excluded_parts = filepath_parts[initial_position : -2]
   let shortened_paths = map(excluded_parts, 'v:val[0]')
 
   " Recombine the shortened paths with the tilde and filename.
@@ -739,7 +741,7 @@ hi debugPC guibg=#@termdebugProgramCounter@
 hi debugBreakpoint guifg=#@termdebugBreakpointForeground@ guibg=#@termdebugBreakpointBackground@
 
 " Read custom vimrc files from `DTW_LOCALVIMRC` (e.g. exposed by development shells).
-if exists("$DTW_LOCALVIMRC") && filereadable($DTW_LOCALVIMRC)
+if exists('$DTW_LOCALVIMRC') && filereadable($DTW_LOCALVIMRC)
   source $DTW_LOCALVIMRC
 endif
 
