@@ -147,9 +147,6 @@ let
     \   "*.md"
     \ ]
 
-    " Don't format automatically.
-    let g:ale_fix_on_save_ignore['rust'] = [ 'rustfmt' ]
-
     " Only use rust-analyzer.
     let g:ale_linters['rust'] = [ 'analyzer' ]
 
