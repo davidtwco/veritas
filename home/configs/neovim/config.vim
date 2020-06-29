@@ -64,35 +64,6 @@ function! ToggleNumber()
 endfunc
 nmap <silent> <leader>tl :call ToggleNumber()<CR>
 
-" Capture the output of an ex command.
-function! Redir(cmd)
-  " Close any scratch windows.
-  for win in range(1, winnr('$'))
-    if getwinvar(win, 'scratch')
-      execute win . 'windo close'
-    endif
-  endfor
-
-  if a:cmd =~# '^!'
-    " Handle commands starting with `!` by running commands on the system.
-    execute "let output = system('" . substitute(a:cmd, '^!', '', '') . "')"
-  else
-    " Else run input as ex commands.
-    redir => output
-    execute a:cmd
-    redir END
-  endif
-
-  " Open a new scratch window.
-  vnew
-  let w:scratch = 1
-  setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
-
-  " Add the command output.
-  call setline(1, split(output, "\n"))
-endfunction
-command! -nargs=1 -complete=command Redir silent call Redir(<f-args>)
-
 function! EchoAU(type, message)
   if has('autocmd')
     augroup EchoAU
@@ -123,7 +94,6 @@ function! HandleSwap(filename)
     call EchoAU('WarningMsg', 'Detected newer swapfile, recovering.')
   endif
 endfunc
-
 
 if has('autocmd')
   augroup llvm
@@ -269,21 +239,21 @@ if has('autocmd')
   augroup vimrc
     au!
     " Syntax of these languages is dependant on tabs/spaces.
-    au FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-    au FileType yaml setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-    au FileType puppet setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
-    au FileType ruby setlocal ts=2 sts=2 sw=2 expandtab nosmarttab
+    au FileType make setlocal ts=8 sts=8 sw=8 noet
+    au FileType yaml setlocal ts=2 sts=2 sw=2 et nosta
+    au FileType puppet setlocal ts=2 sts=2 sw=2 et nosta
+    au FileType ruby setlocal ts=2 sts=2 sw=2 et nosta
 
     " Markdown indentation should mirror YAML for use in frontmatter, also enable
     " spelling.
-    au FileType markdown setlocal ts=2 sts=2 sw=2 expandtab nosmarttab spell
+    au FileType markdown setlocal ts=2 sts=2 sw=2 et nosta spell
     au FileType markdown set foldexpr=NestedMarkdownFolds()
 
     " Git commits should break lines at 72 characters.
     au FileType gitcommit setlocal tw=72
 
     " Always use spaces for the package.json file.
-    au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 expandtab nosmarttab sts=2
+    au BufNewFile,BufRead package.json setlocal ts=2 sts=2 sw=2 et nosta sts=2
 
     " Correct file type/extension mismatches.
     au BufNewFile,BufRead *.reg setlocal ft=registry
@@ -327,8 +297,8 @@ let g:gutentags_exclude_filetypes = []
 
 " Only generate tags for files tracked by Git (e.g. stops LLVM being included for Rust)
 let g:gutentags_file_list_command = {
-      \   'markers': { '.git': 'git ls-files', '.hg': 'hg files'  },
-      \ }
+\   'markers': { '.git': 'git ls-files', '.hg': 'hg files'  },
+\ }
 
 " Disable pandoc's markdown folding.
 let g:pandoc#filetypes#pandoc_markdown = 0
@@ -376,21 +346,21 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Set linters and fixers.
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-      \   'awk': [ 'gawk' ],
-      \   'c': [ 'clangd', 'clangtidy' ],
-      \   'cpp': [ 'clangd', 'clangtidy' ],
-      \   'cuda': [ 'nvcc' ],
-      \   'haskell': [ 'hie' ],
-      \   'llvm': [ 'llc' ],
-      \   'lua': [ 'luac' ],
-      \   'json': [ 'jq' ],
-      \   'python': [ 'flake8' ],
-      \   'ruby': [ 'rubocop' ],
-      \   'rust': [ 'cargo', 'rls' ],
-      \   'sh': [ 'shell', 'shellcheck' ],
-      \   'vim': [ 'vint' ],
-      \   'zsh': [ 'shell', 'shellcheck' ],
-      \ }
+\   'awk': [ 'gawk' ],
+\   'c': [ 'clangd', 'clangtidy' ],
+\   'cpp': [ 'clangd', 'clangtidy' ],
+\   'cuda': [ 'nvcc' ],
+\   'haskell': [ 'hie' ],
+\   'llvm': [ 'llc' ],
+\   'lua': [ 'luac' ],
+\   'json': [ 'jq' ],
+\   'python': [ 'flake8' ],
+\   'ruby': [ 'rubocop' ],
+\   'rust': [ 'cargo', 'rls' ],
+\   'sh': [ 'shell', 'shellcheck' ],
+\   'vim': [ 'vint' ],
+\   'zsh': [ 'shell', 'shellcheck' ],
+\ }
 
 " Use stable Rust for RLS.
 let g:ale_rust_rls_toolchain = 'stable'
@@ -402,32 +372,32 @@ let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
 " `*` means any language not matched explicitly, not all languages (ie. if ft is `rust`, ALE will
 " only load the `rust` list, not `rust` and `*`).
 let g:ale_fixers = {
-      \   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'haskell': [ 'ormolu', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'python': [ 'black', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
-      \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ }
+\   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
+\   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'haskell': [ 'ormolu', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'python': [ 'black', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+\   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+\ }
 
 " Don't apply formatters that re-write files on save, these sometimes aren't used in projects.
-" Use `.lvimrc` to override this.
+" Use `$DTW_LOCALVIMRC` to override this.
 let g:ale_fix_on_save = 1
 let g:ale_fix_on_save_ignore = {
-      \   'cpp': [ 'clang-format' ],
-      \   'cmake': [ 'cmakeformat' ],
-      \   'cuda': [ 'clang-format' ],
-      \   'opencl': [ 'clang-format' ],
-      \   'python': [ 'black' ],
-      \ }
+\   'cpp': [ 'clang-format' ],
+\   'cmake': [ 'cmakeformat' ],
+\   'cuda': [ 'clang-format' ],
+\   'opencl': [ 'clang-format' ],
+\   'python': [ 'black' ],
+\ }
 
 " Disable Ale for `.tex.njk` files.
 let g:ale_pattern_options = {
-      \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
-      \ }
+\   '.*\.tex\.njk$': { 'ale_enabled': 0 },
+\ }
 
 " Show hover balloon when over a definition.
 let g:ale_set_balloons = 1
@@ -441,43 +411,43 @@ let g:lightline.separator = { 'left': '⬣', 'right': '⬣' }
 let g:lightline.subseparator = g:lightline.separator
 
 let g:lightline.active = {
-      \   'left': [
-      \       [ 'mode' ],
-      \       [ 'paste', 'spell', 'gitbranch', 'readonly' ],
-      \       [ 'filename' ]
-      \   ],
-      \   'right': [
-      \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-      \       [ 'gutentags' ],
-      \       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
-      \   ]
-      \ }
+\   'left': [
+\       [ 'mode' ],
+\       [ 'paste', 'spell', 'gitbranch', 'readonly' ],
+\       [ 'filename' ]
+\   ],
+\   'right': [
+\       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+\       [ 'gutentags' ],
+\       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
+\   ]
+\ }
 
 let g:lightline.component_expand = {
-      \   'linter_checking': 'lightline#ale#checking',
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \   'linter_ok': 'lightline#ale#ok',
-      \ }
+\   'linter_checking': 'lightline#ale#checking',
+\   'linter_warnings': 'lightline#ale#warnings',
+\   'linter_errors': 'lightline#ale#errors',
+\   'linter_ok': 'lightline#ale#ok',
+\ }
 
 let g:lightline.component_type = {
-      \   'linter_checking': 'left',
-      \   'linter_warnings': 'warning',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'left',
-      \ }
+\   'linter_checking': 'left',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error',
+\   'linter_ok': 'left',
+\ }
 
 let g:lightline.component_function = {
-      \   'gitbranch': 'LightlineGitBranch',
-      \   'gutentags': 'LightlineGutentags',
-      \   'readonly': 'LightlineReadonly',
-      \   'charvaluehex': 'LightlineCharacterHex',
-      \   'fileencoding': 'LightlineFileEncoding',
-      \   'fileformat': 'LightlineFileFormat',
-      \   'filetype': 'LightlineFileType',
-      \   'filename': 'LightlineFilename',
-      \   'tagbar': 'LightlineTagbar'
-      \ }
+\   'gitbranch': 'LightlineGitBranch',
+\   'gutentags': 'LightlineGutentags',
+\   'readonly': 'LightlineReadonly',
+\   'charvaluehex': 'LightlineCharacterHex',
+\   'fileencoding': 'LightlineFileEncoding',
+\   'fileformat': 'LightlineFileFormat',
+\   'filetype': 'LightlineFileType',
+\   'filename': 'LightlineFilename',
+\   'tagbar': 'LightlineTagbar'
+\ }
 
 function! LightlineFilename()
   " Get the full path of the current file.
@@ -573,15 +543,15 @@ endfunction
 
 " Define a custom colorscheme that matches the tmux configuration.
 let s:p = {
-      \   'normal': {},
-      \   'inactive': {},
-      \   'insert': {},
-      \   'replace': {},
-      \   'visual': {},
-      \   'terminal': {},
-      \   'command': {},
-      \   'tabline': {}
-      \ }
+\   'normal': {},
+\   'inactive': {},
+\   'insert': {},
+\   'replace': {},
+\   'visual': {},
+\   'terminal': {},
+\   'command': {},
+\   'tabline': {}
+\ }
 
 " All palettes have the form:
 "   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
@@ -594,19 +564,19 @@ let s:p.inactive.left = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 " Normal mode's left statusline has terminal background with green foreground (for `NORMAL`),
 " followed gray foreground (for the git branch or `PASTE`) and then white foreground for filename.
 let s:p.normal.left = [
-      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-      \   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
-      \   [s:fg, s:bg, s:c_fg, s:c_bg]
-      \ ]
+\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+\   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
+\   [s:fg, s:bg, s:c_fg, s:c_bg]
+\ ]
 let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
 " Normal mode's right status line has terminal background with green foreground (for ALE),
 " followed by white foreground (for Gutentags), finished off with bright black foreground
 " (for line/col/hex/encoding, etc).
 let s:p.normal.right = [
-      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-      \   [s:white, s:bg, s:c_white, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+\   [s:white, s:bg, s:c_white, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 
 let s:p.normal.error = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg] ]
 let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
@@ -614,44 +584,44 @@ let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
 " Insert mode has terminal background and blue foreground, followed by the same as normal
 " mode.
 let s:p.insert.left = [
-      \   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.insert.middle = s:p.normal.middle
 let s:p.insert.right = s:p.normal.right
 
 " Insert mode has terminal background and red foreground, followed by the same as normal mode.
 let s:p.replace.left = [
-      \   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.replace.middle = s:p.normal.middle
 let s:p.replace.right = s:p.normal.right
 
 " Visual mode has terminal background and yellow foreground, followed by the same as normal
 " mode.
 let s:p.visual.left = [
-      \   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.visual.middle = s:p.normal.middle
 let s:p.visual.right = s:p.normal.right
 
 " Terminal mode has terminal background and magenta foreground, followed by the same as normal
 " mode.
 let s:p.terminal.left = [
-      \   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.terminal.middle = s:p.normal.middle
 let s:p.terminal.right = s:p.normal.right
 
 " Command mode has terminal background and cyan foreground, followed by the same as normal
 " mode.
 let s:p.command.left = [
-      \   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
-      \   s:p.normal.left[1], s:p.normal.left[2]
-      \ ]
+\   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
+\   s:p.normal.left[1], s:p.normal.left[2]
+\ ]
 let s:p.command.middle = s:p.normal.middle
 let s:p.command.right = s:p.normal.right
 
@@ -666,36 +636,11 @@ let g:lightline#colorscheme#davidtwco#palette = s:p
 " Map %% to the current opened file's path.
 cnoremap %% <C-R>=fnameescape(expand('%:h')).'/'<CR>
 
-" Map helpful commands for editing files in that directory.
-map <leader>ew :e %%
-map <leader>es :sp %%
-map <leader>ev :vsp %%
-map <leader>et :tabe %%
-
-" Set leader mappings for fzf.
-nnoremap <leader>pf :Files<CR>
-nnoremap <leader>pg :GFiles<CR>
-nnoremap <leader>pc :Commits<CR>
-nnoremap <leader>pb :Buffers<CR>
-nnoremap <leader>pt :Tags<CR>
-nnoremap <leader>pr :Rg<CR>
-
 " Set quicker mappings for fzf.
 nnoremap <C-p> :Files<CR>
 nnoremap <C-q> :Tags<CR>
 nnoremap <C-s> :Buffers<CR>
 nnoremap <C-x> :Rg<CR>
-
-" Set visual mappings for fzf.
-nmap <leader><tab> <plug>(fzf-maps-n)
-xmap <leader><tab> <plug>(fzf-maps-x)
-omap <leader><tab> <plug>(fzf-maps-o)
-
-" Insert mode completion
-imap <c-x><C-k> <plug>(fzf-complete-word)
-imap <c-x><C-f> <plug>(fzf-complete-path)
-imap <c-x><C-j> <plug>(fzf-complete-file-ag)
-imap <c-x><C-l> <plug>(fzf-complete-line)
 
 " `w!!` will save a file opened without sudo.
 cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
@@ -706,15 +651,6 @@ if has('nvim') || has('terminal')
   " Bind Ctrl + V and ESC to send ESC to terminal process.
   tnoremap <C-v><Esc> <Esc>
 endif
-
-" Set mappings for ALE.
-nmap <leader>ad <plug>(ale_go_to_definition)
-nmap <leader>ar <plug>(ale_find_references)
-nmap <leader>ah <plug>(ale_hover)
-nmap <leader>af <plug>(ale_fix)
-nmap <leader>at <plug>(ale_detail)
-nmap <leader>an <plug>(ale_next_wrap)
-nmap <leader>ap <plug>(ale_previous_wrap)
 
 " Set quicker mappings for ALE.
 nmap <C-n> <plug>(ale_next_wrap)
