@@ -3,6 +3,7 @@
 with lib;
 let
   cfg = config.veritas.profiles.common;
+  nixConf = import ../../nix/conf.nix;
 in
 {
   options.veritas.profiles.common.enable = mkEnableOption "common configuration";
@@ -56,6 +57,7 @@ in
     i18n.defaultLocale = "en_GB.UTF-8";
 
     nix = {
+      inherit (nixConf) binaryCaches binaryCachePublicKeys;
       autoOptimiseStore = true;
       sshServe.enable = true;
     };

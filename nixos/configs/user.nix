@@ -17,8 +17,12 @@ in
       users.david = inputs.self.internal.homeManagerConfigurations."${name}";
     };
 
-    # Use regular SSH keys for SSH-serving Nix packages.
-    nix.sshServe.keys = config.users.users.david.openssh.authorizedKeys.keys;
+    nix = {
+      trustedUsers = [ "david" ];
+
+      # Use regular SSH keys for SSH-serving Nix packages.
+      sshServe.keys = config.users.users.david.openssh.authorizedKeys.keys;
+    };
 
     # Nix will hit the stack limit when using `nixFlakes`.
     security.pam.loginLimits = [

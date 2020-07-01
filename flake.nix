@@ -143,6 +143,19 @@
           configuration = { ... }: {
             imports = [ self.internal.homeManagerConfigurations."${name}" ];
 
+            xdg.configFile."nix/nix.conf".text =
+              let
+                nixConf = import ./nix/conf.nix;
+                substituters = [ "https://cache.nixos.org" ] ++ nixConf.binaryCaches;
+                trustedPublicKeys = [
+                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                ] ++ nixConf.binaryCachePublicKeys;
+              in
+              ''
+                substituters = ${builtins.concatStringSep " " substituters}
+                trusted-public-keys = ${builtins.concatStringSep " " trustedPublicKeys}
+              '';
+
             nixpkgs = {
               config = import ./nix/config.nix;
               overlays = self.internal.overlays."${system}";

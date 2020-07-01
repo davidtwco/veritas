@@ -185,6 +185,8 @@ in
         git-crypt
         # Keybase
         keybase
+        # Hosted binary caches
+        cachix
       ];
       sessionVariables = {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
