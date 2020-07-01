@@ -41,16 +41,16 @@
     "neuron": {
       "flake": false,
       "locked": {
-        "lastModified": 1593611765,
-        "narHash": "sha256-K9NQFBfnU0VPFO3wQqMJsd/L6x/hQL8ObU3yIBm6+sM=",
-        "owner": "davidtwco",
+        "lastModified": 1593621574,
+        "narHash": "sha256-yN9nKXy84Coa+cbK3p7IOalEipYMyyl1DG3enm+aMqc=",
+        "owner": "srid",
         "repo": "neuron",
-        "rev": "e78e10add6c139b971fa75f3a2e1b4f2b5737889",
+        "rev": "6a3418673ef80afb72924578ae04e595484a5eb2",
         "type": "github"
       },
       "original": {
-        "owner": "davidtwco",
-        "ref": "current-system-fix",
+        "owner": "srid",
+        "ref": "master",
         "repo": "neuron",
         "type": "github"
       }

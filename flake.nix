@@ -37,12 +37,11 @@
       flake = false;
     };
 
-    # Replace with upstream `srid/neuron` once srid/neuron#264 is merged.
     neuron = {
       type = "github";
-      owner = "davidtwco";
+      owner = "srid";
       repo = "neuron";
-      ref = "current-system-fix";
+      ref = "master";
       flake = false;
     };
   };
