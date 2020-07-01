@@ -187,6 +187,8 @@ in
         keybase
         # Hosted binary caches
         cachix
+        # Zettlekasten
+        neuron-zettlekasten
       ];
       sessionVariables = {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";

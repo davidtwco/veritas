@@ -38,6 +38,23 @@
         "type": "github"
       }
     },
+    "neuron": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1593611765,
+        "narHash": "sha256-K9NQFBfnU0VPFO3wQqMJsd/L6x/hQL8ObU3yIBm6+sM=",
+        "owner": "davidtwco",
+        "repo": "neuron",
+        "rev": "e78e10add6c139b971fa75f3a2e1b4f2b5737889",
+        "type": "github"
+      },
+      "original": {
+        "owner": "davidtwco",
+        "ref": "current-system-fix",
+        "repo": "neuron",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1593341336,
@@ -75,6 +92,7 @@
       "inputs": {
         "gitignore-nix": "gitignore-nix",
         "home-manager": "home-manager",
+        "neuron": "neuron",
         "nixpkgs": "nixpkgs",
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       }

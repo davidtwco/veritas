@@ -36,6 +36,15 @@
       ref = "master";
       flake = false;
     };
+
+    # Replace with upstream `srid/neuron` once srid/neuron#264 is merged.
+    neuron = {
+      type = "github";
+      owner = "davidtwco";
+      repo = "neuron";
+      ref = "current-system-fix";
+      flake = false;
+    };
   };
 
   outputs = { self, ... } @ inputs:
@@ -203,6 +212,7 @@
           (self.overlay."${system}")
           (import inputs.nixpkgs-mozilla)
           (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
+          (_: _: { neuron-zettlekasten = import inputs.neuron { inherit system; }; })
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
