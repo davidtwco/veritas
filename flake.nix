@@ -189,15 +189,7 @@
         overlays = forEachSystem (system: [
           (self.overlay."${system}")
           (import inputs.nixpkgs-mozilla)
-          (
-            _: _:
-              let
-                gitignore-nix = import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; };
-              in
-              {
-                inherit (gitignore-nix) gitignoreSource;
-              }
-          )
+          (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
