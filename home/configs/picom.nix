@@ -10,7 +10,7 @@ in
   config = mkIf cfg.enable {
     services.picom = {
       enable = true;
-      noDockShadow = false;
+      noDockShadow = true;
     };
   };
 }
