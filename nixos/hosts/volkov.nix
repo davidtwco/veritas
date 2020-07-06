@@ -1,29 +1,34 @@
-{ ... }:
+{ config, lib, ... }:
 
 {
   boot = {
-    blacklistedKernelModules = [ "nouveau" ];
-
     initrd = {
-      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+      availableKernelModules = [ "e1000e" "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
 
-      luks.devices = [
-        {
-          name = "root";
-          device = "/dev/nvme0n1p2";
-          preLVM = true;
-        }
-      ];
+      luks.devices.root = {
+        device = "/dev/nvme0n1p2";
+        preLVM = true;
+      };
+
+      network = {
+        enable = true;
+        ssh = {
+          authorizedKeys = builtins.map
+            (f: builtins.readFile f)
+            config.users.users.david.openssh.authorizedKeys.keyFiles;
+          enable = true;
+          hostKeys = [
+            "/etc/nixos/nixos/secrets/initrd-ssh-host-ed25519-key"
+            "/etc/nixos/nixos/secrets/initrd-ssh-host-rsa-key"
+          ];
+        };
+      };
     };
 
     loader = {
       efi.canTouchEfiVariables = true;
       systemd-boot.enable = true;
     };
-
-    kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
-
-    vesa = false;
   };
 
   fileSystems = {
@@ -46,14 +51,9 @@
     wooting.enable = true;
   };
 
-  networking = {
-    interfaces.eno1.useDHCP = true;
-    wireless.enable = false;
-  };
+  networking.interfaces.eno1.useDHCP = true;
 
   nix.maxJobs = lib.mkDefault 8;
-
-  services.xserver.videoDrivers = [ "nvidia" ];
 
   system.stateVersion = "19.03";
 
