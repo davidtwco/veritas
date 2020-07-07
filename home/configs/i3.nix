@@ -112,7 +112,11 @@ in
             text = "#${foreground}";
           };
         };
-        floating.criteria = [{ class = "Peek"; } { class = "qjackctl"; }];
+        floating.criteria = [
+          { class = "Peek"; }
+          { class = "qjackctl"; }
+          { title = "^Java iKVM Viewer.*"; }
+        ];
         fonts = [ "Iosevka ${toString config.veritas.configs.i3.fontSize}" ];
         gaps = {
           inner = 2;
