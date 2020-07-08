@@ -43,6 +43,7 @@ in
       };
       enable = true;
       extraConfig = {
+        advice.addIgnoredFile = false;
         color.ui = "auto";
         commit = {
           verbose = true;
