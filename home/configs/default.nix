@@ -27,8 +27,9 @@
     ./less.nix
     ./lorri.nix
     ./mail.nix
-    ./netrc.nix
     ./neovim
+    ./netrc.nix
+    ./neuron.nix
     ./picom.nix
     ./polybar.nix
     ./qt.nix

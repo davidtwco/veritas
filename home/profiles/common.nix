@@ -187,9 +187,8 @@ in
         keybase
         # Hosted binary caches
         cachix
-        # Zettlekasten
-        neuron-zettlekasten
       ];
+
       sessionVariables = {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
         "LANGUAGE" = config.home.language.base;
@@ -220,8 +219,9 @@ in
       jq.enable = true;
       less.enable = true;
       mail.enable = true;
-      netrc.enable = true;
       neovim.enable = true;
+      netrc.enable = true;
+      neuron.enable = true;
       readline.enable = true;
       ssh.enable = true;
       starship.enable = true;

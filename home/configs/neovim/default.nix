@@ -4,6 +4,7 @@ with pkgs;
 with lib;
 let
   cfg = config.veritas.configs.neovim;
+  neuronCfg = config.veritas.configs.neuron;
   colourScheme = config.veritas.profiles.common.colourScheme;
 
   cfgDevTool = pkg: binaryName:
@@ -36,6 +37,8 @@ let
     aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
     aleVint = cfgDevTool vim-vint "vint";
     cacheHome = config.xdg.cacheHome;
+    neuronDirectory = neuronCfg.directory;
+    neuronPath = "${pkgs.neuron-zettelkasten}/bin/neuron";
   };
 in
 {
@@ -93,7 +96,7 @@ in
           source ${extraConfig}
         '';
 
-        packages.veritas = with pkgs.vimPlugins; with pkgs.vimUtils; {
+        packages.veritas = with pkgs; with vimPlugins; with vimUtils; {
           start = [
             # Sensible defaults for Vim.
             vim-sensible
@@ -156,6 +159,8 @@ in
             vim-numbertoggle
             # Improved incremental search - hides search highlighting after moving cursor.
             is-vim
+            # Zettelkasten
+            neuron-veritas-vim
           ];
 
           # Load these with `:packadd` command.

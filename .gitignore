@@ -6,3 +6,6 @@
 
 # Output of `nixos-rebuild build`
 /result
+
+# Output of `neuron rib`
+/zettelkasten/.neuron

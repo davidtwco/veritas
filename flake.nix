@@ -211,7 +211,7 @@
           (self.overlay."${system}")
           (import inputs.nixpkgs-mozilla)
           (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
-          (_: _: { neuron-zettlekasten = import inputs.neuron { inherit system; }; })
+          (_: _: { neuron-zettelkasten = import inputs.neuron { inherit system; }; })
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
@@ -262,6 +262,7 @@
           name = "veritas";
           buildInputs = [
             git-crypt
+            neuron-zettelkasten
           ];
         }
       );
@@ -283,9 +284,16 @@
         in
         {
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
+
           rustup-toolchain-install-master =
             pkgs.callPackage ./nix/packages/rustup-toolchain-install-master.nix { };
+
           tera-template = pkgs.callPackage ./nix/packages/tera-template { };
+
+          neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
+            inherit (pkgs.vimUtils) buildVimPlugin;
+          };
+
           workman = pkgs.callPackage ./nix/packages/workman.nix { };
         } // optionalAttrs (system == "x86_64-linux") {
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
