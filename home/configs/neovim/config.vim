@@ -299,8 +299,8 @@ let g:gutentags_exclude_filetypes = []
 
 " Only generate tags for files tracked by Git (e.g. stops LLVM being included for Rust)
 let g:gutentags_file_list_command = {
-\   'markers': { '.git': 'git ls-files', '.hg': 'hg files'  },
-\ }
+      \   'markers': { '.git': 'git ls-files', '.hg': 'hg files'  },
+      \ }
 
 " Disable pandoc's markdown folding.
 let g:pandoc#filetypes#pandoc_markdown = 0
@@ -383,21 +383,21 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 " Set linters and fixers.
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
-\   'awk': [ 'gawk' ],
-\   'c': [ 'clangd', 'clangtidy' ],
-\   'cpp': [ 'clangd', 'clangtidy' ],
-\   'cuda': [ 'nvcc' ],
-\   'haskell': [ 'hie' ],
-\   'llvm': [ 'llc' ],
-\   'lua': [ 'luac' ],
-\   'json': [ 'jq' ],
-\   'python': [ 'flake8' ],
-\   'ruby': [ 'rubocop' ],
-\   'rust': [ 'analyzer' ],
-\   'sh': [ 'shell', 'shellcheck' ],
-\   'vim': [ 'vint' ],
-\   'zsh': [ 'shell', 'shellcheck' ],
-\ }
+      \   'awk': [ 'gawk' ],
+      \   'c': [ 'clangd', 'clangtidy' ],
+      \   'cpp': [ 'clangd', 'clangtidy' ],
+      \   'cuda': [ 'nvcc' ],
+      \   'haskell': [ 'hie' ],
+      \   'llvm': [ 'llc' ],
+      \   'lua': [ 'luac' ],
+      \   'json': [ 'jq' ],
+      \   'python': [ 'flake8' ],
+      \   'ruby': [ 'rubocop' ],
+      \   'rust': [ 'analyzer' ],
+      \   'sh': [ 'shell', 'shellcheck' ],
+      \   'vim': [ 'vint' ],
+      \   'zsh': [ 'shell', 'shellcheck' ],
+      \ }
 
 " Limit clangtidy checks.
 let g:ale_c_clangtidy_checks = [ 'clang-analyzer-*', 'cppcoreguidelines-*', 'llvm-*' ]
@@ -406,32 +406,32 @@ let g:ale_cpp_clangtidy_checks = g:ale_c_clangtidy_checks
 " `*` means any language not matched explicitly, not all languages (ie. if ft is `rust`, ALE will
 " only load the `rust` list, not `rust` and `*`).
 let g:ale_fixers = {
-\   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
-\   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'haskell': [ 'ormolu', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'python': [ 'black', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
-\   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
-\ }
+      \   '*': [ 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'cpp': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'cuda': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'haskell': [ 'ormolu', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'nix': [ 'nixpkgs-fmt', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'opencl': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'python': [ 'black', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'rust': [ 'rustfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+      \   'sh': ['shfmt', 'remove_trailing_lines', 'trim_whitespace' ],
+      \ }
 
 " Don't apply formatters that re-write files on save, these sometimes aren't used in projects.
 " Use `$DTW_LOCALVIMRC` to override this.
 let g:ale_fix_on_save = 1
 let g:ale_fix_on_save_ignore = {
-\   'cpp': [ 'clang-format' ],
-\   'cmake': [ 'cmakeformat' ],
-\   'cuda': [ 'clang-format' ],
-\   'opencl': [ 'clang-format' ],
-\   'python': [ 'black' ],
-\ }
+      \   'cpp': [ 'clang-format' ],
+      \   'cmake': [ 'cmakeformat' ],
+      \   'cuda': [ 'clang-format' ],
+      \   'opencl': [ 'clang-format' ],
+      \   'python': [ 'black' ],
+      \ }
 
 " Disable Ale for `.tex.njk` files.
 let g:ale_pattern_options = {
-\   '.*\.tex\.njk$': { 'ale_enabled': 0 },
-\ }
+      \   '.*\.tex\.njk$': { 'ale_enabled': 0 },
+      \ }
 
 " Show hover balloon when over a definition.
 let g:ale_set_balloons = 1
@@ -465,43 +465,43 @@ let g:lightline.separator = { 'left': '⬣', 'right': '⬣' }
 let g:lightline.subseparator = g:lightline.separator
 
 let g:lightline.active = {
-\   'left': [
-\       [ 'mode' ],
-\       [ 'paste', 'spell', 'gitbranch', 'readonly' ],
-\       [ 'filename' ]
-\   ],
-\   'right': [
-\       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-\       [ 'gutentags' ],
-\       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
-\   ]
-\ }
+      \   'left': [
+      \       [ 'mode' ],
+      \       [ 'paste', 'spell', 'gitbranch', 'readonly' ],
+      \       [ 'filename' ]
+      \   ],
+      \   'right': [
+      \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
+      \       [ 'gutentags' ],
+      \       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
+      \   ]
+      \ }
 
 let g:lightline.component_expand = {
-\   'linter_checking': 'lightline#ale#checking',
-\   'linter_warnings': 'lightline#ale#warnings',
-\   'linter_errors': 'lightline#ale#errors',
-\   'linter_ok': 'lightline#ale#ok',
-\ }
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
+      \ }
 
 let g:lightline.component_type = {
-\   'linter_checking': 'left',
-\   'linter_warnings': 'warning',
-\   'linter_errors': 'error',
-\   'linter_ok': 'left',
-\ }
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'left',
+      \ }
 
 let g:lightline.component_function = {
-\   'gitbranch': 'LightlineGitBranch',
-\   'gutentags': 'LightlineGutentags',
-\   'readonly': 'LightlineReadonly',
-\   'charvaluehex': 'LightlineCharacterHex',
-\   'fileencoding': 'LightlineFileEncoding',
-\   'fileformat': 'LightlineFileFormat',
-\   'filetype': 'LightlineFileType',
-\   'filename': 'LightlineFilename',
-\   'tagbar': 'LightlineTagbar'
-\ }
+      \   'gitbranch': 'LightlineGitBranch',
+      \   'gutentags': 'LightlineGutentags',
+      \   'readonly': 'LightlineReadonly',
+      \   'charvaluehex': 'LightlineCharacterHex',
+      \   'fileencoding': 'LightlineFileEncoding',
+      \   'fileformat': 'LightlineFileFormat',
+      \   'filetype': 'LightlineFileType',
+      \   'filename': 'LightlineFilename',
+      \   'tagbar': 'LightlineTagbar'
+      \ }
 
 function! LightlineFilename()
   " Get the full path of the current file.
@@ -597,15 +597,15 @@ endfunction
 
 " Define a custom colorscheme that matches the tmux configuration.
 let s:p = {
-\   'normal': {},
-\   'inactive': {},
-\   'insert': {},
-\   'replace': {},
-\   'visual': {},
-\   'terminal': {},
-\   'command': {},
-\   'tabline': {}
-\ }
+      \   'normal': {},
+      \   'inactive': {},
+      \   'insert': {},
+      \   'replace': {},
+      \   'visual': {},
+      \   'terminal': {},
+      \   'command': {},
+      \   'tabline': {}
+      \ }
 
 " All palettes have the form:
 "   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
@@ -618,19 +618,19 @@ let s:p.inactive.left = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 " Normal mode's left statusline has terminal background with green foreground (for `NORMAL`),
 " followed gray foreground (for the git branch or `PASTE`) and then white foreground for filename.
 let s:p.normal.left = [
-\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-\   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
-\   [s:fg, s:bg, s:c_fg, s:c_bg]
-\ ]
+      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+      \   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
+      \   [s:fg, s:bg, s:c_fg, s:c_bg]
+      \ ]
 let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
 " Normal mode's right status line has terminal background with green foreground (for ALE),
 " followed by white foreground (for Gutentags), finished off with bright black foreground
 " (for line/col/hex/encoding, etc).
 let s:p.normal.right = [
-\   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-\   [s:white, s:bg, s:c_white, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
+      \   [s:white, s:bg, s:c_white, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 
 let s:p.normal.error = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg] ]
 let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
@@ -638,44 +638,44 @@ let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
 " Insert mode has terminal background and blue foreground, followed by the same as normal
 " mode.
 let s:p.insert.left = [
-\   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 let s:p.insert.middle = s:p.normal.middle
 let s:p.insert.right = s:p.normal.right
 
 " Insert mode has terminal background and red foreground, followed by the same as normal mode.
 let s:p.replace.left = [
-\   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 let s:p.replace.middle = s:p.normal.middle
 let s:p.replace.right = s:p.normal.right
 
 " Visual mode has terminal background and yellow foreground, followed by the same as normal
 " mode.
 let s:p.visual.left = [
-\   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 let s:p.visual.middle = s:p.normal.middle
 let s:p.visual.right = s:p.normal.right
 
 " Terminal mode has terminal background and magenta foreground, followed by the same as normal
 " mode.
 let s:p.terminal.left = [
-\   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 let s:p.terminal.middle = s:p.normal.middle
 let s:p.terminal.right = s:p.normal.right
 
 " Command mode has terminal background and cyan foreground, followed by the same as normal
 " mode.
 let s:p.command.left = [
-\   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
-\   s:p.normal.left[1], s:p.normal.left[2]
-\ ]
+      \   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
+      \   s:p.normal.left[1], s:p.normal.left[2]
+      \ ]
 let s:p.command.middle = s:p.normal.middle
 let s:p.command.right = s:p.normal.right
 
@@ -719,8 +719,8 @@ call MaybeMkdir('@cacheHome@/nvim/backup/')
 set backupdir=@cacheHome@/nvim/backup//
 
 if exists('+undofile')
-	call MaybeMkdir('@cacheHome@/nvim/undo/')
-	set undodir=@cacheHome@/nvim/undo//
+  call MaybeMkdir('@cacheHome@/nvim/undo/')
+  set undodir=@cacheHome@/nvim/undo//
 end
 
 if exists('+shada')
