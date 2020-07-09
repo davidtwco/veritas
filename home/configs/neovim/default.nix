@@ -87,91 +87,103 @@ in
     };
 
     programs.neovim = {
+      configure = {
+        customRC = ''
+          " Load primary configuration file.
+          source ${extraConfig}
+        '';
+
+        packages.veritas = with pkgs.vimPlugins; with pkgs.vimUtils; {
+          start = [
+            # Sensible defaults for Vim.
+            vim-sensible
+            # Polyglot adds a bunch of syntax handling for different languages and tools, check if
+            # new languages are included before adding them manually.
+            vim-polyglot
+            # Rust (included in Polyglot, but explicitly disabled so that we can use newer
+            # versions).
+            rust-vim
+            # Generate ctags for projects.
+            vim-gutentags
+            # Auto-adds `end` where appropriate.
+            vim-endwise
+            # Autocompletion/linting/fixing.
+            ale
+            deoplete-nvim
+            lightline-ale
+            # Add operator to comment out lines.
+            vim-commentary
+            # Improvements to netrw.
+            vim-vinegar
+            # Show git changes in the sign column
+            vim-signify
+            # Git wrappers
+            vim-fugitive
+            vim-rhubarb
+            fugitive-gitlab-vim
+            # Async build and test dispatcher
+            vim-dispatch
+            # Helper functions for unix commands.
+            vim-eunuch
+            # Easy navigation between vim splits and tmux panes.
+            vim-tmux-navigator
+            # Focus events for tmux.
+            vim-tmux-focus-events
+            # Fuzzy file search.
+            fzfWrapper
+            fzf-vim
+            # Statusline
+            lightline-vim
+            # Show marks in sign column.
+            vim-signature
+            # Adds `s` motion for matching any two characters.
+            vim-sneak
+            # Improve `.` (repeat) for plugin maps.
+            vim-repeat
+            # Handy bracket matchings.
+            vim-unimpaired
+            # Commands for interactig with surroundings ("", '', {}, etc).
+            vim-surround
+            # Multi-file search (`Ack`)
+            ferret
+            # Enhanced `%` functionality.
+            matchit-zip
+            # Colour scheme
+            vim-hybrid
+            # Clipboard sync between Vim and tmux.
+            vim-tmux-clipboard
+            # Switch to absolute line numbers for buffers that aren't focused.
+            vim-numbertoggle
+            # Improved incremental search - hides search highlighting after moving cursor.
+            is-vim
+          ];
+
+          # Load these with `:packadd` command.
+          opt = [
+            # Search/substitution/abbreviation of word variations.
+            vim-abolish
+            # Syntax highlighting for HOCON
+            vim-hocon
+            # Rich syntax highlighting for disassembled SPIR-V (and automatic disassembly)
+            vim-spirv
+            # Pandoc
+            vim-pandoc
+            vim-pandoc-syntax
+            # Terminal utilities.
+            split-term-vim
+            # Text filtering and alignment.
+            tabular
+            # Visualize the undo tree.
+            vim-mundo
+          ];
+        };
+      };
       enable = true;
-      extraConfig = "source ${extraConfig}";
       viAlias = true;
       vimAlias = true;
       withNodeJs = true;
       withPython = true;
       withPython3 = true;
-      plugins = with pkgs.vimPlugins; with pkgs.vimUtils; [
-        # Sensible defaults for Vim.
-        vim-sensible
-        # Polyglot adds a bunch of syntax handling for different languages and tools, check if
-        # new languages are included before adding them manually.
-        vim-polyglot
-        # Rust (included in Polyglot, but explicitly disabled so that we can use newer versions).
-        rust-vim
-        # Pandoc
-        vim-pandoc
-        vim-pandoc-syntax
-        # Generate ctags for projects.
-        vim-gutentags
-        # Auto-adds `end` where appropriate.
-        vim-endwise
-        # Autocompletion/linting/fixing.
-        ale
-        deoplete-nvim
-        lightline-ale
-        # Add operator to comment out lines.
-        vim-commentary
-        # Improvements to netrw.
-        vim-vinegar
-        # Show git changes in the sign column
-        vim-signify
-        # Git wrappers
-        vim-fugitive
-        vim-rhubarb
-        fugitive-gitlab-vim
-        # Async build and test dispatcher
-        vim-dispatch
-        # Helper functions for unix commands.
-        vim-eunuch
-        # Easy navigation between vim splits and tmux panes.
-        vim-tmux-navigator
-        # Focus events for tmux.
-        vim-tmux-focus-events
-        # Fuzzy file search.
-        fzfWrapper
-        fzf-vim
-        # Statusline
-        lightline-vim
-        # Show marks in sign column.
-        vim-signature
-        vim-sneak
-        # Adds `s` motion for matching any two characters.
-        vim-sneak
-        # Improve `.` (repeat) for plugin maps.
-        vim-repeat
-        # Terminal utilities.
-        split-term-vim
-        # Handy bracket matchings.
-        vim-unimpaired
-        # Commands for interactig with surroundings ("", '', {}, etc).
-        vim-surround
-        # Multi-file search (`Ack`)
-        ferret
-        # Enhanced `%` functionality.
-        matchit-zip
-        # Text filtering and alignment.
-        tabular
-        # Search/substitution/abbreviation of word variations.
-        vim-abolish
-        # Syntax highlighting for HOCON
-        vim-hocon
-        # Rich syntax highlighting for disassembled SPIR-V (and automatic disassembly)
-        vim-spirv
-        # Colour scheme
-        vim-hybrid
-        # Clipboard sync between Vim and tmux.
-        vim-tmux-clipboard
-        # Switch to absolute line numbers for buffers that aren't focused.
-        vim-numbertoggle
-        # Improved incremental search - hides search highlighting after moving cursor.
-        is-vim
-        # Visualize the undo tree.
-        vim-mundo
-      ];
     };
   };
 }
