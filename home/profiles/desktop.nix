@@ -20,7 +20,7 @@ in
 
     home.packages = with pkgs; [
       # Multiple-service messaging client.
-      franz
+      ferdi
       # Mozilla Firefox is a free and open-source web browser.
       firefox-bin
       # Remmina is a remote desktop client written in GTK+.
