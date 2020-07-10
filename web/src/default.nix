@@ -31,6 +31,7 @@ in
 site.mkSite {
   name = "davidtw.co";
   routes = {
+    # Keep this in sync with the GitHub profile readme in the `davidtwco/davidtwco` repository.
     "/index.html" = site.mkHtmlPageWithContext ./templates ./content/index.md {
       header = builtins.readFile ./content/header.html;
       # Given that `mkHtmlPageWithContext` basically just inserts the content of `index.md` into

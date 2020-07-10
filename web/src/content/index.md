@@ -7,8 +7,9 @@ I'm David, a software engineer from Scotland, with an interest in systems softwa
 software. You'll find me as `davidtwco` around the internet.
 
 ## Open Source
-I'm a regular contributor to rustc, the compiler for the Rust programming language (as a [compiler
-team contributor][compiler_team_contributor], a stepping stone to full compiler team membership).
+Contributing to open source is a lot of fun and I love doing it - I mostly contribute to rustc,
+the compiler for the Rust programming language (as a [compiler team
+contributor][compiler_team_contributor], a stepping stone to full compiler team membership).
 Throughout my time contributing, I've been a member of the [non-lexical lifetimes (NLL)][wg_nll],
 [async/await][wg_async_await] and [diagnostics][wg_diagnostics] working groups and have been a
 co-lead of the [polymorphisation][wg_polymorphisation] and [meta][wg_meta] working groups. My
@@ -20,10 +21,10 @@ distribution - and Zulip - a real-time chat application with threading. You can 
 list of my open source contributions on GitHub][prs].
 
 ## Personal Infrastructure
-Reproducibility is one of my core values, evidenced by my investment in reproducible personal
-infrastructure - [`veritas`][veritas] is my personal mono-repo which contains the declarative
-configuration for all of my desktops, servers and laptops - including dotfiles, packages and
-this website!
+I love investing in things that will pay off in the long-term, so I've maintained a dotfiles
+repository for years. The most recent manifestation of this is [`veritas`][veritas], my personal
+mono-repo which contains the declarative configuration for all of my desktops, servers and laptops
+- including dotfiles, packages and this website!
 
 ## Work
 I work within the infrastructure team at [Codeplay Software][codeplay], where I'm
