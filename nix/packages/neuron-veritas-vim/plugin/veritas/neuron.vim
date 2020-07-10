@@ -113,7 +113,7 @@ func! veritas#neuron#insert_zettel()
 endf
 
 func! veritas#neuron#new_zettel()
-  exec 'tabnew '
+  exec 'edit '
         \ . s:veritas_neuron_run(' new "New Zettel"')
         \ . ' | call search("New Zettel") | norm"_D'
   startinsert!
