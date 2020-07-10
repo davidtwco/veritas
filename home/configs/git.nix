@@ -95,11 +95,6 @@ in
         # GDB
         ".gdb_history"
 
-        # Workman
-        ".workman_active_working_directory"
-        ".workman_do_not_assign"
-        ".workman_needs_refresh"
-
         # Ripgrep
         ".rgignore"
 

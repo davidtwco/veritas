@@ -293,8 +293,6 @@
           neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
             inherit (pkgs.vimUtils) buildVimPlugin;
           };
-
-          workman = pkgs.callPackage ./nix/packages/workman.nix { };
         } // optionalAttrs (system == "x86_64-linux") {
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
         }

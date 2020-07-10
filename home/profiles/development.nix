@@ -44,8 +44,6 @@ in
       tmux-cssh
       # Yet another diff highlighting tool
       diffr
-      # Personal project for managing working directories.
-      workman
       # Used by `breakpointHook` in nixpkgs.
       cntr
       # Download rust toolchains from CI builds.
