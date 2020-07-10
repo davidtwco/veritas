@@ -1,4 +1,4 @@
-name: deploy davidtw.co
+name: zettelkasten.davidtw.co
 
 on:
   push:
@@ -18,6 +18,11 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           skip_adding_nixpkgs_channel: true
 
+      - name: Add binary cache
+        uses: cachix/cachix-action@v6
+        with:
+          name: srid
+
       - name: Unlock secrets
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
@@ -26,14 +31,14 @@ jobs:
           nix-shell --run "git-crypt unlock ./git-crypt-key"
           rm ./git-crypt-key
 
-      - name: Build website
+      - name: Build zettelkasten
         run: |
-          cp -R "$(nix-build --no-out-link)" result
+          nix-shell --run "neuron -d ./zettelkasten rib -o result"
 
       - name: Publish
         uses: netlify/actions/cli@master
         with:
           args: deploy --dir=result --prod
         env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ZETTELKASTEN_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_ZETTELKASTEN_AUTH_TOKEN }}
