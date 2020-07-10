@@ -1,0 +1,44 @@
+name: deploy zettelkasten.davidtw.co
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v10
+        with:
+          nix_path: nixpkgs=channel:nixpkgs-unstable
+          skip_adding_nixpkgs_channel: true
+
+      - name: Add binary cache
+        uses: cachix/cachix-action@v6
+        with:
+          name: srid
+
+      - name: Unlock secrets
+        env:
+          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
+        run: |
+          echo "$GIT_CRYPT_KEY" | base64 -d > ./git-crypt-key
+          nix-shell --run "git-crypt unlock ./git-crypt-key"
+          rm ./git-crypt-key
+
+      - name: Build zettelkasten
+        run: |
+          nix-shell --run "neuron -d ./zettelkasten rib -o result"
+
+      - name: Publish
+        uses: netlify/actions/cli@master
+        with:
+          args: deploy --dir=result --prod
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_ZETTELKASTEN_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_ZETTELKASTEN_AUTH_TOKEN }}
