@@ -18,7 +18,7 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           skip_adding_nixpkgs_channel: true
 
-      - name: Add binary cache
+      - name: Add neuron binary cache
         uses: cachix/cachix-action@v6
         with:
           name: srid

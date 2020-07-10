@@ -18,6 +18,11 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           skip_adding_nixpkgs_channel: true
 
+      - name: Add neuron binary cache
+        uses: cachix/cachix-action@v6
+        with:
+          name: srid
+
       - name: Unlock secrets
         env:
           GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
