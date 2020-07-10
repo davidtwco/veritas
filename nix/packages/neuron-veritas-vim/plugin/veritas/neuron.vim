@@ -49,7 +49,8 @@ func! s:veritas_neuron_sink(lines)
     endif
 
     " Execute the command (`edit`, `vsplit`, etc.) with the path.
-    execute l:cmd s:veritas_path_escape(l:path)
+    let l:zettelkasten_dir = get(g:, 'veritas_neuron_directory')
+    execute l:cmd s:veritas_path_escape(l:zettelkasten_dir . '/' . l:path)
     normal! zz
   catch
   endtry
