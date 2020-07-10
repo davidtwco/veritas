@@ -21,6 +21,14 @@ func! s:veritas_path_escape(path)
   return s:is_win ? escape(path, '$') : path
 endf
 
+func! s:veritas_neuron_format_zettel_id(zettel_id)
+  if a:zettel_id =~# '<.*>'
+    return a:zettel_id
+  else
+    return '<' . a:zettel_id . '>'
+  end
+endf
+
 func! s:veritas_neuron_source()
   call veritas#neuron#refresh_cache()
   let l:zettel_cache = get(g:, 'veritas_neuron_cache', {})
@@ -64,7 +72,7 @@ func! s:veritas_neuron_reducer(lines)
     let l:matched = matchstr(a:lines[0], zettel_id)
     if !empty(l:matched)
       " Return the zettel in the format of Neuron's links.
-      return util#format_zettelid(l:matched)
+      return s:veritas_neuron_format_zettel_id(l:matched)
     endif
   endfor
 
