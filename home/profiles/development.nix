@@ -48,6 +48,8 @@ in
       cntr
       # Download rust toolchains from CI builds.
       rustup-toolchain-install-master
+      # Bisect rustc regressions
+      cargo-bisect-rustc
     ];
 
     veritas.configs = {

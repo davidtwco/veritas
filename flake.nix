@@ -283,6 +283,8 @@
           pkgs = pkgsBySystem."${system}";
         in
         {
+          cargo-bisect-rustc = pkgs.callPackage ./nix/packages/cargo-bisect-rustc { };
+
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
 
           rustup-toolchain-install-master =
