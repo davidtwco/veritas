@@ -39,15 +39,15 @@ in
         };
         font = {
           normal = {
-            family = "Iosevka";
+            family = "Iosevka Fixed";
             style = "Regular";
           };
           bold = {
-            family = "Iosevka";
+            family = "Iosevka Fixed";
             style = "Bold";
           };
           italic = {
-            family = "Iosevka";
+            family = "Iosevka Fixed";
             style = "Italic";
           };
           size = 10;
