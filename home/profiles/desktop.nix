@@ -59,6 +59,9 @@ in
       roboto-mono
       roboto-slab
       iosevka
+      iosevka-term
+      iosevka-fixed
+      iosevka-aile
     ];
 
     # Enable anything used on non-headless machines that is disabled by default.
