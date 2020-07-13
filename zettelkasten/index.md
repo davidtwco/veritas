@@ -32,8 +32,15 @@ synthesized from [an excellent article by David B. Clear][zettelkasten_david_cle
 1. **Bias towards adding notes:** Adding too many notes won't make the Zettelkasten less useful,
    so lean towards adding a note when unsure.
 
-For now, as structure emerges, you can start browsing the Zettelkasten from the <a0ee0e1b> note,
-or read more notes on the practice of Zettelkasten:
+For now, as structure emerges, the following pages might be a good place to start browsing the
+Zettelkasten:
+
+- <a0e27d9f>
+- <fa56558c>
+- <c79ebb27>
+- <a0ee0e1b>
+
+Alternatively, read more notes on the practice of Zettelkasten, shown below.
 
 <z:zettels?tag=zettelkasten>
 
