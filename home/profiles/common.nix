@@ -207,6 +207,7 @@ in
 
     veritas.configs = {
       bash.enable = true;
+      cachix.enable = true;
       command-not-found.enable = true;
       feh.enable = true;
       fish.enable = true;
