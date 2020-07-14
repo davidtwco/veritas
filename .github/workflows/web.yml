@@ -18,10 +18,13 @@ jobs:
           nix_path: nixpkgs=channel:nixpkgs-unstable
           skip_adding_nixpkgs_channel: true
 
-      - name: Add neuron binary cache
-        uses: cachix/cachix-action@v6
+      - name: Add Cachix binary caches
+        # `extraPullNames` support hasn't been released yet.
+        uses: cachix/cachix-action@4b5e2edfee9ebccb8f2fd411be0a96e3ca9ea4e2
         with:
-          name: srid
+          name: veritas
+          extraPullNames: cachix,srid,pre-commit-hooks
+          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
 
       - name: Unlock secrets
         env:
