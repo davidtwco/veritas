@@ -13,7 +13,7 @@ rec {
       frontmatter = extractFrontmatter path;
       context = { inherit content; } // frontmatter // extraContext;
     in
-    renderTemplate templatesPath context path;
+    renderTemplate templatesPath context;
 
   # Render content as HTML page without extra context.
   mkHtmlPage = templatesPath: path: mkHtmlPageWithContext templatesPath path { };

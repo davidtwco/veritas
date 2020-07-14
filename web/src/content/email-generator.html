@@ -1,8 +1,5 @@
----
-template: empty.html
-title: Per-site Email Generator | David Wood
----
-<p id="email-generator">Not yet generated! Is JavaScript enabled?</p>
+<input id="email-generator" type="text" readonly="true" value="Not yet generated! Is JavaScript enabled?" />
+<button id="email-generator-copy">Copy</button>
 
 <script type="text/javascript">
     var urlParams = new URLSearchParams(window.location.search);
@@ -18,7 +15,11 @@ title: Per-site Email Generator | David Wood
     result += '@';
     result += domain;
 
-    document.getElementById('email-generator').innerHTML = result;
+    document.getElementById('email-generator').value = result;
+    document.getElementById('email-generator-copy').addEventListener("click", function() {
+      document.querySelector('#email-generator').select();
+      document.execCommand("copy");
+    });
 </script>
 
 <!--

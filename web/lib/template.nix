@@ -4,15 +4,15 @@ let
 in
 {
   # Render a template in `templatesPath` with `context`.
-  renderTemplate = templatesPath: context: path:
+  renderTemplate = templatesPath: context:
     let
-      name = builtins.baseNameOf (toString path);
-      ctx = builtins.toFile "site-context-${name}" (builtins.toJSON context);
+      name = context.template;
+      ctx = builtins.toFile "site-render-template-${name}" (builtins.toJSON context);
       drv = mkDerivation {
         name = "render-${name}";
         inputs = [ pkgs.tera-template ];
         command =
-          "tera-template -c ${ctx} -p ${templatesPath} -t ${context.template} > $out";
+          "tera-template -c ${ctx} -p ${templatesPath} -t ${name} > $out";
       };
     in
     "${drv}";

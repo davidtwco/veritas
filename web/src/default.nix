@@ -46,7 +46,11 @@ site.mkSite {
 
     # Random email address generator - useful for generating unique email addresses on mobile
     # devices.
-    "/email-generator/index.html" = site.mkHtmlPage ./templates ./content/email-generator.md;
+    "/email-generator/index.html" = site.renderTemplate ./templates {
+      template = "empty.html";
+      title = "Per-site Email Generator | ${manifestData.name}";
+      content = builtins.readFile ./content/email-generator.html;
+    };
 
     "/css" = ./css;
     "/favicons" = favicons;
