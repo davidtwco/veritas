@@ -45,6 +45,8 @@ in
       keepassxc
       # Keybase
       keybase-gui
+      # Citation manager
+      zotero
       # Fonts
       meslo-lg
       source-code-pro
