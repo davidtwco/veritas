@@ -47,17 +47,28 @@ in
         description = "David Wood";
         extraGroups = [
           "adbusers"
+          "adm"
           "audio"
           "disk"
           "docker"
+          "ftp"
+          "games"
+          "http"
           "input"
           "libvirtd"
+          "locate"
+          "log"
+          "lp"
           "lxd"
           "plugdev"
+          "rfkill"
+          "sys"
           "systemd-journal"
+          "uucp"
           "vboxusers"
           "video"
           "wheel"
+          "wireshark"
         ];
         hashedPassword = "$6$kvMx6lEzQPhkSj8E$KfP/qM2cMz5VqNszLjeOBGnny3PdIyy0vnHzIgP.gb1XqTI/qq3nbt0Qg871pkmwJwIu3ZGt57yShMjFFMR3x1";
         isNormalUser = true;
