@@ -40,6 +40,9 @@ in
 
       # Steam Controller
       steamcontroller
+
+      # Audit
+      audit
     ];
 
     hardware.opengl = {
@@ -62,9 +65,14 @@ in
       sshServe.enable = true;
     };
 
-    security.sudo.extraConfig = ''
-      Defaults insults
-    '';
+    security = {
+      audit.enable = true;
+      auditd.enable = true;
+
+      sudo.extraConfig = ''
+        Defaults insults
+      '';
+    };
 
     services = {
       cron.enable = true;
