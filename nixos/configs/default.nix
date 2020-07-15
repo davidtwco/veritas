@@ -3,7 +3,6 @@
 {
   imports = [
     ./networking.nix
-    ./nixops.nix
     ./user.nix
     ./virtualisation.nix
     ./yubikey.nix

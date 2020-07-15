@@ -252,6 +252,7 @@
       #
       # These are only used by other projects that might import this flake.
       nixosModules = {
+        nixopsDns = import ./nixos/modules/nixops-dns.nix;
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
       };
 

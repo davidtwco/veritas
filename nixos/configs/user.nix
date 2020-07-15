@@ -29,15 +29,10 @@ in
       { domain = config.users.users.david.name; item = "stack"; type = "-"; value = "unlimited"; }
     ];
 
-    services = {
-      # Make `/run/user/X` larger.
-      logind.extraConfig = ''
-        RuntimeDirectorySize=20%
-      '';
-
-      # Run NixOps DNS as the user which runs NixOps.
-      nixops-dns.user = config.users.users.david.name;
-    };
+    # Make `/run/user/X` larger.
+    services.logind.extraConfig = ''
+      RuntimeDirectorySize=20%
+    '';
 
     # Enable user units to persist after sessions end.
     system.activationScripts.loginctl-enable-linger-david = lib.stringAfter [ "users" ] ''
@@ -79,6 +74,9 @@ in
       # Do not allow users to be added or modified except through Nix configuration.
       mutableUsers = false;
     };
+
+    # Configure nixops-dns for my user.
+    veritas.services.nixops-dns.instances.david.ipAddress = "127.0.0.2";
   };
 }
 

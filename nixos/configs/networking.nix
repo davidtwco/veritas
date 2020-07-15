@@ -28,7 +28,6 @@ in
       useNetworkd = true;
     };
 
-    # Fallback to Cloudflare DNS instead of Google.
     services = {
       openssh = {
         enable = true;
@@ -47,6 +46,7 @@ in
         permitRootLogin = "no";
       };
 
+      # Fallback to Cloudflare DNS instead of Google.
       resolved.fallbackDns = [
         "1.1.1.1"
         "1.0.0.1"

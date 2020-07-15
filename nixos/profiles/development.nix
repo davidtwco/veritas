@@ -36,9 +36,9 @@ in
       };
     };
 
-    veritas.configs = {
-      virtualisation.enable = true;
-      nixops.enable = true;
+    veritas = {
+      configs.virtualisation.enable = true;
+      services.nixops-dns.enable = true;
     };
   };
 }
