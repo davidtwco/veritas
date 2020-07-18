@@ -292,7 +292,7 @@
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
 
           rustup-toolchain-install-master =
-            pkgs.callPackage ./nix/packages/rustup-toolchain-install-master.nix { };
+            pkgs.callPackage ./nix/packages/rustup-toolchain-install-master { };
 
           tera-template = pkgs.callPackage ./nix/packages/tera-template { };
 
