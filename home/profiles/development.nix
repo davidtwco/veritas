@@ -50,6 +50,9 @@ in
       rustup-toolchain-install-master
       # Bisect rustc regressions
       cargo-bisect-rustc
+      # rustc self-profiling (ideally this would be part of the rustc shell, but lorri doesn't find
+      # the package from overlays)
+      measureme
     ];
 
     veritas.configs = {

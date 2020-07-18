@@ -287,6 +287,8 @@
         {
           cargo-bisect-rustc = pkgs.callPackage ./nix/packages/cargo-bisect-rustc { };
 
+          measureme = pkgs.callPackage ./nix/packages/measureme { };
+
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
 
           rustup-toolchain-install-master =
