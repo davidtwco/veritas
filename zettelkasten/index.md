@@ -36,13 +36,11 @@ For now, as structure emerges, the following pages might be a good place to star
 Zettelkasten:
 
 - <a0e27d9f>
+- <9996a250>
+- <55c3e376>
 - <fa56558c>
 - <c79ebb27>
 - <a0ee0e1b>
-
-Alternatively, read more notes on the practice of Zettelkasten, shown below.
-
-<z:zettels?tag=zettelkasten>
 
 [luhmann]: https://en.wikipedia.org/wiki/Niklas_Luhmann
 [zettelkasten_david_clear]: https://writingcooperative.com/zettelkasten-how-one-german-scholar-was-so-freakishly-productive-997e4e0ca125
