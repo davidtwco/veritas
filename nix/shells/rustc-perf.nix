@@ -1,7 +1,7 @@
 { pkgs ? import <nixpkgs> { } }:
 
 # This file contains a development shell for running and working on rustc-perf.
-pkgs.mkShell rec {
+pkgs.clangStdenv.mkDerivation rec {
   name = "rustc-perf";
   buildInputs = with pkgs; [
     # Dependencies from `rustc-perf`'s Dockerfile
@@ -10,12 +10,18 @@ pkgs.mkShell rec {
     gnumake
     cmake
     file
-    python
+    python2Full
+    python3Full
 
-    pkg-config
+    autoconf213
     expat
     freetype
+    llvm
     openssl
+    perl
+    pkg-config
+    python37Packages.rpm
+    watchman
     xorg.libX11
     zlib
 
@@ -31,6 +37,12 @@ pkgs.mkShell rec {
 
   # Always show backtraces.
   RUST_BACKTRACE = 1;
+
+  # Required by bindgen.
+  LIBCLANG_PATH = "${pkgs.llvmPackages.libclang.lib}/lib";
+
+  # Disable compiler hardening.
+  hardeningDisable = [ "all" ];
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap
