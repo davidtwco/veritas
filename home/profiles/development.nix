@@ -13,8 +13,6 @@ in
       # `shell.nix` files, but using the Nix-integration in stack is easier and avoids the
       # downsides of having stack installed globally for my purposes.
       stack
-      # Symbol demangler for Rust.
-      rustfilt
       # Alternative version control systems.
       mercurial
       breezy
@@ -42,17 +40,8 @@ in
       gist
       # ClusterSSH with tmux.
       tmux-cssh
-      # Yet another diff highlighting tool
-      diffr
       # Used by `breakpointHook` in nixpkgs.
       cntr
-      # Download rust toolchains from CI builds.
-      rustup-toolchain-install-master
-      # Bisect rustc regressions
-      cargo-bisect-rustc
-      # rustc self-profiling (ideally this would be part of the rustc shell, but lorri doesn't find
-      # the package from overlays)
-      measureme
     ];
 
     veritas.configs = {

@@ -1,4 +1,20 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {
+    # `pkgs` is provided by the flake normally, but `nix-shell` and `lorri` both use the default
+    # value, so make sure that our custom packages are available using an overlay.
+    overlays = [
+      (_: super: {
+        cargo-bisect-rustc = super.callPackage ../packages/cargo-bisect-rustc { };
+
+        measureme = super.callPackage ../packages/measureme { };
+
+        rustfilt = super.callPackage ../packages/rustfilt { };
+
+        rustup-toolchain-install-master =
+          super.callPackage ../packages/rustup-toolchain-install-master { };
+      })
+    ];
+  }
+}:
 
 # This file contains a development shell for working on rustc.
 let
@@ -170,7 +186,6 @@ let
         **/*.yml
         **/*.nix
         *.md
-        src/bootstrap
         src/ci
         src/doc/
         src/etc/
@@ -211,6 +226,12 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     # Local toolchain is added to rustup to avoid needing to set up
     # environment variables.
     rustup
+
+    # Useful tools for working on upstream issues.
+    cargo-bisect-rustc
+    measureme
+    rustfilt
+    rustup-toolchain-install-master
 
     # Required for nested shells in lorri to work correctly.
     bashInteractive

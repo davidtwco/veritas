@@ -1,4 +1,16 @@
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> {
+    # `pkgs` is provided by the flake normally, but `nix-shell` and `lorri` both use the default
+    # value, so make sure that our custom packages are available using an overlay.
+    overlays = [
+      (_: super: {
+        measureme = super.callPackage ../packages/measureme { };
+
+        rustup-toolchain-install-master =
+          super.callPackage ../packages/rustup-toolchain-install-master { };
+      })
+    ];
+  }
+}:
 
 # This file contains a development shell for running and working on rustc-perf.
 pkgs.clangStdenv.mkDerivation rec {
@@ -30,6 +42,8 @@ pkgs.clangStdenv.mkDerivation rec {
     oprofile
 
     rustup
+    rustup-toolchain-install-master
+    measureme
 
     # Required for nested shells in lorri to work correctly.
     bashInteractive
