@@ -289,7 +289,7 @@
 
           measureme = pkgs.callPackage ./nix/packages/measureme { };
 
-          rustfilt = pkgs.callPackage ./nix/packages/rustfilt.nix { };
+          rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
 
           rustup-toolchain-install-master =
             pkgs.callPackage ./nix/packages/rustup-toolchain-install-master { };
@@ -300,7 +300,7 @@
             inherit (pkgs.vimUtils) buildVimPlugin;
           };
         } // optionalAttrs (system == "x86_64-linux") {
-          intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt.nix { };
+          intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt { };
         }
       );
 
