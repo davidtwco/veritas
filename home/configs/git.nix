@@ -54,6 +54,10 @@ in
           compactionHeuristic = true;
           indentHeuristic = true;
         };
+        feature = {
+          experimental = true;
+          manyFiles = true;
+        };
         pull.rebase = true;
         push = {
           default = "simple";
