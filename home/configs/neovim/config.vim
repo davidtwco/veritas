@@ -310,13 +310,13 @@ let g:vim_markdown_conceal = 0
 let g:markdown_syntax_conceal = 0
 
 " Enable fenced language highlighting.
-let g:markdown_fenced_languages = ['c', 'python', 'cpp', 'bash=sh', 'lua', 'rust']
+let g:markdown_fenced_languages = [ 'c', 'python', 'cpp', 'bash=sh', 'lua', 'rust' ]
 
 " Allow line numbers in netrw buffers.
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " Disable rust syntax highlighting from polyglot, use rust.vim manually instead.
-let g:polyglot_disabled = ['rust']
+let g:polyglot_disabled = [ 'rust' ]
 let g:rust_use_custom_ctags_defs = 1
 
 " Use Postgres highlighting for all SQL.
@@ -652,34 +652,34 @@ let s:p = {
 "   s:p.{mode}.{where] = [ [ {guifg}, {guibg}, {ctermfg}, {ctermbg} ] ]
 
 " Inactive windows have terminal background and a muted foreground.
-let s:p.inactive.middle = [ [s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
+let s:p.inactive.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg ] ]
 let s:p.inactive.right = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 let s:p.inactive.left = [ s:p.inactive.middle[0], s:p.inactive.middle[0] ]
 
 " Normal mode's left statusline has terminal background with green foreground (for `NORMAL`),
 " followed gray foreground (for the git branch or `PASTE`) and then white foreground for filename.
 let s:p.normal.left = [
-      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-      \   [s:bright_black, s:bg, s:c_bright_black, s:c_bg],
-      \   [s:fg, s:bg, s:c_fg, s:c_bg]
+      \   [ s:bright_green, s:bg, s:c_bright_green, s:c_bg ],
+      \   [ s:bright_black, s:bg, s:c_bright_black, s:c_bg ],
+      \   [ s:fg, s:bg, s:c_fg, s:c_bg ]
       \ ]
-let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg] ]
+let s:p.normal.middle = [ [ s:bright_black, s:bg, s:c_bright_black, s:c_bg ] ]
 " Normal mode's right status line has terminal background with green foreground (for ALE),
 " followed by white foreground (for Gutentags), finished off with bright black foreground
 " (for line/col/hex/encoding, etc).
 let s:p.normal.right = [
-      \   [s:bright_green, s:bg, s:c_bright_green, s:c_bg],
-      \   [s:white, s:bg, s:c_white, s:c_bg],
+      \   [ s:bright_green, s:bg, s:c_bright_green, s:c_bg ],
+      \   [ s:white, s:bg, s:c_white, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 
-let s:p.normal.error = [ [s:bright_red, s:bg, s:c_bright_red, s:c_bg] ]
-let s:p.normal.warning = [ [s:yellow, s:bg, s:c_yellow, s:c_bg] ]
+let s:p.normal.error = [ [ s:bright_red, s:bg, s:c_bright_red, s:c_bg ] ]
+let s:p.normal.warning = [ [ s:yellow, s:bg, s:c_yellow, s:c_bg ] ]
 
 " Insert mode has terminal background and blue foreground, followed by the same as normal
 " mode.
 let s:p.insert.left = [
-      \   [s:bright_blue, s:bg, s:c_bright_blue, s:c_bg],
+      \   [ s:bright_blue, s:bg, s:c_bright_blue, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 let s:p.insert.middle = s:p.normal.middle
@@ -687,7 +687,7 @@ let s:p.insert.right = s:p.normal.right
 
 " Insert mode has terminal background and red foreground, followed by the same as normal mode.
 let s:p.replace.left = [
-      \   [s:bright_red, s:bg, s:c_bright_red, s:c_bg],
+      \   [ s:bright_red, s:bg, s:c_bright_red, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 let s:p.replace.middle = s:p.normal.middle
@@ -696,7 +696,7 @@ let s:p.replace.right = s:p.normal.right
 " Visual mode has terminal background and yellow foreground, followed by the same as normal
 " mode.
 let s:p.visual.left = [
-      \   [s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg],
+      \   [ s:bright_yellow, s:bg, s:c_bright_yellow, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 let s:p.visual.middle = s:p.normal.middle
@@ -705,7 +705,7 @@ let s:p.visual.right = s:p.normal.right
 " Terminal mode has terminal background and magenta foreground, followed by the same as normal
 " mode.
 let s:p.terminal.left = [
-      \   [s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg],
+      \   [ s:bright_magenta, s:bg, s:c_bright_magenta, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 let s:p.terminal.middle = s:p.normal.middle
@@ -714,17 +714,17 @@ let s:p.terminal.right = s:p.normal.right
 " Command mode has terminal background and cyan foreground, followed by the same as normal
 " mode.
 let s:p.command.left = [
-      \   [s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg],
+      \   [ s:bright_cyan, s:bg, s:c_bright_cyan, s:c_bg ],
       \   s:p.normal.left[1], s:p.normal.left[2]
       \ ]
 let s:p.command.middle = s:p.normal.middle
 let s:p.command.right = s:p.normal.right
 
 " Tabline has current tab in white, other tabs in gray, and terminal background.
-let s:p.tabline.left = [ [s:white, s:bg, s:c_white, s:c_bg] ]
-let s:p.tabline.tabsel = [ [s:fg, s:bg, s:c_fg, s:c_bg] ]
+let s:p.tabline.left = [ [ s:white, s:bg, s:c_white, s:c_bg ] ]
+let s:p.tabline.tabsel = [ [ s:fg, s:bg, s:c_fg, s:c_bg ] ]
 let s:p.tabline.middle = s:p.tabline.left
-let s:p.tabline.right = [ [s:white, s:bg, s:c_white, s:c_bg], [s:fg, s:bg, s:c_fg, s:c_bg] ]
+let s:p.tabline.right = [ [ s:white, s:bg, s:c_white, s:c_bg ], [ s:fg, s:bg, s:c_fg, s:c_bg ] ]
 
 let g:lightline#colorscheme#davidtwco#palette = s:p
 
