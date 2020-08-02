@@ -36,6 +36,7 @@ let
     aleSpirvAs = cfgDevTool spirv-tools "spirv-as";
     aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
     aleVint = cfgDevTool vim-vint "vint";
+    tagbarUniversalCtags = cfgDevTool universal-ctags "ctags";
     cacheHome = config.xdg.cacheHome;
     neuronDirectory = neuronCfg.directory;
     neuronPath = "${pkgs.neuron-zettelkasten}/bin/neuron";
@@ -103,9 +104,10 @@ in
             # Polyglot adds a bunch of syntax handling for different languages and tools, check if
             # new languages are included before adding them manually.
             vim-polyglot
-            # Rust (included in Polyglot, but explicitly disabled so that we can use newer
-            # versions).
-            rust-vim
+            # Rust
+            (rust-vim.overrideAttrs (_: {
+              patches = [ ./0001-rust-vim-no-tagbar-integration.patch ];
+            }))
             # Generate ctags for projects.
             vim-gutentags
             # Auto-adds `end` where appropriate.
@@ -161,6 +163,8 @@ in
             is-vim
             # Zettelkasten
             neuron-veritas-vim
+            # Tagbar (show scope in statusline)
+            tagbar
           ];
 
           # Load these with `:packadd` command.

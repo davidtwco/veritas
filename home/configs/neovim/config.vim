@@ -317,6 +317,7 @@ let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 
 " Disable rust syntax highlighting from polyglot, use rust.vim manually instead.
 let g:polyglot_disabled = ['rust']
+let g:rust_use_custom_ctags_defs = 1
 
 " Use Postgres highlighting for all SQL.
 let g:sql_type_default = 'pgsql'
@@ -459,6 +460,41 @@ let g:ale_vim_vint_executable = SearchBuildDirsOr('@aleVint@')
 let g:spirv_as_path = SearchBuildDirsOr('@aleSpirvAs@')
 let g:spirv_dis_path = SearchBuildDirsOr('@aleSpirvDis@')
 
+let g:tagbar_ctags_bin = '@tagbarUniversalCtags@'
+let g:tagbar_type_rust = {
+  \ 'ctagsbin' : '@tagbarUniversalCtags@',
+  \ 'ctagstype' : 'rust',
+  \ 'kinds' : [
+  \   'n:modules',
+  \   's:structures:1',
+  \   'i:interfaces',
+  \   'c:implementations',
+  \   'f:functions:1',
+  \   'g:enumerations:1',
+  \   't:type aliases:1:0',
+  \   'v:constants:1:0',
+  \   'M:macros:1',
+  \   'm:fields:1:0',
+  \   'e:enum variants:1:0',
+  \   'P:methods:1',
+  \ ],
+  \ 'sro': '::',
+  \ 'kind2scope' : {
+  \     'n': 'module',
+  \     's': 'struct',
+  \     'i': 'interface',
+  \     'c': 'implementation',
+  \     'f': 'function',
+  \     'g': 'enum',
+  \     't': 'typedef',
+  \     'v': 'variable',
+  \     'M': 'macro',
+  \     'm': 'field',
+  \     'e': 'enumerator',
+  \     'P': 'method',
+  \   },
+  \ }
+
 let g:lightline = {}
 let g:lightline.colorscheme = 'davidtwco'
 let g:lightline.separator = { 'left': '⬣', 'right': '⬣' }
@@ -473,7 +509,7 @@ let g:lightline.active = {
       \   'right': [
       \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
       \       [ 'gutentags' ],
-      \       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
+      \       [ 'tagbar', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
       \   ]
       \ }
 
@@ -550,6 +586,11 @@ endfunction
 
 " Define an arbitrary number of columns, below which the statusline becomes less detailed.
 let s:collapse_threshold = 106
+
+function! LightlineTagbar()
+  " Show the current tag in scope.
+  return winwidth(0) > s:collapse_threshold ? tagbar#currenttag('%s', '', 'f') : ''
+endfunction
 
 function! LightlineGutentags()
   " Show the tag generation status, with detail depending on window width.

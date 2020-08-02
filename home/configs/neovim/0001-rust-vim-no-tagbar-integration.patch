@@ -1,0 +1,15 @@
+diff --git a/ftplugin/rust/tagbar.vim b/ftplugin/rust/tagbar.vim
+index de8a094..ecd716a 100644
+--- a/ftplugin/rust/tagbar.vim
++++ b/ftplugin/rust/tagbar.vim
+@@ -1,9 +1,7 @@
+ "
+ " Support for Tagbar -- https://github.com/majutsushi/tagbar
+ "
+-if !exists(':Tagbar') || rust#tags#IsUCtags()
+-    finish
+-endif
++finish
+
+ " vint: -ProhibitAbbreviationOption
+ let s:save_cpo = &cpo
