@@ -67,6 +67,11 @@
     };
 
     xserver = {
+      # Disable monitors going to sleep.
+      monitorSection = ''
+        Option "DPMS" "false"
+      '';
+
       screenSection = ''
         Option "AllowIndirectGLXProtocol" "off"
         Option "TripleBuffer" "on"
