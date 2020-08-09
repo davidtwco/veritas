@@ -82,6 +82,10 @@
                 extraOptions = "experimental-features = nix-command flakes";
               };
             })
+            ({ lib, ... }: {
+              # Set the system configuration revision.
+              system.configurationRevision = lib.mkIf (self ? rev) self.rev;
+            })
             ({ inputs, ... }: {
               # Re-expose self and nixpkgs as flakes.
               nix.registry = {
