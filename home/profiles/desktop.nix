@@ -43,6 +43,7 @@ in
       mumble
       # Password manager.
       keepassxc
+      _1password-gui
       # Keybase
       keybase-gui
       # Citation manager
