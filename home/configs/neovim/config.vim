@@ -170,7 +170,7 @@ set noshowmode
 " Enable keeping track of undo history.
 set undofile
 " Set defaults for when detection fails or in new files.
-set tabstop=4 softtabstop=4
+set tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 " Configure wildmenu for file name tab completion.
 set wildmode=longest,list,full
 " Highlight matches.
@@ -262,7 +262,6 @@ if has('autocmd')
     au BufNewFile,BufRead *.tera setlocal ft=jinja
     au BufNewFile,BufRead *.nuspec setlocal ft=xml
     au BufNewFile,BufRead *.hocon setlocal ft=hocon
-    au BufNewFile,BufRead *.md setlocal ft=markdown
     au BufNewFile,BufRead *.pp setlocal ft=puppet
 
     " Highlight special-cased file names.
