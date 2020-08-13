@@ -8,6 +8,13 @@ in
   options.veritas.profiles.desktop.enable = mkEnableOption "desktop configuration";
 
   config = mkIf cfg.enable {
+    fonts = {
+      enableDefaultFonts = true;
+      enableFontDir = true;
+      fontconfig.enable = true;
+      fonts = import ../../nix/fonts.nix { inherit pkgs; };
+    };
+
     hardware.pulseaudio = {
       enable = true;
       support32Bit = true;

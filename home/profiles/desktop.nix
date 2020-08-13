@@ -64,7 +64,7 @@ in
       iosevka-term
       iosevka-fixed
       iosevka-aile
-    ];
+    ] ++ (import ../../nix/fonts.nix { inherit pkgs; });
 
     # Enable anything used on non-headless machines that is disabled by default.
     veritas.configs = {
