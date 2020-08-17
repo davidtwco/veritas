@@ -169,6 +169,13 @@ let
     " Same configuration as `x.py fmt`.
     let g:ale_rust_rustfmt_options = '--edition 2018 --unstable-features --skip-children'
     let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'
+
+    augroup RustcAU
+      au!
+      " Disable ALE in Clippy, rustfmt isn't used.
+      au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :let b:ale_fix_on_save = 0
+    augroup END
   '';
 
   ripgrepConfig =
