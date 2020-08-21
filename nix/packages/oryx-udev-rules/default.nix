@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/zsa/wally/wiki/Live-training-on-Linux";
     description = "udev rules that give NixOS permission to communicate with Oryx keyboards";
     platforms = platforms.linux;
-    license = "unknown";
+    license = licenses.mit;
     maintainers = with maintainers; [ davidtwco ];
   };
 }

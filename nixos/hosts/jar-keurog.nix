@@ -47,6 +47,7 @@
     cpu.amd.updateMicrocode = true;
     nvidia.modesetting.enable = true;
     wooting.enable = true;
+    zsa.enable = true;
   };
 
   networking.interfaces.enp36s0.useDHCP = true;

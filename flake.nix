@@ -260,6 +260,7 @@
       nixosModules = {
         nixopsDns = import ./nixos/modules/nixops-dns.nix;
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
+        zsa = import ./nixos/modules/zsa.nix;
       };
 
       # Expose a dev shell which contains tools for working on this repository.
@@ -307,8 +308,14 @@
           neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
             inherit (pkgs.vimUtils) buildVimPlugin;
           };
+
+          wally-udev-rules = pkgs.callPackage ./nix/packages/wally-udev-rules { };
         } // optionalAttrs (system == "x86_64-linux") {
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt { };
+
+          wally = pkgs.callPackage ./nix/packages/wally {
+            inherit (pkgs.gnome3) gtk webkitgtk;
+          };
         }
       );
 

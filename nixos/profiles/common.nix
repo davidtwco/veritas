@@ -83,7 +83,6 @@ in
       fwupd.enable = true;
       locate.enable = true;
       printing.enable = true;
-      udev.packages = with pkgs; [ oryx-udev-rules ];
     };
 
     # `nix-daemon` will hit the stack limit when using `nixFlakes`.
