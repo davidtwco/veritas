@@ -41,11 +41,11 @@
     "neuron": {
       "flake": false,
       "locked": {
-        "lastModified": 1597297458,
-        "narHash": "sha256-UkAHve9oNw/GqHdj7UtAclowsIw1U9idBm167rbXDQQ=",
+        "lastModified": 1597887822,
+        "narHash": "sha256-45N59onVgYXGB+/991JkU7DIu3p/z6ILZAYc7ZVSp0c=",
         "owner": "srid",
         "repo": "neuron",
-        "rev": "8894f9449d04b05d58f41c9b71472333eaaa4471",
+        "rev": "6becbfeb70332fd819a35f77235eeeedf324f3f9",
         "type": "github"
       },
       "original": {
@@ -57,11 +57,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1597314849,
-        "narHash": "sha256-I85zIjyjBlR6I4O4mTAW3AAQzeMfxQJfAl3UPHiCdY8=",
+        "lastModified": 1598003643,
+        "narHash": "sha256-zsujAir7eOPh5voE9w6NNBxPhV/K5z2GxNb5JVDpMhE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "549d1e3c2cfcc91972bb70693633b85f14bc7b7b",
+        "rev": "ae18f738a2a697cf0625a1324d70914cd1e60293",
         "type": "github"
       },
       "original": {
