@@ -222,7 +222,6 @@ in
       mail.enable = true;
       neovim.enable = true;
       netrc.enable = true;
-      neuron.enable = true;
       readline.enable = true;
       ssh.enable = true;
       starship.enable = true;

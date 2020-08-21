@@ -4,7 +4,6 @@ with pkgs;
 with lib;
 let
   cfg = config.veritas.configs.neovim;
-  neuronCfg = config.veritas.configs.neuron;
   colourScheme = config.veritas.profiles.common.colourScheme;
 
   cfgDevTool = pkg: binaryName:
@@ -38,8 +37,6 @@ let
     aleVint = cfgDevTool vim-vint "vint";
     tagbarUniversalCtags = cfgDevTool universal-ctags "ctags";
     cacheHome = config.xdg.cacheHome;
-    neuronDirectory = neuronCfg.directory;
-    neuronPath = "${pkgs.neuron-zettelkasten}/bin/neuron";
   };
 in
 {
@@ -161,8 +158,6 @@ in
             vim-numbertoggle
             # Improved incremental search - hides search highlighting after moving cursor.
             is-vim
-            # Zettelkasten
-            neuron-veritas-vim
             # Tagbar (show scope in statusline)
             tagbar
           ];

@@ -36,14 +36,6 @@
       ref = "master";
       flake = false;
     };
-
-    neuron = {
-      type = "github";
-      owner = "srid";
-      repo = "neuron";
-      ref = "master";
-      flake = false;
-    };
   };
 
   outputs = { self, ... } @ inputs:
@@ -215,7 +207,6 @@
           (self.overlay."${system}")
           (import inputs.nixpkgs-mozilla)
           (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
-          (_: _: { neuron-zettelkasten = import inputs.neuron { inherit system; }; })
           (import ./nix/overlays/ferdi.nix)
           (import ./nix/overlays/gjs.nix)
           (import ./nix/overlays/iosevka.nix)
@@ -269,10 +260,7 @@
 
         mkShell {
           name = "veritas";
-          buildInputs = [
-            git-crypt
-            neuron-zettelkasten
-          ];
+          buildInputs = [ git-crypt ];
         }
       );
 

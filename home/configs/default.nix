@@ -30,7 +30,6 @@
     ./mail.nix
     ./neovim
     ./netrc.nix
-    ./neuron.nix
     ./picom.nix
     ./polybar.nix
     ./qt.nix

@@ -340,16 +340,6 @@ set completeopt=menu,menuone,preview,noselect,noinsert
 " Use deoplete.
 let g:deoplete#enable_at_startup = 1
 
-" Define configuration for veritas-neuron-vim.
-let g:veritas_jq_path = '@aleJq@'
-let g:veritas_neuron_directory = '@neuronDirectory@'
-let g:veritas_neuron_path = '@neuronPath@'
-
-" Add mappings for veritas-neuron-vim.
-nnoremap <C-a> :<C-U>call veritas#neuron#edit_zettel()<cr>
-inoremap <expr> <C-a> veritas#neuron#insert_zettel()
-command! -bar VeritasNeuronCreate :call veritas#neuron#new_zettel()
-
 " Tell ALE where to look for `compilation-commands.json`.
 let g:ale_c_build_dir_names = [ 'build', 'build_debug', 'bin', '' ]
 
