@@ -295,6 +295,8 @@
 
           measureme = pkgs.callPackage ./nix/packages/measureme { };
 
+          oryx-udev-rules = pkgs.callPackage ./nix/packages/oryx-udev-rules { };
+
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
 
           rustup-toolchain-install-master =
