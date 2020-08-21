@@ -23,6 +23,8 @@ in
       ferdi
       # Mozilla Firefox is a free and open-source web browser.
       firefox-bin
+      # Chromium is the open-source version of Chrome
+      chromium
       # Remmina is a remote desktop client written in GTK+.
       remmina
       # Create simple animated gifs.
