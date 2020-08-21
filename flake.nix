@@ -208,7 +208,6 @@
           (import inputs.nixpkgs-mozilla)
           (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
           (import ./nix/overlays/ferdi.nix)
-          (import ./nix/overlays/gjs.nix)
           (import ./nix/overlays/iosevka.nix)
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
