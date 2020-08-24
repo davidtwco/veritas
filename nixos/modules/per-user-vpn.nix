@@ -435,6 +435,19 @@ in
               cfg.servers);
       };
 
+      # Change system-wide nameservers. Necessary when the default DNS server for the services is
+      # running locally and requests might be leaked when systemd-resolved makes the upstream
+      # requests.
+      networking.nameservers = flatten (
+        mapAttrsToList
+          (_: srv: with srv.dns; [ ipv4.primary ipv4.secondary ipv6.primary ipv6.secondary ])
+          cfg.servers
+      );
+
+      # Use systemd-resolved's global DNS servers for all domains, not the per-link DNS servers
+      # (unless their search domains are specifically matched).
+      services.resolved.domains = [ "~." ];
+
       # Create a service that runs on system start, so that the rule to `/dev/null` all marked
       # packets always applies. The same script will be invoked when OpenVPN starts to add a new
       # route that will go through the VPN.
