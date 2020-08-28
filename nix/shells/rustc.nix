@@ -175,6 +175,9 @@ let
       " Disable ALE in Clippy, rustfmt isn't used.
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :let b:ale_fix_on_save = 0
+      " Disable ALE in tests - exact formatting is sometimes important.
+      au! BufRead,BufNewFile,BufEnter **/src/test/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/src/test/** :let b:ale_fix_on_save = 0
     augroup END
   '';
 
@@ -239,6 +242,9 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     measureme
     rustfilt
     rustup-toolchain-install-master
+
+    # perl is required for fzf.vim's tags search
+    perl
 
     # Required for nested shells in lorri to work correctly.
     bashInteractive
