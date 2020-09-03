@@ -52,6 +52,8 @@ in
       zotero
       # Database manager
       beekeeper-studio
+      # Video calls
+      zoom-us
       # Fonts
       meslo-lg
       source-code-pro
