@@ -298,6 +298,8 @@
 
           wally-udev-rules = pkgs.callPackage ./nix/packages/wally-udev-rules { };
         } // optionalAttrs (system == "x86_64-linux") {
+          beekeeper-studio = pkgs.callPackage ./nix/packages/beekeeper-studio { };
+
           intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt { };
 
           wally = pkgs.callPackage ./nix/packages/wally {

@@ -50,6 +50,8 @@ in
       keybase-gui
       # Citation manager
       zotero
+      # Database manager
+      beekeeper-studio
       # Fonts
       meslo-lg
       source-code-pro
