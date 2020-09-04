@@ -21,8 +21,6 @@ in
       controlPersist = "600";
       extraConfig = ''
         VisualHostKey no
-        PasswordAuthentication no
-        ChallengeResponseAuthentication no
         StrictHostKeyChecking ask
         VerifyHostKeyDNS yes
         ForwardX11 no
