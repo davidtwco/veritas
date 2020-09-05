@@ -53,6 +53,7 @@ in
 
   config = mkIf cfg.enable {
     home = {
+      enableDebugInfo = true;
       keyboard.layout = "gb";
       language.base = "en_GB.utf8";
       packages = with pkgs; [
