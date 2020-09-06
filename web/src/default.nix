@@ -1,4 +1,4 @@
-{ pkgs, site }:
+{ pkgs, site, extraRoutes ? { } }:
 let
   curriculumVitae = pkgs.callPackage ./content/curriculum-vitae { };
   favicons = site.generateFaviconsWithExtraCommands browserConfigData ./favicon.png manifestData;
@@ -52,16 +52,13 @@ site.mkSite {
       content = builtins.readFile ./content/email-generator.html;
     };
 
-    # Host the drop pod for `curl | sh`.
-    "/drop-pod" = pkgs.veritas-drop-pod;
-
     "/css" = ./css;
     "/favicons" = favicons;
     "/favicon.ico" = "${favicons}/favicon.ico";
     "/fonts" = ./fonts;
     "/images" = ./content/images;
     "/media" = ./content/media;
-  };
+  } // extraRoutes;
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap
