@@ -36,7 +36,6 @@ let
     aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
     aleVint = cfgDevTool vim-vint "vint";
     tagbarUniversalCtags = cfgDevTool universal-ctags "ctags";
-    cacheHome = config.xdg.cacheHome;
   };
 in
 {

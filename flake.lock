@@ -38,6 +38,27 @@
         "type": "github"
       }
     },
+    "nix-bundle": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1598758506,
+        "narHash": "sha256-7j7hTEEQd2RmNS+IVoEtwdJzGTDdXwkxODc6ln0Or70=",
+        "owner": "matthewbauer",
+        "repo": "nix-bundle",
+        "rev": "83742ac8ea4230ca239f948a6b2127449b25ece8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "matthewbauer",
+        "ref": "master",
+        "repo": "nix-bundle",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1597943282,
@@ -75,6 +96,7 @@
       "inputs": {
         "gitignore-nix": "gitignore-nix",
         "home-manager": "home-manager",
+        "nix-bundle": "nix-bundle",
         "nixpkgs": "nixpkgs",
         "nixpkgs-mozilla": "nixpkgs-mozilla"
       }

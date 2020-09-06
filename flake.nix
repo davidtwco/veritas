@@ -36,6 +36,14 @@
       ref = "master";
       flake = false;
     };
+
+    nix-bundle = {
+      type = "github";
+      owner = "matthewbauer";
+      repo = "nix-bundle";
+      ref = "master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, ... } @ inputs:
@@ -156,8 +164,8 @@
                 ] ++ nixConf.binaryCachePublicKeys;
               in
               ''
-                substituters = ${builtins.concatStringSep " " substituters}
-                trusted-public-keys = ${builtins.concatStringSep " " trustedPublicKeys}
+                substituters = ${builtins.concatStringsSep " " substituters}
+                trusted-public-keys = ${builtins.concatStringsSep " " trustedPublicKeys}
               '';
 
             nixpkgs = {
@@ -195,6 +203,10 @@
         # that host - consumed by the home-manager NixOS module for that host (if it exists)
         # or by `mkHomeManagerHostConfiguration` for home-manager-only hosts.
         homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
+          # `drop-pod` is a special host which adjusts the configuration used for the drop-pod
+          # packages.
+          drop-pod = { system = "x86_64-linux"; config = ./home/hosts/drop-pod.nix; };
+
           dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
           dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
@@ -297,6 +309,52 @@
           };
 
           wally-udev-rules = pkgs.callPackage ./nix/packages/wally-udev-rules { };
+
+          veritas-drop-pod =
+            let
+              # `nix-bundle`'s `defaultBundler` output isn't used directly, as it doesn't allow
+              # passing different flags to `nix-user-chroot`.
+              nix-bundle = import inputs.nix-bundle { nixpkgs = pkgs; };
+
+              # Evaluate the "drop-pod" host to access to configurations.
+              evaluatedDropPod = mkHomeManagerHostConfiguration "drop-pod" { inherit system; };
+
+              # Add packages to this list for them to be included in the drop pod.
+              path = map
+                (pkg: "${getBin pkg}/bin")
+                (with evaluatedDropPod.value; [
+                  config.programs.neovim.finalPackage
+                ]);
+
+              entrypoint = pkgs.writeScriptBin "entrypoint" ''
+                #! ${pkgs.runtimeShell} -e
+                # Set the PATH as the primary mechanism for making packages with configuration
+                # available.
+                PATH="${builtins.concatStringsSep ":" path}:$PATH"
+                ${pkgs.bashInteractive}/bin/bash
+              '';
+
+              bundle = nix-bundle.nix-bootstrap {
+                target = entrypoint;
+                run = "/bin/entrypoint";
+                # - `PATH` must be preserved across the chroot for the normal system tools to be
+                #   accessible.
+                # - `/opt`, `/lib` and `/lib64` exist on some distributions and should be mapped
+                #   into the chroot. On Ubuntu, `/lib64` contains the interpreter, so without it
+                #   being mapped, nothing will work.
+                nixUserChrootFlags = "-p PATH -m /lib:lib -m /lib64:lib64 -m /opt:opt";
+              };
+            in
+            bundle.overrideAttrs (drv: {
+              name = "veritas-drop-pod" + (if (self ? rev) then "-${self.rev}" else "");
+              # Override the build command to substitute `/tmp` for `$HOME/.cache` - on one
+              # Ubuntu machine tested, the bundle would only be partially unarchived to `/tmp`
+              # but worked to other directories (`sed` is used over `substituteInPlace` as it
+              # is much faster).
+              buildCommand = (drv.buildCommand or "") + ''
+                ${pkgs.gnused}/bin/sed -i "s#tmpdir=/tmp#tmpdir=\$HOME/.cache#" $out
+              '';
+            });
         } // optionalAttrs (system == "x86_64-linux") {
           beekeeper-studio = pkgs.callPackage ./nix/packages/beekeeper-studio { };
 

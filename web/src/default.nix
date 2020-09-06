@@ -52,6 +52,9 @@ site.mkSite {
       content = builtins.readFile ./content/email-generator.html;
     };
 
+    # Host the drop pod for `curl | sh`.
+    "/drop-pod" = pkgs.veritas-drop-pod;
+
     "/css" = ./css;
     "/favicons" = favicons;
     "/favicon.ico" = "${favicons}/favicon.ico";

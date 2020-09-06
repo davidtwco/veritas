@@ -36,8 +36,9 @@ let s:c_bright_white = 15
 
 " Create a directory if it doesn't exist.
 function! MaybeMkdir(path)
-  if isdirectory(a:path) == 0
-    call mkdir(a:path, 'p')
+  let s:path = expand(a:path)
+  if isdirectory(s:path) == 0
+    call mkdir(s:path, 'p')
   endif
 endfunction
 
@@ -742,23 +743,23 @@ nmap <C-m> <plug>(ale_previous_wrap)
 
 " Change backup, swap and undo directory. If a path ends in '//' then the file name
 " is built from the entire path. No more issues between projects.
-call MaybeMkdir('@cacheHome@/nvim/swap/')
-set directory=@cacheHome@/nvim/swap//
+call MaybeMkdir('~/.cache/nvim/swap/')
+set directory=~/.cache/nvim/swap//
 
-call MaybeMkdir('@cacheHome@/nvim/backup/')
-set backupdir=@cacheHome@/nvim/backup//
+call MaybeMkdir('~/.cache/nvim/backup/')
+set backupdir=~/.cache/nvim/backup//
 
 if exists('+undofile')
-  call MaybeMkdir('@cacheHome@/nvim/undo/')
-  set undodir=@cacheHome@/nvim/undo//
+  call MaybeMkdir('~/.cache/nvim/undo/')
+  set undodir=~/.cache/nvim/undo//
 end
 
 if exists('+shada')
   " Change SHAred DAta path.
-  set shada+=n@cacheHome@/nvim/shada
+  set shada+=n~/.cache/nvim/shada
 else
   " Change viminfo path.
-  set viminfo+=n@cacheHome@/nvim/viminfo
+  set viminfo+=n~/.cache/nvim/viminfo
 endif
 
 " Set the colour of the colour column (used to highlight where lines should wrap).
