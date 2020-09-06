@@ -11,7 +11,15 @@ let
   };
 in
 {
-  options.veritas.configs.fish.enable = mkEnableOption "fish configuration";
+  options.veritas.configs.fish = {
+    enable = mkEnableOption "fish configuration";
+
+    withDeveloperTools = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Enable development-specific aliases/configuration.";
+    };
+  };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
@@ -109,34 +117,19 @@ in
         "vdir" = "${exa}/bin/exa -l";
         "la" = "${exa}/bin/exa -a";
         "l" = "${exa}/bin/exa -F";
+        # `<command> | sprunge` will make a quick link to send.
+        "sprunge" = "${curl}/bin/curl -F \"sprunge=<-\" http://sprunge.us";
+      } // mkIf cfg.withDeveloperTools {
         # Extra Git subcommands for GitHub.
         "git" = "${gitAndTools.hub}/bin/hub";
+        # Stop printing the version number on gdb startup.
+        "gdb" = "gdb -q";
         # Build within a docker container with a rust and musl toolchain.
         "rust-musl-builder" =
           "${docker}/bin/docker run --rm -it -v \"$PWD\":/home/rust/src "
-          + "ekidd/rust-musl-builder:stable";
-        # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
-        # to unlock the key, but the pinentry prompt mangles the terminal with that command.
-        "gpg-unlock-key" =
-          "echo 'foo' | ${gnupg}/bin/gpg -o /dev/null --local-user "
-          + "${config.programs.git.signing.key} -as -";
-        # Use this alias to make the GPG agent relearn what keys are connected and what keys they
-        # have.
-        "gpg-relearn-key" = "${gnupg}/bin/gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
-        # > Set the startup TTY and X-DISPLAY variables to the values of this session. This command
-        # > is useful to direct future pinentry invocations to another screen. It is only required
-        # > because there is no way in the ssh-agent protocol to convey this information.
-        "gpg-update-ssh-agent" = "${gnupg}/bin/gpg-connect-agent updatestartuptty /bye";
-        # Use this alias to make sure everything is in working order. Need to unlock twice - if
-        # `gpg-update-ssh-agent` called with an locked key then it will prompt for it to be unlocked
-        # in a way that will mangle the terminal, therefore we need to unlock before this.
-        "gpg-refresh" = "gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent";
+            + "ekidd/rust-musl-builder:stable";
         # Fairly self explanatory, prints the current external IP address.
         "what-is-my-ip" = "${dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
-        # `<command> | sprunge` will make a quick link to send.
-        "sprunge" = "${curl}/bin/curl -F \"sprunge=<-\" http://sprunge.us";
-        # Stop printing the version number on gdb startup.
-        "gdb" = "gdb -q";
       };
     };
   };

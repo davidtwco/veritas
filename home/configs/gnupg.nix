@@ -17,6 +17,12 @@ in
       default = "${pkgs.pinentry_gnome}/bin/pinentry-tty";
       description = "Program used for pinentry.";
     };
+
+    withFishConfiguration = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Add configuration for GnuPG agent to fish.";
+    };
   };
 
   config = mkIf cfg.enable {
@@ -125,10 +131,30 @@ in
       verbose = enableLogging;
     };
 
-    # Tell SSH where to find GnuPG-Agent.
-    programs.fish.interactiveShellInit = mkIf config.veritas.configs.fish.enable ''
-      set -x SSH_AUTH_SOCK (${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
-    '';
+    programs.fish = mkIf cfg.withFishConfiguration {
+      # Tell SSH where to find gpg-agent.
+      interactiveShellInit = ''
+        set -x SSH_AUTH_SOCK (${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
+      '';
+      shellAliases = with pkgs; {
+        # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
+        # to unlock the key, but the pinentry prompt mangles the terminal with that command.
+        "gpg-unlock-key" =
+          "echo 'foo' | ${gnupg}/bin/gpg -o /dev/null --local-user "
+          + "${config.programs.git.signing.key} -as -";
+        # Use this alias to make the GPG agent relearn what keys are connected and what keys they
+        # have.
+        "gpg-relearn-key" = "${gnupg}/bin/gpg-connect-agent \"scd serialno\" \"learn --force\" /bye";
+        # > Set the startup TTY and X-DISPLAY variables to the values of this session. This command
+        # > is useful to direct future pinentry invocations to another screen. It is only required
+        # > because there is no way in the ssh-agent protocol to convey this information.
+        "gpg-update-ssh-agent" = "${gnupg}/bin/gpg-connect-agent updatestartuptty /bye";
+        # Use this alias to make sure everything is in working order. Need to unlock twice - if
+        # `gpg-update-ssh-agent` called with an locked key then it will prompt for it to be unlocked
+        # in a way that will mangle the terminal, therefore we need to unlock before this.
+        "gpg-refresh" = "gpg-relearn-key && gpg-unlock-key && gpg-update-ssh-agent";
+      };
+    };
   };
 }
 

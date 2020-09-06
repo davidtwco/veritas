@@ -49,6 +49,7 @@ in
       ccache.enable = true;
       direnv.enable = true;
       eyaml.enable = true;
+      fish.withDeveloperTools = true;
       flake8.enable = true;
       gdb.enable = true;
       lorri.enable = true;
