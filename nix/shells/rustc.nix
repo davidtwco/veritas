@@ -243,9 +243,6 @@ pkgs.clangMultiStdenv.mkDerivation rec {
     rustfilt
     rustup-toolchain-install-master
 
-    # perl is required for fzf.vim's tags search
-    perl
-
     # Required for nested shells in lorri to work correctly.
     bashInteractive
   ];

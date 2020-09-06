@@ -42,6 +42,19 @@ in
   options.veritas.configs.neovim = {
     enable = mkEnableOption "neovim configuration";
 
+    additionalTools = mkOption {
+      type = types.listOf types.package;
+      default = with pkgs; [
+        gawk
+        gdb
+        nixpkgs-fmt
+        perl
+        ripgrep
+        universal-ctags
+      ];
+      description = "Tools expected by Neovim that should be installed.";
+    };
+
     colourScheme = {
       termdebugBreakpointBackground = mkOption {
         default = "2B2B2B";
@@ -70,18 +83,17 @@ in
       description = "Make additional development tools available to Vim configuration.";
       type = types.bool;
     };
+
+    withLanguageSupport = mkOption {
+      default = true;
+      description = "Make NodeJS, Python and Python 3 available to Neovim.";
+      type = types.bool;
+    };
   };
 
   config = mkIf cfg.enable {
     home = {
-      # Make binaries expected by the Neovim configuration available.
-      packages = with pkgs; [
-        gawk
-        nixpkgs-fmt
-        universal-ctags
-        gdb
-        ripgrep
-      ];
+      packages = cfg.additionalTools;
 
       sessionVariables."EDITOR" = "${config.programs.neovim.finalPackage}/bin/nvim";
     };
@@ -184,9 +196,9 @@ in
       enable = true;
       viAlias = true;
       vimAlias = true;
-      withNodeJs = true;
-      withPython = true;
-      withPython3 = true;
+      withNodeJs = cfg.withLanguageSupport;
+      withPython = cfg.withLanguageSupport;
+      withPython3 = cfg.withLanguageSupport;
     };
   };
 }
