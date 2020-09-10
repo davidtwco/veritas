@@ -54,6 +54,7 @@ in
       beekeeper-studio
       # Video calls
       zoom-us
+      teams
       # Fonts
       meslo-lg
       source-code-pro
