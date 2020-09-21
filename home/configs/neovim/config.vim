@@ -384,7 +384,7 @@ let g:ale_linters = {
       \   'json': [ 'jq' ],
       \   'python': [ 'flake8' ],
       \   'ruby': [ 'rubocop' ],
-      \   'rust': [ 'analyzer' ],
+      \   'rust': [],
       \   'sh': [ 'shell', 'shellcheck' ],
       \   'vim': [ 'vint' ],
       \   'zsh': [ 'shell', 'shellcheck' ],
@@ -444,7 +444,6 @@ let g:ale_nix_nixpkgsfmt_executable = SearchBuildDirsOr('@aleNixpkgsfmt@')
 let g:ale_python_black_executable = SearchBuildDirsOr('@aleBlack@')
 let g:ale_python_flake8_executable = SearchBuildDirsOr('@aleFlake8@')
 let g:ale_ruby_rubocop_executable = SearchBuildDirsOr('@aleRubocop@')
-let g:ale_rust_analyzer_executable = SearchBuildDirsOr('@aleRustAnalyzer@')
 let g:ale_sh_shellcheck_executable = SearchBuildDirsOr('@aleShellcheck@')
 let g:ale_vim_vint_executable = SearchBuildDirsOr('@aleVint@')
 let g:spirv_as_path = SearchBuildDirsOr('@aleSpirvAs@')
