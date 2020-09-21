@@ -124,7 +124,6 @@ in
 
       virtualbox.host = {
         enable = cfg.virtualbox.enable;
-        enableExtensionPack = cfg.virtualbox.enable;
         headless = cfg.virtualbox.headless;
       };
     };

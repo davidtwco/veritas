@@ -226,6 +226,7 @@
           (import ./nix/overlays/ferdi.nix)
           (import ./nix/overlays/iosevka.nix)
           (import ./nix/overlays/vaapi.nix)
+          (import ./nix/overlays/virtualbox.nix)
         ] ++ optionals (system == "x86_64-linux") [
           (import ./nix/overlays/plex.nix)
         ]);
