@@ -5,16 +5,16 @@ let
   cfg = config.veritas.configs.gdb;
 
   # gcc contains libstdc++ pretty printers.
-  libStdCppPrettyPrinters = pkgs.fetchsvn {
-    url = "svn://gcc.gnu.org/svn/gcc/trunk/libstdc++-v3/python";
-    rev = "275486";
-    sha256 = "0ryw74f79yn75nxa525d3vxzcvsqa791f30z7ab102vqcnsj3aac";
+  libStdCppPrettyPrinters = pkgs.fetchgit {
+    url = "git://gcc.gnu.org/git/gcc.git";
+    rev = "7df1534c136e2556ca10d3a60d2b2cc77544dbc8";
+    sha256 = "sha256-wVo/EoiXkmetb0gJ9FM6Hgj9JoicGk/UU7MND/J4NaM=";
   };
   # LLVM provides pretty printers for LLVM data types.
   llvmPrettyPrinters = pkgs.fetchgit {
     url = "https://github.com/llvm/llvm-project.git";
-    rev = "d065c811649f0d0df5429741a9a3dd643e88a9fe";
-    sha256 = "0qnszpkilkx4zacafdfhf5xwvdxjpzq5wjx1bx4nln8vvznmhqig";
+    rev = "89074bdc813a0e8bd9ff5e69e76b134dc7ae1bd9";
+    sha256 = "sha256-ZeJvQmg7D3f8korxJMf3F0ow3bjZ6GmhUbl/dNpL9jw=";
   };
 in
 {
@@ -25,7 +25,7 @@ in
       # Add libstdc++ pretty printers.
       python
       import sys
-      sys.path.insert(0, '${libStdCppPrettyPrinters}')
+      sys.path.insert(0, '${libStdCppPrettyPrinters}/libstdc++-v3/python')
       from libstdcxx.v6.printers import register_libstdcxx_printers
       register_libstdcxx_printers (None)
       end
