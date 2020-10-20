@@ -71,11 +71,7 @@ in
           "symbol" = "";
           "threshold" = 0;
         };
-        "nix_shell" = {
-          "symbol" = "";
-          "style" = "#${red}";
-          "use_name" = false;
-        };
+        "nix_shell"."format" = "via [$state](#${red})";
         "prompt"."scan_timeout" = 10;
         "username" = {
           "style_root" = "#${red}";
