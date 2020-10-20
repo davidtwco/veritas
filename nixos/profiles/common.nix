@@ -76,10 +76,7 @@ in
 
     services = {
       cron.enable = true;
-      dbus = {
-        socketActivated = true;
-        packages = with pkgs; [ gnome3.dconf ];
-      };
+      dbus.packages = with pkgs; [ gnome3.dconf ];
       fwupd.enable = true;
       locate.enable = true;
       printing.enable = true;

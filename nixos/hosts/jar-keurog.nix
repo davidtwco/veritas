@@ -21,8 +21,6 @@
       systemd-boot.enable = true;
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
-
     # Required for 2080Ti
     kernelParams = [ "nomodeset" "video=vesa:off" "vga=normal" ];
 
@@ -45,7 +43,10 @@
 
   hardware = {
     cpu.amd.updateMicrocode = true;
-    nvidia.modesetting.enable = true;
+    nvidia = {
+      modesetting.enable = true;
+      nvidiaPersistenced = false;
+    };
     wooting.enable = true;
     zsa.enable = true;
   };

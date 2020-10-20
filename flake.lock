@@ -24,11 +24,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1602462464,
-        "narHash": "sha256-aSVSQpM6BYPH5dkWKNrc5WYTjpw8eS2SoFFP/r6xsxM=",
+        "lastModified": 1603146532,
+        "narHash": "sha256-+SfwrIHt4bI3LEEy80qU0fNJngxxwsTHrl5UrFr1FQE=",
         "owner": "rycee",
         "repo": "home-manager",
-        "rev": "18a05a9604c1e5b0141d081e8733d1de4edd5520",
+        "rev": "dc5239b5cef1f52fbf9c136529954282ee717866",
         "type": "github"
       },
       "original": {
@@ -61,17 +61,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1601171649,
-        "narHash": "sha256-G3RUAi2DUq6r3ntASLS+LZC/Eamot55W1+xmBOgEh3M=",
+        "lastModified": 1603189840,
+        "narHash": "sha256-qqBDoCn0nm7NXUrHD9OZvv1gJr2n9V+aSgxOIcUiZiU=",
         "owner": "NixOS",
-        "repo": "nixpkgs-channels",
-        "rev": "84d74ae9c9cbed73274b8e4e00be14688ffc93fe",
+        "repo": "nixpkgs",
+        "rev": "dba3e198d40f9aaab1fb15beda2f6b9285847f5f",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs-channels",
+        "ref": "master",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
