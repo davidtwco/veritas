@@ -15,6 +15,7 @@ in
       inherit group;
       enable = true;
       extraPackages = [ pkgs.unrar ];
+      package = pkgs.deluge-2_x;
       web = {
         enable = true;
         openFirewall = true;
