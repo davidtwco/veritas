@@ -43,7 +43,10 @@ in
       };
       enable = true;
       extraConfig = {
-        advice.addIgnoredFile = false;
+        advice = {
+          addIgnoredFile = false;
+          detachedHead = false;
+        };
         color.ui = "auto";
         commit = {
           verbose = true;
