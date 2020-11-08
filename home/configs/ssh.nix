@@ -71,7 +71,7 @@ in
           "dtw-campaglia" = {
             inherit remoteForwards;
             forwardAgent = true;
-            hostname = "campaglia.dtw.io";
+            hostname = "192.168.1.118";
             identitiesOnly = true;
             identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
             localForwards = [
