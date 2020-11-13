@@ -175,6 +175,9 @@ let
       " Disable ALE in Clippy, rustfmt isn't used.
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :let b:ale_fix_on_save = 0
+      " Disable ALE in cranelift, rustfmt isn't used.
+      au! BufRead,BufNewFile,BufEnter **/compiler/rustc_codegen_cranelift/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/compiler/rustc_codegen_cranelift/** :let b:ale_fix_on_save = 0
       " Disable ALE in tests - exact formatting is sometimes important.
       au! BufRead,BufNewFile,BufEnter **/src/test/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/src/test/** :let b:ale_fix_on_save = 0
