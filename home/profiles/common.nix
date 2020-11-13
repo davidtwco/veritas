@@ -188,6 +188,8 @@ in
         keybase
         # Hosted binary caches
         cachix
+        # Show information about the current system
+        neofetch
       ];
 
       sessionVariables = {
