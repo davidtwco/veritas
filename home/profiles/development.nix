@@ -34,8 +34,6 @@ in
       binutils
       # Performance analysis tools.
       linuxPackages.perf
-      # eBPF tracing language and frontend.
-      linuxPackages.bpftrace
       # Utility for creating gists from stdout.
       gist
       # ClusterSSH with tmux.
