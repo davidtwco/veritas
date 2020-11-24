@@ -243,14 +243,7 @@
             site = self.internal.staticSiteGenerator."${system}";
           in
           {
-            "davidtwco" = import ./web/src {
-              inherit pkgs site;
-              extraRoutes."/drop-pod" =
-                let
-                  evaluated = mkHomeManagerHostConfiguration "drop-pod" { inherit system; };
-                in
-                evaluated.value.config.veritas.drop-pod.finalBundle;
-            };
+            "davidtwco" = import ./web/src { inherit pkgs site; };
           }
         );
       };
