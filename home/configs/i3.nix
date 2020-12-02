@@ -113,6 +113,7 @@ in
           };
         };
         floating.criteria = [
+          { class = "Gnome-screenshot"; }
           { class = "Peek"; }
           { class = "qjackctl"; }
           { title = "^Java iKVM Viewer.*"; }
