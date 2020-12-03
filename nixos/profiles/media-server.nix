@@ -11,6 +11,11 @@ in
   options.veritas.profiles.media-server.enable = mkEnableOption "media server configuration";
 
   config = mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [
+      # SABnzbd
+      8080
+    ];
+
     services.deluge = {
       inherit group;
       enable = true;
