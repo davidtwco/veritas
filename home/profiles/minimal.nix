@@ -13,7 +13,6 @@ in
         feh.enable = mkForce false;
         jq.enable = mkForce false;
         mail.enable = mkForce false;
-        neovim.withLanguageSupport = false;
       };
 
       profiles.common.withTools = mkDefault false;
