@@ -7,6 +7,7 @@
 
   permittedInsecurePackages = [
     "p7zip-16.02"
+    "python2.7-cryptography-2.9.2"
   ];
 
   pulseaudio = true;
