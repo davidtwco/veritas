@@ -40,6 +40,8 @@ in
       tmux-cssh
       # Used by `breakpointHook` in nixpkgs.
       cntr
+      # DNS client
+      dogdns
     ];
 
     veritas.configs = {
