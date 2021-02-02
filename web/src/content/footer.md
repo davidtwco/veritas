@@ -1,6 +1,6 @@
 <div id="intro">
 ## David Wood
-Systems and infrastructure software engineer
+Systems and infrastructure software engineer + Rust compiler team member
 </div>
 
 #### curriculum vitae

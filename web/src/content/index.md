@@ -7,14 +7,15 @@ I'm David, a software engineer from Scotland, with an interest in systems softwa
 software. You'll find me as `davidtwco` around the internet.
 
 ## Open Source
-Contributing to open source is a lot of fun and I love doing it - I mostly contribute to rustc,
-the compiler for the Rust programming language (as a [compiler team
-contributor][compiler_team_contributor], a stepping stone to full compiler team membership).
-Throughout my time contributing, I've been a member of the [non-lexical lifetimes (NLL)][wg_nll],
-[async/await][wg_async_await] and [diagnostics][wg_diagnostics] working groups and have been a
-co-lead of the [polymorphisation][wg_polymorphisation] and [meta][wg_meta] working groups. My
-contributions have included the [`#[non_exhaustive]` attribute from RFC 2008][rfc_2008] and
-polymorphisation, a code-size/compile-time optimisation for reducing unnecessary monomorphisation.
+Contributing to open source is a lot of fun and I love doing it - I'm a [member of the Rust compiler
+team][compiler_team_member], so I mostly contribute to the compiler for the Rust programming
+language. Throughout my time contributing, I've been a member of the
+[non-lexical lifetimes (NLL)][wg_nll], [async/await][wg_async_await] and
+[diagnostics][wg_diagnostics] working groups and have been a co-lead of the
+[polymorphisation][wg_polymorphisation] and [meta][wg_meta] working groups. My contributions have
+included the [`#[non_exhaustive]` attribute from RFC 2008][rfc_2008]; polymorphisation, a
+code-size/compile-time optimisation for reducing unnecessary monomorphisation; and Split DWARF
+support.
 
 I've also contributed to other open source projects, such as NixOS - a reproducible Linux
 distribution - and Zulip - a real-time chat application with threading. You can find [an exhaustive
@@ -38,7 +39,7 @@ If you'd like to chat, send me a message [on Keybase][keybase] or shoot me an em
 [`hello@davidtw.co`][email] (my PGP key is [`0x9F53F154`][keybase], if you need it).
 
 [codeplay]: https://codeplay.com/
-[compiler_team_contributor]: https://www.rust-lang.org/governance/teams/compiler
+[compiler_team_member]: https://www.rust-lang.org/governance/teams/compiler
 [email]: mailto:hello@davidtw.co
 [keybase]: https://keybase.io/davidtwco
 [prs]: https://github.com/search?q=is%3Apr+author%3Adavidtwco
