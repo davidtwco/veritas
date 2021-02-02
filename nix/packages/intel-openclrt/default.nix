@@ -1,4 +1,4 @@
-{ stdenv, fetchzip, numactl, ncurses5, libxml2, zlib }:
+{ lib, stdenv, fetchzip, numactl, ncurses5, libxml2, zlib }:
 
 stdenv.mkDerivation rec {
   pname = "intel-openclrt";
@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  libPath = stdenv.lib.makeLibraryPath [ stdenv.cc.cc.lib numactl ncurses5 libxml2 zlib ];
+  libPath = lib.makeLibraryPath [ stdenv.cc.cc.lib numactl ncurses5 libxml2 zlib ];
 
   patchPhase = ''
     runHook prePatch
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Official OpenCL runtime for Intel CPUs";
     homepage = https://software.intel.com/en-us/articles/opencl-drivers;
-    license = stdenv.lib.licenses.unfree;
+    license = lib.licenses.unfree;
     platforms = [ "x86_64-linux" ];
-    maintainers = [ stdenv.lib.maintainers.davidtwco ];
+    maintainers = [ lib.maintainers.davidtwco ];
   };
 }
 

@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256:yqi+bdOW2dbnMKWogs7lwCFhkAOjFl/7l14SR0F/mxw=";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Bisects rustc, either nightlies or CI artifacts";
     homepage = "https://github.com/rust-lang/${pname}";
     license = with licenses; [ asl20 mit ];

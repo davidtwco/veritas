@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, darwin }:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, darwin }:
 
 rustPlatform.buildRustPackage rec {
   pname = "rustfilt";
@@ -11,11 +11,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "096219q0d2i3c2awczlv64dnyjpx2b5ml8fgd2xwly56wn8nvgfd";
   };
 
-  buildInputs = stdenv.lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
   cargoSha256 = "sha256:ZNiTzBbJIWd6oiffzVMN/RGMU0lRTh5+DOPEWF7dk6Y=";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Demangle Rust symbols";
     homepage = "https://github.com/luser/rustfilt";
     license = licenses.asl20;

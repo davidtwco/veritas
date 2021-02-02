@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, makeDesktopItem, autoPatchelfHook, glib, gtk, libusb, webkitgtk }:
+{ stdenv, lib, fetchurl, makeDesktopItem, autoPatchelfHook, glib, gtk, libusb, webkitgtk }:
 let
   pname = "wally";
   version = "2.0.0";
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     sed "s|@out@|$out|g" -i $out/share/applications/${pname}.desktop
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = "https://github.com/zsa/wally";
     platforms = platforms.linux;

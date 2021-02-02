@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, rustPlatform, darwin, pkg-config, openssl }:
+{ stdenv, lib, fetchFromGitHub, rustPlatform, darwin, pkg-config, openssl }:
 
 rustPlatform.buildRustPackage rec {
   pname = "measureme";
@@ -14,13 +14,13 @@ rustPlatform.buildRustPackage rec {
   cargoPatches = [ ./0001-add-cargo-lock.patch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = (stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security) ++ [
+  buildInputs = (lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security) ++ [
     openssl
   ];
 
   cargoSha256 = "sha256:kZNKhE2+nqarDORtUU+sUUCRVBuHUsuH/5crJu7cNzU=";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Tools for working with rustc's self-profiling feature";
     homepage = "https://github.com/rust-lang/${pname}";
     license = with licenses; [ asl20 mit ];

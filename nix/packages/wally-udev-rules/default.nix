@@ -1,4 +1,4 @@
-{ stdenv }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation rec {
   pname = "wally-udev-rules";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     install -Dpm644 $src $out/lib/udev/rules.d/50-wally.rules
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/zsa/wally";
     description = "udev rules that give NixOS permission to flash ZSA keyboards with Wally";
     platforms = platforms.linux;

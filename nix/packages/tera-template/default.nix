@@ -1,6 +1,6 @@
-{ stdenv, gitignoreSource, rustPlatform, darwin }:
+{ stdenv, lib, gitignoreSource, rustPlatform, darwin }:
 
-with stdenv.lib;
+with lib;
 rustPlatform.buildRustPackage rec {
   name = "tera-template";
   src = gitignoreSource ./.;

@@ -40,13 +40,13 @@ rustPlatform.buildRustPackage rec {
     lib.optionals stdenv.isLinux [ patchelfPatch ];
 
   nativeBuildInputs = [ pkg-config ];
-  buildInputs = (stdenv.lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security) ++ [
+  buildInputs = (lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security) ++ [
     openssl
   ];
 
   cargoSha256 = "sha256:CxBbN3t6C3ngovR99Yk6/1B53c26YnGDMSfwHA01e+o=";
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Install a rustc master toolchain usable from rustup";
     homepage = "https://github.com/kennytm/${pname}";
     license = licenses.mit;

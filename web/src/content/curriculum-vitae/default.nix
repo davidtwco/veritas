@@ -1,4 +1,4 @@
-{ stdenv, gitignoreSource, texlive }:
+{ stdenv, lib, gitignoreSource, texlive }:
 
 stdenv.mkDerivation rec {
   name = "curriculum_vitae.pdf";
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Curriculum vitae of David Wood";
     homepage = "https://davidtw.co";
-    license = stdenv.lib.licenses.asl20;
+    license = lib.licenses.asl20;
     platforms = [ "x86_64-linux" ];
-    maintainers = [ stdenv.lib.maintainers.davidtwco ];
+    maintainers = [ lib.maintainers.davidtwco ];
   };
 }
 

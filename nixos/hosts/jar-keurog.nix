@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   boot = {
@@ -46,6 +46,7 @@
     nvidia = {
       modesetting.enable = true;
       nvidiaPersistenced = false;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
     wooting.enable = true;
     zsa.enable = true;
@@ -78,7 +79,7 @@
         Option "AllowIndirectGLXProtocol" "off"
         Option "TripleBuffer" "on"
       '';
-      videoDrivers = [ "nvidiaBeta" ];
+      videoDrivers = [ "nvidia" ];
     };
   };
 

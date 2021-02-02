@@ -1,4 +1,4 @@
-{ stdenv }:
+{ stdenv, lib }:
 
 stdenv.mkDerivation rec {
   pname = "oryx-udev-rules";
@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     install -Dpm644 $src $out/lib/udev/rules.d/50-oryx.rules
   '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     homepage = "https://github.com/zsa/wally/wiki/Live-training-on-Linux";
     description = "udev rules that give NixOS permission to communicate with Oryx keyboards";
     platforms = platforms.linux;
