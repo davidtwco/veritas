@@ -207,6 +207,8 @@
           # packages.
           drop-pod = { system = "x86_64-linux"; config = ./home/hosts/drop-pod.nix; };
 
+          dtw-avendahl = { system = "x86_64-linux"; config = ./home/hosts/avendahl.nix; };
+
           dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
           dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
@@ -251,6 +253,8 @@
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
       # on those hosts.
       nixosConfigurations = mapAttrs' mkNixOsConfiguration {
+        dtw-avendahl = { system = "x86_64-linux"; config = ./nixos/hosts/avendahl.nix; };
+
         dtw-campaglia = { system = "x86_64-linux"; config = ./nixos/hosts/campaglia.nix; };
 
         dtw-jar-keurog = { system = "x86_64-linux"; config = ./nixos/hosts/jar-keurog.nix; };
