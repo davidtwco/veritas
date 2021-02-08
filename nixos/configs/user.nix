@@ -34,11 +34,6 @@ in
       RuntimeDirectorySize=20%
     '';
 
-    # Enable user units to persist after sessions end.
-    system.activationScripts.loginctl-enable-linger-david = lib.stringAfter [ "users" ] ''
-      ${systemd}/bin/loginctl enable-linger ${config.users.users.david.name}
-    '';
-
     # Required to use `fish` as a shell on a remote host, else no SSH.
     programs.fish.enable = true;
 
