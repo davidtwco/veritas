@@ -68,6 +68,14 @@ in
           #
           # Add `StreamLocalBindUnlink` to `sshd_config` on remote hosts so that dead sockets are
           # cleaned up.
+          "dtw-avendahl" = {
+            inherit remoteForwards;
+            forwardAgent = true;
+            hostname = "avendahl.dtw.io";
+            identitiesOnly = true;
+            identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
+            user = "david";
+          };
           "dtw-campaglia" = {
             inherit remoteForwards;
             forwardAgent = true;
