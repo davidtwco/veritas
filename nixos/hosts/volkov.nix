@@ -51,7 +51,7 @@
     wooting.enable = true;
   };
 
-  networking.interfaces.eno1.useDHCP = true;
+  networking.interfaces.enp0s31f6.useDHCP = true;
 
   nix.maxJobs = lib.mkDefault 8;
 
