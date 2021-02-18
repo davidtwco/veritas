@@ -20,6 +20,8 @@ in
       pijul
       # Incremental git merging/rebasing.
       gitAndTools.git-imerge
+      # Remove large files from repositories.
+      gitAndTools.git-filter-repo
       # Tools for manipulating patch files.
       patchutils
       # Benchmarking.
