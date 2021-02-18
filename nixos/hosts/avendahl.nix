@@ -7,8 +7,6 @@
       kernelModules = [ "dm-snapshot" ];
     };
 
-    kernelPackages = pkgs.linuxPackages_latest;
-
     loader = {
       grub.enable = true;
       grub.version = 2;
