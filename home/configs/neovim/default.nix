@@ -100,101 +100,94 @@ in
     };
 
     programs.neovim = {
-      configure = {
-        customRC = ''
-          " Load primary configuration file.
-          source ${extraConfig}
-        '';
-
-        packages.veritas = with pkgs; with vimPlugins; with vimUtils; {
-          start = [
-            # Sensible defaults for Vim.
-            vim-sensible
-            # Polyglot adds a bunch of syntax handling for different languages and tools, check if
-            # new languages are included before adding them manually.
-            vim-polyglot
-            # Rust
-            (rust-vim.overrideAttrs (_: {
-              patches = [ ./0001-rust-vim-no-tagbar-integration.patch ];
-            }))
-            # Generate ctags for projects.
-            vim-gutentags
-            # Auto-adds `end` where appropriate.
-            vim-endwise
-            # Autocompletion/linting/fixing.
-            ale
-            deoplete-nvim
-            lightline-ale
-            # Add operator to comment out lines.
-            vim-commentary
-            # Improvements to netrw.
-            vim-vinegar
-            # Show git changes in the sign column
-            vim-signify
-            # Git wrappers
-            vim-fugitive
-            vim-rhubarb
-            fugitive-gitlab-vim
-            # Async build and test dispatcher
-            vim-dispatch
-            # Helper functions for unix commands.
-            vim-eunuch
-            # Easy navigation between vim splits and tmux panes.
-            vim-tmux-navigator
-            # Focus events for tmux.
-            vim-tmux-focus-events
-            # Fuzzy file search.
-            fzfWrapper
-            fzf-vim
-            # Statusline
-            lightline-vim
-            # Show marks in sign column.
-            vim-signature
-            # Adds `s` motion for matching any two characters.
-            vim-sneak
-            # Improve `.` (repeat) for plugin maps.
-            vim-repeat
-            # Handy bracket matchings.
-            vim-unimpaired
-            # Commands for interactig with surroundings ("", '', {}, etc).
-            vim-surround
-            # Multi-file search (`Ack`)
-            ferret
-            # Enhanced `%` functionality.
-            matchit-zip
-            # Colour scheme
-            vim-hybrid
-            # Clipboard sync between Vim and tmux.
-            vim-tmux-clipboard
-            # Switch to absolute line numbers for buffers that aren't focused.
-            vim-numbertoggle
-            # Improved incremental search - hides search highlighting after moving cursor.
-            is-vim
-            # Tagbar (show scope in statusline)
-            tagbar
-          ];
-
-          # Load these with `:packadd` command.
-          opt = [
-            # Search/substitution/abbreviation of word variations.
-            vim-abolish
-            # Syntax highlighting for HOCON
-            vim-hocon
-            # Rich syntax highlighting for disassembled SPIR-V (and automatic disassembly)
-            vim-spirv
-            # Pandoc
-            vim-pandoc
-            vim-pandoc-syntax
-            # Terminal utilities.
-            split-term-vim
-            # Text filtering and alignment.
-            tabular
-            # Visualize the undo tree.
-            vim-mundo
-          ];
-        };
-      };
       enable = true;
+      extraConfig = ''
+        " Load primary configuration file.
+        source ${extraConfig}
+      '';
+      plugins = with pkgs; with vimPlugins; with vimUtils; [
+        # Sensible defaults for Vim.
+        { plugin = vim-sensible; }
+        # Polyglot adds a bunch of syntax handling for different languages and tools, check if
+        # new languages are included before adding them manually.
+        { plugin = vim-polyglot; }
+        # Rust
+        {
+          plugin = rust-vim.overrideAttrs (_: {
+            patches = [ ./0001-rust-vim-no-tagbar-integration.patch ];
+          });
+        }
+        # Generate ctags for projects.
+        { plugin = vim-gutentags; }
+        # Auto-adds `end` where appropriate.
+        { plugin = vim-endwise; }
+        # Autocompletion/linting/fixing.
+        { plugin = ale; }
+        { plugin = deoplete-nvim; }
+        { plugin = lightline-ale; }
+        # Add operator to comment out lines.
+        { plugin = vim-commentary; }
+        # Improvements to netrw.
+        { plugin = vim-vinegar; }
+        # Show git changes in the sign column
+        { plugin = vim-signify; }
+        # Git wrappers
+        { plugin = vim-fugitive; }
+        { plugin = vim-rhubarb; }
+        { plugin = fugitive-gitlab-vim; }
+        # Async build and test dispatcher
+        { plugin = vim-dispatch; }
+        # Helper functions for unix commands.
+        { plugin = vim-eunuch; }
+        # Easy navigation between vim splits and tmux panes.
+        { plugin = vim-tmux-navigator; }
+        # Focus events for tmux.
+        { plugin = vim-tmux-focus-events; }
+        # Fuzzy file search.
+        { plugin = fzfWrapper; }
+        { plugin = fzf-vim; }
+        # Statusline
+        { plugin = lightline-vim; }
+        # Show marks in sign column.
+        { plugin = vim-signature; }
+        # Adds `s` motion for matching any two characters.
+        { plugin = vim-sneak; }
+        # Improve `.` (repeat) for plugin maps.
+        { plugin = vim-repeat; }
+        # Handy bracket matchings.
+        { plugin = vim-unimpaired; }
+        # Commands for interactig with surroundings ("", '', {}, etc).
+        { plugin = vim-surround; }
+        # Multi-file search (`Ack`)
+        { plugin = ferret; }
+        # Enhanced `%` functionality.
+        { plugin = matchit-zip; }
+        # Colour scheme
+        { plugin = vim-hybrid; }
+        # Clipboard sync between Vim and tmux.
+        { plugin = vim-tmux-clipboard; }
+        # Switch to absolute line numbers for buffers that aren't focused.
+        { plugin = vim-numbertoggle; }
+        # Improved incremental search - hides search highlighting after moving cursor.
+        { plugin = is-vim; }
+        # Tagbar (show scope in statusline)
+        { plugin = tagbar; }
+        # Search/substitution/abbreviation of word variations.
+        { plugin = vim-abolish; optional = true; }
+        # Syntax highlighting for HOCON
+        { plugin = vim-hocon; optional = true; }
+        # Rich syntax highlighting for disassembled SPIR-V (and automatic disassembly)
+        { plugin = vim-spirv; optional = true; }
+        # Pandoc
+        { plugin = vim-pandoc; optional = true; }
+        { plugin = vim-pandoc-syntax; optional = true; }
+        # Terminal utilities.
+        { plugin = split-term-vim; optional = true; }
+        # Text filtering and alignment.
+        { plugin = tabular; optional = true; }
+        # Visualize the undo tree.
+        { plugin = vim-mundo; optional = true; }
+      ];
       viAlias = true;
       vimAlias = true;
       withNodeJs = cfg.withLanguageSupport;
