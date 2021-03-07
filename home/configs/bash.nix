@@ -11,15 +11,21 @@ in
     wslCompatibility = mkOption {
       type = types.bool;
       default = false;
-      description = "`exec` into the user's actual shell as is required in WSL 1.";
+      description = ''
+        Add configuration for WSL compatibility. e.g. `exec` into the user's preferred shell.
+      '';
     };
   };
 
   config = mkIf cfg.enable {
     programs.bash = with lib; {
       enable = true;
-      profileExtra =
-        optionalString (cfg.wslCompatibility) "exec ${config.home.profileDirectory}/bin/fish";
+      profileExtra = mkAfter (
+        optionalString (cfg.wslCompatibility) ''
+          . "${config.home.homeDirectory}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+          exec ${config.home.profileDirectory}/bin/fish
+        ''
+      );
     };
   };
 }

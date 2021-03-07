@@ -3,6 +3,12 @@
 with lib;
 let
   cfg = config.veritas.configs.gnupg;
+  homeDirectory = config.home.homeDirectory;
+
+  wsl2-ssh-pageant = pkgs.fetchurl {
+    url = "https://github.com/BlackReloaded/wsl2-ssh-pageant/releases/download/v1.2.0/wsl2-ssh-pageant.exe";
+    hash = "sha256-/iKUsFC3BFS7A47HuUqDV8RfjT1MUFpPN05KSVv8ryc=";
+  };
 
   # Enable logging to a socket for debugging.
   # `watchgnupg --time-only --force ${config.home.homeDirectory}/.gnupg/S.log`
@@ -22,6 +28,12 @@ in
       type = types.bool;
       default = true;
       description = "Add configuration for GnuPG agent to fish.";
+    };
+
+    wslCompatibility = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Use npiperelay and wsl-pageant on WSL.";
     };
   };
 
@@ -111,7 +123,7 @@ in
     services.gpg-agent = {
       defaultCacheTtl = 600;
       defaultCacheTtlSsh = 600;
-      enable = true;
+      enable = !cfg.wslCompatibility;
       enableExtraSocket = true;
       enableScDaemon = true;
       enableSshSupport = true;
@@ -122,7 +134,7 @@ in
       '' + (
         optionalString enableLogging ''
           debug-level guru
-          log-file socket:///${config.home.homeDirectory}/.gnupg/S.log
+          log-file socket:///${homeDirectory}/.gnupg/S.log
         ''
       );
       grabKeyboardAndMouse = true;
@@ -131,11 +143,64 @@ in
       verbose = enableLogging;
     };
 
+    # To be able to access the GPG and SSH of the Yubikey from within WSL 2, there is some setup
+    # required. First, install gpg4win. Next, run the following commands:
+    #
+    # ```powershell
+    # mkdir $env:APPDATA\gnupg
+    # Add-Content -Path $env:APPDATA\gnupg\gpg-agent.conf -Encoding utf8 -Value "enable-putty-support`r`nenable-ssh-support"
+    # Register-ScheduledJob -Name GpgAgent -Trigger (New-JobTrigger -AtLogOn) -RunNow -ScriptBlock {
+    #   & "${env:ProgramFiles(x86)}/GnuPG/bin/gpg-connect-agent.exe" /bye
+    # }
+    # ```
+    #
+    # On Linux, gpg-agent sockets are placed in `/run`, which is symlinked to
+    # `$HOME/.gnupg/socketdir`. On Windows, sockets are forwarded using wsl2-ssh-pageant directly
+    # to `$HOME/.gnupg/socketdir`. In either case, this provides a predictable path that can be
+    # used by SSH configuration.
+    #
+    # NOTE: Unless socat was executed before `exec`ing into fish, it wouldn't launch the
+    # `wsl2-ssh-pageant.exe` process.
+    programs.bash.profileExtra = mkIf cfg.wslCompatibility ''
+      mkdir -p ${homeDirectory}/.gnupg/socketdir
+
+      if test ! -f "${homeDirectory}/.gnupg/wsl2-ssh-pageant.exe"; then
+        cp ${wsl2-ssh-pageant} ${homeDirectory}/.gnupg/wsl2-ssh-pageant.exe
+        chmod +x ${homeDirectory}/.gnupg/wsl2-ssh-pageant.exe
+      fi
+
+      export GPG_AGENT_SOCK=${homeDirectory}/.gnupg/S.gpg-agent
+      ss -a | grep -q $GPG_AGENT_SOCK
+      if [ $? -ne 0 ]; then
+        rm -rf $GPG_AGENT_SOCK
+        (setsid nohup socat UNIX-LISTEN:$GPG_AGENT_SOCK,fork EXEC:"$HOME/.gnupg/wsl2-ssh-pageant.exe --gpg S.gpg-agent",nofork >/dev/null 2>&1 &)
+      fi
+
+      export GPG_AGENT_EXTRA_SOCK=${homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra
+      ss -a | grep -q $GPG_AGENT_EXTRA_SOCK
+      if [ $? -ne 0 ]; then
+        rm -rf $GPG_AGENT_EXTRA_SOCK
+        (setsid nohup socat UNIX-LISTEN:$GPG_AGENT_EXTRA_SOCK,fork EXEC:"$HOME/.gnupg/wsl2-ssh-pageant.exe --gpg S.gpg-agent.extra",nofork >/dev/null 2>&1 &)
+      fi
+
+      export SSH_AUTH_SOCK=${homeDirectory}/.gnupg/socketdir/S.gpg-agent.ssh
+      ss -a | grep -q $SSH_AUTH_SOCK
+      if [ $? -ne 0 ]; then
+        rm -f $SSH_AUTH_SOCK
+        (setsid nohup socat UNIX-LISTEN:$SSH_AUTH_SOCK,fork EXEC:"$HOME/.gnupg/wsl2-ssh-pageant.exe" >/dev/null 2>&1 &)
+      fi
+    '';
+
     programs.fish = mkIf cfg.withFishConfiguration {
-      # Tell SSH where to find gpg-agent.
-      interactiveShellInit = ''
+      # See comment above.
+      interactiveShellInit = lib.mkAfter (optionalString (!cfg.wslCompatibility) ''
         set -x SSH_AUTH_SOCK (${pkgs.gnupg}/bin/gpgconf --list-dirs agent-ssh-socket)
-      '';
+
+        if test ! -d "${homeDirectory}/.gnupg/socketdir"
+          ${pkgs.coreutils}/bin/ln -s (${pkgs.gnupg}/bin/gpgconf --list-dirs agent-socket) \
+            "${homeDirectory}/.gnupg/socketdir"
+        end
+      '');
       shellAliases = with pkgs; {
         # Use this alias to make GPG need to unlock the key. `gpg-update-ssh-agent` would also want
         # to unlock the key, but the pinentry prompt mangles the terminal with that command.

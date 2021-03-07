@@ -134,8 +134,8 @@ let g:terminal_color_14 = s:bright_magenta
 let g:terminal_color_15 = s:bright_cyan
 let g:terminal_color_16 = s:bright_white
 
-let s:bg = '#1C1C1C'
-let s:c_bg = 234
+let s:bg = 'none'
+let s:c_bg = 'none'
 let s:fg = s:bright_white
 let s:c_fg = s:c_bright_white
 
@@ -765,11 +765,11 @@ endif
 hi ColorColumn guibg=#@brightBlack@
 
 " Set the background colour.
-hi Normal guibg=#@background@
+hi Normal guibg=NONE
 
 " Lightline won't colour the single character between two statuslines when there is a
 " vertical split, this will.
-hi StatusLine gui=NONE guifg=#@background@ guibg=#@background@
+hi StatusLine gui=NONE guifg=NONE guibg=NONE
 
 " Set the colour of the current debugger line and breakpoints in gutter.
 hi debugPC guibg=#@termdebugProgramCounter@

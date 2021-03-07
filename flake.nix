@@ -149,11 +149,11 @@
           };
         });
 
-      mkHomeManagerHostConfiguration = name: { system }:
+      mkHomeManagerHostConfiguration = name: { configName ? name, system }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
           inherit system;
           configuration = { ... }: {
-            imports = [ self.internal.homeManagerConfigurations."${name}" ];
+            imports = [ self.internal.homeManagerConfigurations."${configName}" ];
 
             xdg.configFile."nix/nix.conf".text =
               let
@@ -213,6 +213,10 @@
 
           dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
 
+          dtw-jar-keurog-wsl = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog-wsl.nix; };
+
+          dtw-kalibri = { system = "x86_64-linux"; config = ./home/hosts/kalibri.nix; };
+
           dtw-volkov = { system = "x86_64-linux"; config = ./home/hosts/volkov.nix; };
         };
 
@@ -248,6 +252,13 @@
             "davidtwco" = import ./web/src { inherit pkgs site; };
           }
         );
+      };
+
+      # Attribute set of hostnames to evaluated home-manager configurations.
+      homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration {
+        dtw-jar-keurog = { configName = "dtw-jar-keurog-wsl"; system = "x86_64-linux"; };
+
+        dtw-kalibri = { system = "x86_64-linux"; };
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
