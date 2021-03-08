@@ -149,8 +149,8 @@ in
     # ```powershell
     # mkdir $env:APPDATA\gnupg
     # Add-Content -Path $env:APPDATA\gnupg\gpg-agent.conf -Encoding utf8 -Value "enable-putty-support`r`nenable-ssh-support"
-    # Register-ScheduledJob -Name GpgAgent -Trigger (New-JobTrigger -AtLogOn) -RunNow -ScriptBlock {
-    #   & "${env:ProgramFiles(x86)}/GnuPG/bin/gpg-connect-agent.exe" /bye
+    # Register-ScheduledJob -Name GpgAgent -Trigger (New-JobTrigger -AtLogOn) -Credential (Get-Credential) -RunNow -ScriptBlock {
+    #   & "${env:ProgramFiles(x86)}/GnuPG/bin/gpg-connect-agent.exe" --options $env:APPDATA\gnupg\gpg-agent.conf /bye
     # }
     # ```
     #
