@@ -118,7 +118,7 @@ in
           { class = "qjackctl"; }
           { title = "^Java iKVM Viewer.*"; }
         ];
-        fonts = [ "Iosevka ${toString config.veritas.configs.i3.fontSize}" ];
+        fonts = { names = [ "Iosevka" ]; size = config.veritas.configs.i3.fontSize; };
         gaps = {
           inner = 2;
           outer = 2;

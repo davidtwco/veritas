@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   boot = {
@@ -31,6 +31,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ wally-cli wally ];
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/15e4642b-713f-4e33-bb57-bccba586ca9d";
@@ -48,10 +50,12 @@
 
   hardware = {
     cpu.intel.updateMicrocode = true;
+    keyboard.zsa.enable = true;
     wooting.enable = true;
   };
 
   networking.interfaces.enp0s31f6.useDHCP = true;
+  networking.firewall.allowedTCPPorts = [ 20280 ];
 
   nix.maxJobs = lib.mkDefault 8;
 

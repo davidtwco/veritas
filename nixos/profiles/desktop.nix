@@ -15,7 +15,7 @@ in
     };
 
     services = {
-      gnome3 = {
+      gnome = {
         core-os-services.enable = true;
         core-utilities.enable = true;
       };
@@ -27,7 +27,7 @@ in
         exportConfiguration = true;
         # i3 is the primary desktop but without GNOME being enabled, gdm doesn't have any session
         # files and crashes as a result.
-        desktopManager.gnome3.enable = true;
+        desktopManager.gnome.enable = true;
         displayManager.gdm = {
           enable = true;
           # Need to upgrade to Sway to use Wayland.

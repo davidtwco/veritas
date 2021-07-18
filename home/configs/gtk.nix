@@ -16,8 +16,8 @@ in
         name = "Paper";
       };
       theme = {
-        package = pkgs.arc-theme;
-        name = "Arc-Darker";
+        package = pkgs.yaru-theme;
+        name = "Yaru";
       };
     };
   };

@@ -29,7 +29,7 @@ in
       # Interact with VM
       looking-glass-client
       # Receive audio from VM
-      scream-receivers
+      scream
       # Virtual machine manager
       virtmanager
       # Utilities for bridge interfaces
@@ -76,7 +76,7 @@ in
         enable = true;
         description = "Scream IVSHMEM";
         serviceConfig = {
-          "ExecStart" = "${pkgs.scream-receivers}/bin/scream-ivshmem-pulse /dev/shm/scream";
+          "ExecStart" = "${pkgs.scream}/bin/scream-ivshmem-pulse /dev/shm/scream";
           "Restart" = "always";
         };
         wantedBy = [ "multi-user.target" ];

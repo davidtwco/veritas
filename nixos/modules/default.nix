@@ -6,7 +6,6 @@
   imports = [
     ./nixops-dns.nix
     ./per-user-vpn.nix
-    ./zsa.nix
   ];
 }
 

@@ -30,6 +30,8 @@
     vesa = false;
   };
 
+  environment.systemPackages = with pkgs; [ wally-cli ];
+
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/a449eeb7-aaf0-4b82-968c-519ff2c94a89";
@@ -43,13 +45,13 @@
 
   hardware = {
     cpu.amd.updateMicrocode = true;
+    keyboard.zsa.enable = true;
     nvidia = {
       modesetting.enable = true;
       nvidiaPersistenced = false;
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
     wooting.enable = true;
-    zsa.enable = true;
   };
 
   networking.interfaces.enp36s0.useDHCP = true;

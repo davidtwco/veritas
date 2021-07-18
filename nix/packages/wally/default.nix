@@ -1,7 +1,7 @@
 { stdenv, lib, fetchurl, makeDesktopItem, autoPatchelfHook, glib, gtk, libusb, webkitgtk }:
 let
   pname = "wally";
-  version = "2.0.0";
+  version = "2.1.1";
   description = "Flash your ZSA Keyboard the EZ way";
 
   desktopItem = makeDesktopItem {
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/zsa/${pname}/releases/download/${version}-linux/${pname}";
-    sha256 = "1nh7grwxya3ncimbbs4svpwn6f7h9vcbp3lb9ipj31mqwlfxqvb1";
+    hash = "sha256-RphLOXqKNIjUmCwBAJeVo9aCTsl7pfsX1S72l1HZEkI=";
   };
 
   dontUnpack = true;

@@ -191,7 +191,6 @@ in
       viAlias = true;
       vimAlias = true;
       withNodeJs = cfg.withLanguageSupport;
-      withPython = cfg.withLanguageSupport;
       withPython3 = cfg.withLanguageSupport;
     };
   };

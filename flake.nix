@@ -229,7 +229,6 @@
             # Make `nix-bundle`'s functions available under `pkgs.nix-bundle`.
             nix-bundle = import inputs.nix-bundle { nixpkgs = pkgsBySystem."${system}"; };
           })
-          (import ./nix/overlays/ferdi.nix)
           (import ./nix/overlays/iosevka.nix)
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
@@ -281,7 +280,6 @@
       nixosModules = {
         nixopsDns = import ./nixos/modules/nixops-dns.nix;
         perUserVpn = import ./nixos/modules/per-user-vpn.nix;
-        zsa = import ./nixos/modules/zsa.nix;
       };
 
       # Expose a dev shell which contains tools for working on this repository.
@@ -314,8 +312,6 @@
 
           measureme = pkgs.callPackage ./nix/packages/measureme { };
 
-          oryx-udev-rules = pkgs.callPackage ./nix/packages/oryx-udev-rules { };
-
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
 
           rustup-toolchain-install-master =
@@ -326,8 +322,6 @@
           neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
             inherit (pkgs.vimUtils) buildVimPlugin;
           };
-
-          wally-udev-rules = pkgs.callPackage ./nix/packages/wally-udev-rules { };
         } // optionalAttrs (system == "x86_64-linux") {
           beekeeper-studio = pkgs.callPackage ./nix/packages/beekeeper-studio { };
 

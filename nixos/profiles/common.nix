@@ -77,6 +77,10 @@ in
     services = {
       cron.enable = true;
       dbus.packages = with pkgs; [ gnome3.dconf ];
+      earlyoom = {
+        enable = true;
+        freeMemThreshold = 5;
+      };
       fwupd.enable = true;
       locate.enable = true;
       printing.enable = true;

@@ -1,6 +1,0 @@
-# Rule for the Moonlander
-SUBSYSTEM=="usb", ATTR{idVendor}=="3297", ATTR{idProduct}=="1969", GROUP="input"
-# Rule for the Ergodox EZ
-SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="1307", GROUP="input"
-# Rule for the Planck EZ
-SUBSYSTEM=="usb", ATTR{idVendor}=="feed", ATTR{idProduct}=="6060", GROUP="input"

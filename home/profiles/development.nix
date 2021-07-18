@@ -44,6 +44,10 @@ in
       cntr
       # DNS client
       dogdns
+      # tmux collaboration
+      tmate
+      # Socket forwarding
+      socat
     ];
 
     veritas.configs = {
