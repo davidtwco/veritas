@@ -10,9 +10,11 @@ in
   config = mkIf cfg.enable {
     programs.htop = {
       enable = true;
-      detailedCpuTime = true;
-      showThreadNames = true;
-      treeView = true;
+      settings = {
+        detailed_cpu_time = true;
+        show_thread_names = true;
+        tree_view = true;
+      };
     };
   };
 }

@@ -67,9 +67,10 @@ in
         };
         "hostname"."style" = "#${green}";
         "jobs" = {
+          "number_threshold" = 0;
           "style" = "#${black}";
           "symbol" = "";
-          "threshold" = 0;
+          "symbol_threshold" = 0;
         };
         "nix_shell"."format" = "via [$state](#${red}) ";
         "username" = {
