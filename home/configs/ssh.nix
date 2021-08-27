@@ -68,14 +68,6 @@ in
           #
           # Add `StreamLocalBindUnlink` to `sshd_config` on remote hosts so that dead sockets are
           # cleaned up.
-          "dtw-avendahl" = {
-            inherit remoteForwards;
-            forwardAgent = true;
-            hostname = "avendahl.dtw.io";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
-            user = "david";
-          };
           "dtw-campaglia" = {
             inherit remoteForwards;
             forwardAgent = true;
@@ -92,14 +84,6 @@ in
               { bind.port = 9117; host = { address = "127.0.0.1"; port = 9117; }; }
               { bind.port = 32400; host = { address = "127.0.0.1"; port = 32400; }; }
             ];
-            user = "david";
-          };
-          "dtw-volkov" = {
-            inherit remoteForwards;
-            forwardAgent = true;
-            hostname = "davidwoodpc.office.codeplay.com";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
             user = "david";
           };
         };

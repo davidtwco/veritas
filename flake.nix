@@ -207,17 +207,11 @@
           # packages.
           drop-pod = { system = "x86_64-linux"; config = ./home/hosts/drop-pod.nix; };
 
-          dtw-avendahl = { system = "x86_64-linux"; config = ./home/hosts/avendahl.nix; };
-
           dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
           dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
 
-          dtw-jar-keurog-wsl = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog-wsl.nix; };
-
           dtw-kalibri = { system = "x86_64-linux"; config = ./home/hosts/kalibri.nix; };
-
-          dtw-volkov = { system = "x86_64-linux"; config = ./home/hosts/volkov.nix; };
         };
 
         # Overlays consumed by the home-manager/NixOS configuration.
@@ -255,7 +249,7 @@
 
       # Attribute set of hostnames to evaluated home-manager configurations.
       homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration {
-        dtw-jar-keurog = { configName = "dtw-jar-keurog-wsl"; system = "x86_64-linux"; };
+        dtw-jar-keurog = { system = "x86_64-linux"; };
 
         dtw-kalibri = { system = "x86_64-linux"; };
       };
@@ -263,13 +257,7 @@
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
       # on those hosts.
       nixosConfigurations = mapAttrs' mkNixOsConfiguration {
-        dtw-avendahl = { system = "x86_64-linux"; config = ./nixos/hosts/avendahl.nix; };
-
         dtw-campaglia = { system = "x86_64-linux"; config = ./nixos/hosts/campaglia.nix; };
-
-        dtw-jar-keurog = { system = "x86_64-linux"; config = ./nixos/hosts/jar-keurog.nix; };
-
-        dtw-volkov = { system = "x86_64-linux"; config = ./nixos/hosts/volkov.nix; };
       };
 
       # Import the modules exported by this flake. Explicitly don't expose profiles in
