@@ -42,28 +42,36 @@
 
   nix.maxJobs = lib.mkDefault 4;
 
-  services = {
-    datadog-agent = {
-      apiKeyFile = ../secrets/datadog-api-key;
-      enable = true;
-      enableLiveProcessCollection = true;
-      enableTraceAgent = true;
-    };
-
-    ddclient = {
-      enable = true;
-      use = "web, web=myip.dnsomatic.com";
-      domains = [ "campaglia" ];
-      protocol = "dyndns2";
-      server = "updates.dnsomatic.com";
-      username = "davidtwco";
-      password = builtins.readFile ../secrets/ddclient-password;
-    };
+  services.ddclient = {
+    enable = true;
+    use = "web, web=myip.dnsomatic.com";
+    domains = [ "campaglia" ];
+    protocol = "dyndns2";
+    server = "updates.dnsomatic.com";
+    username = "davidtwco";
+    password = builtins.readFile ../secrets/ddclient-password;
   };
 
   system.stateVersion = "19.03";
 
   veritas.profiles.media-server.enable = true;
+
+  virtualisation = {
+    docker.autoPrune.enable = true;
+
+    # Use `services.datadog-agent` once NixOS/nixpkgs#105221 is fixed.
+    oci-containers.containers.dd-agent = {
+      autoStart = true;
+      environmentFiles = [ ../secrets/datadog-env ];
+      environment."DD_APM_ENABLED" = "true";
+      image = "gcr.io/datadoghq/agent:7";
+      volumes = [
+        "/var/run/docker.sock:/var/run/docker.sock:ro"
+        "/proc/:/host/proc/:ro"
+        "/sys/fs/cgroup/:/host/sys/fs/cgroup:ro"
+      ];
+    };
+  };
 }
 
 # vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap
