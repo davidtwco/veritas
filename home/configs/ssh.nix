@@ -19,6 +19,7 @@ in
       controlMaster = "auto";
       controlPath = "${config.home.homeDirectory}/.ssh/sockets/%r@%h-%p";
       controlPersist = "600";
+      # `aes256-ctr` cipher and `hmac-sha2-256` MAC required to connect to reMarkable 2.
       extraConfig = ''
         VisualHostKey no
         StrictHostKeyChecking ask
@@ -26,8 +27,8 @@ in
         ForwardX11 no
         ForwardX11Trusted no
         ServerAliveCountMax 2
-        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
-        MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com
+        Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes256-ctr
+        MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-256
         KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
         HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
       '';
