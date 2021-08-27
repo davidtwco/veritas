@@ -63,12 +63,17 @@
     oci-containers.containers.dd-agent = {
       autoStart = true;
       environmentFiles = [ ../secrets/datadog-env ];
-      environment."DD_APM_ENABLED" = "true";
+      environment = {
+        "DD_APM_ENABLED" = "true";
+        "DD_PROCESS_AGENT_ENABLED" = "true";
+      };
       image = "gcr.io/datadoghq/agent:7";
       volumes = [
+        "/etc/passwd:/etc/passwd:ro"
         "/var/run/docker.sock:/var/run/docker.sock:ro"
         "/proc/:/host/proc/:ro"
         "/sys/fs/cgroup/:/host/sys/fs/cgroup:ro"
+        "/data:/host/data:ro"
       ];
     };
   };
