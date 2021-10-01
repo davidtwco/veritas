@@ -10,6 +10,7 @@ in
   config = mkIf cfg.enable {
     home.file = {
       ".ssh/id_ecdsa_legacy.pub".source = ../data/ssh-david-legacy-id_ecdsa.pub;
+      ".ssh/id_ed25519_huawei-oss.pub".source = ../data/ssh-david-huawei-oss-id_ed25519.pub;
       ".ssh/id_rsa_yubikey.pub".source = ../data/ssh-david-yubikey-id_rsa.pub;
     };
 
@@ -55,8 +56,6 @@ in
             extraOptions = {
               "MACs" = "hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com";
             };
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
             user = "git";
           };
           # In order to get GPG/SSH working on remote hosts, we need to `RemoteForward` the sockets
@@ -73,8 +72,6 @@ in
             inherit remoteForwards;
             forwardAgent = true;
             hostname = "192.168.1.118";
-            identitiesOnly = true;
-            identityFile = "${config.home.homeDirectory}/.ssh/id_rsa_yubikey.pub";
             localForwards = [
               { bind.port = 8112; host = { address = "127.0.0.1"; port = 8112; }; }
               { bind.port = 8686; host = { address = "127.0.0.1"; port = 8686; }; }
