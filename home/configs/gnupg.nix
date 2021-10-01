@@ -191,6 +191,11 @@ in
       fi
     '';
 
+    programs.git.signing = {
+      key = config.programs.gpg.settings."default-key";
+      signByDefault = true;
+    };
+
     programs.fish = mkIf cfg.withFishConfiguration {
       # See comment above.
       interactiveShellInit = lib.mkAfter (optionalString (!cfg.wslCompatibility) ''

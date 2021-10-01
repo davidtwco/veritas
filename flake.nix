@@ -149,11 +149,28 @@
           };
         });
 
-      mkHomeManagerHostConfiguration = name: { configName ? name, system }:
+      mkHomeManagerHostConfiguration =
+        name:
+        { configName ? name
+        , system
+        , username ? "david"
+        , homeDirectory ? "/home/${username}"
+        }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
-          inherit system;
-          configuration = { ... }: {
+          inherit homeDirectory system username;
+          configuration = { pkgs, ... }: {
             imports = [ self.internal.homeManagerConfigurations."${configName}" ];
+
+            home.packages = with pkgs; [
+              (
+                # `home-manager` utility does not work with Nix's flakes yet.
+                writeScriptBin "veritas-switch-config" ''
+                  #! ${runtimeShell} -e
+                  nix build ".#homeManagerConfigurations.${configName}.activationPackage"
+                  ./result/activate
+                ''
+              )
+            ];
 
             xdg.configFile."nix/nix.conf".text =
               let
@@ -173,9 +190,7 @@
               overlays = self.internal.overlays."${system}";
             };
           };
-          homeDirectory = "/home/david";
           pkgs = pkgsBySystem."${system}";
-          username = "david";
         });
     in
     {
@@ -209,9 +224,13 @@
 
           dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
 
+          dtw-intrepid = { system = "x86_64-linux"; config = ./home/hosts/intrepid.nix; };
+
           dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
 
           dtw-kalibri = { system = "x86_64-linux"; config = ./home/hosts/kalibri.nix; };
+
+          dtw-wallach = { system = "x86_64-linux"; config = ./home/hosts/wallach.nix; };
         };
 
         # Overlays consumed by the home-manager/NixOS configuration.
@@ -249,9 +268,13 @@
 
       # Attribute set of hostnames to evaluated home-manager configurations.
       homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration {
+        dtw-intrepid = { system = "x86_64-linux"; username = "davidw"; };
+
         dtw-jar-keurog = { system = "x86_64-linux"; };
 
         dtw-kalibri = { system = "x86_64-linux"; };
+
+        dtw-wallach = { system = "x86_64-linux"; username = "davidw"; };
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`

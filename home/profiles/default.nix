@@ -5,6 +5,7 @@
     ./common.nix
     ./desktop.nix
     ./development.nix
+    ./home-manager-only.nix
     ./minimal.nix
     ./wsl.nix
   ];

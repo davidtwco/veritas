@@ -30,7 +30,8 @@ in
       register_libstdcxx_printers (None)
       end
 
-      # Allow gdb to autoload from the nix store.
+      # Allow gdb to autoload from the nix store and /usr.
+      add-auto-load-safe-path /usr
       add-auto-load-safe-path /nix/store
 
       # Add LLVM pretty printers.

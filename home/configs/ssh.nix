@@ -39,7 +39,7 @@ in
       hashKnownHosts = true;
       matchBlocks =
         let
-          remoteForwards = [
+          remoteForwards = optionals config.veritas.configs.gnupg.enable [
             {
               bind.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent";
               host.address = "${config.home.homeDirectory}/.gnupg/socketdir/S.gpg-agent.extra";

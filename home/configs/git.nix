@@ -114,10 +114,6 @@ in
         skipSmudge = false;
       };
       package = pkgs.gitAndTools.gitFull;
-      signing = {
-        key = config.programs.gpg.settings."default-key";
-        signByDefault = true;
-      };
       userEmail = cfg.email;
       userName = cfg.name;
     };

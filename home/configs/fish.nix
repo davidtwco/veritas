@@ -61,8 +61,8 @@ let
     set fish_color_user ${brightGreen}
     set fish_color_description ${magenta}
   '';
-  wslInit = ''
-    set -gx PATH ${config.home.homeDirectory}/.nix-profile/bin/ $PATH
+  homeManagerOnlyInit = ''
+    set -gx PATH ${config.home.homeDirectory}/.nix-profile/bin $PATH
   '';
 in
 {
@@ -75,10 +75,10 @@ in
       description = "Enable development-specific aliases/configuration.";
     };
 
-    wslCompatibility = mkOption {
+    homeManagerOnlyCompatibility = mkOption {
       type = types.bool;
       default = false;
-      description = "Add configuration for WSL compatibility.";
+      description = "Add configuration for non-NixOS home-manager only systems.";
     };
   };
 
@@ -110,7 +110,8 @@ in
 
     programs.fish = {
       enable = true;
-      interactiveShellInit = (optionalString cfg.wslCompatibility wslInit) + commonInit;
+      interactiveShellInit =
+        (optionalString cfg.homeManagerOnlyCompatibility homeManagerOnlyInit) + commonInit;
       package = pkgs.fish;
       shellAliases = with pkgs; {
         # Make `rm` prompt before removing more than three files or removing recursively.
