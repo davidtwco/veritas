@@ -86,6 +86,10 @@ in
             ];
             user = "david";
           };
+          "dtw-intrepid" = {
+            hostname = "intrepid.dtw.io";
+            user = "davidw";
+          };
         };
       serverAliveInterval = 300;
     };
