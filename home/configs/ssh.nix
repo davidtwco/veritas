@@ -12,6 +12,8 @@ in
       ".ssh/id_ecdsa_legacy.pub".source = ../data/ssh-david-legacy-id_ecdsa.pub;
       ".ssh/id_ed25519_huawei-oss.pub".source = ../data/ssh-david-huawei-oss-id_ed25519.pub;
       ".ssh/id_rsa_yubikey.pub".source = ../data/ssh-david-yubikey-id_rsa.pub;
+      ".ssh/id_ecdsa_ipad.pub".source = ../data/ssh-david-ipad-id_ecdsa.pub;
+      ".ssh/id_ecdsa_iphone.pub".source = ../data/ssh-david-iphone-id_ecdsa.pub;
     };
 
     programs.ssh = {
