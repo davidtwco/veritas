@@ -13,7 +13,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  cargoSha256 = "sha256:ZNiTzBbJIWd6oiffzVMN/RGMU0lRTh5+DOPEWF7dk6Y=";
+  cargoSha256 = "sha256:rs2EWcvTxLVeJ0t+jLM75s+K72t+hqKzwy3oAdCZ8BE=";
 
   meta = with lib; {
     description = "Demangle Rust symbols";

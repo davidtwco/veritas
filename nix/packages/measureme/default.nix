@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ];
 
-  cargoSha256 = "sha256:kZNKhE2+nqarDORtUU+sUUCRVBuHUsuH/5crJu7cNzU=";
+  cargoSha256 = "sha256:A2Dm4xJyAJjKCcB+d0gJFKvJpT0yFwFzU8RlL2FjH8o=";
 
   meta = with lib; {
     description = "Tools for working with rustc's self-profiling feature";

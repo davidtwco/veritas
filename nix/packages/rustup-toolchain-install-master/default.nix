@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ];
 
-  cargoSha256 = "sha256:CxBbN3t6C3ngovR99Yk6/1B53c26YnGDMSfwHA01e+o=";
+  cargoSha256 = "sha256:n7t8Ap9hdhrjmtKjfdyozf26J7yhu57pedm19CunLF4=";
 
   meta = with lib; {
     description = "Install a rustc master toolchain usable from rustup";

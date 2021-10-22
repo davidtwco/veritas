@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
     (lib.optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security)
     ++ [ openssl ];
 
-  cargoSha256 = "sha256:yqi+bdOW2dbnMKWogs7lwCFhkAOjFl/7l14SR0F/mxw=";
+  cargoSha256 = "sha256:vdHYHriHxEGbyOaaHf1J1Opg/wx43zn4/hI7Bdl3QS0=";
 
   meta = with lib; {
     description = "Bisects rustc, either nightlies or CI artifacts";
