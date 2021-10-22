@@ -20,12 +20,18 @@ in
   config = mkIf cfg.enable {
     programs.bash = with lib; {
       enable = true;
-      profileExtra = mkAfter (
-        optionalString (cfg.wslCompatibility) ''
-          . "${config.home.homeDirectory}/.nix-profile/etc/profile.d/hm-session-vars.sh"
-          exec ${config.home.profileDirectory}/bin/fish
-        ''
-      );
+      profileExtra = mkMerge [
+        (
+          mkBefore (optionalString (cfg.wslCompatibility) ''
+            source ${config.home.profileDirectory}/etc/profile.d/nix.sh
+          '')
+        )
+        (
+          mkAfter (optionalString (cfg.wslCompatibility) ''
+            ${optionalString (config.veritas.configs.fish.enable) "exec ${config.home.profileDirectory}/bin/fish"}
+          '')
+        )
+      ];
     };
   };
 }

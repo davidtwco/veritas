@@ -9,61 +9,6 @@ let
     rev = "034aee597117492778c9223b7e2188ed6a5bef54";
     sha256 = "sha256-fq9nDGHSz/xjHYtioQzt2O/oxn55kWV+PgRFa6fzlXM=";
   };
-
-  commonInit = with config.veritas.profiles.common.colourScheme; ''
-    # Disable the greeting message.
-    set fish_greeting
-
-    # Set environment variables.
-    set -x COLORTERM truecolor
-    set -x TERM xterm-256color
-    eval (${pkgs.coreutils}/bin/dircolors -c ${lscolors}/LS_COLORS)
-
-    # Use vi keybinds.
-    fish_vi_key_bindings
-
-    # Accept autosuggestions with CTRL+SPACE
-    bind -k nul accept-autosuggestion
-    bind -M insert -k nul accept-autosuggestion
-
-    # Make sure HOME + END works as expected everywhere
-    bind \e\[1~ beginning-of-line
-    bind -M insert \e\[1~ beginning-of-line
-    bind \e\[4~ end-of-line
-    bind -M insert \e\[4~ end-of-line
-    bind \e\[7~ beginning-of-line
-    bind -M insert \e\[7~ beginning-of-line
-    bind \e\[8~ end-of-line
-    bind -M insert \e\[8~ end-of-line
-    bind \eOH beginning-of-line
-    bind -M insert \eOH beginning-of-line
-    bind \eOF end-of-line
-    bind -M insert \eOF end-of-line
-    bind \e\[H beginning-of-line
-    bind -M insert \e\[H beginning-of-line
-    bind \e\[F end-of-line
-    bind -M insert \e\[F end-of-line
-
-    # Use hybrid colour scheme.
-    set fish_color_autosuggestion ${white}
-    set fish_color_command ${brightYellow}
-    set fish_color_comment ${brightGreen}
-    set fish_color_cwd ${green}
-    set fish_color_cwd_root ${red}
-    set fish_color_end ${brightMagenta}
-    set fish_color_error ${brightRed}
-    set fish_color_escape ${brightCyan}
-    set fish_color_operator ${brightCyan}
-    set fish_color_param ${green}
-    set fish_color_quote ${brightGreen}
-    set fish_color_redirection ${cyan}
-    set fish_color_status ${red}
-    set fish_color_user ${brightGreen}
-    set fish_color_description ${magenta}
-  '';
-  homeManagerOnlyInit = ''
-    set -gx PATH ${config.home.homeDirectory}/.nix-profile/bin $PATH
-  '';
 in
 {
   options.veritas.configs.fish = {
@@ -110,8 +55,57 @@ in
 
     programs.fish = {
       enable = true;
-      interactiveShellInit =
-        (optionalString cfg.homeManagerOnlyCompatibility homeManagerOnlyInit) + commonInit;
+      interactiveShellInit = with config.veritas.profiles.common.colourScheme; ''
+        # Disable the greeting message.
+        set fish_greeting
+
+        # Set environment variables.
+        set -x COLORTERM truecolor
+        set -x TERM xterm-256color
+        eval (${pkgs.coreutils}/bin/dircolors -c ${lscolors}/LS_COLORS)
+
+        # Use vi keybinds.
+        fish_vi_key_bindings
+
+        # Accept autosuggestions with CTRL+SPACE
+        bind -k nul accept-autosuggestion
+        bind -M insert -k nul accept-autosuggestion
+
+        # Make sure HOME + END works as expected everywhere
+        bind \e\[1~ beginning-of-line
+        bind -M insert \e\[1~ beginning-of-line
+        bind \e\[4~ end-of-line
+        bind -M insert \e\[4~ end-of-line
+        bind \e\[7~ beginning-of-line
+        bind -M insert \e\[7~ beginning-of-line
+        bind \e\[8~ end-of-line
+        bind -M insert \e\[8~ end-of-line
+        bind \eOH beginning-of-line
+        bind -M insert \eOH beginning-of-line
+        bind \eOF end-of-line
+        bind -M insert \eOF end-of-line
+        bind \e\[H beginning-of-line
+        bind -M insert \e\[H beginning-of-line
+        bind \e\[F end-of-line
+        bind -M insert \e\[F end-of-line
+
+        # Use hybrid colour scheme.
+        set fish_color_autosuggestion ${white}
+        set fish_color_command ${brightYellow}
+        set fish_color_comment ${brightGreen}
+        set fish_color_cwd ${green}
+        set fish_color_cwd_root ${red}
+        set fish_color_end ${brightMagenta}
+        set fish_color_error ${brightRed}
+        set fish_color_escape ${brightCyan}
+        set fish_color_operator ${brightCyan}
+        set fish_color_param ${green}
+        set fish_color_quote ${brightGreen}
+        set fish_color_redirection ${cyan}
+        set fish_color_status ${red}
+        set fish_color_user ${brightGreen}
+        set fish_color_description ${magenta}
+      '';
       package = pkgs.fish;
       shellAliases = with pkgs; {
         # Make `rm` prompt before removing more than three files or removing recursively.
