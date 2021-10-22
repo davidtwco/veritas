@@ -245,6 +245,7 @@
           (import ./nix/overlays/iosevka.nix)
           (import ./nix/overlays/vaapi.nix)
         ] ++ optionals (system == "x86_64-linux") [
+          (import ./nix/overlays/sabnzbd.nix)
           (import ./nix/overlays/plex.nix)
         ]);
 
