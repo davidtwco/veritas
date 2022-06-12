@@ -320,27 +320,14 @@
           pkgs = pkgsBySystem."${system}";
         in
         {
-          cargo-bisect-rustc = pkgs.callPackage ./nix/packages/cargo-bisect-rustc { };
-
           measureme = pkgs.callPackage ./nix/packages/measureme { };
 
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
-
-          rustup-toolchain-install-master =
-            pkgs.callPackage ./nix/packages/rustup-toolchain-install-master { };
 
           tera-template = pkgs.callPackage ./nix/packages/tera-template { };
 
           neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
             inherit (pkgs.vimUtils) buildVimPlugin;
-          };
-        } // optionalAttrs (system == "x86_64-linux") {
-          beekeeper-studio = pkgs.callPackage ./nix/packages/beekeeper-studio { };
-
-          intel-openclrt = pkgs.callPackage ./nix/packages/intel-openclrt { };
-
-          wally = pkgs.callPackage ./nix/packages/wally {
-            inherit (pkgs.gnome3) gtk webkitgtk;
           };
         }
       );
