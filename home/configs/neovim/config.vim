@@ -602,7 +602,7 @@ endfunction
 
 function! LightlineGitBranch()
   " Don't show the git branch on windows that aren't wide.
-  return winwidth(0) > s:collapse_threshold ? fugitive#head() : ''
+  return winwidth(0) > s:collapse_threshold ? FugitiveHead() : ''
 endfunction
 
 function! LightlineFileFormat()

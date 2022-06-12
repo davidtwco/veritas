@@ -76,7 +76,7 @@ in
 
     services = {
       cron.enable = true;
-      dbus.packages = with pkgs; [ gnome3.dconf ];
+      dbus.packages = with pkgs; [ dconf ];
       earlyoom = {
         enable = true;
         freeMemThreshold = 5;

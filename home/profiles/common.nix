@@ -173,7 +173,7 @@ in
         # Reading hardware sensors.
         lm_sensors
         # NFS debugging utilities
-        nfsUtils
+        nfs-utils
         # Recover dead disks :(
         ddrescue
         # Query SNMP servers

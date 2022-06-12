@@ -8,10 +8,7 @@ in
   options.veritas.configs.direnv.enable = mkEnableOption "direnv configuration";
 
   config = mkIf cfg.enable {
-    programs.direnv = {
-      enable = true;
-      enableFishIntegration = true;
-    };
+    programs.direnv.enable = true;
   };
 }
 

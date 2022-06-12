@@ -49,7 +49,7 @@
     protocol = "dyndns2";
     server = "updates.dnsomatic.com";
     username = "davidtwco";
-    password = builtins.readFile ../secrets/ddclient-password;
+    passwordFile = builtins.toString ../secrets/ddclient-password;
   };
 
   system.stateVersion = "19.03";

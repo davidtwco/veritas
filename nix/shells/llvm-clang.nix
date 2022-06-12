@@ -6,13 +6,6 @@
 # `buildFHSUserEnv` is used instead of `mkShell` so that the headers expected by an unwrapped
 # clang can be found in the expected location.
 let
-  # Combine the `lib` and `out` outputs of the `cudatoolkit_10` package to re-produce
-  # what the original CUDA toolkit package would contain and is expected to have.
-  cuda-toolkit-joined = pkgs.symlinkJoin {
-    name = "cudatoolkit_10_joined";
-    paths = with pkgs; [ cudatoolkit_10.out cudatoolkit_10.lib ];
-  };
-
   # Join C++ and C headers for OpenCL headers.
   opencl-c-and-cpp-headers = pkgs.symlinkJoin {
     name = "opencl-c-and-cpp-headers";
@@ -70,25 +63,9 @@ let
         # OpenCL ICD loader - provides `libOpenCL.so.1`.
         ocl-icd
         # Intel's OpenCL runtime.
-        intel-openclrt
         intel-compute-runtime
         # clinfo - query available OpenCL devices.
         clinfo
-
-        # NVIDIA's OpenCL runtime and `libdevice.so` (for NVPTX backend).
-        cuda-toolkit-joined
-        linuxPackages.nvidia_x11
-        # NVIDIA/CUDA dependencies.
-        xorg.libXi
-        xorg.libXmu
-        xorg.libXext
-        xorg.libX11
-        xorg.libXv
-        xorg.libXrandr
-        libGLU
-        procps
-        freeglut
-        jansson
 
         # SPIRV-Tools - looked for by CMake. Provides `spirv-val` and `spirv-as`.
         spirv-tools
