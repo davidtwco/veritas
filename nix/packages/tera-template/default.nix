@@ -7,7 +7,7 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = optional stdenv.isDarwin darwin.apple_sdk.frameworks.Security;
 
-  cargoSha256 = "sha256-q8qrYi7IjZWSE/Pn1JoBEZlrz4qqFp5FMUb37SBP9pQ=";
+  cargoSha256 = "sha256-nwVAZVGqTA+I0l45RMgNW6DimqzQUqK86F1v8spT6/Q=";
 
   doCheck = false;
 
