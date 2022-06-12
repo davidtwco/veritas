@@ -73,7 +73,7 @@ in
           "dtw-campaglia" = {
             inherit remoteForwards;
             forwardAgent = true;
-            hostname = "192.168.1.118";
+            hostname = "campaglia.dtw.io";
             localForwards = [
               { bind.port = 8112; host = { address = "127.0.0.1"; port = 8112; }; }
               { bind.port = 8686; host = { address = "127.0.0.1"; port = 8686; }; }
