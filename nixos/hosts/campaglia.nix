@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   boot = {
@@ -33,6 +33,8 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [ tailscale ];
+
   hardware.cpu.intel.updateMicrocode = true;
 
   networking = {
@@ -42,14 +44,17 @@
 
   nix.maxJobs = lib.mkDefault 4;
 
-  services.ddclient = {
-    enable = true;
-    use = "web, web=myip.dnsomatic.com";
-    domains = [ "campaglia" ];
-    protocol = "dyndns2";
-    server = "updates.dnsomatic.com";
-    username = "davidtwco";
-    passwordFile = builtins.toString ../secrets/ddclient-password;
+  services = {
+    ddclient = {
+      enable = true;
+      use = "web, web=myip.dnsomatic.com";
+      domains = [ "campaglia" ];
+      protocol = "dyndns2";
+      server = "updates.dnsomatic.com";
+      username = "davidtwco";
+      passwordFile = builtins.toString ../secrets/ddclient-password;
+    };
+    tailscale.enable = true;
   };
 
   system.stateVersion = "19.03";
