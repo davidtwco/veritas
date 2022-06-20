@@ -6,7 +6,6 @@
     ./autorandr.nix
     ./bash.nix
     ./cachix.nix
-    ./cargo.nix
     ./ccache.nix
     ./command-not-found.nix
     ./direnv.nix

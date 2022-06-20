@@ -51,7 +51,6 @@ in
     ];
 
     veritas.configs = {
-      cargo.enable = true;
       ccache.enable = true;
       direnv.enable = true;
       eyaml.enable = true;
