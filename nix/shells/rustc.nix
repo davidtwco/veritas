@@ -25,7 +25,6 @@ let
     \   "src/librustdoc/html",
     \   "src/doc",
     \   "src/ci",
-    \   "src/bootstrap",
     \   "*.md"
     \ ]
 
