@@ -67,7 +67,10 @@ in
           "style" = "#${cfg.colourScheme.mutedGrey}";
           "untracked" = "";
         };
-        "hostname"."style" = "#${green}";
+        "hostname" = {
+          "ssh_symbol" = "";
+          "style" = "#${green}";
+        };
         "jobs" = {
           "number_threshold" = 0;
           "style" = "#${black}";
