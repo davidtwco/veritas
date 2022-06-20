@@ -61,6 +61,7 @@ in
           experimental = true;
           manyFiles = true;
         };
+        merge.conflictStyle = "zdiff3";
         pull.rebase = true;
         push = {
           default = "simple";
