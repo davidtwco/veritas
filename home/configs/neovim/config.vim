@@ -377,7 +377,6 @@ let g:ale_linters = {
       \   'awk': [ 'gawk' ],
       \   'c': [ 'clangd', 'clangtidy' ],
       \   'cpp': [ 'clangd', 'clangtidy' ],
-      \   'cuda': [ 'nvcc' ],
       \   'haskell': [ 'hie' ],
       \   'llvm': [ 'llc' ],
       \   'lua': [ 'luac' ],
@@ -435,7 +434,6 @@ let g:ale_cpp_clang_executable = SearchBuildDirsOr('@aleClangPlusPlus@')
 let g:ale_cpp_clangd_executable = g:ale_c_clangd_executable
 let g:ale_cpp_clangtidy_executable = g:ale_c_clangtidy_executable
 let g:ale_cuda_clangformat_executable = g:ale_c_clangformat_executable
-let g:ale_cuda_nvcc_executable = SearchBuildDirsOr('@aleNvcc@')
 let g:ale_haskell_ormolu_executable = SearchBuildDirsOr('@aleOrmolu@')
 let g:ale_json_jq_executable = SearchBuildDirsOr('@aleJq@')
 let g:ale_llvm_llc_executable = SearchBuildDirsOr('@aleLlc@')

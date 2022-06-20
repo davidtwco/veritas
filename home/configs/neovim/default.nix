@@ -27,7 +27,6 @@ let
     aleLlc = cfgDevTool llvm "llc";
     aleLuac = cfgDevTool lua "luac";
     aleNixpkgsfmt = cfgDevTool nixpkgs-fmt "nixpkgs-fmt";
-    aleNvcc = cfgDevTool cudaPackages.cudatoolkit "nvcc";
     aleOrmolu = cfgDevTool ormolu "ormolu";
     aleRubocop = cfgDevTool rubocop "rubocop";
     # Use `cfgDevTool` again once nixpkgs#103009 if fixed.
