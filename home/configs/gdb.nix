@@ -4,17 +4,14 @@ with lib;
 let
   cfg = config.veritas.configs.gdb;
 
-  # gcc contains libstdc++ pretty printers.
-  libStdCppPrettyPrinters = pkgs.fetchgit {
-    url = "git://gcc.gnu.org/git/gcc.git";
-    rev = "7df1534c136e2556ca10d3a60d2b2cc77544dbc8";
-    sha256 = "sha256-wVo/EoiXkmetb0gJ9FM6Hgj9JoicGk/UU7MND/J4NaM=";
-  };
-  # LLVM provides pretty printers for LLVM data types.
-  llvmPrettyPrinters = pkgs.fetchgit {
-    url = "https://github.com/llvm/llvm-project.git";
-    rev = "89074bdc813a0e8bd9ff5e69e76b134dc7ae1bd9";
-    sha256 = "sha256-ZeJvQmg7D3f8korxJMf3F0ow3bjZ6GmhUbl/dNpL9jw=";
+  libStdCppPrettyPrinters = pkgs.stdenv.mkDerivation {
+    name = "libstdcxx-printers-${pkgs.gcc-unwrapped.version}";
+    src = pkgs.gcc-unwrapped.src;
+    phases = [ "unpackPhase" "installPhase" ];
+    installPhase = ''
+      mkdir -p $out
+      cp -r libstdc++-v3/python/* $out/
+    '';
   };
 in
 {
@@ -25,7 +22,7 @@ in
       # Add libstdc++ pretty printers.
       python
       import sys
-      sys.path.insert(0, '${libStdCppPrettyPrinters}/libstdc++-v3/python')
+      sys.path.insert(0, '${libStdCppPrettyPrinters}')
       from libstdcxx.v6.printers import register_libstdcxx_printers
       register_libstdcxx_printers (None)
       end
@@ -35,7 +32,7 @@ in
       add-auto-load-safe-path /nix/store
 
       # Add LLVM pretty printers.
-      source ${llvmPrettyPrinters}/llvm/utils/gdb-scripts/prettyprinters.py
+      source ${pkgs.llvmPackages_14.llvm.src}/llvm/utils/gdb-scripts/prettyprinters.py
 
       # Don't ever step into the standard library or system packages.
       skip -gfi /usr/**/*
