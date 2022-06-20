@@ -80,8 +80,7 @@ let
     in
     pkgs.writeText "rustc-ripgreprc" "--ignore-file=${ignoreFile}";
 in
-# Switch back to `clangMultiStdenv` after NixOS/nixpkgs#94023 is fixed (need to switch temporarily when rebuilding LLVM).
-pkgs.gccMultiStdenv.mkDerivation rec {
+pkgs.clangMultiStdenv.mkDerivation rec {
   name = "rustc";
   buildInputs = with pkgs; [
     git
