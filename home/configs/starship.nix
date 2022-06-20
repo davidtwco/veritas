@@ -39,8 +39,10 @@ in
           "style" = "#${cfg.colourScheme.mutedGrey}";
         };
         "git_commit" = {
-          "disabled" = false;
           "style" = "#${cfg.colourScheme.mutedGrey}";
+        };
+        "git_metrics" = {
+          "disabled" = false;
         };
         "git_state" = {
           "rebase" = "rebasing";
