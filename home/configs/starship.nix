@@ -123,7 +123,7 @@ in
         "pulumi"."disabled" = true;
         "purescript"."disabled" = true;
         "python"."disabled" = true;
-        "r"."disabled" = true;
+        "rlang"."disabled" = true;
         "red"."disabled" = true;
         "ruby"."disabled" = true;
         "rust"."disabled" = true;
@@ -134,7 +134,7 @@ in
         "swift"."disabled" = true;
         "terraform"."disabled" = true;
         "time"."disabled" = true;
-        "v"."disabled" = true;
+        "vlang"."disabled" = true;
         "vagrant"."disabled" = true;
         "vcsh"."disabled" = true;
         "zig"."disabled" = true;
