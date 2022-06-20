@@ -32,18 +32,21 @@ let
     let g:ale_linters['rust'] = [ 'analyzer' ]
 
     " Same configuration as `x.py fmt`.
-    let g:ale_rust_rustfmt_options = '--edition 2018 --unstable-features --skip-children'
+    let g:ale_rust_rustfmt_options = '--edition 2021 --unstable-features --skip-children'
     let g:ale_rust_rustfmt_executable = './build/x86_64-unknown-linux-gnu/stage0/bin/rustfmt'
 
     augroup RustcAU
       au!
-      " Disable ALE in Clippy, rustfmt isn't used.
+      au! BufRead,BufNewFile,BufEnter **/src/tools/rustfmt/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/src/tools/rustfmt/** :let b:ale_fix_on_save = 0
+      au! BufRead,BufNewFile,BufEnter **/src/librustdoc/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/src/librustdoc/** :let b:ale_fix_on_save = 0
+      au! BufRead,BufNewFile,BufEnter **/src/tools/rustdoc/** :ALEDisableBuffer
+      au! BufRead,BufNewFile,BufEnter **/src/tools/rustdoc/** :let b:ale_fix_on_save = 0
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/src/tools/clippy/** :let b:ale_fix_on_save = 0
-      " Disable ALE in cranelift, rustfmt isn't used.
       au! BufRead,BufNewFile,BufEnter **/compiler/rustc_codegen_cranelift/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/compiler/rustc_codegen_cranelift/** :let b:ale_fix_on_save = 0
-      " Disable ALE in tests - exact formatting is sometimes important.
       au! BufRead,BufNewFile,BufEnter **/src/test/** :ALEDisableBuffer
       au! BufRead,BufNewFile,BufEnter **/src/test/** :let b:ale_fix_on_save = 0
     augroup END
