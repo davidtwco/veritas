@@ -4,10 +4,11 @@ with lib;
 let
   cfg = config.veritas.configs.fish;
 
-  lscolors = pkgs.fetchgit {
-    url = "https://github.com/trapd00r/LS_COLORS.git";
-    rev = "034aee597117492778c9223b7e2188ed6a5bef54";
-    sha256 = "sha256-fq9nDGHSz/xjHYtioQzt2O/oxn55kWV+PgRFa6fzlXM=";
+  lscolors = pkgs.fetchFromGitHub {
+    owner = "trapd00r";
+    repo = "LS_COLORS";
+    rev = "7271a7a8135c1e8a82584bfc9a8ebc227c5c6b2b";
+    sha256 = "0gs2qmdxvvgs5ck2j8b6i8dqc5q91m8xrvc2ajvlhcr7in0n9iw5";
   };
 
   commonInit = with config.veritas.profiles.common.colourScheme; ''
