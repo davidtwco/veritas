@@ -29,8 +29,7 @@ let
     aleNixpkgsfmt = cfgDevTool nixpkgs-fmt "nixpkgs-fmt";
     aleOrmolu = cfgDevTool ormolu "ormolu";
     aleRubocop = cfgDevTool rubocop "rubocop";
-    # Use `cfgDevTool` again once nixpkgs#103009 if fixed.
-    aleRustAnalyzer = "rust-analyzer";
+    aleRustAnalyzer = cfgDevTool rust-analyzer "rust-analyzer";
     aleShellcheck = "${shellcheck}/bin/shellcheck";
     aleSpirvAs = cfgDevTool spirv-tools "spirv-as";
     aleSpirvDis = cfgDevTool spirv-tools "spirv-dis";
