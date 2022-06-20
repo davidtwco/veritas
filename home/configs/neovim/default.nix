@@ -117,6 +117,8 @@ in
             patches = [ ./0001-rust-vim-no-tagbar-integration.patch ];
           });
         }
+        # Fluent syntax highlighting
+        { plugin = fluent-vim; }
         # Generate ctags for projects.
         { plugin = vim-gutentags; }
         # Auto-adds `end` where appropriate.

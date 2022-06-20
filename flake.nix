@@ -320,6 +320,10 @@
           pkgs = pkgsBySystem."${system}";
         in
         {
+          fluent-vim = pkgs.callPackage ./nix/packages/fluent-vim {
+            inherit (pkgs.vimUtils) buildVimPlugin;
+          };
+
           measureme = pkgs.callPackage ./nix/packages/measureme { };
 
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
