@@ -8,7 +8,10 @@ in
   options.veritas.profiles.homeManagerOnly.enable = mkEnableOption "home-manager only support";
 
   config = mkIf cfg.enable {
-    veritas.configs.fish.homeManagerOnlyCompatibility = true;
+    veritas.configs = {
+      fish.homeManagerOnlyCompatibility = true;
+      mail.withSystemdNotifyUnit = false;
+    };
   };
 }
 
