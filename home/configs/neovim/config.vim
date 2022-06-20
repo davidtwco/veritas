@@ -495,8 +495,8 @@ let g:lightline.active = {
       \   ],
       \   'right': [
       \       [ 'linter_checking', 'linter_errors', 'linter_warnings', 'linter_ok' ],
-      \       [ 'gutentags' ],
-      \       [ 'tagbar', 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
+      \       [ 'gutentags', 'tagbar' ],
+      \       [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex', 'lineinfo', 'percent' ]
       \   ]
       \ }
 
