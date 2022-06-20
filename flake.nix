@@ -75,13 +75,6 @@
               environment.etc.nixpkgs.source = inputs.nixpkgs;
               nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
             })
-            ({ pkgs, ... }: {
-              # Don't rely on the configuration to enable a flake-compatible version of Nix.
-              nix = {
-                package = pkgs.nixFlakes;
-                extraOptions = "experimental-features = nix-command flakes";
-              };
-            })
             ({ lib, ... }: {
               # Set the system configuration revision.
               system.configurationRevision = lib.mkIf (self ? rev) self.rev;
