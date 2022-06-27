@@ -28,6 +28,7 @@ in
       end
 
       # Allow gdb to autoload from the nix store and /usr.
+      add-auto-load-safe-path /lib
       add-auto-load-safe-path /usr
       add-auto-load-safe-path /nix/store
 
@@ -35,6 +36,7 @@ in
       source ${pkgs.llvmPackages_14.llvm.src}/llvm/utils/gdb-scripts/prettyprinters.py
 
       # Don't ever step into the standard library or system packages.
+      skip -gfi /lib/**/*
       skip -gfi /usr/**/*
       skip -gfi /nix/store/**/*
 
