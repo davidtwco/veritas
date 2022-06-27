@@ -37,14 +37,14 @@ Codeplay where I worked with LLVM, Clang, SPIR-V and NVPTX.
 You can download [my curriculum vitae here](/curriculum_vitae.pdf).
 
 ## Contact
-If you'd like to chat, send me a message [on Keybase][keybase], [on Telegram][telegram] or shoot me
-an email at [`hello@davidtw.co`][email] (my PGP key is [`0x9F53F154`][keybase], if you need it).
+If you'd like to chat, send me a message on [on Telegram][telegram], on WeChat (see QR code
+in the sidebar), or you can shoot me an email at [`hello@davidtw.co`][email] (my PGP key is
+[`0x9F53F154`][keybase], if you need it).
 
 [codeplay]: https://codeplay.com/
 [compiler_team_member]: https://www.rust-lang.org/governance/teams/compiler
 [email]: mailto:hello@davidtw.co
 [huawei]: https://www.huawei.com/uk/corporate-information/research-development
-[keybase]: https://keybase.io/davidtwco
 [nix]: https://nixos.org/
 [prs]: https://github.com/search?q=is%3Apr+author%3Adavidtwco
 [rfc_2008]: https://github.com/rust-lang/rfcs/blob/master/text/2008-non-exhaustive.md

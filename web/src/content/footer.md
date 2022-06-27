@@ -24,6 +24,12 @@ Compiler engineer + Rust compiler team member
 #### gnupg
 [`0x9F53F154`](https://keybase.io/davidtwco)
 
+#### telegram
+<img class="sidebar-image" src="/images/telegram-qr.svg" alt="Telegram QR code"></img>
+
+#### wechat
+<img class="sidebar-image" src="/images/wechat-qr.svg" alt="WeChat QR code"></img>
+
 <p id="license">
   This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.
 </p>
