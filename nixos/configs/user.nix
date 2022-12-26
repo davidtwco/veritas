@@ -18,7 +18,7 @@ in
     };
 
     nix = {
-      trustedUsers = [ "david" ];
+      settings."trusted-users" = [ "david" ];
 
       # Use regular SSH keys for SSH-serving Nix packages.
       sshServe.keys = config.users.users.david.openssh.authorizedKeys.keys;

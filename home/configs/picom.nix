@@ -8,10 +8,7 @@ in
   options.veritas.configs.picom.enable = mkEnableOption "picom configuration";
 
   config = mkIf cfg.enable {
-    services.picom = {
-      enable = true;
-      noDockShadow = true;
-    };
+    services.picom.enable = true;
   };
 }
 

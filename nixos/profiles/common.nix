@@ -60,8 +60,11 @@ in
     i18n.defaultLocale = "en_GB.UTF-8";
 
     nix = {
-      inherit (nixConf) binaryCaches binaryCachePublicKeys;
-      autoOptimiseStore = true;
+      settings = {
+        "auto-optimise-store" = true;
+        "substituters" = nixConf.binaryCaches;
+        "trusted-public-keys" = nixConf.binaryCachePublicKeys;
+      };
       sshServe.enable = true;
     };
 
