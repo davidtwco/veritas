@@ -12,8 +12,9 @@ in
       ".ssh/id_ecdsa_legacy.pub".source = ../data/ssh-david-legacy-id_ecdsa.pub;
       ".ssh/id_ed25519_huawei-oss.pub".source = ../data/ssh-david-huawei-oss-id_ed25519.pub;
       ".ssh/id_rsa_yubikey.pub".source = ../data/ssh-david-yubikey-id_rsa.pub;
-      ".ssh/id_ecdsa_ipad.pub".source = ../data/ssh-david-ipad-id_ecdsa.pub;
-      ".ssh/id_ecdsa_iphone.pub".source = ../data/ssh-david-iphone-id_ecdsa.pub;
+      ".ssh/id_ecdsa_sk.pub".source = ../data/ssh-david-blink-passkey-id_ecdsa_sk.pub;
+      ".ssh/id_ecdsa_iphone.pub".source = ../data/ssh-david-blink-iphone-id_ecdsa.pub;
+      ".ssh/id_ecdsa_ipad.pub".source = ../data/ssh-david-blink-ipad-id_ecdsa.pub;
     };
 
     programs.ssh = {
@@ -85,10 +86,6 @@ in
               { bind.port = 32400; host = { address = "127.0.0.1"; port = 32400; }; }
             ];
             user = "david";
-          };
-          "dtw-intrepid" = {
-            hostname = "intrepid.dtw.io";
-            user = "davidw";
           };
         };
       serverAliveInterval = 300;

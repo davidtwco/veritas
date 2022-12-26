@@ -69,8 +69,9 @@ in
         isNormalUser = true;
         openssh.authorizedKeys.keyFiles = [
           ../data/ssh-david-yubikey-id_rsa.pub
-          ../data/ssh-david-ipad-id_ecdsa.pub
-          ../data/ssh-david-iphone-id_ecdsa.pub
+          ../data/ssh-david-blink-passkey-id_ecdsa_sk.pub
+          ../data/ssh-david-blink-iphone-id_ecdsa.pub
+          ../data/ssh-david-blink-ipad-id_ecdsa.pub
         ];
         # `shell` attribute cannot be removed! If no value is present then there will be no shell
         # configured for the user and SSH will not allow logins!
