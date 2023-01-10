@@ -18,6 +18,7 @@
     ./git.nix
     ./gnupg.nix
     ./gtk.nix
+    ./helix.nix
     ./htop.nix
     ./hushlogin.nix
     ./i3.nix

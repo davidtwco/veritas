@@ -217,6 +217,7 @@ in
       fzf.enable = true;
       git.enable = true;
       gnupg.enable = true;
+      helix.enable = true;
       htop.enable = true;
       hushlogin.enable = true;
       info.enable = true;
