@@ -150,39 +150,42 @@
         , homeDirectory ? "/home/${username}"
         }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
-          inherit homeDirectory system username;
-          configuration = { pkgs, ... }: {
-            imports = [ self.internal.homeManagerConfigurations."${configName}" ];
+          modules = [
+            (self.internal.homeManagerConfigurations."${configName}")
+            ({ pkgs, ... }: {
+              home = {
+                inherit username homeDirectory;
+                packages = with pkgs; [
+                  (
+                    # `home-manager` utility does not work with Nix's flakes yet.
+                    writeScriptBin "veritas-switch-config" ''
+                      #! ${runtimeShell} -e
+                      nix build ".#homeManagerConfigurations.${configName}.activationPackage"
+                      ./result/activate
+                    ''
+                  )
+                ];
+              };
 
-            home.packages = with pkgs; [
-              (
-                # `home-manager` utility does not work with Nix's flakes yet.
-                writeScriptBin "veritas-switch-config" ''
-                  #! ${runtimeShell} -e
-                  nix build ".#homeManagerConfigurations.${configName}.activationPackage"
-                  ./result/activate
+              xdg.configFile."nix/nix.conf".text =
+                let
+                  nixConf = import ./nix/conf.nix;
+                  substituters = [ "https://cache.nixos.org" ] ++ nixConf.binaryCaches;
+                  trustedPublicKeys = [
+                    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+                  ] ++ nixConf.binaryCachePublicKeys;
+                in
                 ''
-              )
-            ];
+                  substituters = ${builtins.concatStringsSep " " substituters}
+                  trusted-public-keys = ${builtins.concatStringsSep " " trustedPublicKeys}
+                '';
 
-            xdg.configFile."nix/nix.conf".text =
-              let
-                nixConf = import ./nix/conf.nix;
-                substituters = [ "https://cache.nixos.org" ] ++ nixConf.binaryCaches;
-                trustedPublicKeys = [
-                  "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-                ] ++ nixConf.binaryCachePublicKeys;
-              in
-              ''
-                substituters = ${builtins.concatStringsSep " " substituters}
-                trusted-public-keys = ${builtins.concatStringsSep " " trustedPublicKeys}
-              '';
-
-            nixpkgs = {
-              config = import ./nix/config.nix;
-              overlays = self.internal.overlays."${system}";
-            };
-          };
+              nixpkgs = {
+                config = import ./nix/config.nix;
+                overlays = self.internal.overlays."${system}";
+              };
+            })
+          ];
           pkgs = pkgsBySystem."${system}";
         });
     in

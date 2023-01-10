@@ -16,7 +16,7 @@ let
     inherit (colourScheme) black red green yellow blue magenta cyan white brightBlack brightRed;
     inherit (colourScheme) brightGreen brightYellow brightBlue brightMagenta brightCyan;
     inherit (colourScheme) brightWhite background;
-    aleBlack = cfgDevTool python38Packages.black "black";
+    aleBlack = cfgDevTool black "black";
     aleClang = cfgDevTool clang "clang";
     aleClangFormat = cfgDevTool clang-tools "clang-format";
     aleClangPlusPlus = cfgDevTool clang "clang++";
