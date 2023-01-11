@@ -12,9 +12,9 @@ in
       enable = true;
       themes.veritas = {
         "attribute" = { fg = "light-black"; };
-        "comment" = { fg = "light-black"; modifiers = [ "italic" ]; };
-        "comment.line" = { fg = "light-black"; modifiers = [ "italic" ]; };
-        "comment.block" = { fg = "light-black"; modifiers = [ "italic" ]; };
+        "comment" = { fg = "gray"; modifiers = [ "italic" ]; };
+        "comment.line" = { fg = "gray"; modifiers = [ "italic" ]; };
+        "comment.block" = { fg = "gray"; modifiers = [ "italic" ]; };
         "comment.block.documentation" = { fg = "light-green"; modifiers = [ "italic" ]; };
         "constant" = { fg = "light-yellow"; };
         "constant.numeric" = { fg = "light-yellow"; };
