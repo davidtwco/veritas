@@ -6,42 +6,22 @@
   '';
 
   inputs = {
-    nixpkgs = {
-      type = "github";
-      owner = "NixOS";
-      repo = "nixpkgs";
-      ref = "master";
-    };
-
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
     home-manager = {
-      type = "github";
-      owner = "rycee";
-      repo = "home-manager";
-      ref = "master";
+      url = "github:rycee/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixpkgs-mozilla = {
-      type = "github";
-      owner = "mozilla";
-      repo = "nixpkgs-mozilla";
-      ref = "master";
-      flake = false;
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay/master";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    gitignore-nix = {
-      type = "github";
-      owner = "hercules-ci";
-      repo = "gitignore.nix";
-      ref = "master";
-      flake = false;
-    };
-
+    gitignore-nix.url = "github:hercules-ci/gitignore.nix/master";
     nix-bundle = {
-      type = "github";
-      owner = "matthewbauer";
-      repo = "nix-bundle";
-      ref = "master";
+      url = "github:matthewbauer/nix-bundle/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    helix = {
+      url = "github:helix-editor/helix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -160,7 +140,8 @@
                     # `home-manager` utility does not work with Nix's flakes yet.
                     writeScriptBin "veritas-switch-config" ''
                       #! ${runtimeShell} -e
-                      nix build ".#homeManagerConfigurations.${configName}.activationPackage"
+                      nix --version
+                      nix build ".#homeManagerConfigurations.${configName}.activationPackage" $@
                       ./result/activate
                     ''
                   )
@@ -232,11 +213,14 @@
         # Overlays consumed by the home-manager/NixOS configuration.
         overlays = forEachSystem (system: [
           (self.overlay."${system}")
-          (import inputs.nixpkgs-mozilla)
-          (_: _: import inputs.gitignore-nix { lib = inputs.nixpkgs.lib; })
+          (inputs.rust-overlay.overlays.default)
+          (inputs.gitignore-nix.overlay)
           (_: _: {
             # Make `nix-bundle`'s functions available under `pkgs.nix-bundle`.
             nix-bundle = import inputs.nix-bundle { nixpkgs = pkgsBySystem."${system}"; };
+
+            # Make unstable version of Helix default.
+            helix = inputs.helix.packages."${system}".helix;
           })
           (import ./nix/overlays/iosevka.nix)
           (import ./nix/overlays/vaapi.nix)
