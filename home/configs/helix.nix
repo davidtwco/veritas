@@ -91,9 +91,9 @@ in
         "ui.help" = { fg = "white"; bg = "background"; };
         "ui.popup" = { bg = "background"; };
         "ui.window" = { fg = "background"; };
-        "ui.menu" = { fg = "gray"; bg = "background"; };
-        "ui.menu.selected" = { fg = "light-gray"; bg = "background"; };
-        "ui.menu.scroll" = { fg = "white"; bg = "background"; };
+        "ui.menu" = { fg = "white"; bg = "background"; };
+        "ui.menu.selected" = { fg = "light-red"; bg = "background"; };
+        "ui.menu.scroll" = { fg = "light-red"; bg = "background"; };
 
         palette = {
           "background" = "#161719";
