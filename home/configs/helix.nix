@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -132,6 +132,13 @@ in
           };
         };
       };
+      languages = [
+        {
+          name = "nix";
+          auto-format = true;
+          formatter = { command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"; };
+        }
+      ];
     };
   };
 }

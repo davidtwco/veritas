@@ -48,6 +48,8 @@ in
       tmate
       # Socket forwarding
       socat
+      # Nix language server
+      nil
     ];
 
     veritas.configs = {
