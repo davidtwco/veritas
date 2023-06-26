@@ -44,6 +44,7 @@ in the sidebar), or you can shoot me an email at [`hello@davidtw.co`][email] (my
 [codeplay]: https://codeplay.com/
 [compiler_team_member]: https://www.rust-lang.org/governance/teams/compiler
 [email]: mailto:hello@davidtw.co
+[keybase]: https://keybase.io/davidtwco
 [huawei]: https://www.huawei.com/uk/corporate-information/research-development
 [nix]: https://nixos.org/
 [prs]: https://github.com/search?q=is%3Apr+author%3Adavidtwco
