@@ -29,7 +29,6 @@ jobs:
         uses: cachix/install-nix-action@v20
         with:
           nix_path: nixpkgs=channel:nixpkgs-unstable
-          skip_adding_nixpkgs_channel: true
 
       - name: Add Cachix binary caches
         uses: cachix/cachix-action@v12
@@ -40,7 +39,7 @@ jobs:
 
       - name: Build website
         run: |
-          cp -R "$(nix-build --no-out-link)" result
+          cp --recursive --dereference --no-preserve=mode,ownership "$(nix-build --no-out-link)" result
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
