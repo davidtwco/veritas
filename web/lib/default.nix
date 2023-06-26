@@ -29,5 +29,3 @@ in
   inherit (site.site) mkSite;
   inherit (site.template) renderTemplate;
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

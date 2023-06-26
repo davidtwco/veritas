@@ -20,5 +20,3 @@ self: super:
   iosevka-etoile = super.iosevka.override { set = "etoile"; };
   iosevka-sparkle = super.iosevka.override { set = "sparkle"; };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

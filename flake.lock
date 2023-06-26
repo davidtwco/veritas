@@ -283,27 +283,6 @@
         "type": "github"
       }
     },
-    "nix-bundle": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1678129993,
-        "narHash": "sha256-v6KkJT8dQkjsN9Dkx9P5zo+BYnjqQ1oJv3n6dW7fsaM=",
-        "owner": "matthewbauer",
-        "repo": "nix-bundle",
-        "rev": "83eadede9087c2c94a018ea6e240da552355dcc1",
-        "type": "github"
-      },
-      "original": {
-        "owner": "matthewbauer",
-        "ref": "master",
-        "repo": "nix-bundle",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1632846328,
@@ -412,7 +391,6 @@
         "gitignore-nix": "gitignore-nix",
         "helix": "helix",
         "home-manager": "home-manager",
-        "nix-bundle": "nix-bundle",
         "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay_2"
       }

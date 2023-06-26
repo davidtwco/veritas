@@ -18,5 +18,3 @@ rec {
   # Render content as HTML page without extra context.
   mkHtmlPage = templatesPath: path: mkHtmlPageWithContext templatesPath path { };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

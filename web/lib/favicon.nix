@@ -76,5 +76,3 @@ rec {
   # Generate a directory with the favicon converted into default sizes and a `manifest.json`.
   generateFavicons = generateFaviconsWithExtraCommands null;
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

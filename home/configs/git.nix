@@ -17,13 +17,13 @@ in
 
     email = mkOption {
       type = types.str;
-      default = config.veritas.configs.mail.email;
+      default = "david@davidtw.co";
       description = "Email used in authoring Git commits.";
     };
 
     name = mkOption {
       type = types.str;
-      default = config.veritas.configs.mail.name;
+      default = "David Wood";
       description = "Name used in authoring Git commits.";
     };
   };
@@ -130,5 +130,3 @@ in
     };
   };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

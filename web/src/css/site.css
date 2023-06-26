@@ -39,23 +39,6 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 200;
 }
 
-#email-generator {
-  align-self: center;
-  border: 0;
-  font-size: 3vw;
-  grid-column: 1 / -1;
-  grid-row: 1;
-  text-align: center;
-}
-
-#email-generator-copy {
-  align-self: center;
-  font-size: 3vw;
-  grid-column: 6 / span 2;
-  grid-row: 2;
-  margin-top: 1em;
-}
-
 #header > img {
   width: 180px;
 }

@@ -53,7 +53,7 @@ in
         "markup.link.label" = { fg = "white"; };
 
         "diff.plus" = "green";
-        "diff.delta" = "gold";
+        "diff.delta" = "yellow";
         "diff.minus" = "red";
 
         "diagnostic" = { underline.style = "line"; };
@@ -96,7 +96,7 @@ in
         "ui.menu.scroll" = { fg = "light-red"; bg = "background"; };
 
         palette = {
-          "background" = "#161719";
+          "background" = "#101010";
           "white" = "#C5C8C6";
 
           "blue" = "#5F819D";
@@ -123,9 +123,19 @@ in
         editor = {
           auto-save = true;
           cursorline = true;
+          cursor-shape = {
+            normal = "block";
+            insert = "bar";
+            select = "underline";
+          };
           color-modes = true;
           line-number = "relative";
           rulers = [ 100 140 180 220 240 ];
+          statusline = {
+            left = [ "mode" "spinner" "version-control" "file-name" ];
+            center = [ ];
+            right = [ "diagnostics" "selections" "position" "file-encoding" "file-line-ending" "file-type" ];
+          };
           whitespace = {
             characters.newline = "¬";
             render = "all";
@@ -139,5 +149,3 @@ in
     };
   };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

@@ -44,14 +44,6 @@ site.mkSite {
     "/cv.pdf" = curriculumVitae;
     "/curriculum_vitae.pdf" = curriculumVitae;
 
-    # Random email address generator - useful for generating unique email addresses on mobile
-    # devices.
-    "/email-generator/index.html" = site.renderTemplate ./templates {
-      template = "empty.html";
-      title = "Per-site Email Generator | ${manifestData.name}";
-      content = builtins.readFile ./content/email-generator.html;
-    };
-
     "/css" = ./css;
     "/favicons" = favicons;
     "/favicon.ico" = "${favicons}/favicon.ico";
@@ -60,5 +52,3 @@ site.mkSite {
     "/media" = ./content/media;
   } // extraRoutes;
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

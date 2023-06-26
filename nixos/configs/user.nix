@@ -69,6 +69,7 @@ in
         isNormalUser = true;
         openssh.authorizedKeys.keyFiles = [
           ../data/ssh-david-yubikey-id_rsa.pub
+          ../data/ssh-david-1password-github-id_ed25519.pub
           ../data/ssh-david-blink-passkey-id_ecdsa_sk.pub
           ../data/ssh-david-blink-iphone-id_ecdsa.pub
           ../data/ssh-david-blink-ipad-id_ecdsa.pub
@@ -82,10 +83,5 @@ in
       # Do not allow users to be added or modified except through Nix configuration.
       mutableUsers = false;
     };
-
-    # Configure nixops-dns for my user.
-    veritas.services.nixops-dns.instances.david.ipAddress = "127.0.0.2";
   };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

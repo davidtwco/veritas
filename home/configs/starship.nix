@@ -7,13 +7,6 @@ in
 {
   options.veritas.configs.starship = {
     enable = mkEnableOption "starship configuration";
-
-    colourScheme.mutedGrey = mkOption {
-      default = "6B6B6B";
-      description = "Define the colour for starship's muted grey.";
-      example = "FFFFFF";
-      type = types.str;
-    };
   };
 
   config = mkIf cfg.enable {
@@ -22,24 +15,24 @@ in
       enableBashIntegration = false;
       enableFishIntegration = true;
       package = pkgs.starship;
-      settings = with config.veritas.profiles.common.colourScheme; {
+      settings = {
         "character" = {
-          "success_symbol" = "[❯](#${magenta})";
-          "error_symbol" = "[❯](#${red})";
-          "vicmd_symbol" = "[❮](#${magenta})";
+          "success_symbol" = "[❯](#85678F)";
+          "error_symbol" = "[❯](#A54242)";
+          "vicmd_symbol" = "[❮](#85678F)";
         };
-        "cmd_duration"."style" = "#${yellow}";
+        "cmd_duration"."style" = "#DE935F";
         "directory" = {
-          "style" = "#${blue}";
+          "style" = "#5F819D";
           "truncation_length" = 8;
           "truncate_to_repo" = false;
         };
         "git_branch" = {
           "symbol" = "";
-          "style" = "#${cfg.colourScheme.mutedGrey}";
+          "style" = "#6B6B6B";
         };
         "git_commit" = {
-          "style" = "#${cfg.colourScheme.mutedGrey}";
+          "style" = "#6B6B6B";
         };
         "git_metrics" = {
           "disabled" = false;
@@ -52,7 +45,7 @@ in
           "bisect" = "bisecting";
           "am" = "am";
           "am_or_rebase" = "am/rebasing";
-          "style" = "#${yellow}";
+          "style" = "#DE935F";
         };
         "git_status" = {
           "ahead" = "↑";
@@ -64,23 +57,23 @@ in
           "renamed" = "";
           "staged" = "";
           "stashed" = "";
-          "style" = "#${cfg.colourScheme.mutedGrey}";
+          "style" = "#6B6B6B";
           "untracked" = "";
         };
         "hostname" = {
           "ssh_symbol" = "";
-          "style" = "#${green}";
+          "style" = "#8C9440";
         };
         "jobs" = {
           "number_threshold" = 0;
-          "style" = "#${black}";
+          "style" = "#282A2E";
           "symbol" = "";
           "symbol_threshold" = 0;
         };
-        "nix_shell"."format" = "via [$state](#${red}) ";
+        "nix_shell"."format" = "via [$state](#A54242) ";
         "username" = {
-          "style_root" = "#${red}";
-          "style_user" = "#${yellow}";
+          "style_root" = "#A54242";
+          "style_user" = "#DE935F";
         };
         # Disabled modules
         "aws"."disabled" = true;
@@ -142,5 +135,3 @@ in
     };
   };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

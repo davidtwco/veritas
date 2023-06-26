@@ -7,21 +7,17 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
+    gitignore-nix.url = "github:hercules-ci/gitignore.nix/master";
+    helix = {
+      url = "github:helix-editor/helix/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:rycee/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
       url = "github:oxalica/rust-overlay/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    gitignore-nix.url = "github:hercules-ci/gitignore.nix/master";
-    nix-bundle = {
-      url = "github:matthewbauer/nix-bundle/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    helix = {
-      url = "github:helix-editor/helix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -69,9 +65,7 @@
                 };
               };
             })
-            (import ./nixos/configs)
-            (import ./nixos/modules)
-            (import ./nixos/profiles)
+            (import ./nixos)
             (import config)
           ];
           specialArgs = { inherit name inputs; };
@@ -80,9 +74,7 @@
       mkHomeManagerConfiguration = name: { system, config }:
         nameValuePair name ({ ... }: {
           imports = [
-            (import ./home/configs)
-            (import ./home/modules)
-            (import ./home/profiles)
+            (import ./home)
             (import config)
           ];
 
@@ -128,14 +120,14 @@
         { configName ? name
         , system
         , username ? "david"
-        , homeDirectory ? "/home/${username}"
         }:
         nameValuePair name (inputs.home-manager.lib.homeManagerConfiguration {
           modules = [
             (self.internal.homeManagerConfigurations."${configName}")
             ({ pkgs, ... }: {
               home = {
-                inherit username homeDirectory;
+                inherit username;
+                homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${username}" else "/home/${username}";
                 packages = with pkgs; [
                   (
                     # `home-manager` utility does not work with Nix's flakes yet.
@@ -158,6 +150,7 @@
                   ] ++ nixConf.binaryCachePublicKeys;
                 in
                 ''
+                  experimental-features = nix-command flakes
                   substituters = ${builtins.concatStringsSep " " substituters}
                   trusted-public-keys = ${builtins.concatStringsSep " " trustedPublicKeys}
                 '';
@@ -178,38 +171,12 @@
         # Expose the development shells defined in the repository, run these with:
         #
         #   nix dev-shell 'self#devShells.x86_64-linux.rustc'
-        devShells = forEachSystem (system:
-          let
-            pkgs = pkgsBySystem."${system}";
-          in
-          {
-            cargo = import ./nix/shells/cargo.nix { inherit pkgs; };
-            generic-nightly-rust = import ./nix/shells/generic-nightly-rust.nix { inherit pkgs; };
-            llvm-clang = import ./nix/shells/llvm-clang.nix { inherit pkgs; };
-            rustc = import ./nix/shells/rustc.nix { inherit pkgs; };
-            rustc-perf = import ./nix/shells/rustc-perf.nix { inherit pkgs; };
-            zulip = import ./nix/shells/zulip.nix { inherit pkgs; };
-          }
-        );
+        devShells = forEachSystem (system: { });
 
         # Attribute set of hostnames to home-manager modules with the entire configuration for
         # that host - consumed by the home-manager NixOS module for that host (if it exists)
         # or by `mkHomeManagerHostConfiguration` for home-manager-only hosts.
         homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
-          # `drop-pod` is a special host which adjusts the configuration used for the drop-pod
-          # packages.
-          drop-pod = { system = "x86_64-linux"; config = ./home/hosts/drop-pod.nix; };
-
-          dtw-campaglia = { system = "x86_64-linux"; config = ./home/hosts/campaglia.nix; };
-
-          dtw-intrepid = { system = "x86_64-linux"; config = ./home/hosts/intrepid.nix; };
-
-          dtw-jar-keurog = { system = "x86_64-linux"; config = ./home/hosts/jar-keurog.nix; };
-
-          dtw-kalibri = { system = "x86_64-linux"; config = ./home/hosts/kalibri.nix; };
-
-          dtw-wallach = { system = "x86_64-linux"; config = ./home/hosts/wallach.nix; };
-
           dtw-macbook-pro-2023 = { system = "aarch64-darwin"; config = ./home/hosts/macbook-pro-2023.nix; };
         };
 
@@ -219,17 +186,10 @@
           (inputs.rust-overlay.overlays.default)
           (inputs.gitignore-nix.overlay)
           (_: _: {
-            # Make `nix-bundle`'s functions available under `pkgs.nix-bundle`.
-            nix-bundle = import inputs.nix-bundle { nixpkgs = pkgsBySystem."${system}"; };
-
             # Make unstable version of Helix default.
             helix = inputs.helix.packages."${system}".helix;
           })
           (import ./nix/overlays/iosevka.nix)
-          (import ./nix/overlays/vaapi.nix)
-        ] ++ optionals (system == "x86_64-linux") [
-          (import ./nix/overlays/sabnzbd.nix)
-          (import ./nix/overlays/plex.nix)
         ]);
 
         # Expose the static site generator as a re-usable library of sorts - it definitely isn't
@@ -252,32 +212,19 @@
 
       # Attribute set of hostnames to evaluated home-manager configurations.
       homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration {
-        dtw-intrepid = { system = "x86_64-linux"; username = "davidw"; };
-
-        dtw-jar-keurog = { system = "x86_64-linux"; };
-
-        dtw-kalibri = { system = "x86_64-linux"; };
-
-        dtw-wallach = { system = "x86_64-linux"; username = "davidw"; };
-
         dtw-macbook-pro-2023 = { system = "aarch64-darwin"; username = "davidtw"; };
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
       # on those hosts.
-      nixosConfigurations = mapAttrs' mkNixOsConfiguration {
-        dtw-campaglia = { system = "x86_64-linux"; config = ./nixos/hosts/campaglia.nix; };
-      };
+      nixosConfigurations = mapAttrs' mkNixOsConfiguration { };
 
       # Import the modules exported by this flake. Explicitly don't expose profiles in
       # `nixos/configs` and `nixos/profiles` - these are only used for internal organization
       # of my configurations.
       #
       # These are only used by other projects that might import this flake.
-      nixosModules = {
-        nixopsDns = import ./nixos/modules/nixops-dns.nix;
-        perUserVpn = import ./nixos/modules/per-user-vpn.nix;
-      };
+      nixosModules = { };
 
       # Expose a dev shell which contains tools for working on this repository.
       devShell = forEachSystem (system:
@@ -285,7 +232,7 @@
 
         mkShell {
           name = "veritas";
-          buildInputs = [ git-crypt ];
+          buildInputs = [ ];
         }
       );
 
@@ -305,24 +252,13 @@
           pkgs = pkgsBySystem."${system}";
         in
         {
-          fluent-vim = pkgs.callPackage ./nix/packages/fluent-vim {
-            inherit (pkgs.vimUtils) buildVimPlugin;
-          };
-
           measureme = pkgs.callPackage ./nix/packages/measureme { };
-
           rustfilt = pkgs.callPackage ./nix/packages/rustfilt { };
 
           tera-template = pkgs.callPackage ./nix/packages/tera-template { };
-
-          neuron-veritas-vim = pkgs.callPackage ./nix/packages/neuron-veritas-vim {
-            inherit (pkgs.vimUtils) buildVimPlugin;
-          };
         }
       );
 
-      defaultPackage.x86_64-linux = self.internal.staticSites.x86_64-linux."davidtwco";
+      defaultPackage = forEachSystem (system: self.internal.staticSites."${system}"."davidtwco");
     };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

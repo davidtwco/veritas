@@ -26,10 +26,6 @@ in
     boot.kernelModules = [ "kvm-amd" "kvm-intel" ];
 
     environment.systemPackages = with pkgs; [
-      # Interact with VM
-      looking-glass-client
-      # Receive audio from VM
-      scream
       # Virtual machine manager
       virtmanager
       # Utilities for bridge interfaces
@@ -135,5 +131,3 @@ in
     users.users.root.subUidRanges = [{ count = 1; startUid = config.users.users.david.uid; }];
   };
 }
-
-# vim:foldmethod=marker:foldlevel=0:ts=2:sts=2:sw=2:et:nowrap

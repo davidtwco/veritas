@@ -1,11 +1,2 @@
-# If this repository is being used in a home-manager only configuration, then
-# it will exist at `~/.config/nixpkgs`. `config.nix` is added to this directory so
-# that Nix command line tools share the same Nix configuration as the rest of the
-# system.
-/config.nix
-
 # Output of `nixos-rebuild build`
 /result
-
-# Output of `neuron rib`
-/zettelkasten/.neuron
