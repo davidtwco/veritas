@@ -21,9 +21,10 @@
       preferLocalBuild = true;
 
       PATH = lib.makeBinPath (inputs ++ [ pkgs.coreutils ]);
-      LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
-      LC_ALL = "en_GB.UTF-8";
 
       args = [ "-e" "${script}/bin/${scriptName}" ];
-    };
+    } // (lib.optionalAttrs (pkgs.stdenv.isLinux) {
+      LOCALE_ARCHIVE = "${pkgs.glibcLocales}/lib/locale/locale-archive";
+      LC_ALL = "en_GB.UTF-8";
+    });
 }

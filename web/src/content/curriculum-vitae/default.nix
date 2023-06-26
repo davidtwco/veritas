@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "Curriculum vitae of David Wood";
     homepage = "https://davidtw.co";
     license = lib.licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = [ "x86_64-linux" "aarch64-darwin" ];
     maintainers = [ lib.maintainers.davidtwco ];
   };
 }
