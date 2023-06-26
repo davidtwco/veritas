@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "master" ]
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,25 +25,14 @@ jobs:
         uses: cachix/cachix-action@v10
         with:
           name: veritas
-          extraPullNames: cachix,srid,pre-commit-hooks
+          extraPullNames: cachix,helix
           signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-
-      - name: Unlock secrets
-        env:
-          GIT_CRYPT_KEY: ${{ secrets.GIT_CRYPT_KEY }}
-        run: |
-          echo "$GIT_CRYPT_KEY" | base64 -d > ./git-crypt-key
-          nix-shell --run "git-crypt unlock ./git-crypt-key"
-          rm ./git-crypt-key
 
       - name: Build website
         run: |
           cp -R "$(nix-build --no-out-link)" result
 
       - name: Publish
-        uses: netlify/actions/cli@master
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          args: deploy --dir=result --prod
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          folder: result
