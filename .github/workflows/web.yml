@@ -3,9 +3,16 @@ name: davidtw.co
 on:
   push:
     branches: [ "master" ]
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+    
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   deploy:
@@ -13,7 +20,10 @@ jobs:
 
     steps:
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
       - name: Install Nix
         uses: cachix/install-nix-action@v20
@@ -32,7 +42,11 @@ jobs:
         run: |
           cp -R "$(nix-build --no-out-link)" result
 
-      - name: Publish
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v1
         with:
-          folder: result
+          path: 'result'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
