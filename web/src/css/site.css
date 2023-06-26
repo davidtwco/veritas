@@ -114,6 +114,7 @@ h1, h2, h3, h4, h5, h6 {
     display: block;
 }
 
-/*
- * vim:foldmethod=marker:foldlevel=0:et:ts=2:sts=2:sw=2:et:nowrap
- */
+#logo {
+    border-radius: 5%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
