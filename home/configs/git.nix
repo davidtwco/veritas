@@ -52,7 +52,7 @@ in
           verbose = true;
           template = "${config.xdg.dataHome}/git/template";
         };
-        core.editor = config.home.sessionVariables."EDITOR";
+        core.editor = config.home.sessionVariables."EDITOR" or "vim";
         diff = {
           compactionHeuristic = true;
           indentHeuristic = true;

@@ -17,7 +17,7 @@ in
 {
   options.veritas.configs.gdb.enable = mkEnableOption "gdb configuration";
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && !pkgs.stdenv.isDarwin) {
     home.file.".gdbinit".text = ''
       # Add libstdc++ pretty printers.
       python

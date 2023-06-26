@@ -3,6 +3,19 @@
 with lib;
 let
   cfg = config.veritas.profiles.common;
+
+  list-iommu-groups = (
+    writeScriptBin "list-iommu-groups" ''
+      #! ${pkgs.runtimeShell} -e
+      shopt -s nullglob
+      for g in /sys/kernel/iommu_groups/*; do
+        echo "IOMMU Group ''${g##*/}:"
+        for d in $g/devices/*; do
+          echo -e "\t$(lspci -nns ''${d##*/})"
+        done;
+      done;
+    ''
+  );
 in
 {
   options.veritas.profiles.common = {
@@ -57,27 +70,10 @@ in
       keyboard.layout = "gb";
       language.base = "en_GB.utf8";
       packages = with pkgs; [
-        # Locales!
-        glibcLocales
-        # Helper script to print the IOMMU groups of PCI devices.
-        (
-          writeScriptBin "list-iommu-groups" ''
-            #! ${pkgs.runtimeShell} -e
-            shopt -s nullglob
-            for g in /sys/kernel/iommu_groups/*; do
-              echo "IOMMU Group ''${g##*/}:"
-              for d in $g/devices/*; do
-                echo -e "\t$(lspci -nns ''${d##*/})"
-              done;
-            done;
-          ''
-        )
         # Determine file type.
         file
         # Show full path of shell commands.
         which
-        # Daemon to execute scheduled commands.
-        cron
         # Collection of useful tools that aren't coreutils.
         moreutils
         # Non-interactive network downloader.
@@ -86,49 +82,8 @@ in
         tree
         # Interactive process viewer.
         htop
-        # Top-like I/O monitor.
-        iotop
-        # Power consumption and management diagnosis tool.
-        powertop
-        # List hardware.
-        lshw
-        # Collection of programs for inspecting/manipulating configuration of PCI devices.
-        pciutils
-        # Collection of utilities using proc filesystem (`pstree`, `killall`, etc.)
-        psmisc
-        # DMI table decoder.
-        dmidecode
-        # Tools for working with usb devices (`lsusb`, etc.)
-        usbutils
-        # Collection of common network programs.
-        inetutils
         # Mobile shell with roaming and intelligent local echo.
         mosh
-        # Bandwidth monitor and rate estimator.
-        bmon
-        # DNS server (provides `dig`)
-        bind
-        # Connection tracking userspace tools.
-        conntrack-tools
-        # Dump traffic on a network.
-        tcpdump
-        # Query/control network driver and hardware settings.
-        ethtool
-        # Parititon manipulation program.
-        parted
-        # exFAT filesystem implementation.
-        exfat
-        # Utilities for creating/checking FAT/VFAT filesystems.
-        dosfstools
-        # ncurses disk usage.
-        ncdu
-        # Hard-drive health monitoring.
-        smartmontools
-        # Compress/uncompress `.zip` files.
-        unzip
-        zip
-        # Uncompress `.rar` files.
-        unrar
         # Man pages
         man
         man-pages
@@ -164,6 +119,51 @@ in
         mdcat
         # Command line image viewer
         viu
+        # Encrypted files in Git repositories
+        git-crypt
+        # Hosted binary caches
+        cachix
+        # Show information about the current system
+        neofetch
+      ] ++ (optional stdenv.isLinux [
+        # Power consumption and management diagnosis tool.
+        powertop
+        # Top-like I/O monitor.
+        iotop
+        # Helper script to print the IOMMU groups of PCI devices.
+        list-iommu-groups
+        # List hardware.
+        lshw
+        # Collection of programs for inspecting/manipulating configuration of PCI devices.
+        pciutils
+        # Collection of utilities using proc filesystem (`pstree`, `killall`, etc.)
+        psmisc
+        # DMI table decoder.
+        dmidecode
+        # Tools for working with usb devices (`lsusb`, etc.)
+        usbutils
+        # Collection of common network programs.
+        inetutils
+        # Bandwidth monitor and rate estimator.
+        bmon
+        # DNS server (provides `dig`)
+        bind
+        # Connection tracking userspace tools.
+        conntrack-tools
+        # Dump traffic on a network.
+        tcpdump
+        # Query/control network driver and hardware settings.
+        ethtool
+        # Parititon manipulation program.
+        parted
+        # exFAT filesystem implementation.
+        exfat
+        # Utilities for creating/checking FAT/VFAT filesystems.
+        dosfstools
+        # ncurses disk usage.
+        ncdu
+        # Hard-drive health monitoring.
+        smartmontools
         # Tool for discovering and probing hosts on a computer network
         arping
         # Dependency mgmt for nix projects
@@ -182,24 +182,25 @@ in
         cryptsetup
         # Check which process is using a mountpoint.
         lsof
-        # Encrypted files in Git repositories
-        git-crypt
-        # Keybase
-        keybase
-        # Hosted binary caches
-        cachix
-        # Show information about the current system
-        neofetch
-      ];
+        # Locales!
+        glibcLocales
+        # Compress/uncompress `.zip` files.
+        unzip
+        zip
+        # Uncompress `.rar` files.
+        unrar
+        # Daemon to execute scheduled commands.
+        cron
+      ]);
 
       sessionVariables = {
+        # Don't clear the screen when leaving man.
+        "MANPAGER" = "less -X";
+      } // (optionalAttrs pkgs.stdenv.isLinux {
         "LOCALE_ARCHIVE" = "${pkgs.glibcLocales}/lib/locale/locale-archive";
         "LANGUAGE" = config.home.language.base;
         "LC_ALL" = config.home.language.base;
-
-        # Don't clear the screen when leaving man.
-        "MANPAGER" = "less -X";
-      };
+      });
     };
 
     # Install home-manager manpages.

@@ -132,13 +132,10 @@ in
           };
         };
       };
-      languages = [
-        {
-          name = "nix";
-          auto-format = true;
-          formatter = { command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"; };
-        }
-      ];
+      languages.nix = {
+        auto-format = true;
+        formatter = { command = "${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt"; };
+      };
     };
   };
 }

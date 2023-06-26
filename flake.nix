@@ -6,9 +6,9 @@
   '';
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
     home-manager = {
-      url = "github:rycee/home-manager/master";
+      url = "github:rycee/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
@@ -29,7 +29,7 @@
   outputs = { self, ... } @ inputs:
     with inputs.nixpkgs.lib;
     let
-      forEachSystem = genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      forEachSystem = genAttrs [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
       pkgsBySystem = forEachSystem (system:
         import inputs.nixpkgs {
           inherit system;
@@ -87,9 +87,10 @@
           ];
 
           # For compatibility with nix-shell, nix-build, etc.
-          home.file.".nixpkgs".source = inputs.nixpkgs;
-          systemd.user.sessionVariables."NIX_PATH" =
-            mkForce "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+          home = {
+            file.".nixpkgs".source = inputs.nixpkgs;
+            sessionVariables."NIX_PATH" = "nixpkgs=$HOME/.nixpkgs\${NIX_PATH:+:}$NIX_PATH";
+          };
 
           # Use the same Nix configuration throughout the system.
           xdg.configFile."nixpkgs/config.nix".source = ./nix/config.nix;
@@ -208,6 +209,8 @@
           dtw-kalibri = { system = "x86_64-linux"; config = ./home/hosts/kalibri.nix; };
 
           dtw-wallach = { system = "x86_64-linux"; config = ./home/hosts/wallach.nix; };
+
+          dtw-macbook-pro-2023 = { system = "aarch64-darwin"; config = ./home/hosts/macbook-pro-2023.nix; };
         };
 
         # Overlays consumed by the home-manager/NixOS configuration.
@@ -256,6 +259,8 @@
         dtw-kalibri = { system = "x86_64-linux"; };
 
         dtw-wallach = { system = "x86_64-linux"; username = "davidw"; };
+
+        dtw-macbook-pro-2023 = { system = "aarch64-darwin"; username = "davidtw"; };
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`

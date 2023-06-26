@@ -37,7 +37,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.enable && pkgs.stdenv.isLinux) {
     home.packages = with pkgs; [
       (
         writeScriptBin "gpg-backup-to-paper" ''

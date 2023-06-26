@@ -47,6 +47,7 @@ in
       keepassxc
       _1password-gui
       # Keybase
+      keybase
       keybase-gui
       # Citation manager
       zotero

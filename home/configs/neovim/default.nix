@@ -45,12 +45,13 @@ in
       type = types.listOf types.package;
       default = with pkgs; [
         gawk
-        gdb
         nixpkgs-fmt
         perl
         ripgrep
         universal-ctags
-      ];
+      ] ++ (optional (!pkgs.stdenv.isDarwin) [
+        gdb
+      ]);
       description = "Tools expected by Neovim that should be installed.";
     };
 

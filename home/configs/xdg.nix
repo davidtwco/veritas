@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
@@ -10,7 +10,7 @@ in
   config = mkIf cfg.enable {
     xdg = {
       enable = true;
-      mime.enable = true;
+      mime.enable = pkgs.stdenv.isLinux;
     };
   };
 }
