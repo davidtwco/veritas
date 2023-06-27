@@ -31,7 +31,10 @@ in
     git = {
       iniContent.gpg = {
         format = "ssh";
-        ssh.program = config.programs.git.signing.gpgPath;
+        ssh = {
+          program = config.programs.git.signing.gpgPath;
+          allowedSignersFile = "${config.home.homeDirectory}/.ssh/allowed_signers";
+        };
       };
       signing = {
         key = builtins.readFile ../data/ssh-david-1password-github-id_ed25519.pub;
