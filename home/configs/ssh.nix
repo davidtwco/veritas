@@ -11,6 +11,8 @@ in
     home.file = {
       ".ssh/id_rsa_yubikey.pub".source = ../data/ssh-david-yubikey-id_rsa.pub;
       ".ssh/id_ed25519_1password_github.pub".source = ../data/ssh-david-1password-github-id_ed25519.pub;
+      ".ssh/id_ed25519_1password_gitlab.pub".source = ../data/ssh-david-1password-gitlab-id_ed25519.pub;
+      ".ssh/id_ed25519_1password_gitee.pub".source = ../data/ssh-david-1password-gitee-id_ed25519.pub;
       ".ssh/id_ecdsa_sk.pub".source = ../data/ssh-david-blink-passkey-id_ecdsa_sk.pub;
       ".ssh/id_ecdsa_iphone.pub".source = ../data/ssh-david-blink-iphone-id_ecdsa.pub;
       ".ssh/id_ecdsa_ipad.pub".source = ../data/ssh-david-blink-ipad-id_ecdsa.pub;

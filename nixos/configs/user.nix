@@ -70,6 +70,8 @@ in
         openssh.authorizedKeys.keyFiles = [
           ../data/ssh-david-yubikey-id_rsa.pub
           ../data/ssh-david-1password-github-id_ed25519.pub
+          ../data/ssh-david-1password-gitlab-id_ed25519.pub
+          ../data/ssh-david-1password-gitee-id_ed25519.pub
           ../data/ssh-david-blink-passkey-id_ecdsa_sk.pub
           ../data/ssh-david-blink-iphone-id_ecdsa.pub
           ../data/ssh-david-blink-ipad-id_ecdsa.pub
