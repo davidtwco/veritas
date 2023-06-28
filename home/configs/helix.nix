@@ -44,7 +44,7 @@ in
         "markup.heading" = { fg = "red"; };
         "markup.raw.inline" = { fg = "green"; };
         "markup.raw.block" = { fg = "white"; };
-        "markup.bold" = { fg = "gold"; modifiers = [ "bold" ]; };
+        "markup.bold" = { fg = "yellow"; modifiers = [ "bold" ]; };
         "markup.italic" = { fg = "purple"; modifiers = [ "italic" ]; };
         "markup.list" = { fg = "red"; };
         "markup.quote" = { fg = "yellow"; };
