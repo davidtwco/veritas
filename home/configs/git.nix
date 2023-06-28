@@ -59,7 +59,8 @@ in
         };
         feature = {
           experimental = true;
-          manyFiles = true;
+          # See rust-lang/cargo#11857.
+          manyFiles = false;
         };
         init.defaultBranch = "main";
         merge.conflictStyle = "zdiff3";
