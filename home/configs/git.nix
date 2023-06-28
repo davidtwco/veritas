@@ -110,6 +110,9 @@ in
 
         # C/C++
         "compile_commands.json"
+
+        # Helix
+        ".helix"
       ];
       includes = [{ path = "${gitalias}/gitalias.txt"; }];
       lfs = {
