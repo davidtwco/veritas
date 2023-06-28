@@ -198,6 +198,8 @@ with lib;
 
     sessionVariables = {
       "EDITOR" = "hx";
+      "LESS" = "-R";
+      "LESSCHARSET" = "utf-8";
 
       # Don't clear the screen when leaving man.
       "MANPAGER" = "less -X";
