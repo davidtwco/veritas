@@ -69,8 +69,6 @@ with lib;
       bat
       # Quicker access to files and directories.
       fasd
-      # GnuPG
-      gnupg
       # A command-line tool to generate, analyze, convert and manipulate colors.
       pastel
       # Tool for indexing, slicing, analyzing, splitting and joining CSV files.
@@ -226,7 +224,6 @@ with lib;
     fzf.enable = true;
     gdb.enable = true;
     git.enable = true;
-    gnupg.enable = true;
     helix.enable = true;
     readline.enable = true;
     ssh.enable = true;
