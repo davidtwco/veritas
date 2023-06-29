@@ -99,6 +99,8 @@ with lib;
       nixpkgs-fmt
       # Rust toolchain
       rustup
+      # Python
+      python3
     ] ++ (optional stdenv.isLinux [
       # Used by `breakpointHook` in nixpkgs.
       cntr
