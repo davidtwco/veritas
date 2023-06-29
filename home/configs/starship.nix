@@ -31,12 +31,8 @@ in
           "symbol" = "";
           "style" = "#6B6B6B";
         };
-        "git_commit" = {
-          "style" = "#6B6B6B";
-        };
-        "git_metrics" = {
-          "disabled" = false;
-        };
+        "git_commit"."style" = "#6B6B6B";
+        "git_metrics"."disabled" = false;
         "git_state" = {
           "rebase" = "rebasing";
           "merge" = "merging";
@@ -65,10 +61,8 @@ in
           "style" = "#8C9440";
         };
         "jobs" = {
-          "number_threshold" = 0;
           "style" = "#282A2E";
-          "symbol" = "";
-          "symbol_threshold" = 0;
+          "symbol" = "◦";
         };
         "nix_shell"."format" = "via [$state](#A54242) ";
         "username" = {
@@ -80,12 +74,14 @@ in
         "azure"."disabled" = true;
         "battery"."disabled" = true;
         "buf"."disabled" = true;
+        "bun"."disabled" = true;
         "c"."disabled" = true;
         "cmake"."disabled" = true;
         "cobol"."disabled" = true;
         "conda"."disabled" = true;
         "container"."disabled" = true;
         "crystal"."disabled" = true;
+        "daml"."disabled" = true;
         "dart"."disabled" = true;
         "deno"."disabled" = true;
         "docker_context"."disabled" = true;
@@ -94,9 +90,15 @@ in
         "elm"."disabled" = true;
         "env_var"."disabled" = true;
         "erlang"."disabled" = true;
+        "fennel"."disabled" = true;
+        "fill"."disabled" = true;
+        "fossil_branch"."disabled" = true;
         "gcloud"."disabled" = true;
         "golang"."disabled" = true;
+        "guix_shell"."disabled" = true;
+        "gradle"."disabled" = true;
         "haskell"."disabled" = true;
+        "haxe"."disabled" = true;
         "helm"."disabled" = true;
         "hg_branch"."disabled" = true;
         "java"."disabled" = true;
@@ -106,24 +108,31 @@ in
         "localip"."disabled" = true;
         "lua"."disabled" = true;
         "memory_usage"."disabled" = true;
+        "meson"."disabled" = true;
         "nim"."disabled" = true;
         "nodejs"."disabled" = true;
         "ocaml"."disabled" = true;
+        "opa"."disabled" = true;
         "openstack"."disabled" = true;
+        "os"."disabled" = true;
         "package"."disabled" = true;
         "perl"."disabled" = true;
         "php"."disabled" = true;
+        "pijul_channel"."disabled" = true;
         "pulumi"."disabled" = true;
         "purescript"."disabled" = true;
         "python"."disabled" = true;
         "rlang"."disabled" = true;
+        "raku"."disabled" = true;
         "red"."disabled" = true;
         "ruby"."disabled" = true;
         "rust"."disabled" = true;
         "scala"."disabled" = true;
         "shlvl"."disabled" = true;
         "singularity"."disabled" = true;
+        "solidity"."disabled" = true;
         "spack"."disabled" = true;
+        "sudo"."disabled" = true;
         "swift"."disabled" = true;
         "terraform"."disabled" = true;
         "time"."disabled" = true;
