@@ -38,8 +38,6 @@ with lib;
       file
       # Show full path of shell commands.
       which
-      # Collection of useful tools that aren't coreutils.
-      moreutils
       # Non-interactive network downloader.
       wget
       # List directory contents in tree-like format.
@@ -48,13 +46,6 @@ with lib;
       htop
       # Mobile shell with roaming and intelligent local echo.
       mosh
-      # Man pages
-      man
-      man-pages
-      posix_man_pages
-      stdman
-      # Arbitrary-precision calculator.
-      bc
       # Copy files/archives/repositories into the nix store.
       nix-prefetch-scripts
       # Index the nix store (provides `nix-locate`).
@@ -67,8 +58,6 @@ with lib;
       exa
       # cat alternative.
       bat
-      # Quicker access to files and directories.
-      fasd
       # A command-line tool to generate, analyze, convert and manipulate colors.
       pastel
       # Tool for indexing, slicing, analyzing, splitting and joining CSV files.
@@ -79,10 +68,6 @@ with lib;
       du-dust
       # cat for markdown
       mdcat
-      # Command line image viewer
-      viu
-      # Encrypted files in Git repositories
-      git-crypt
       # Hosted binary caches
       cachix
       # Show information about the current system
@@ -102,16 +87,10 @@ with lib;
       hyperfine
       # Codebase statistics.
       tokei
-      # Tools for manipulating binaries.
-      binutils
       # Utility for creating gists from stdout.
       gist
-      # ClusterSSH with tmux.
-      tmux-cssh
       # DNS client
       dogdns
-      # tmux collaboration
-      tmate
       # Socket forwarding
       socat
       # Nix language server
