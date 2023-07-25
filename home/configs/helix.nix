@@ -132,9 +132,9 @@ in
           line-number = "relative";
           rulers = [ 100 140 180 220 240 ];
           statusline = {
-            left = [ "mode" "spinner" "version-control" "file-name" ];
+            left = [ "mode" "spinner" "file-name" ];
             center = [ ];
-            right = [ "diagnostics" "selections" "position" "file-encoding" "file-line-ending" "file-type" ];
+            right = [ "diagnostics" "selections" "position" "file-type" ];
           };
           whitespace = {
             characters.newline = "¬";
