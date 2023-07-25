@@ -82,7 +82,7 @@ in
         "fgrep" = "${gnugrep}/bin/fgrep --color=auto";
         "egrep" = "${gnugrep}/bin/egrep --color=auto";
         # Aliases for `cat` to `bat`.
-        "cat" = "${bat}/bin/bat --theme TwoDark -pp";
+        "cat" = "${bat}/bin/bat --theme OneHalfDark -pp";
         # Aliases for `ls` to `exa`.
         "ls" = "${exa}/bin/exa";
         "dir" = "${exa}/bin/exa";
