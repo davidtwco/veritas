@@ -177,7 +177,7 @@ with lib;
 
     sessionVariables = {
       "EDITOR" = "hx";
-      "LESS" = "-R";
+      "LESS" = "-R --mouse";
       "LESSCHARSET" = "utf-8";
 
       # Don't clear the screen when leaving man.
