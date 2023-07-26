@@ -66,6 +66,7 @@ in
         merge.conflictStyle = "zdiff3";
         pull.rebase = true;
         push = {
+          autoSetupRemote = true;
           default = "simple";
           followTags = true;
         };
