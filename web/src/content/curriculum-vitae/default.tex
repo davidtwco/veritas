@@ -35,15 +35,6 @@
 \pagestyle{fancy}
 \raggedright
 
-\def\bull{\vrule height 0.8ex width .7ex depth -.1ex }
-
-\newcommand{\area} [2] {
-  \vspace*{-9pt}
-  \begin{verse}
-    \textbf{#1}   #2
-  \end{verse}
-}
-
 \newcommand{\lineunder} {
   \vspace*{-8pt} \\
   \hspace*{-18pt} \hrulefill \\
@@ -52,36 +43,6 @@
 \newcommand{\header} [1] {
   {\hspace*{-18pt}\vspace*{6pt} \textsc{#1}}
   \vspace*{-6pt} \lineunder
-}
-
-\newcommand{\employer} [3] {
-  { \textbf{#1} (#2)\\ \underline{\textbf{\emph{#3}}}\\  }
-}
-
-\newcommand{\contact} [3] {
-  \vspace*{-10pt}
-  \begin{center}
-      {\Huge \scshape {#1}} \\
-      #2 \\ #3
-  \end{center}
-  \vspace*{-8pt}
-}
-
-\newenvironment{achievements}{
-  \begin{list}
-    {$\bullet$}{\topsep 0pt \itemsep -2pt}}{\vspace*{4pt}
-  \end{list}
-}
-
-\newcommand{\schoolwithcourses} [4] {
-  \textbf{#1} #2 $\bullet$ #3 \\
-  #4 \\
-  \vspace*{5pt}
-}
-
-\newcommand{\school} [4] {
-  \textbf{#1} #2 $\bullet$ #3 \\
-  #4 \\
 }
 
 \begin{document}
@@ -99,11 +60,11 @@
 \vspace*{-10pt}
 \begin{center}
   {\Huge \scshape {David Wood}} \\
-  \vspace{1mm}
-  Senior Software Engineer $\cdot$
+  \vspace{2mm}
+  Software Engineer $\cdot$
   Edinburgh, Scotland $\cdot$
   \href{mailto:hello@davidtw.co}{hello@davidtw.co} $\cdot$
-  \href{https://davidtw.co}{davidtw.co} $\cdot$
+  \href{https://davidtw.co}{https://davidtw.co} $\cdot$
   \href{https://github.com/davidtwco}{@davidtwco} \\
 \end{center}
 
@@ -113,40 +74,50 @@
 \textbf{Rust Programming Language} \\
 \textit{Compiler Team Member} \hfill {\color{gray} Oct 2017 - Present} \\
 \vspace{2mm}
-As a member of the Rust compiler team, I participate in the implementation and maintainance of the
-Rust compiler. I've contributed and participated in the non-lexical lifetimes (NLL), async/await
-and diagnostics working groups, and I co-lead the polymorphisation and meta working groups. Amongst
-my most notable contributions, I've implemented the non-exhaustive attribute; polymorphisation,
-a code-size and compile-time optimisation which reduces unnecessary monomorphisation; Split DWARF
-support; and diagnostic translation.
+As member of the Rust compiler team, I am responsible for the implementation and maintenance of
+the Rust compiler, which involves having merge privileges; being assigned patches to review;
+fixing high-priority bugs; and reviewing backports, major change proposals and compiler RFCs. \\
+\vspace{2mm}
+I regularly contribute bug fixes, diagnostic improvements and refactorings; as
+well as lead or contribute to engineering efforts to implement new features in the Rust compiler.
+Since starting to contribute to Rust, I have been involved in various working groups, including:
+async/await, diagnostics, debuginfo, meta, polymorphization and non-lexical lifetimes.
 \vspace{2mm}
 
 \header{Work Experience}
 \vspace{1mm}
 
 \textbf{Huawei Technologies Research \& Development UK Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
-\textit{Senior Software Engineer, Programming Languages Group} \hfill {\color{gray} Aug 2021 - Present} \\
+\textit{Senior Software Engineer A, Programming Languages Lab} \hfill {\color{gray} Nov 2022 - Present} \\
 \vspace{2mm}
-I primarily contribute to the upstream Rust project, continuing my various ongoing projects,
-such as Polymorphisation, Split DWARF and Diagnostic Translation. Concurrently, I assist internal
-teams on Rust usage and contributions; give internal talks on Rust and its compiler; and sit on
-Huawei's Technical Management Committee for Rust usage in the organisation. \\
+I primarily contribute to the upstream Rust project, continuing my various ongoing engineering
+projects and duties as a compiler team member and co-lead. Within Huawei, I assist teams with their
+Rust adoption and upstream contributions; participate in the Huawei's Rust Technical Management
+Committee; and give talks on Rust and its compiler. \\
 \vspace{2mm}
-In addition, I contributed to the implementation of automatic differentation and constant evaluation
-in an upcoming programming language.
+I'm also involved in development of Huawei's own programming languages, where I have contributed
+to the implementation of automatic differentiation and led the design and implementation of constant
+evaluation and constant generics. \\
+\vspace{2mm}
+I've been awarded Huawei's ``President Award of the 2012 Laboratories'', ``President's Award of the
+European Academy'', ``Gold Team Award'' and ``Innovation Spark Award''; as well as been published
+in Huawei People magazine.
+\vspace{2mm}
+
+\textbf{Huawei Technologies Research \& Development UK Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
+\textit{Senior Software Engineer B, Programming Languages Lab} \hfill {\color{gray} Aug 2021 - Nov 2022} \\
 \vspace{2mm}
 
 \textbf{Codeplay Software Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
 \textit{Senior Software Engineer, Infrastructure} \hfill {\color{gray} Nov 2020 - Aug 2021} \\
 \vspace{2mm}
 I was the primary maintainer of Codeplay's continuous integration infrastructure and led the effort
-to rebuild the core infrastructure with NixOps to improve reproducibility as Product
-Owner of Reproducible Infrastructure. \\
+to rebuild the core infrastructure with NixOps to improve reproducibility. \\
 \vspace{2mm}
-I worked as a compiler engineer on SYCL support for NVIDIA GPUs which was contributed to Intel's
-DPC++. I implemented driver support in Clang for the \verb|nvptx64-nvidia-nvcl-sycldevice| target,
-target-specific passes in LLVM, builtins in libclc and various bug fixes to LLVM, Clang and the
-LLVM-SPIRV translator.
+In addition, I worked as a compiler engineer on SYCL support for NVIDIA GPUs which was contributed
+to Intel's DPC++. I implemented driver support in Clang for the
+\verb|nvptx64-nvidia-nvcl-sycldevice| target; target-specific passes in LLVM; builtins in libclc;
+and various bug fixes to LLVM, Clang and the LLVM-SPIRV translator.
 \vspace{2mm}
 
 \textbf{Codeplay Software Ltd.} \hfill {\color{gray} Edinburgh, Scotland} \\
@@ -170,29 +141,9 @@ addition, I made various improvements to internal tools relied on by engineering
 \textbf{West Dunbartonshire Leisure} \hfill {\color{gray} Alexandria, Scotland} \\
 \textit{Software Consultant} \hfill {\color{gray} Apr 2015 - Feb 2017} \\
 \vspace{2mm}
-Following my work with Polaroid Eyewear on their 10K Race Series website, I worked closely with
-West Dunbartonshire Leisure to create a landing page for their 10K race series - a continuation of
-Polaroid Eyewear’s series. After consultation with the team at West Dunbartonshire Leisure to
-understand their requirements, I built a functional, easy-to-use and easy-to-update website which
-requires very little maintenance and launched to great user feedback in February, 2017.
-\vspace{2mm}
 
 \textbf{Polaroid Eyewear} \hfill {\color{gray} Dumbarton, Scotland} \\
 \textit{Software Consultant} \hfill {\color{gray} Jun 2014 - Jun 2016} \\
-\vspace{2mm}
-Polaroid Eyewear contracted me to build a shop floor information system - MIDAS - an ASP.NET
-system which is the backbone of Polaroid Eyewear's lens manufacturing.
-\vspace{2mm}
-During the summer of 2015, I built and designed a fully-featured web-based Inventory Manager system
-and a suite of desktop applications for tracking the performance of the Warehouse. Both projects
-required independence and coordination with other departments and employees. Both projects involved
-working closely with users and were released on schedule with brilliant feedback from users. \\
-\vspace{2mm}
-Following the success of MIDAS, I worked on creating an updated, modern website for Polaroid
-Eyewear's 10K Race Series - the e-commerce website allowed runners to enter any of the four races
-in the series and be assigned and shipped their race number. After launching the new website to
-great feedback, the series saw an increase in runners, charitable donations and saved money on
-payment processing costs.
 \vspace{2mm}
 
 \header{Education}
@@ -239,6 +190,10 @@ original image that uses a reduced set of colours.
 \vspace{2mm}
 
 \header{Memberships}
+\textbf{Institution of Engineering and Technology} \\
+\textit{Associate Membership} \hfill {\color{gray} May 2023 - Present} \\
+\vspace{2mm}
+
 \textbf{British Computer Society} \\
 \textit{Professional Membership} \hfill {\color{gray} Jun 2020 - Present} \\
 \vspace{2mm}

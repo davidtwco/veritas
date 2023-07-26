@@ -6,13 +6,17 @@
   <link rel="stylesheet" href="/css/site.css">
 {% endblock %}
 {% block body %}
-  <div id="header">
-    {{ header }}
-  </div>
   <div id="content">
     {{ content }}
   </div>
-  <div id="footer">
-    {{ footer }}
+  <div id="links">
+    {% for item in links %}
+    <div class="item">
+      <a href="{{ item.link }}" rel="me">
+        <img src="{{ item.image }}#icon" alt="{{ item.name }}"/>
+        <code>{{ item.name }}</code>
+      </a>
+    </div>
+    {% endfor %}
   </div>
 {% endblock %}
