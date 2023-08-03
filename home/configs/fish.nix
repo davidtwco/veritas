@@ -23,6 +23,9 @@ in
         # Add Nix profile to the $PATH, idempotent and only required for non-NixOS hosts.
         fish_add_path ~/.nix-profile/bin/
 
+        # Add Cargo to the $PATH
+        fish_add_path ~/.cargo/bin/
+
         # Disable the greeting message.
         set fish_greeting
 
