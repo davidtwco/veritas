@@ -32,6 +32,9 @@ links:
   - name: substack
     image: /images/substack.svg
     link: https://www.substack.com/%40davidtwco/
+  - name: cohost
+    image: /images/cohost.svg
+    link: https://cohost.org/davidtwco
   - name: linkedin
     image: /images/linkedin.svg
     link: https://www.linkedin.com/in/davidtwco/
@@ -44,6 +47,9 @@ links:
   - name: discord
     image: /images/discord.svg
     link: https://discord.com/users/104895277856501760
+  - name: twitch
+    image: /images/twitch.svg
+    link: https://twitch.com/davidtwco
   - name: telegram
     image: /images/telegram.svg
     link: https://www.telegram.me/davidtwco/
