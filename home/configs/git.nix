@@ -29,6 +29,8 @@ in
   };
 
   config = mkIf cfg.enable {
+    home.packages = with pkgs; [ git-absorb ];
+
     programs.git = {
       aliases = {
         # Debug a command or alias - preceed it with `debug`.
