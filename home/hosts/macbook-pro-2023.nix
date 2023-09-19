@@ -10,23 +10,28 @@ in
   home.stateVersion = "23.05";
 
   programs = {
-    fish.interactiveShellInit = ''
-      # Add Nix to the environment.
-      if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-      end
+    fish = {
+      interactiveShellInit = ''
+        # Add Nix to the environment.
+        if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+          source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+        end
 
-      # Add Homebrew environment variables - not currently managed by Nix.
-      if status --is-interactive
-        eval (/opt/homebrew/bin/brew shellenv)
-      end
+        # Add Homebrew environment variables - not currently managed by Nix.
+        if status --is-interactive
+          eval (/opt/homebrew/bin/brew shellenv)
+        end
 
-      # Integrate with iTerm2
-      source ${itermIntegration}
+        # Integrate with iTerm2
+        source ${itermIntegration}
 
-      # Set `SHELL` to current shell's path - iTerm2 doesn't set it.
-      set -gx SHELL (status fish-path)
-    '';
+        # Set `SHELL` to current shell's path - iTerm2 doesn't set it.
+        set -gx SHELL (status fish-path)
+      '';
+      shellAliases = {
+        "tailscale" = "/Applications/Tailscale.app/Contents/MacOS/Tailscale";
+      };
+    };
 
     git = {
       iniContent.gpg = {
