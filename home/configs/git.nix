@@ -64,6 +64,7 @@ in
           # See rust-lang/cargo#11857.
           manyFiles = false;
         };
+        fetch.writeCommitGraph = true;
         init.defaultBranch = "main";
         merge.conflictStyle = "zdiff3";
         pull.rebase = true;
@@ -75,7 +76,10 @@ in
         status.showStash = true;
         stash.showPatch = true;
         submodule.fetchJobs = 4;
-        rebase.autosquash = true;
+        rebase = {
+          autosquash = true;
+          updateRefs = true;
+        };
         user.useConfigOnly = true;
       };
       ignores = [
