@@ -86,13 +86,13 @@ in
         "egrep" = "${gnugrep}/bin/egrep --color=auto";
         # Aliases for `cat` to `bat`.
         "cat" = "${bat}/bin/bat --theme OneHalfDark -pp";
-        # Aliases for `ls` to `exa`.
-        "ls" = "${exa}/bin/exa";
-        "dir" = "${exa}/bin/exa";
-        "ll" = "${exa}/bin/exa -alF";
-        "vdir" = "${exa}/bin/exa -l";
-        "la" = "${exa}/bin/exa -a";
-        "l" = "${exa}/bin/exa -F";
+        # Aliases for `ls` to `eza`.
+        "ls" = "${eza}/bin/eza";
+        "dir" = "${eza}/bin/eza";
+        "ll" = "${eza}/bin/eza -alF";
+        "vdir" = "${eza}/bin/eza -l";
+        "la" = "${eza}/bin/eza -a";
+        "l" = "${eza}/bin/eza -F";
         # Fairly self explanatory, prints the current external IP address.
         "what-is-my-ip" = "${dnsutils}/bin/dig +short myip.opendns.com @resolver1.opendns.com";
       };

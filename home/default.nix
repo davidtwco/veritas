@@ -51,11 +51,11 @@ with lib;
       # Index the nix store (provides `nix-locate`).
       nix-index
       # Eases nixpkgs review workflow.
-      nix-review
+      nixpkgs-review
       # grep alternative.
       ripgrep
       # ls alternative.
-      exa
+      eza
       # cat alternative.
       bat
       # A command-line tool to generate, analyze, convert and manipulate colors.

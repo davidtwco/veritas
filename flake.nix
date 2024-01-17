@@ -6,14 +6,14 @@
   '';
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-23.11";
     gitignore-nix.url = "github:hercules-ci/gitignore.nix/master";
     helix = {
       url = "github:helix-editor/helix/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:rycee/home-manager/release-23.05";
+      url = "github:rycee/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     rust-overlay = {
