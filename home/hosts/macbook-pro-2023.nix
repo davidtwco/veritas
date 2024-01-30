@@ -12,14 +12,14 @@ in
   programs = {
     fish = {
       interactiveShellInit = ''
-        # Add Nix to the environment.
-        if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
-          source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-        end
-
         # Add Homebrew environment variables - not currently managed by Nix.
         if status --is-interactive
           eval (/opt/homebrew/bin/brew shellenv)
+        end
+
+        # Add Nix to the environment.
+        if test -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish'
+          source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
         end
 
         # Integrate with iTerm2
