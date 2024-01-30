@@ -101,6 +101,8 @@ with lib;
       rustup
       # Python
       python3
+      # GitHub CLI
+      gh
     ] ++ (optional stdenv.isLinux [
       # Used by `breakpointHook` in nixpkgs.
       cntr
