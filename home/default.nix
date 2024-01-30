@@ -205,6 +205,7 @@ with lib;
     fzf.enable = true;
     gdb.enable = true;
     git.enable = true;
+    gitui.enable = true;
     helix.enable = true;
     readline.enable = true;
     ssh.enable = true;
