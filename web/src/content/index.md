@@ -28,10 +28,10 @@ links:
     link: https://www.twitter.com/davidtwco/
   - name: mastodon
     image: /images/mastodon.svg
-    link: https://fosstodon.org/%40davidtwco
+    link: https://fosstodon.org/\@davidtwco
   - name: substack
     image: /images/substack.svg
-    link: https://www.substack.com/%40davidtwco/
+    link: https://www.substack.com/\@davidtwco/
   - name: cohost
     image: /images/cohost.svg
     link: https://cohost.org/davidtwco
