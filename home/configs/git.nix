@@ -80,6 +80,7 @@ in
           autosquash = true;
           updateRefs = true;
         };
+        rerere.enable = true;
         user.useConfigOnly = true;
       };
       ignores = [
