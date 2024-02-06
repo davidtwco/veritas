@@ -32,6 +32,9 @@ links:
   - name: substack
     image: /images/substack.svg
     link: https://www.substack.com/\@davidtwco/
+  - name: bluesky
+    image: /images/bluesky.svg
+    link: https://bsky.app/profile/davidtw.co
   - name: cohost
     image: /images/cohost.svg
     link: https://cohost.org/davidtwco
