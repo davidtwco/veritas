@@ -56,30 +56,47 @@ in
         };
         core.editor = config.home.sessionVariables."EDITOR" or "vim";
         diff = {
+          algorithm = "histogram";
           compactionHeuristic = true;
+          context = 10;
           indentHeuristic = true;
+          submodule = "log";
         };
         feature = {
           experimental = true;
           # See rust-lang/cargo#11857.
           manyFiles = false;
         };
-        fetch.writeCommitGraph = true;
+        fetch = {
+          fsckObjects = true;
+          prune = true;
+          pruneTags = true;
+          writeCommitGraph = true;
+        };
         init.defaultBranch = "main";
         merge.conflictStyle = "zdiff3";
         pull.rebase = true;
         push = {
           autoSetupRemote = true;
-          default = "simple";
+          default = "current";
           followTags = true;
         };
-        status.showStash = true;
+        status = {
+          showStash = true;
+          submoduleSummary = true;
+        };
         stash.showPatch = true;
-        submodule.fetchJobs = 4;
+        submodule = {
+          fetchJobs = 4;
+          recurse = false;
+        };
+        transfer.fsckObjects = true;
         rebase = {
           autosquash = true;
+          autostash = true;
           updateRefs = true;
         };
+        receive.fsctObjects = true;
         rerere.enable = true;
         user.useConfigOnly = true;
       };
