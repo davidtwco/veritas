@@ -1,20 +1,15 @@
-{ stdenv, lib, gitignoreSource, texlive }:
+{ stdenv, lib, gitignoreSource, typst }:
 
 stdenv.mkDerivation rec {
   name = "curriculum_vitae.pdf";
 
   src = gitignoreSource ./.;
 
-  nativeBuildInputs = [
-    (texlive.combine {
-      inherit (texlive) amsfonts amsmath fancyhdr fontspec hyperref preprint scheme-basic xcolor;
-      inherit (texlive) xetex;
-    })
-  ];
+  nativeBuildInputs = [ typst ];
 
   buildPhase = ''
     runHook preBuild
-    xelatex ./default.tex
+    typst compile ./default.typ --font-path ./fonts
     runHook postBuild
   '';
 

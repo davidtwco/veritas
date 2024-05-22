@@ -103,6 +103,8 @@ with lib;
       python3
       # GitHub CLI
       gh
+      # Typst
+      typst
     ] ++ (optional stdenv.isLinux [
       # Used by `breakpointHook` in nixpkgs.
       cntr
