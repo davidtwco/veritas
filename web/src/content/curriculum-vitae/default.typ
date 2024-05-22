@@ -77,7 +77,7 @@
 }
 
 #title(
-  name: "David Wood",
+  name: name,
   subtitles: (
     "Software Engineer",
     "Edinburgh, Scotland",
