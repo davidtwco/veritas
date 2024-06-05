@@ -52,13 +52,13 @@ img[src$='#logo'] {
 
 @media(min-width: 600px) {
     body {
-        grid-template-columns: 0.25fr minmax(0, 1fr) 0.25fr;
+        grid-template-columns: 0.15fr minmax(0, 1fr) 0.15fr;
     }
 }
 
 @media(min-width: 1000px) {
     body {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: 0.25fr minmax(0, 1fr) 0.25fr;
     }
 }
 
@@ -69,21 +69,22 @@ img[src$='#logo'] {
 }
 
 #content {
-    grid-row: 1;
+    grid-row: 2;
 }
 
 #links {
-    grid-row: 2;
+    grid-row: 3;
     margin-top: 1em;
 }
 
 .item {
-    margin-bottom: 1em;
+    display: inline-block;
     font-size: 1rem;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 .item img {
-    margin-right: 1em;
     filter: invert(72%) sepia(1%) saturate(0%) hue-rotate(322deg) brightness(86%) contrast(91%);
 }
 

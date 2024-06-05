@@ -7,10 +7,10 @@ let
     <browserconfig>
       <msapplication>
         <tile>
-          <square70x70logo src="favicons/mstile-70x70.png"/>
-          <square150x150logo src="favicons/mstile-150x150.png"/>
-          <wide310x150logo src="favicons/mstile-310x150.png"/>
-          <square310x310logo src="favicons/mstile-310x310.png"/>
+          <square70x70logo src="/favicons/mstile-70x70.png"/>
+          <square150x150logo src="/favicons/mstile-150x150.png"/>
+          <wide310x150logo src="/favicons/mstile-310x150.png"/>
+          <square310x310logo src="/favicons/mstile-310x310.png"/>
           <TileColor>#141414</TileColor>
         </tile>
       </msapplication>

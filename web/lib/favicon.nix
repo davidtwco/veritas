@@ -27,7 +27,6 @@ let
     { name = "favicon"; size = "16x16"; type = "png"; }
     { name = "android-chrome"; size = "192x192"; type = "png"; }
     { name = "mstile"; size = "70x70"; type = "png"; }
-    { name = "mstile"; size = "144x144"; type = "png"; }
     { name = "mstile"; size = "150x150"; type = "png"; }
     { name = "mstile"; size = "310x150"; type = "png"; }
     { name = "mstile"; size = "310x310"; type = "png"; }
@@ -42,7 +41,7 @@ let
   mkManifestData = sizes: extraManifestData:
     let
       mkIcon = defn:
-        { type = "image/png"; sizes = defn.size; src = "favicons/${defn.name}-${defn.size}.png"; };
+        { type = "image/png"; sizes = defn.size; src = "/favicons/${defn.name}-${defn.size}.png"; };
     in
     pkgs.writeText "site-manifest.json" (builtins.toJSON (
       { icons = builtins.map mkIcon sizes; } // extraManifestData
