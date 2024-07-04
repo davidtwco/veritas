@@ -128,41 +128,38 @@
 = Work Experience
 #exp(
   title: "Huawei Technologies Research & Development UK Ltd.",
-  subtitle: "Senior Software Engineer A (Grade 17), Programming Languages Lab",
+  subtitle: "Senior Software Engineer A, Programming Languages Lab",
   location: "Edinburgh, Scotland",
-  period: "November 2022 - Present"
+  period: "November 2022 - August 2024"
 )[
-  I am the foremost Rust expert within the Central Software Institute of Huawei R&D, leveraging
-  my Rust experience to accelerate and guarantee Rust's successful adoption, this involves:
+  Within the Central Software Institute of Huawei R&D, I leveraged my Rust experience to accelerate
+  and guarantee Rust's successful adoption, involving:
 
   #list(
-    [contributing to the upstream Rust compiler, prioritising features and bugs which impact
+    [contributions to the upstream Rust compiler, prioritising features and bugs which impacted
      Huawei's business units],
     [directly working with internal customers to recognise Rust opportunities, advising and
      assisting teams adopting Rust, and identifying and prioritizing requirements for upstream
      contributions],
-    [supporting HQ colleagues in maintaining our internal toolchain],
-    [internal knowledge sharing on compiler internals],
-    [participating in Huawei's Technical Management Committee to define internal coding standards
+    [supporting HQ colleagues in maintaining the internal toolchain],
+    [knowledge sharing of Rust compiler internals],
+    [participation in Huawei's Technical Management Committee to define internal coding standards
      for Rust],
-    [internally representing the Edinburgh Research Centre within Huawei by promoting our work in
+    [internally representing the Edinburgh Research Centre within Huawei by promoting my work in
      company publications and presenting to leadership from other parts of the organisation],
     [externally representing Huawei by speaking at international conferences and attending as a
      sponsor],
   )
 
-  Within Huawei's internal programming language projects I have lead planning and implementation of
-  constant evaluation and contributed to the implementation of automatic differentation.
-
-  I've been awarded Huawei's "President Award of the 2012 Laboratories", "President's Award of the
-  European Academy", "Gold Team Award", "Innovation Spark Award", and "Future Star" awards. I have
+  I was awarded Huawei's "President Award of the 2012 Laboratories", "President's Award of the
+  European Academy", "Gold Team Award", "Innovation Spark Award", and "Future Star" awards. I
   qualified for and earned an internal "Competency & Qualification" grade in Compilers & Operating
-  Systems at Level 5 (pre-requisite to Grade 20).
+  Systems at Level 5.
 ]
 
 #exp(
   title: "Huawei Technologies Research & Development UK Ltd.",
-  subtitle: "Senior Software Engineer B (Grade 16), Programming Languages Lab",
+  subtitle: "Senior Software Engineer B, Programming Languages Lab",
   location: "Edinburgh, Scotland",
   period: "Aug 2021 - Nov 2022"
 )[]
@@ -254,19 +251,20 @@
   multiple objects simultaneously including when the object leaves and re-enters the frame.
 ]
 
-#exp(
-  title: "Vale of Leven Academy",
-  subtitle: "Secondary Education",
-  location: "Alexandria, Scotland",
-  period: "Aug 2009 - May 2015"
-)[]
-
 = Memberships
 #exp(
   title: "Open Source Initiative",
   subtitle: "Individual Membership",
   location: "",
   period: "Feb 2020 - Present"
+)[]
+
+= Awards
+#exp(
+  title: link("https://www.sigplan.org/Awards/Software/")[Programming Languages Software Award],
+  subtitle: "ACM SIGPLAN",
+  location: "Copenhagen, Denmark",
+  period: "Jun 2024"
 )[]
 
 = Conference Speaking
