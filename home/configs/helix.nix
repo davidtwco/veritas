@@ -96,7 +96,7 @@ in
         "ui.menu.scroll" = { fg = "light-red"; bg = "background"; };
 
         palette = {
-          "background" = "#101010";
+          "background" = "#1d1e20";
           "white" = "#C5C8C6";
 
           "blue" = "#5F819D";
