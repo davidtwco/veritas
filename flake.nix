@@ -177,7 +177,7 @@
         # that host - consumed by the home-manager NixOS module for that host (if it exists)
         # or by `mkHomeManagerHostConfiguration` for home-manager-only hosts.
         homeManagerConfigurations = mapAttrs' mkHomeManagerConfiguration {
-          dtw-macbook-pro-2023 = { system = "aarch64-darwin"; config = ./home/hosts/macbook-pro-2023.nix; };
+          dtw-macbook-air = { system = "aarch64-darwin"; config = ./home/hosts/macbook-air.nix; };
         };
 
         # Overlays consumed by the home-manager/NixOS configuration.
@@ -212,7 +212,7 @@
 
       # Attribute set of hostnames to evaluated home-manager configurations.
       homeManagerConfigurations = mapAttrs' mkHomeManagerHostConfiguration {
-        dtw-macbook-pro-2023 = { system = "aarch64-darwin"; username = "davidtw"; };
+        dtw-macbook-air = { system = "aarch64-darwin"; username = "davidtw"; };
       };
 
       # Attribute set of hostnames to evaluated NixOS configurations. Consumed by `nixos-rebuild`
