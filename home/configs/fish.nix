@@ -34,6 +34,13 @@ in
         set -x TERM xterm-256color
         eval (${pkgs.coreutils}/bin/dircolors -c ${lscolors}/LS_COLORS)
 
+        # Prompt configuration
+        set -g hydro_color_error a54242
+        set -g hydro_color_git 6b6b6b
+        set -g hydro_color_prompt 85678f
+        set -g hydro_color_pwd 5f819d
+        set -g hydro_multiline true
+
         # Use vi keybinds.
         fish_vi_key_bindings
 
@@ -77,6 +84,10 @@ in
         set fish_color_description 85678F
       '';
       package = pkgs.fish;
+      plugins = with pkgs.fishPlugins; [
+        { name = "hydro"; src = hydro.src; }
+        { name = "sponge"; src = sponge.src; }
+      ];
       shellAliases = with pkgs; {
         # Make `rm` prompt before removing more than three files or removing recursively.
         "rm" = "${coreutils}/bin/rm -i";

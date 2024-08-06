@@ -212,7 +212,6 @@ with lib;
     helix.enable = true;
     readline.enable = true;
     ssh.enable = true;
-    starship.enable = true;
     tmux.enable = true;
   };
 

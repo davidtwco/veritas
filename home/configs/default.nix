@@ -9,7 +9,6 @@
     ./helix.nix
     ./readline.nix
     ./ssh.nix
-    ./starship.nix
     ./tmux
   ];
 }
