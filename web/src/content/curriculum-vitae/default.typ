@@ -127,6 +127,13 @@
 
 = Work Experience
 #exp(
+  title: "Arm Holdings plc",
+  subtitle: "Staff Software Engineer",
+  location: "Edinburgh, Scotland",
+  period: "September 2024 - Present"
+)[]
+
+#exp(
   title: "Huawei Technologies Research & Development UK Ltd.",
   subtitle: "Senior Software Engineer A, Programming Languages Lab",
   location: "Edinburgh, Scotland",
