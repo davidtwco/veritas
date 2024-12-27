@@ -50,12 +50,8 @@
   ]
 }
 
-#let exp(
+#let entry(
   body,
-  title: "",
-  subtitle: "",
-  location: "",
-  period: ""
 ) = {
   pad(
     top: 0.1mm,
@@ -63,17 +59,44 @@
     left: 5mm,
     right: 5mm,
     {
-      grid(
-        columns: (auto, 1fr),
-        row-gutter: 2mm,
-        align(left, strong(title)),
-        align(right, text(gray, location)),
-        align(left, emph(subtitle)),
-        align(right, text(gray, period))
-      )
       body
     }
   )
+}
+
+#let exp(
+  body,
+  title: "",
+  subtitle: "",
+  location: "",
+  period: ""
+) = {
+  entry({
+    grid(
+      columns: (auto, 1fr),
+      row-gutter: 2mm,
+      align(left, strong(title)),
+      align(right, text(gray, location)),
+      align(left, emph(subtitle)),
+      align(right, text(gray, period))
+    )
+    body
+  })
+}
+
+#let prev(
+  title: "",
+  period: ""
+) = {
+  entry({
+    grid(
+      columns: (1fr),
+      rows: (auto, auto),
+      row-gutter: 2mm,
+      align(center, text(size: 8pt, fill: gray, title)),
+      align(center, text(size: 8pt, fill: silver, period)),
+    )
+  })
 }
 
 #title(
@@ -111,7 +134,7 @@
 
 #exp(
   title: "Rust Programming Language",
-  subtitle: "Compiler Team Member",
+  subtitle: "Compiler Team Maintainer",
   location: "",
   period: "Oct 2017 - Present",
 )[
@@ -128,10 +151,30 @@
 = Work Experience
 #exp(
   title: "Arm Holdings plc",
-  subtitle: "Staff Software Engineer",
+  subtitle: "Staff Software Engineer, Rust Team Lead",
   location: "Edinburgh, Scotland",
   period: "September 2024 - Present"
-)[]
+)[
+  Within the Rust team at Arm, we contribute improved Arm platform support to the upstream Rust
+  project and ecosystem, prioritising requests from our partners with Rust workloads; and perform
+  internal research on the advantages and impact of potential and upcoming architecture features
+  on Rust workloads. As lead of the team, I am responsible for:
+
+  #list(
+    [mentoring and line management of team members, helping them achieve their goals and succeed
+     in the team and company],
+    [the team's relationship with the upstream Rust project, building community consensus around our
+     objectives and owning Arm's commitments to upstream],
+    [representing Arm within the Rust community at conferences and upstream project events],
+    [planning the team's work, establishing and communicating our priorities and roadmap to
+     leadership],
+    [ensuring the team is high-performing and achieving its objectives],
+    [sharing Rust knowledge and expertise internally],
+    [my own engineering contributions to our ongoing projects, such as
+     #link("https://github.com/rust-lang/rfcs/pull/3729")[extending the language to be able to
+     support the Arm scalable vector extension]],
+  )
+]
 
 #exp(
   title: "Huawei Technologies Research & Development UK Ltd.",
@@ -159,9 +202,7 @@
   )
 
   I was awarded Huawei's "President Award of the 2012 Laboratories", "President's Award of the
-  European Academy", "Gold Team Award", "Innovation Spark Award", and "Future Star" awards. I
-  qualified for and earned an internal "Competency & Qualification" grade in Compilers & Operating
-  Systems at Level 5.
+  European Academy", "Gold Team Award", "Innovation Spark Award", and "Future Star" awards.
 ]
 
 #exp(
@@ -194,37 +235,21 @@
 )[]
 
 #exp(
-  title: "Scottish Engineering",
-  subtitle: "Software Consultant",
-  location: "Glasgow, Scotland",
-  period: "Sep 2018 - Nov 2018"
-)[]
-
-#exp(
   title: "Codeplay Software Ltd.",
   subtitle: "Intern Build Engineer",
   location: "Edinburgh, Scotland",
   period: "May 2017 - Sep 2017"
 )[
-  I rebuilt the entirety of Codeplay's continuous integration infrastructure in my internship -
-  introducing automated re-provisioning of Ubuntu, CentOS and Windows build nodes and improving the
-  configuration management, vastly reducing the turn-around time of changes requested by engineering
-  teams and downtime which impacted engineering team productivity.
+  I rebuilt the Codeplay's continuous integration infrastructure during my internship - introducing
+  automated re-provisioning of build nodes and improving configuration management, reducing the
+  turn-around time of changes requested by engineering teams and downtime which impacted
+  engineering productivity.
 ]
 
-#exp(
-  title: "West Dunbartonshire Leisure",
-  subtitle: "Software Consultant",
-  location: "Alexandria, Scotland",
-  period: "Apr 2015 - Feb 2017"
-)[]
-
-#exp(
-  title: "Polaroid Eyewear",
-  subtitle: "Software Consultant",
-  location: "Dumbarton, Scotland",
-  period: "Jun 2014 - Jun 2016"
-)[]
+#prev(
+  title: [Earlier experience available #link("https://www.linkedin.com/in/davidtwco/")[on LinkedIn]],
+  period: "Jun 2014 - Jun 2016, Apr 2015 - Feb 2017, Sep 2018 - Nov 2018"
+)
 
 = Education
 #exp(
@@ -238,12 +263,6 @@
   "Polymorphisation"], a code-size optimisation in the Rust compiler to reduce unnecessary
   monomorphisation during code generation. In my first year, I was awarded "Best Computing Science
   Student Intending Single Honours" and in my final year, "Most Outstanding Project in MSci SE WP".
-
-  In my third year, I worked in a team tasked with
-  #link("https://davidtw.co/media/autokrator_dissertation.pdf")[creating a event-sourced financial
-  platform for Avaloq], a banking software company. For the duration of the project, I managed and
-  led development on key components of the project, written in Rust and mentored other team members
-  in fixing bugs and building features in unfamiliar technologies.
 ]
 
 #exp(
@@ -251,12 +270,7 @@
   subtitle: "Nuffield Foundation Placement",
   location: "Glasgow, Scotland",
   period: "May 2014 - Jul 2024"
-)[
-  While on a summer placement at Glasgow Caledonian University, I
-  #link("https://davidtw.co/media/camshift_report.pdf")[implemented a colour-based tracking
-  algorithm from a research paper in C++ with OpenCV] which was capable of full 360 tracking of
-  multiple objects simultaneously including when the object leaves and re-enters the frame.
-]
+)[]
 
 = Memberships
 #exp(
@@ -280,19 +294,4 @@
   subtitle: "Split DWARF in rustc",
   location: "Shanghai, China",
   period: "Nov 2022"
-)[]
-
-= Published Articles
-#exp(
-  title: "Inside Rust Blog",
-  subtitle: link("https://blog.rust-lang.org/inside-rust/2022/08/16/diagnostic-effort.html")[Contribute to the diagnostic translation effort!],
-  location: "",
-  period: "Aug 2022"
-)[]
-
-#exp(
-  title: "Inside Rust Blog",
-  subtitle: link("https://blog.rust-lang.org/inside-rust/2019/10/11/AsyncAwait-Not-Send-Error-Improvements.html")[Improving async-await's ``Future is not Send'' diagnostic],
-  location: "",
-  period: "Oct 2019"
 )[]
