@@ -1,3 +1,11 @@
+# Deprecation Notice
+This repository is no longer used - dotfiles are now managed by chezmoi in the
+[`davidtwco/dotfiles`][dotfiles] repository and my personal website redirects to my GitHub profile.
+
+[dotfiles]: https://github.com/davidtwco/dotfiles
+
+---
+
 # Veritas
 Veritas is the declarative configuration of my servers, desktops and laptops. This project is based
 on the NixOS operating system and uses home-manager to manage my dotfiles, for both NixOS and
